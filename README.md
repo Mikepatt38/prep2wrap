@@ -1,0 +1,2 @@
+# The Calltime Application
+This is a platform built for The Calltime to provide proprietary services. This application is built with React JS, Node JS, Express, Firebase to name a few. This README will contain any specific instructions or documentation for the application.
