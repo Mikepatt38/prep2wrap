@@ -7,7 +7,7 @@ import {
 
 import Navbar from '../components/Navbar'
 import App from '../components/App'
-import Login from '../components/Login'
+import LoginPage from '../views/LoginPage'
 import SignUpPage from '../views/SignUpPage'
 
 import Dashboard from '../views/Dashboard'
@@ -21,7 +21,7 @@ class Routes extends Component {
           <Navbar />
           <Switch>
             <Route exact path='/' component={App} />
-            <Route exact path='/login' component={Login} />
+            <Route exact path='/login' component={LoginPage} />
             <Route exact path='/signup' component={SignUpPage} />
             <Route exact path='/dashboard' component={Dashboard} />
           </Switch>
