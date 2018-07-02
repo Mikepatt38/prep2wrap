@@ -1,12 +1,5 @@
 import React, { Component } from 'react'
-
 import { auth } from '../../db'
-
-import {
-  Link,
-  withRouter,
-} from 'react-router-dom'
-
 
 class SignUpForm extends Component {
 
