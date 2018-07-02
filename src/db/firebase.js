@@ -14,7 +14,7 @@ require('dotenv').config()
 // }
 
 var devConfig = {
-  apiKey: process.env.FIREBASE_DEV_KEY,
+  apiKey: "process.env.FIREBASE_DEV_KEY",
   authDomain: "the-calltime.firebaseapp.com",
   databaseURL: "https://the-calltime.firebaseio.com",
   projectId: "the-calltime",
