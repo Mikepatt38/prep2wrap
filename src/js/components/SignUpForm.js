@@ -38,8 +38,7 @@ class SignUpForm extends Component {
           passwordTwo: '',
           error: null
         }))
-        console.log(authUser)
-        // history.push("/dashboard")
+        history.push("/dashboard")
       })
       .catch(error => {
         this.setState({ error: error })

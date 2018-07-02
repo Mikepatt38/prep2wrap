@@ -1,7 +1,5 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
-
-require('dotenv').config()
   
 // Initialize Firebase
 // var prodConfig = {
@@ -14,7 +12,7 @@ require('dotenv').config()
 // }
 
 var devConfig = {
-  apiKey: "process.env.FIREBASE_DEV_KEY",
+  apiKey: process.env.REACT_APP_FIREBASE_KEY,
   authDomain: "the-calltime.firebaseapp.com",
   databaseURL: "https://the-calltime.firebaseio.com",
   projectId: "the-calltime",
