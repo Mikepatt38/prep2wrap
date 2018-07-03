@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import SignOutButton from './SignOut'
 import AuthUserContext from './AuthUserContext'
@@ -38,14 +39,16 @@ const NonAuthNav = () => {
 const Navbar = ({ authUser }) => {
   return (
     <section>
-      <AuthUserContext.Consumer>
-        { authUser => authUser
-          ? <AuthNav />
-          : <NonAuthNav />
-        }
-      </AuthUserContext.Consumer>
+      { authUser 
+        ? <AuthNav />
+        : <NonAuthNav />
+      }
     </section>  
   )
 }
 
-export default Navbar
+const mapStateToProps = (state) => ({
+  authUser: state.sessionState.authUser,
+})
+
+export default connect(mapStateToProps)(Navbar)

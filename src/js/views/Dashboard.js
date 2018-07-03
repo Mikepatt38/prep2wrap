@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { compose } from 'recompose'
 import withAuthorization from '../components/withAuthorization'
 import { api } from '../../db';
 
@@ -8,13 +10,15 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
+    const { onSetUsers } = this.props
+
     api.onceGetUsers().then(snapshot =>
-      this.setState(() => ({ users: snapshot.val() }))
+      onSetUsers(snapshot.val())
     )
   }
 
   render() {
-    const { users } = this.state
+    const { users } = this.props
 
     return (
       <div>
@@ -29,5 +33,17 @@ class Dashboard extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  users: state.userState.users,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onSetUsers: (users) => dispatch({ type: 'USERS_SET', users }),
+})
+
 const authCondition = (authUser) => !!authUser
-export default withAuthorization(authCondition)(Dashboard)
+
+export default compose(
+  withAuthorization(authCondition),
+  connect(mapStateToProps, mapDispatchToProps)
+)(Dashboard)
