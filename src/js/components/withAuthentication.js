@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { authUserSet } from '../../actions/index'
 import { firebase } from '../../db'
 
 const withAuthentication = (Component) => {
@@ -26,7 +27,7 @@ const withAuthentication = (Component) => {
     }
   }
   const mapDispatchToProps = (dispatch) => ({
-    onSetAuthUser: (authUser) => dispatch({ type: 'AUTH_USER_SET', authUser }),
+    onSetAuthUser: (authUser) => dispatch(authUserSet(authUser)),
   });
 
   return connect(null, mapDispatchToProps)(WithAuthentication)
