@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { auth } from '../../db'
+import { auth, api } from '../../db'
 
 class SignUpForm extends Component {
 
@@ -24,17 +24,17 @@ class SignUpForm extends Component {
     
     auth.doCreateUserWithEmailAndPassword(email, passwordOne)
       .then( authUser => {
-        this.setState(() => ({
-          username: '',
-          email: '',
-          passwordOne: '',
-          passwordTwo: '',
-          error: null
-        }))
-        history.push("/dashboard")
-      })
-      .catch(error => {
-        this.setState({ error: error })
+        api.doCreateUser(authUser.user.uid, username, email)
+          .then( () => {
+            this.setState({ username: '', email: '', passwordOne: '', passwordTwo: '', error: null })
+            history.push('/dashboard')
+          })
+          .catch(error => {
+            this.setState({ error: error })
+          })
+        })
+        .catch(error => {
+          this.setState({ error: error })
       })
     e.preventDefault()
   }
