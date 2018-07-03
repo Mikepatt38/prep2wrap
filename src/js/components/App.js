@@ -11,6 +11,8 @@ import Navbar from '../components/Navbar'
 import Landing from '../views/Landing'
 import LoginPage from '../views/LoginPage'
 import SignUpPage from '../views/SignUpPage'
+import PasswordReset from '../views/PasswordReset'
+import PasswordChange from '../views/PasswordChange'
 
 import Dashboard from '../views/Dashboard'
 
@@ -25,6 +27,8 @@ class App extends Component {
             <Route exact path='/' component={Landing} />
             <Route exact path='/login' component={LoginPage} />
             <Route exact path='/signup' component={SignUpPage} />
+            <Route exact path='/password-reset' component={PasswordReset} />
+            <Route exact path='/password-change' component={PasswordChange} />
             <Route exact path='/dashboard' component={Dashboard} />
           </Switch>
         </React.Fragment>

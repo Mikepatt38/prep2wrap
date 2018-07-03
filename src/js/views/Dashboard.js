@@ -1,8 +1,10 @@
 import React from 'react'
+import withAuthorization from '../components/withAuthorization'
 
 const Dashboard = () =>
   <div>
     <h1>Dashboard Page</h1>
   </div>
 
-export default Dashboard
+const authCondition = (authUser) => !!authUser
+export default withAuthorization(authCondition)(Dashboard)
