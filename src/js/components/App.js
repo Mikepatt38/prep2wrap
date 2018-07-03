@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { firebase } from '../../db'
 import {
   BrowserRouter as Router,
   Route,
@@ -12,13 +13,25 @@ import SignUpPage from '../views/SignUpPage'
 
 import Dashboard from '../views/Dashboard'
 
-class Routes extends Component {
+class App extends Component {
+  state = {
+    authUser: null
+  }
+
+  componentDidMount = () => {
+    firebase.auth.onAuthStateChanged( authUser => {
+      authUser 
+        ? this.setState(() => ({ authUser }))
+        : this.setState(() => ({ authUser: null }))
+    })
+  }
 
   render() {
+    const { authUser } = this.state
     return (
       <Router>
         <React.Fragment>
-          <Navbar />
+          <Navbar authUser={authUser} />
           <Switch>
             <Route exact path='/' component={Landing} />
             <Route exact path='/login' component={LoginPage} />
@@ -32,4 +45,4 @@ class Routes extends Component {
 
 }
 
-export default Routes
+export default App
