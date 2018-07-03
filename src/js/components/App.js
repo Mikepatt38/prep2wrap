@@ -5,6 +5,7 @@ import {
   Route,
   Switch
 } from 'react-router-dom'
+import withAuthentication from './withAuthentication'
 
 import Navbar from '../components/Navbar'
 import Landing from '../views/Landing'
@@ -14,24 +15,12 @@ import SignUpPage from '../views/SignUpPage'
 import Dashboard from '../views/Dashboard'
 
 class App extends Component {
-  state = {
-    authUser: null
-  }
-
-  componentDidMount = () => {
-    firebase.auth.onAuthStateChanged( authUser => {
-      authUser 
-        ? this.setState(() => ({ authUser }))
-        : this.setState(() => ({ authUser: null }))
-    })
-  }
 
   render() {
-    const { authUser } = this.state
     return (
       <Router>
         <React.Fragment>
-          <Navbar authUser={authUser} />
+          <Navbar />
           <Switch>
             <Route exact path='/' component={Landing} />
             <Route exact path='/login' component={LoginPage} />
@@ -45,4 +34,4 @@ class App extends Component {
 
 }
 
-export default App
+export default withAuthentication(App)

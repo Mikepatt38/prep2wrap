@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import SignOutButton from './SignOut'
+import AuthUserContext from './AuthUserContext'
 
 const AuthNav = () => {
   return (
@@ -37,8 +38,12 @@ const NonAuthNav = () => {
 const Navbar = ({ authUser }) => {
   return (
     <section>
-      { authUser ? <AuthNav /> : <NonAuthNav /> }
-      {console.log(authUser)}
+      <AuthUserContext.Consumer>
+        { authUser => authUser
+          ? <AuthNav />
+          : <NonAuthNav />
+        }
+      </AuthUserContext.Consumer>
     </section>  
   )
 }
