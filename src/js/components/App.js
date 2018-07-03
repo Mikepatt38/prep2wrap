@@ -1,18 +1,35 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from 'react-router-dom'
 
-class App extends Component {
+import Navbar from '../components/Navbar'
+import Landing from '../views/Landing'
+import LoginPage from '../views/LoginPage'
+import SignUpPage from '../views/SignUpPage'
+
+import Dashboard from '../views/Dashboard'
+
+class Routes extends Component {
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <Router>
+        <React.Fragment>
+          <Navbar />
+          <Switch>
+            <Route exact path='/' component={Landing} />
+            <Route exact path='/login' component={LoginPage} />
+            <Route exact path='/signup' component={SignUpPage} />
+            <Route exact path='/dashboard' component={Dashboard} />
+          </Switch>
+        </React.Fragment>
+      </Router>
     )
   }
+
 }
 
-export default App
+export default Routes
