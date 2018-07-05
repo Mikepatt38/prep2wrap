@@ -45,7 +45,8 @@ class SignUpForm extends Component {
     const isValid = passwordOne !== passwordTwo || passwordOne === '' || email === '' || username === ''
 
     return (
-      <form onSubmit={this.onSubmit}>
+      <form className="form-login" onSubmit={this.onSubmit}>
+        <legend>Sign Up</legend>
         <input 
           name="username"
           onChange={this.handleChange}
@@ -70,7 +71,7 @@ class SignUpForm extends Component {
           type="password"
           placeholder="Confirm Password"
         />
-        <button disabled={isValid} type="submit">
+        <button className="btn-primary" disabled={isValid} type="submit">
           Sign Up
         </button>
 

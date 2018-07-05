@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import SignOutButton from './SignOut'
-import AuthUserContext from './AuthUserContext'
 
 const AuthNav = () => {
   return (
@@ -36,15 +35,27 @@ const NonAuthNav = () => {
   )
 }
 
-const Navbar = ({ authUser }) => {
-  return (
-    <section>
-      { authUser 
-        ? <AuthNav />
-        : <NonAuthNav />
-      }
-    </section>  
-  )
+class Navbar extends Component {
+  render() {
+    const { authUser } = this.props
+
+    return (
+      <div className="navbar">
+        <div className="navbar-logo">
+          <a href="/">The Calltime</a>
+        </div>
+
+        <div className="navbar-nav">
+          <nav>
+            { authUser 
+              ? <AuthNav />
+              : <NonAuthNav />
+            }
+          </nav>
+        </div>
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = (state) => ({

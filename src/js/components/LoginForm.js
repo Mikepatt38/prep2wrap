@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { auth } from '../../db'
+import { PasswordResetLink } from '../components/PasswordResetForm'
 
 class LoginForm extends Component {
   state = {
@@ -40,7 +41,8 @@ class LoginForm extends Component {
     const isValid = password === '' || email === '' 
 
     return (
-      <form onSubmit={this.onSubmit}>
+      <form className="form-login" onSubmit={this.onSubmit}>
+        <legend>Log In</legend>
         <input
           name="email"
           onChange={this.handleChange}
@@ -53,9 +55,11 @@ class LoginForm extends Component {
           type="password"
           placeholder="Password"
         />
-        <button disabled={isValid} type="submit">
+        <button className="btn-primary" disabled={isValid} type="submit">
           Login
         </button>
+
+        <PasswordResetLink />
 
         {error && <p>{error.message}</p>}
       </form>

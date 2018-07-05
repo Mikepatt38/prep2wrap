@@ -5,12 +5,12 @@ class Landing extends Component {
   render() {
     return (
       <section>
-        <header>
+        <div className="container">
           <h1>Welcome to React</h1>
-        </header>
-        <p>
-          To get started, edit <code>src/Landing.js</code> and save to reload.
-        </p>
+          <p>
+            To get started, edit <code>src/Landing.js</code> and save to reload.
+          </p>    
+        </div>
       </section>
     )
   }

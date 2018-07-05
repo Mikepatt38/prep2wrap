@@ -2,9 +2,11 @@
 @import '1-tools/vars';
 
 // Basics Imports
-@import '2-basics/body-element';
+@import '2-basics/theme';
 
 // Modules Imports
-@import '3-modules/theme';
+@import '3-components/button';
+@import '3-components/form';
+@import '3-components/navbar';
 
 // Pages Imports

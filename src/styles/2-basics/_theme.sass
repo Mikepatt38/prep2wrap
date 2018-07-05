@@ -1,0 +1,68 @@
+/* ===============
+  Styles for base theme of The Calltime application
+  ================== */
+
+// ========== Body Element ========== //
+
+body 
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  line-height: 1.5
+  background-color: $color__bg
+  color: $color__text
+  font-family: $font__main
+  font-size: 16px
+  line-height: 1.5
+  padding: 0
+  margin: 0
+
+*
+  box-sizing: border-box
+
+// ========== Font Styles ========== //
+
+h1, h2, h3, h4, h5, h6, p, a
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  font-weight: normal
+
+  &.large
+    font-size: 95px
+  &.small
+    font-size: 8px
+  &.bold
+    font-weight: bold
+  &.light
+    font-weight: 300
+
+h1
+  font-size: 64px
+  margin: 0.67em 0
+h2
+  font-size: 48px
+h3
+  font-size: 32px
+h4
+  font-size: 24px
+p
+  font-size: 16px
+a
+  font-size: 16px
+  text-decoration: none
+
+// ========== Container Styles ========== //
+
+section
+  position: relative
+  width: 100%
+
+.container
+  position: relative
+  max-width: 1250px
+  margin: 0 auto
+  padding: 0 15px
+
+// ========== Images ========== //
+
+img
+  width: 100%
