@@ -3,7 +3,11 @@
   ================== */
 
 .navbar
-  position: relative
+  position: fixed
+  background: white
+  border-bottom: 1px solid #d7dbe0
+  height: 80px
+  top: 0
   width: 100%
   padding: 20px 5%
   display: flex
@@ -16,8 +20,9 @@
     align-items: center
 
     a
-      font-size: 24px
+      font-size: 32px
       font-weight: 300
+      color: $color__blue
 
   .navbar-nav
     display: flex
@@ -32,6 +37,9 @@
       li
         display: inline-block
         margin-right: 20px
+
+        a
+          color: #344154
 
         &:last-child
           margin-right: 0

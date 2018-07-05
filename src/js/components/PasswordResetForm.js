@@ -33,14 +33,15 @@ class PasswordResetForm extends Component {
     const isValid = email === '' 
 
     return (
-      <form onSubmit={this.onSubmit}>
+      <form className="form-login" onSubmit={this.onSubmit}>
+        <legend>Reset Your Password</legend>
         <input
           name="email"
           onChange={this.handleChange}
           type="text"
           placeholder="Email"
         />
-        <button disabled={isValid} type="submit">
+        <button className="btn-primary" disabled={isValid} type="submit">
           Send Me A Reset Link
         </button>
 

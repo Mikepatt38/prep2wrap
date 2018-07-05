@@ -41,7 +41,7 @@ class LoginForm extends Component {
     const isValid = password === '' || email === '' 
 
     return (
-      <form className="form-login" onSubmit={this.onSubmit}>
+      <form className="form-login padding-bottom" onSubmit={this.onSubmit}>
         <legend>Log In</legend>
         <input
           name="email"

@@ -6,10 +6,7 @@ class Landing extends Component {
     return (
       <section>
         <div className="container">
-          <h1>Welcome to React</h1>
-          <p>
-            To get started, edit <code>src/Landing.js</code> and save to reload.
-          </p>    
+          <h1 className="bold" >Home</h1>   
         </div>
       </section>
     )
