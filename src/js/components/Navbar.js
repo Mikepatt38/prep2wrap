@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import SignOutButton from './SignOut'
+import NavDropdown from './NavDropdown'
 
 const AuthNav = () => {
   return (
     <ul>
       <li>
-        <SignOutButton />
+        <NavDropdown />
       </li>
     </ul>
   )

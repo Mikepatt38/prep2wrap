@@ -1,0 +1,45 @@
+import React, { Component} from 'react'
+import SignOutButton from './SignOut'
+import AccountIcon from '../../img/icon-account.svg'
+
+class NavDropdown extends Component {
+  state = {
+    dropdownOpen: false,
+    dropdownClass: 'navbar-dropdown'
+  }
+
+  toggleDropdown = () => {
+    this.setState ({
+      dropdownOpen: !this.state.dropdownOpen,
+      dropdownClass: this.state.dropdownOpen ? 'navbar-dropdown' : 'navbar-dropdown open'
+    })
+  }
+
+  render() {
+    const { dropdownClass } = this.state
+
+    return (
+      <React.Fragment>
+        <a className="toggle-dropdown" role="button" onClick={this.toggleDropdown}>
+          <img src={AccountIcon} alt="Account Icon" />
+        </a>
+        <div className={dropdownClass}>
+          <ul className="navbar-dropdown-items">
+            <li className="dropdown-arrow"></li>
+            <li className="dropdown-items">
+              <a href="/">Account Settings</a>
+            </li>
+            <li className="dropdown-items">
+              <a>Billing Information</a>
+            </li>
+            <li className="dropdown-items">
+              <a>Logout</a>
+            </li>
+          </ul>
+        </div>
+      </React.Fragment>
+    )
+  }
+}
+
+export default NavDropdown
