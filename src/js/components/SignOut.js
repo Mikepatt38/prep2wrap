@@ -2,15 +2,20 @@ import React, { Component } from 'react'
 
 import { auth } from '../../db'
 
+const signOutStyles = {
+  cursor: 'pointer'
+}
+
 class SignOutButton extends Component {
   render() {
     return (
-      <button
+      <a
         type="button"
         onClick={auth.doSignOut}
+        style={signOutStyles}
       >
         Sign Out
-      </button>
+      </a>
     )
   }
 }

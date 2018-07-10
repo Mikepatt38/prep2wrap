@@ -1,4 +1,5 @@
 import React, { Component} from 'react'
+import { Link } from 'react-router-dom'
 import SignOutButton from './SignOut'
 import AccountIcon from '../../img/icon-account.svg'
 
@@ -19,7 +20,7 @@ class NavDropdown extends Component {
     const { dropdownClass } = this.state
 
     return (
-      <React.Fragment>
+      <div className="navbar-tools">
         <a className="toggle-dropdown" role="button" onClick={this.toggleDropdown}>
           <img src={AccountIcon} alt="Account Icon" />
         </a>
@@ -27,17 +28,19 @@ class NavDropdown extends Component {
           <ul className="navbar-dropdown-items">
             <li className="dropdown-arrow"></li>
             <li className="dropdown-items">
-              <a href="/">Account Settings</a>
+              <Link to="/account-settings">
+                Account settings
+              </Link>
             </li>
             <li className="dropdown-items">
               <a>Billing Information</a>
             </li>
             <li className="dropdown-items">
-              <a>Logout</a>
+              <SignOutButton />
             </li>
           </ul>
         </div>
-      </React.Fragment>
+      </div>
     )
   }
 }

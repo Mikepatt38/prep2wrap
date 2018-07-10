@@ -27,7 +27,7 @@ class SignUpForm extends Component {
         api.doCreateUser(authUser.user.uid, username, email)
           .then( () => {
             this.setState({ username: '', email: '', passwordOne: '', passwordTwo: '', error: null })
-            history.push('/dashboard')
+            history.push('/account-settings')
           })
           .catch(error => {
             this.setState({ error: error })
