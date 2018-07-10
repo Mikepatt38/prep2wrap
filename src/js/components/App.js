@@ -8,6 +8,7 @@ import {
 import withAuthentication from './withAuthentication'
 
 import Navbar from '../components/Navbar'
+import Sidebar from '../components/Sidebar'
 import Landing from '../views/Landing'
 import LoginPage from '../views/LoginPage'
 import SignUpPage from '../views/SignUpPage'
@@ -24,6 +25,7 @@ class App extends Component {
       <Router>
         <React.Fragment>
           <Navbar />
+          <Sidebar />
           <Switch>
             <Route exact path='/' component={Landing} />
             <Route exact path='/login' component={LoginPage} />

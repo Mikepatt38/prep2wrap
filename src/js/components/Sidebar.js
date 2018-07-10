@@ -1,21 +1,35 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import AccountIcon from '../../img/icon-account.svg'
 
 class Sidebar extends Component {
   render() {
     return (
-      <div className="sidebar">
+      <div className={this.props.authUser ? 'sidebar' : 'sidebar closed'}>
         <ul className="sidebar-nav">
           <li className="sidebar-nav-item">
-            <a>Home</a>
+            <a>
+              <img src={AccountIcon} alt="Home Icon" />
+              Home
+            </a>
           </li>
           <li className="sidebar-nav-item">
-            <a>Jobs</a>
+            <a>
+              <img src={AccountIcon} alt="Jobs Icon" />
+              Jobs
+            </a>
           </li>
           <li className="sidebar-nav-item">
-            <a>Users</a>
+            <a>
+              <img src={AccountIcon} alt="Users Icon" />
+              Users
+            </a>
           </li>
           <li className="sidebar-nav-item">
-            <a>Availability</a>
+            <a>
+              <img src={AccountIcon} alt="Availability Icon" />
+              Availability
+            </a>
           </li>
         </ul>
       </div>
@@ -23,4 +37,8 @@ class Sidebar extends Component {
   }
 }
 
-export default Sidebar
+const mapStateToProps = (state) => ({
+  authUser: state.sessionState.authUser,
+})
+
+export default connect(mapStateToProps)(Sidebar)
