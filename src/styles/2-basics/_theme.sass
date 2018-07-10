@@ -19,9 +19,6 @@ body
 *
   box-sizing: border-box
 
-#root
-  padding-top: 80px
-
 // ========== Font Styles ========== //
 
 h1, h2, h3, h4, h5, h6, p, a
@@ -55,11 +52,22 @@ a
 
 // ========== Container Styles ========== //
 
+#root
+  padding-top: 80px
+
+.main-content
+  margin: 0 auto
+  position: relative
+  width: 100%
+
+  &.authenticated
+    padding-left: 210px
+    max-width: 1450px
+
 section
   position: relative
   width: 100%
   padding: 50px 0
-  z-index: 1
 
 .container
   position: relative
