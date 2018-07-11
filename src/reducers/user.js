@@ -1,10 +1,10 @@
 const INITIAL_STATE = {
-  users: {}
+  users: []
 }
 
 const applySetUsers = (state, action) => ({
   ...state,
-  users: action.users
+  users: [...state.users, action.users]
 })
 
 function userReducer(state = INITIAL_STATE, action) {
