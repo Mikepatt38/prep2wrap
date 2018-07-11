@@ -31,7 +31,7 @@ class NavDropdown extends Component {
           <ul className="navbar-dropdown-items">
             <li className="dropdown-arrow"></li>
             <li className="dropdown-items">
-              <Link to="/account-settings">
+              <Link to="/account-settings" onClick={this.toggleDropdown}>
                 Account settings
               </Link>
             </li>
