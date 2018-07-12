@@ -21,5 +21,13 @@ export const onceGetUsers = () =>
 
 // Get current user
 
-export const getCurrentUser = () => 
-  auth.currentUser
+export const getCurrentUserProfile = (id) => 
+  db.collection("users").doc(id).get().then( (doc) => {
+    if (doc.exists) {
+        return doc.data()
+    } else {
+        console.log("No such user!");
+    }
+  }).catch(function(error) {
+      console.log("Error getting user:", error);
+  })

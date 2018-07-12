@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import withAuthorization from '../components/withAuthorization'
-import { api } from '../../db';
-import { db } from '../../db/firebase'
 
 const Loading = () => {
   return (
@@ -13,48 +11,31 @@ const Loading = () => {
 
 class Dashboard extends Component {
   state = {
-    users: []
-  }
-
-  componentDidMount() {
-    const { authUser } = this.props
-    console.log(authUser)
-    api.onceGetUsers().then( snapshot => {
-      console.log(snapshot)
-    })
-    // db.collection('users')
-    // .doc(authUser.id) // change to the current user id 
-    // .get().then((user)=>{
-    //   console.log(user)
-    // })
+    user: {
+      username: '',
+      email: '',
+      id: ''
+    }
   }
 
   render() {
-    const { users } = this.props
-    const { authUser } = this.props
-
+    const { currentUserProfile } = this.props
+    console.log(currentUserProfile)
     return (
-      <div>
-        <h2>List of Usernames of Users</h2>
-        <p>(Saved on Sign Up in Firebase Database)</p>
-        {/* {console.log(authUser)} */}
+      <div className="container">
+        <h1 className="page-title">Welcome, {currentUserProfile.username}</h1>
       </div>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  users: state.userState.users,
-  authUser: state.sessionState.authUser,
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onSetUsers: (users) => dispatch({ type: 'USERS_SET', users }),
+  currentUserProfile: state.userState.currentUserProfile,
 })
 
 const authCondition = (authUser) => !!authUser
 
 export default compose(
   withAuthorization(authCondition),
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps)
 )(Dashboard)

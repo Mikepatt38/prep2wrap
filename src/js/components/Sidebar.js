@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import AccountIcon from '../../img/icon-account.svg'
+import { Link } from 'react-router-dom'
 
 class Sidebar extends Component {
   render() {
@@ -8,10 +9,10 @@ class Sidebar extends Component {
       <div className={this.props.authUser ? 'sidebar' : 'sidebar closed'}>
         <ul className="sidebar-nav">
           <li className="sidebar-nav-item">
-            <a>
+            <Link to="/dashboard">
               <img src={AccountIcon} alt="Home Icon" />
               Home
-            </a>
+            </Link>
           </li>
           <li className="sidebar-nav-item">
             <a>

@@ -4,11 +4,14 @@ import withAuthorization from '../components/withAuthorization'
 class AccountSettings extends Component {
   render() {
     return (
-      <section>
-        <div className="container">
-          <h1>Account Settings</h1>
+      <div className="container">
+        <h1 className="page-title">Account Settings</h1>
+        <div className="grid">
+          <div className="grid-row">
+          
+          </div>
         </div>
-      </section>
+      </div>
     )
   }
 }
