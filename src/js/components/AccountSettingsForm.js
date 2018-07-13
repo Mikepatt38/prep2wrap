@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { api } from '../../db'
+import { updateUserData } from '../../api/users';
 
 class AccountSettingsForm extends Component {
   state = {
@@ -25,18 +26,19 @@ class AccountSettingsForm extends Component {
 
     const { name, email, headline, skills, fbLink, imdbLink, error } = this.state
     const { authUser } = this.props
-    api.setUserAccountSettings(authUser.uid.toString(), name, email, headline, skills, fbLink, imdbLink)
+    api.updateUserData(name).then( () => {
+      api.setUserAccountSettings(authUser.uid.toString(), name, email, headline, skills, fbLink, imdbLink)
       .then( (string) => {
         console.log(string)
         this.setState({ username: '', email: '', headline: '', skills: '', fbLink: '', imdbLink: '', error: null })
       })
+    })
   }
 
   render() {
     const { authUser } = this.props
     const { name, email, headline, skills, fbLink, imdbLink, error } = this.state
-    const isValid = email === '' || name === '' || headline === '' || skills === '' || fbLink === '' || imdbLink === ''
-
+    // const isValid = email === '' || name === '' || headline === '' || skills === '' || fbLink === '' || imdbLink === ''
     return (
       <form className="form-account-settings">
         <div className="grid">
@@ -120,7 +122,7 @@ class AccountSettingsForm extends Component {
             type="submit"
             onClick={this.onSubmit}
             className="btn-primary" 
-            disabled={isValid}
+            // disabled={isValid}
           >
             Update Account Settings
           </button>

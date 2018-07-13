@@ -1,5 +1,6 @@
 import { db, auth } from '../db/firebase'
 const collection = db.collection("users")
+const user = auth.currentUser
 
 // User API
 export const doCreateUser = (id, username, email) => 
@@ -8,7 +9,7 @@ export const doCreateUser = (id, username, email) =>
     username: username,
     email: email,
   })
-  .then(function() {
+  .then( () => {
     console.log("Document written with ID: ")
   })
   .catch(function(error) {
@@ -46,8 +47,15 @@ export const setUserAccountSettings = (id, name, email, headline, skills, fbLink
   }, { merge: true } )
   .then( () => {
     console.log("Document written with ID: ")
-    return "User Account Settings Updated"
+    return "SUCCESS: User Account Settings Updated"
   })
   .catch(function(error) {
     console.error("Error adding document: ", error)
+    return "ERROR: User Account Settings Was Not Updated"
+  })
+
+// Update Firebase user table
+export const updateUserData = (displayName) => 
+  auth.currentUser.updateProfile({
+    displayName
   })
