@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { compose } from 'recompose'
-import { api, auth } from '../../db'
+import { auth } from '../../db'
 import { PasswordResetLink } from '../components/PasswordResetForm'
 
 class LoginForm extends Component {
@@ -20,14 +19,10 @@ class LoginForm extends Component {
   onSubmit = (e) => {
     const { email, password } = this.state
 
-    const { history, onSetCurrentUserProfile } = this.props
+    const { history } = this.props
     
     auth.doSignInWithEmailAndPassword(email, password)
       .then( authUser => {
-        api.getCurrentUserProfile(authUser.user.uid.toString()).then ( user => {
-          onSetCurrentUserProfile(user)
-          console.log("API HIT FINUUCCCKKK")
-        })
         this.setState(() => ({
           email: '',
           password: '',
@@ -75,13 +70,6 @@ class LoginForm extends Component {
 
 const mapStateToProps = (state) => ({
   authUser: state.sessionState.authUser,
-  currentUserProfile: state.userState.currentUserProfile,
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  onSetCurrentUserProfile: (user) => dispatch({type: 'SET_CURRENT_USER_PROFILE', user})
-})
-
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps)
-)(LoginForm) 
+export default connect(mapStateToProps)(LoginForm) 

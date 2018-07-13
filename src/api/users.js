@@ -31,3 +31,22 @@ export const getCurrentUserProfile = (id) =>
   }).catch(function(error) {
       console.log("Error getting user:", error);
   })
+
+// Set user account settings
+
+export const setUserAccountSettings = (id, name, email, headline, skills, fbLink, imdbLink) =>
+  collection.doc(id).set({
+    username: name,
+    displayname: name,
+    email,
+    headline,
+    skills,
+    fbLink,
+    imdbLink,
+  }, { merge: true } )
+  .then(function() {
+    console.log("Document written with ID: ")
+  })
+  .catch(function(error) {
+    console.error("Error adding document: ", error)
+  })
