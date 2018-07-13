@@ -1,0 +1,1 @@
+export const setDropdownToggle = dropdownOpen => ({ type: 'TOGGLE_DROPDOWN', payload: dropdownOpen })

@@ -2,21 +2,17 @@ import React, { Component} from 'react'
 import { Link } from 'react-router-dom'
 import SignOutButton from './SignOut'
 import AccountIcon from '../../img/icon-account.svg'
-import { setDropdownToggle } from '../../actions/index'
+import { setDropdownToggle } from '../../actions/components'
 import { connect } from 'react-redux';
 
 class NavDropdown extends Component {
   state = {
-    dropdownOpen: false,
     dropdownClass: 'navbar-dropdown'
   }
 
   toggleDropdown = () => {
     const { onToggleDropdown } = this.props
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen
-    })
-    onToggleDropdown(!this.state.dropdownOpen)
+    onToggleDropdown(!this.props.dropdownOpen)
   }
 
   render() {
@@ -38,7 +34,7 @@ class NavDropdown extends Component {
             <li className="dropdown-items">
               <a>Billing Information</a>
             </li>
-            <li className="dropdown-items">
+            <li className="dropdown-items" onClick={this.toggleDropdown}>
               <SignOutButton />
             </li>
           </ul>

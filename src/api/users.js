@@ -8,8 +8,8 @@ export const doCreateUser = (id, username, email) =>
     username: username,
     email: email,
   })
-  .then(function(docRef) {
-    console.log("Document written with ID: ", docRef.id)
+  .then(function() {
+    console.log("Document written with ID: ")
   })
   .catch(function(error) {
     console.error("Error adding document: ", error)
@@ -37,15 +37,16 @@ export const getCurrentUserProfile = (id) =>
 export const setUserAccountSettings = (id, name, email, headline, skills, fbLink, imdbLink) =>
   collection.doc(id).set({
     username: name,
-    displayname: name,
+    displayName: name,
     email,
     headline,
     skills,
     fbLink,
     imdbLink,
   }, { merge: true } )
-  .then(function() {
+  .then( () => {
     console.log("Document written with ID: ")
+    return "User Account Settings Updated"
   })
   .catch(function(error) {
     console.error("Error adding document: ", error)

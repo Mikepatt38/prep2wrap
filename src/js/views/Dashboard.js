@@ -3,12 +3,6 @@ import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import withAuthorization from '../components/withAuthorization'
 
-const Loading = () => {
-  return (
-    <p>Loading...</p>
-  )
-}
-
 class Dashboard extends Component {
   state = {
     user: {
@@ -19,18 +13,18 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { currentUserProfile } = this.props
-    console.log(currentUserProfile)
+    const { authUser } = this.props
+    console.log(authUser)
     return (
       <div className="container">
-        <h1 className="page-title">Welcome, {currentUserProfile.username}</h1>
+        <h1 className="page-title">Welcome, {authUser.displayName}</h1>
       </div>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  currentUserProfile: state.userState.currentUserProfile,
+  authUser: state.sessionState.authUser,
 })
 
 const authCondition = (authUser) => !!authUser

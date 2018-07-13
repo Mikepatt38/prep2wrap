@@ -26,7 +26,8 @@ class AccountSettingsForm extends Component {
     const { name, email, headline, skills, fbLink, imdbLink, error } = this.state
     const { authUser } = this.props
     api.setUserAccountSettings(authUser.uid.toString(), name, email, headline, skills, fbLink, imdbLink)
-      .then( () => {
+      .then( (string) => {
+        console.log(string)
         this.setState({ username: '', email: '', headline: '', skills: '', fbLink: '', imdbLink: '', error: null })
       })
   }
@@ -48,6 +49,7 @@ class AccountSettingsForm extends Component {
                   onChange={this.handleChange}
                   type="text"
                   placeholder="Name"
+                  value={name}
                 />
               </div>
             </div>
@@ -59,6 +61,7 @@ class AccountSettingsForm extends Component {
                   onChange={this.handleChange}
                   type="text"
                   placeholder={authUser.email}
+                  value={email}
                 />
               </div>
             </div>
@@ -70,6 +73,7 @@ class AccountSettingsForm extends Component {
                   onChange={this.handleChange}
                   type="text"
                   placeholder="Public profile headline"
+                  value={headline}
                 />
               </div>
             </div>
@@ -81,6 +85,7 @@ class AccountSettingsForm extends Component {
                   onChange={this.handleChange}
                   type="text"
                   placeholder="Type skills seperated by a comma"
+                  value={skills}
                 />
               </div>
             </div>
@@ -92,6 +97,7 @@ class AccountSettingsForm extends Component {
                   onChange={this.handleChange}
                   type="text"
                   placeholder="Facebook Profile Link"
+                  value={fbLink}
                 />
               </div>
             </div>
@@ -103,6 +109,7 @@ class AccountSettingsForm extends Component {
                   onChange={this.handleChange}
                   type="text"
                   placeholder="IMDb Profile Link"
+                  value={imdbLink}
                 />
               </div>
             </div>
