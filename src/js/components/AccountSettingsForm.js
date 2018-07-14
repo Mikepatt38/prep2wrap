@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { api } from '../../db'
-import { updateUserData } from '../../api/users';
+import { setAlert } from '../../actions/components'
 
 class AccountSettingsForm extends Component {
   state = {
@@ -25,18 +25,19 @@ class AccountSettingsForm extends Component {
     e.preventDefault()
 
     const { name, email, headline, skills, fbLink, imdbLink, error } = this.state
-    const { authUser } = this.props
+    const { authUser, onSetAlert } = this.props
     api.updateUserData(name).then( () => {
       api.setUserAccountSettings(authUser.uid.toString(), name, email, headline, skills, fbLink, imdbLink)
       .then( (string) => {
         console.log(string)
+        onSetAlert(true, "success", string)
         this.setState({ username: '', email: '', headline: '', skills: '', fbLink: '', imdbLink: '', error: null })
       })
     })
   }
 
   render() {
-    const { authUser } = this.props
+    const { authUser, alertActive, alertType, alertText } = this.props
     const { name, email, headline, skills, fbLink, imdbLink, error } = this.state
     // const isValid = email === '' || name === '' || headline === '' || skills === '' || fbLink === '' || imdbLink === ''
     return (
@@ -134,8 +135,15 @@ class AccountSettingsForm extends Component {
 
 const mapStateToProps = (state) => ({
   authUser: state.sessionState.authUser,
+  alertActive: state.sessionState.alertActive,
+  alertType: state.sessionState.alertType,
+  alertText: state.sessionState.alertText
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onSetAlert: (alertActive, alertType, text) => dispatch(setAlert(alertActive, alertType, text))
 })
 
 export default compose(
-  connect(mapStateToProps)
+  connect(mapStateToProps, mapDispatchToProps)
 )(AccountSettingsForm)

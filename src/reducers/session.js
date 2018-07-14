@@ -1,6 +1,9 @@
 const INITIAL_STATE = {
   authUser: null,
-  dropdownOpen: false
+  dropdownOpen: false,
+  alertType: '',
+  alertActive: false,
+  alertText: ''
 }
 
 function sessionReducer(state = INITIAL_STATE, action) {
@@ -10,6 +13,9 @@ function sessionReducer(state = INITIAL_STATE, action) {
     }
     case 'TOGGLE_DROPDOWN': {
       return { ...state, dropdownOpen: action.payload }
+    }
+    case 'SET_ALERT' : {
+      return { ...state, alertActive: action.payload[0], alertType: action.payload[1], alertText: action.payload[2]}
     }
     default : return state
   }
