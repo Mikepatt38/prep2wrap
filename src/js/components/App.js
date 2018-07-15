@@ -11,6 +11,7 @@ import withAuthentication from './withAuthentication'
 
 import Navbar from '../components/Navbar'
 import Sidebar from '../components/Sidebar'
+import Alert from '../components/Alert'
 import Landing from '../views/Landing'
 import LoginPage from '../views/LoginPage'
 import SignUpPage from '../views/SignUpPage'
@@ -30,6 +31,7 @@ class App extends Component {
         <React.Fragment>
           <Sidebar />
           <main className={authUser ? 'main-content authenticated' : 'main-content'}>
+            <Alert />
             <Switch>
               <Route exact path='/' component={Landing} />
               <Route exact path='/login' component={LoginPage} />

@@ -1,13 +1,22 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
 
 class Notification extends Component {
+  
   render() {
+    const { active, alertText, alertType } = this.props
     return (
-      <div className="notification">
-        <p>This is a notification!</p>
+      <div className={active ? 'alert active' : 'alert'}>
+        <p>{alertText}</p>
       </div>
     )
   }
 }
 
-export default Notification
+const mapStateToProps = (state) => ({
+  active: state.sessionState.alertActive,
+  alertText: state.sessionState.alertText,
+  alertType: state.sessionState.alertType
+})
+
+export default connect(mapStateToProps)(Notification)
