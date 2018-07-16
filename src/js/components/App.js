@@ -24,7 +24,7 @@ import Dashboard from '../views/Dashboard'
 class App extends Component {
 
   render() {
-    const { authUser } = this.props
+    const { authUser, alertActive, onSetAlert } = this.props
 
     return (
       <Router>

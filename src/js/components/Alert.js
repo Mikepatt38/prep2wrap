@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 
 class Notification extends Component {
+  // state = {
+  //   alertClass: alertType === 'success' ? 'alert-success' : 'alert-fail'
+  // }
   
   render() {
     const { active, alertText, alertType } = this.props

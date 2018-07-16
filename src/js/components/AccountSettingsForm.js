@@ -15,6 +15,10 @@ class AccountSettingsForm extends Component {
     error: null
   }
 
+  componentWillUnmount() {
+    this.props.onSetAlert(false, '', '')
+ }
+
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
