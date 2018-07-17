@@ -17,6 +17,7 @@ import LoginPage from '../views/LoginPage'
 import SignUpPage from '../views/SignUpPage'
 import PasswordReset from '../views/PasswordReset'
 import PasswordChange from '../views/PasswordChange'
+import UsersPage from '../views/UsersPage'
 import AccountSettings from '../views/AccountSettings'
 
 import Dashboard from '../views/Dashboard'
@@ -39,6 +40,7 @@ class App extends Component {
               <Route exact path='/password-reset' component={PasswordReset} />
               <Route exact path='/password-change' component={PasswordChange} />
               <Route exact path='/dashboard' component={Dashboard} />
+              <Route exact path='/users' component={UsersPage} />
               <Route exact path='/account-settings' component={AccountSettings} />
             </Switch>
           </main>

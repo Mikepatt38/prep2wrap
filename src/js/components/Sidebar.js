@@ -21,10 +21,10 @@ class Sidebar extends Component {
             </a>
           </li>
           <li className="sidebar-nav-item">
-            <a>
+            <Link to="/users">
               <img src={AccountIcon} alt="Users Icon" />
               Users
-            </a>
+            </Link>
           </li>
           <li className="sidebar-nav-item">
             <a>
