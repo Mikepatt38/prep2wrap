@@ -1,6 +1,39 @@
 .alert
   position: relative
+  max-width: 1200px
+  margin-top: 25px
+  font-weight: 400
+  color: #676767
+  background: #fafafa
+  border-radius: 3px
   display: none
+
+  &.success
+    background: #dff0d8
+    border: 1px solid #dff0d8
+    color: #3c763d
+  
+  &.fail
+    background: #f2dede
+    border: 1px solid #ebcccc
+    color: #a94442
+
+  &.warning
+    background: #fcf8e3
+    border: 1px solid #faf2cc
+    color: #8a6d3b
+
+  &.info
+    background: #d9edf7
+    border: 1px solid #bcdff1
+    color: #31708f
+    
+  .alert-text
+    padding: 20px
+
+    p
+      margin: 0
+      font-weight: bold
 
   &.active
     display: block
