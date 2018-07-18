@@ -20,6 +20,14 @@ export const doCreateUser = (id, username, email) =>
 export const onceGetUsers = () =>
   db.collection("users").get()
 
+  // api.onceGetUsers().then( (querySnapshot) => {
+  //   querySnapshot.forEach( (doc) => {
+  //     this.setState({
+  //       users: [...this.state.users, doc.data()]
+  //     })
+  //   })
+  // })
+
 // Get current user
 
 export const getCurrentUserProfile = (id) => 
@@ -59,3 +67,20 @@ export const updateUserData = (displayName) =>
   auth.currentUser.updateProfile({
     displayName
   })
+
+// User Search
+
+let users = []
+
+export const userSearch = (name) =>
+  db.collection("users").where("username", "==", name)
+    .get()
+    .then( (querySnapshot) => {
+        querySnapshot.forEach(function(doc) {
+            users.push(doc.data())
+        })
+        return users
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error)
+    })

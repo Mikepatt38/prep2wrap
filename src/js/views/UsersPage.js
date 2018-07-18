@@ -2,13 +2,70 @@ import React, { Component } from 'react'
 // import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import withAuthorization from '../components/withAuthorization'
+import { api } from '../../db'
 
 class UsersPage extends Component {
+  state = {
+    name: '',
+    usersList: [],
+    users: []
+  }
+
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+
+  onSubmit = e => {
+    e.preventDefault()
+    const { name } = this.state
+    api.userSearch(name).then( user => {
+      console.log(user)
+    })
+  }
 
   render() {
+    const { name, usersList, users } = this.state
     return (
       <div className="container">
         <h1 className="page-title">Find A User</h1>
+        <form className="form-users-search">
+          <div className="grid">
+            <div className="grid-row">
+              <div className="grid-item">
+                <div className="form-group">
+                <label>User's Name:</label>
+                  <input 
+                    name="name"
+                    onChange={this.handleChange}
+                    type="text"
+                    value={name}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>     
+          <div className="form-group">
+            <button 
+              type="submit"
+              onClick={this.onSubmit}
+              className="btn-primary" 
+              // disabled={isValid}
+            >
+              Find Users
+            </button>
+          </div>
+        </form>
+        <div>
+          {/* {usersList.length > 0 && 
+            <ul>
+              {usersList.map( user => {
+                return <li>{user}</li>
+              })}
+            </ul>
+          } */}
+        </div> 
       </div>
     )
   }
