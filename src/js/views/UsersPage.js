@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { compose } from 'recompose'
 import withAuthorization from '../components/withAuthorization'
 import { api } from '../../db'
+import UsersList from '../components/UsersList'
 
 class UsersPage extends Component {
   state = {
@@ -20,8 +21,11 @@ class UsersPage extends Component {
   onSubmit = e => {
     e.preventDefault()
     const { name } = this.state
-    api.userSearch(name).then( user => {
-      console.log(user)
+    api.userSearch(name).then( users => {
+      this.setState({
+        users: users,
+        name: ''
+      })
     })
   }
 
@@ -51,20 +55,13 @@ class UsersPage extends Component {
               type="submit"
               onClick={this.onSubmit}
               className="btn-primary" 
-              // disabled={isValid}
             >
               Find Users
             </button>
           </div>
         </form>
         <div>
-          {/* {usersList.length > 0 && 
-            <ul>
-              {usersList.map( user => {
-                return <li>{user}</li>
-              })}
-            </ul>
-          } */}
+          <UsersList users={users} />
         </div> 
       </div>
     )

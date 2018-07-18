@@ -76,9 +76,12 @@ export const userSearch = (name) =>
   db.collection("users").where("username", "==", name)
     .get()
     .then( (querySnapshot) => {
-        querySnapshot.forEach(function(doc) {
-            users.push(doc.data())
+        querySnapshot.docs.length !== 0
+        ? querySnapshot.forEach(function(doc) {
+          users = []
+          users.push(doc.data())
         })
+        : users = []
         return users
     })
     .catch(function(error) {
