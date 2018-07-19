@@ -28,21 +28,21 @@ class AccountSettingsForm extends Component {
   onSubmit = e => {
     e.preventDefault()
 
-    const { name, email, headline, skills, fbLink, imdbLink, error } = this.state
+    const { firstName, lastName, email, headline, skills, fbLink, imdbLink, error } = this.state
     const { authUser, onSetAlert } = this.props
-    api.updateUserData(name).then( () => {
-      api.setUserAccountSettings(authUser.uid.toString(), name, email, headline, skills, fbLink, imdbLink)
+    api.updateUserData(firstName, lastName).then( () => {
+      api.setUserAccountSettings(authUser.uid.toString(), firstName, lastName, email, headline, skills, fbLink, imdbLink)
       .then( (string) => {
         console.log(string)
         onSetAlert(true, "success", string)
-        this.setState({ username: '', email: '', headline: '', skills: '', fbLink: '', imdbLink: '', error: null })
+        this.setState({ firstName: '', lastName: '', email: '', headline: '', skills: '', fbLink: '', imdbLink: '', error: null })
       })
     })
   }
 
   render() {
     const { authUser, alertActive, alertType, alertText } = this.props
-    const { name, email, headline, skills, fbLink, imdbLink, error } = this.state
+    const { firstName, lastName, email, headline, skills, fbLink, imdbLink, error } = this.state
     // const isValid = email === '' || name === '' || headline === '' || skills === '' || fbLink === '' || imdbLink === ''
     return (
       <form className="form-account-settings">
@@ -50,13 +50,25 @@ class AccountSettingsForm extends Component {
           <div className="grid-row">
             <div className="grid-item">
               <div className="form-group">
-              <label>Name:</label>
+              <label>First Name:</label>
                 <input 
-                  name="name"
+                  name="firstName"
                   onChange={this.handleChange}
                   type="text"
                   placeholder="Name"
-                  value={name}
+                  value={firstName}
+                />
+              </div>
+            </div>
+            <div className="grid-item">
+              <div className="form-group">
+              <label>Last Name:</label>
+                <input 
+                  name="lastName"
+                  onChange={this.handleChange}
+                  type="text"
+                  placeholder="Name"
+                  value={lastName}
                 />
               </div>
             </div>

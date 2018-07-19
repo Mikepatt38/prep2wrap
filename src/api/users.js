@@ -3,10 +3,11 @@ const collection = db.collection("users")
 const user = auth.currentUser
 
 // User API
-export const doCreateUser = (id, username, email) => 
+export const doCreateUser = (id, firstName, lastName, email) => 
   collection.doc(id).set({
     id: id,
-    username: username,
+    firstName: firstName,
+    lastName: lastName,
     email: email,
   })
   .then( () => {
@@ -43,10 +44,11 @@ export const getCurrentUserProfile = (id) =>
 
 // Set user account settings
 
-export const setUserAccountSettings = (id, name, email, headline, skills, fbLink, imdbLink) =>
+export const setUserAccountSettings = (id, firstName, lastName, email, headline, skills, fbLink, imdbLink) =>
   collection.doc(id).set({
-    username: name,
-    displayName: name,
+    firstName: firstName,
+    lastName: lastName,
+    displayName: firstName + ' ' + lastName,
     email,
     headline,
     skills,
@@ -63,9 +65,9 @@ export const setUserAccountSettings = (id, name, email, headline, skills, fbLink
   })
 
 // Update Firebase user table
-export const updateUserData = (displayName) => 
+export const updateUserData = (firstName, lastName) => 
   auth.currentUser.updateProfile({
-    displayName
+    displayName: firstName + ' ' + lastName
   })
 
 // User Search

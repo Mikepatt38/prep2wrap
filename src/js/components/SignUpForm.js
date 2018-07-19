@@ -4,7 +4,8 @@ import { auth, api } from '../../db'
 class SignUpForm extends Component {
 
   state = {
-    username: '',
+    firstName: '',
+    lastName: '',
     email: '',
     passwordOne: '',
     passwordTwo: '',
@@ -18,15 +19,15 @@ class SignUpForm extends Component {
   }
   
   onSubmit = (e) => {
-    const { username, email, passwordOne } = this.state
+    const { firstName, lastName, email, passwordOne } = this.state
 
     const { history } = this.props
     
     auth.doCreateUserWithEmailAndPassword(email, passwordOne)
       .then( authUser => {
-        api.doCreateUser(authUser.user.uid.toString(), username, email)
+        api.doCreateUser(authUser.user.uid.toString(), firstName, lastName, email)
           .then( () => {
-            this.setState({ username: '', email: '', passwordOne: '', passwordTwo: '', error: null })
+            this.setState({ firstName: '', lastName: '', email: '', passwordOne: '', passwordTwo: '', error: null })
             history.push('/account-settings')
           })
           .catch(error => {
@@ -40,18 +41,24 @@ class SignUpForm extends Component {
   }
 
   render() {
-    const { username, email, passwordOne,  passwordTwo, error } = this.state
+    const { firstName, lastName, email, passwordOne,  passwordTwo, error } = this.state
 
-    const isValid = passwordOne !== passwordTwo || passwordOne === '' || email === '' || username === ''
+    const isValid = passwordOne !== passwordTwo || passwordOne === '' || email === '' || firstName === '' || lastName === ''
 
     return (
       <form className="form-login" onSubmit={this.onSubmit}>
         <legend>Sign Up</legend>
         <input 
-          name="username"
+          name="firstName"
           onChange={this.handleChange}
           type="text"
-          placeholder="First and Last Name"
+          placeholder="First Name"
+        />
+        <input 
+          name="lastName"
+          onChange={this.handleChange}
+          type="text"
+          placeholder="Last Name"
         />
         <input
           name="email"
