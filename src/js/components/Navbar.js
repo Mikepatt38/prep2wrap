@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import NavDropdown from './NavDropdown'
+import logo from '../../img/logo.svg'
 
 const AuthNav = () => {
   return (
@@ -36,7 +37,10 @@ class Navbar extends Component {
     return (
       <div className="navbar">
         <div className="navbar-logo">
-          <a href="/">The Calltime</a>
+          <Link to="/">
+            {/* <img src={logo} alt="The Calltime Logo" /> */}
+            The Calltime
+          </Link>
         </div>
 
         <div className="navbar-nav">

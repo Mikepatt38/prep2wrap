@@ -3,8 +3,8 @@
   ================== */
 
 .sidebar
-  border-right: 1px solid #dfdfdf
-  box-shadow: none
+  // border-right: 1px solid #dfdfdf
+  box-shadow: 10px 0 5px -5px rgba(0,0,0,.04)
   position: fixed
   width: 210px
   height: 100%
@@ -13,6 +13,7 @@
   overflow-y: auto
   transition: all .5s ease
   z-index: 400
+  display: none
 
   &.closed
     display: none
@@ -20,6 +21,7 @@
   ul.sidebar-nav
     list-style: none
     padding: 0
+    padding-top: 120px
     margin: 0
 
     li.sidebar-nav-item

@@ -5,8 +5,10 @@
 .navbar
   position: fixed
   background: white
-  border-bottom: 1px solid #d7dbe0
-  height: 80px
+  //border-bottom: 1px solid #d7dbe0
+  box-shadow: 1px 10px 32px 0 rgba(0,0,0,.04)
+  border: none
+  height: 60px
   top: 0
   width: 100%
   padding: 20px 3%
@@ -22,8 +24,12 @@
 
     a
       font-size: 24px
-      font-weight: 300
+      font-weight: bold
       color: $color__blue
+      // max-width: 180px
+
+      img
+        width: 95%
 
   .navbar-nav
     display: flex
