@@ -7,9 +7,9 @@ import LoginForm from '../components/LoginForm'
 
 const LoginPage = ({history}) => {
   return (
-    <section>
+    <div className="container form-container">
       <LoginForm history={history} />
-    </section>
+    </div>
   )
 }
 

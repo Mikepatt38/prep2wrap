@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { auth } from '../../db'
 import { PasswordResetLink } from '../components/PasswordResetForm'
@@ -42,28 +43,32 @@ class LoginForm extends Component {
     const isValid = password === '' || email === '' 
 
     return (
-      <form className="form-login padding-bottom" onSubmit={this.onSubmit}>
-        <legend>Log In</legend>
-        <input
-          name="email"
-          onChange={this.handleChange}
-          type="text"
-          placeholder="Email"
-        />
-        <input
-          name="password"
-          onChange={this.handleChange}
-          type="password"
-          placeholder="Password"
-        />
-        <button className="btn-primary" disabled={isValid} type="submit">
-          Login
-        </button>
+      <React.Fragment>
+        <form className="form-login" onSubmit={this.onSubmit}>
+          <legend>Log In</legend>
+          <input
+            name="email"
+            onChange={this.handleChange}
+            type="text"
+            placeholder="Email"
+          />
+          <input
+            name="password"
+            onChange={this.handleChange}
+            type="password"
+            placeholder="Password"
+          />
+          <button className="btn-primary" disabled={isValid} type="submit">
+            Login
+          </button>
 
+          {error && <p>{error.message}</p>}
+        </form>
+        <Link to="/signup" className="form-footer">
+          New To The Calltime? <span>Sign Up</span>
+        </Link>
         <PasswordResetLink />
-
-        {error && <p>{error.message}</p>}
-      </form>
+      </React.Fragment>
     )
   }
 }

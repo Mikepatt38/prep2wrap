@@ -53,7 +53,7 @@ class PasswordResetForm extends Component {
 
 const PasswordResetLink = () => {
   return (
-    <p>
+    <p className="form-page-text">
       <Link to="/password-reset">Forgot Password?</Link>
     </p>
   )

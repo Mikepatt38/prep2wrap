@@ -1,18 +1,21 @@
 /* ===============
+  Styles for form pages
+  ================== */
+
+
+  
+/* ===============
   Styles for form components
   ================== */
 
 form.form-login
-  margin: 8rem auto 0
+  margin: 0 auto 0
   width: 470px
   padding: 40px
   border-radius: 3px
   background: white
   border: 1px solid #d7dbe0
   box-shadow: 0 1px 0 0 rgba(185,200,212,.5)
-
-  &.padding-bottom
-    padding-bottom: 20px
 
   button
     width: 100%
@@ -26,6 +29,27 @@ form.form-login
     color: #666
     padding-top: 20px
     text-align: center
+
+.form-footer
+  padding: 20px
+  display: block
+  font-size: 17px
+  color: #878797
+  font-weight: 100
+  background-color: #f5f5f5
+  border: 1px solid #d7dbe0
+  border-top: none
+  border-bottom-right-radius: 3px
+  border-bottom-left-radius: 3px
+  width: 470px
+  margin: 0 auto
+  text-align: center
+  line-height: 1.5
+
+
+  span
+    color: $color__blue
+    text-decoration: underline
 
 legend
   text-align: center
@@ -45,6 +69,14 @@ input
   font-family: $font__main
   height: 40px
   margin-bottom: 20px
-  outline: none
   text-indent: 5px
   width: 100%
+
+.form-page-text > a, p.form-page-text
+  font-size: 14px
+  line-height: 1.5
+  text-align: center
+  margin: 0 auto
+  color: #666
+  padding-top: 20px
+  text-align: center
