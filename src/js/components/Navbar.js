@@ -6,27 +6,30 @@ import logo from '../../img/logo.svg'
 
 const AuthNav = () => {
   return (
-    <ul>
-      <li>
-        <NavDropdown />
-      </li>
-    </ul>
+    <div className="navbar">
+      <div className="navbar-logo">
+        <Link to="/">
+          {/* <img src={logo} alt="The Calltime Logo" /> */}
+          The Calltime
+        </Link>
+      </div>
+
+      <div className="navbar-nav">
+        <nav>
+          <ul>
+            <li>
+              <NavDropdown />
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
   )
 }
 
 const NonAuthNav = () => {
   return (
-    <ul>
-      <li>
-        <Link to="/">Home</Link>
-      </li> 
-      <li>
-        <Link to="/login">Log In</Link>
-      </li>
-      <li>
-        <Link to="/signup">Sign Up</Link>
-      </li>     
-    </ul>
+    <span></span>
   )
 }
 
@@ -35,23 +38,9 @@ class Navbar extends Component {
     const { authUser } = this.props
 
     return (
-      <div className="navbar">
-        <div className="navbar-logo">
-          <Link to="/">
-            {/* <img src={logo} alt="The Calltime Logo" /> */}
-            The Calltime
-          </Link>
-        </div>
-
-        <div className="navbar-nav">
-          <nav>
-            { authUser 
-              ? <AuthNav />
-              : <NonAuthNav />
-            }
-          </nav>
-        </div>
-      </div>
+      authUser 
+        ? <AuthNav />
+        : <NonAuthNav />
     )
   }
 }
