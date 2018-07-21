@@ -31,7 +31,7 @@ class App extends Component {
       <Router>
         <React.Fragment>
           <Sidebar />
-          <main className={authUser ? 'main-content authenticated' : 'main-content'}>
+          <main className="main-content">
             <Alert />
             <Switch>
               <Route exact path='/' component={Landing} />
