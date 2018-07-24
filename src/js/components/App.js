@@ -31,7 +31,7 @@ class App extends Component {
       <Router>
         <React.Fragment>
           <Sidebar />
-          <main className="main-content">
+          <main className={ authUser ? 'main-content' : 'page-wrap gradient-primary'}>
             <Alert />
             <Switch>
               <Route exact path='/' component={Landing} />

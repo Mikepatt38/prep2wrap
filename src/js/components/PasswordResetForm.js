@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import { auth } from '../../db'
 import { Link } from 'react-router-dom'
 
+const style = {
+  paddingBottom: '40px'
+}
+
 class PasswordResetForm extends Component {
   state = {
     email: '',
@@ -33,7 +37,7 @@ class PasswordResetForm extends Component {
     const isValid = email === '' 
 
     return (
-      <form className="form-login" onSubmit={this.onSubmit}>
+      <form className="form-login" onSubmit={this.onSubmit} style={style}>
         <legend>Reset Your Password</legend>
         <input
           name="email"
