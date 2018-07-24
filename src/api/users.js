@@ -74,8 +74,24 @@ export const updateUserData = (firstName, lastName) =>
 
 let users = []
 
-export const userSearch = (name) =>
-  db.collection("users").where("username", "==", name)
+const firstNameSearch = (firstName) =>
+  db.collection("users").where("firstName", "==", firstName)
+  .get()
+  .then( (querySnapshot) => {
+      querySnapshot.docs.length !== 0
+      ? querySnapshot.forEach(function(doc) {
+        users = []
+        users.push(doc.data())
+      })
+      : users = []
+      return users
+  })
+  .catch(function(error) {
+    console.log("Error getting documents: ", error)
+  })
+
+  const lastNameSearch = (lastName) =>
+    db.collection("users").where("lastName", "==", lastName)
     .get()
     .then( (querySnapshot) => {
         querySnapshot.docs.length !== 0
@@ -87,5 +103,28 @@ export const userSearch = (name) =>
         return users
     })
     .catch(function(error) {
-        console.log("Error getting documents: ", error)
+      console.log("Error getting documents: ", error)
     })
+
+let firstNameResults = []
+let lastNameResults = []
+
+export const userSearch = (firstName, lastName) => {
+  let arr = []
+  firstNameSearch(firstName)
+    .then ( (results) => {
+      firstNameResults = results
+      lastNameSearch(lastName)
+        .then( results => {
+          lastNameResults = results
+          arr = [
+            ...firstNameResults,
+            ...lastNameResults
+          ]
+          return arr
+        })
+    })
+    .catch(function(error) {
+      console.log("Error getting documents: ", error)
+    })
+}

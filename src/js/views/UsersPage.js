@@ -7,7 +7,8 @@ import UsersList from '../components/UsersList'
 
 class UsersPage extends Component {
   state = {
-    name: '',
+    firstName: '',
+    lastName: '',
     usersList: [],
     users: []
   }
@@ -20,8 +21,8 @@ class UsersPage extends Component {
 
   onSubmit = e => {
     e.preventDefault()
-    const { name } = this.state
-    api.userSearch(name).then( users => {
+    const { firstName, lastName } = this.state
+    api.userSearch(firstName, lastName).then( users => {
       this.setState({
         users: users,
         name: ''
@@ -30,7 +31,7 @@ class UsersPage extends Component {
   }
 
   render() {
-    const { name, usersList, users } = this.state
+    const { firstName, lastName, users } = this.state
     return (
       <div className="container">
         <h1 className="page-title">Find A User</h1>
@@ -39,12 +40,23 @@ class UsersPage extends Component {
             <div className="grid-row">
               <div className="grid-item">
                 <div className="form-group">
-                <label>User's Name:</label>
+                <label>User's First Name:</label>
                   <input 
-                    name="name"
+                    name="firstName"
                     onChange={this.handleChange}
                     type="text"
-                    value={name}
+                    value={firstName}
+                  />
+                </div>
+              </div>
+              <div className="grid-item">
+                <div className="form-group">
+                <label>User's Last Name:</label>
+                  <input 
+                    name="lastName"
+                    onChange={this.handleChange}
+                    type="text"
+                    value={lastName}
                   />
                 </div>
               </div>
@@ -61,7 +73,7 @@ class UsersPage extends Component {
           </div>
         </form>
         <div>
-          <UsersList users={users} />
+          <UsersList users={users} /> 
         </div> 
       </div>
     )
