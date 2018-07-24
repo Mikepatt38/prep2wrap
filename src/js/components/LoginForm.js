@@ -64,10 +64,14 @@ class LoginForm extends Component {
 
           {error && <p>{error.message}</p>}
         </form>
-        <Link to="/signup" className="form-footer">
-          New To The Calltime? <span>Sign Up</span>
-        </Link>
-        <PasswordResetLink />
+        <div className="form-footer">
+          <Link to="/password-reset">
+            Forgot Password? <span>Reset Your Password</span>
+          </Link>
+          <Link to="/signup">
+            New To The Calltime? <span>Sign Up</span>
+          </Link>
+        </div>
       </React.Fragment>
     )
   }
