@@ -7,13 +7,6 @@ import logo from '../../img/logo.svg'
 const AuthNav = () => {
   return (
     <div className="navbar">
-      <div className="navbar-logo">
-        <Link to="/">
-          {/* <img src={logo} alt="The Calltime Logo" /> */}
-          The Calltime
-        </Link>
-      </div>
-
       <div className="navbar-nav">
         <nav>
           <ul>
