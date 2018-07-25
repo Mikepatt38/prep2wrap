@@ -1,0 +1,93 @@
+/* ===============
+  Styles for Account Settings Page
+  ================== */
+
+.account-settings-container
+  position: relative
+  margin: 0 auto
+  max-width: 1000px
+
+/* ===============
+  Styles for Account Settings Body
+  ================== */
+
+.grid-account
+  display: grid
+  grid-gap: 20px
+  grid-template-areas: "account-nav account-content"
+  grid-template-columns: minmax(150px, 150px) 1fr
+  margin-bottom: 100px
+
+  p
+    font-size: 16px
+    line-height: 1.5
+    color: #999
+    margin: 0  
+    margin-bottom: 40px   
+
+  .grid-account-nav
+    grid-area: account-nav
+    position: relative
+    float: left
+    position: relative
+
+    h3
+      font-size: 18px
+      color: #444
+      margin-bottom: 15px
+
+    ul
+      padding: 0
+      list-style: none
+      margin-top: 0
+
+      li
+        margin-bottom: 8px
+        padding: 0
+        border: 0
+        color: #999
+        cursor: pointer
+
+        &.active
+          color: $color__blue
+
+  .grid-account-body
+    grid-area: account-content
+    position: relative
+    border: 2px solid #f1f1f1
+    border-radius: 3px
+    padding: 35px
+
+    &.grid-account-body--profile
+      display: block
+
+    &.grid-account-body--general
+      display: none
+
+      .grid-account-body--name
+        position: relative
+        border-bottom: 2px solid #f1f1f1
+        padding-bottom: 30px
+        margin-bottom: 30px
+
+      .grid-account--email
+        position: relative
+        border-bottom: 2px solid #f1f1f1
+        padding-bottom: 30px
+        margin-bottom: 30px 
+            
+        button
+          font-size: 14px
+
+      .grid-account--deactivate
+        position: relative
+
+    .grid-account-body--header
+      position: relative
+      margin-bottom: 40px
+
+      h3
+        font-size: 24px
+        font-weight: 400
+        color: #444
+        margin: 0

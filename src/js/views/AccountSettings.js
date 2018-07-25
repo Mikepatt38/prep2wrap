@@ -3,18 +3,26 @@ import withAuthorization from '../components/withAuthorization'
 import AccountSettingsForm from '../components/AccountSettingsForm'
 
 class AccountSettings extends Component {
-
-  handleChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    })
+  state = {
+    accountBodyActive: 'general'
   }
 
   render() {
     return (
       <div className="container">
-        <h1 className="page-title">Account Settings</h1>
-        <AccountSettingsForm />
+        <div className="account-settings-container">
+          <h1 className="page-title">Account Settings</h1>
+          <div className="grid-account">
+            <div className="grid-account-nav">
+              <ul>
+                <li className="active">General</li>
+                <li>Profile</li>
+                <li>Billing</li>
+              </ul>
+            </div>
+            <AccountSettingsForm />
+          </div>
+        </div>
       </div>
     )
   }
