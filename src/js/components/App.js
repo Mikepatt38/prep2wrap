@@ -22,6 +22,46 @@ import AccountSettings from '../views/AccountSettings'
 
 import Dashboard from '../views/Dashboard'
 
+const AuthUserApp = () => {
+  return (
+    <div className="app-container">
+      <div className="app-container-sidebar">
+        <Sidebar />
+      </div>
+      <div className="app-container-main">
+        <Alert />
+        <Navbar />
+        <div className="app-container-main-body">
+          <Switch>
+            <Route exact path='/' component={Landing} />
+            <Route exact path='/login' component={LoginPage} />
+            <Route exact path='/signup' component={SignUpPage} />
+            <Route exact path='/password-reset' component={PasswordReset} />
+            <Route exact path='/password-change' component={PasswordChange} />
+            <Route exact path='/dashboard' component={Dashboard} />
+            <Route exact path='/users' component={UsersPage} />
+            <Route exact path='/account-settings' component={AccountSettings} />
+          </Switch>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const NonAuthUserSite = () => {
+  return (
+    <React.Fragment>
+      <Navbar />
+      <Switch>
+        <Route exact path='/' component={Landing} />
+        <Route exact path='/login' component={LoginPage} />
+        <Route exact path='/signup' component={SignUpPage} />
+        <Route exact path='/password-reset' component={PasswordReset} />
+      </Switch>
+    </React.Fragment>
+  )
+}
+
 class App extends Component {
 
   render() {
@@ -29,27 +69,10 @@ class App extends Component {
 
     return (
       <Router>
-        <div className="app-container">
-          <div className="app-container-sidebar">
-            <Sidebar />
-          </div>
-          <div className="app-container-main">
-            <Alert />
-            <Navbar />
-            <div className="app-container-main-body">
-              <Switch>
-                <Route exact path='/' component={Landing} />
-                <Route exact path='/login' component={LoginPage} />
-                <Route exact path='/signup' component={SignUpPage} />
-                <Route exact path='/password-reset' component={PasswordReset} />
-                <Route exact path='/password-change' component={PasswordChange} />
-                <Route exact path='/dashboard' component={Dashboard} />
-                <Route exact path='/users' component={UsersPage} />
-                <Route exact path='/account-settings' component={AccountSettings} />
-              </Switch>
-            </div>
-          </div>
-        </div>
+        { authUser 
+          ? <AuthUserApp />
+          : <NonAuthUserSite />
+        }
       </Router>
     )
   }
