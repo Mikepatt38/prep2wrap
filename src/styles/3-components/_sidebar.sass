@@ -1,51 +1,35 @@
 /* ===============
   Styles for sidebar component
   ================== */
+.app-container-sidebar
+  position: fixed
+  width: 200px
+  top: 0
+  bottom: 0
+  left: 0
 
 .sidebar
-  // border-right: 1px solid #dfdfdf
-  box-shadow: 10px 0 5px -5px rgba(0,0,0,.04)
-  position: fixed
-  width: 210px
+  background-color: #031b4d
   height: 100%
-  background: white
-  margin: 0
-  overflow-y: auto
-  transition: all .5s ease
-  z-index: 400
-  display: none
+  font-size: 16px
+  width: 100%
+  overflow: auto
+  padding: 20px 0 0
+  z-index: 100
 
   &.closed
     display: none
 
-  ul.sidebar-nav
-    list-style: none
-    padding: 0
-    padding-top: 120px
-    margin: 0
+  .sidebar-section
+    border-bottom: 1px solid rgba(180,188,199,.32)
 
-    li.sidebar-nav-item
-      position: relative
-      display: block
-      
-      a
-        border: none
-        color: #576373
-        font-weight: 400
-        display: block
-        line-height: 24px
-        outline: none
-        overflow: hidden
-        padding: 20px 16px
-        text-align: inherit
-        white-space: nowrap
-
-        img
-          color: #344154
-          float: left
-          font-size: 22px
-          position: relative
-          top: 1px
-          height: 24px
-          width: auto
-          margin: 0 16px 0 8px
+    div > h5 > a
+      text-transform: uppercase
+      color: #677694
+      font-weight: 600
+      padding: 25px 20px
+      font-size: 12px
+      letter-spacing: 0.750px
+      transition: padding 0s linear .4s
+      cursor: pointer
+      margin: 0
