@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import withAuthorization from '../components/withAuthorization'
-import AccountSettingsForm from '../components/AccountSettingsForm'
+import GeneralInfoForm from '../components/GeneralInfoForm'
 
 class AccountSettings extends Component {
   state = {
@@ -20,7 +20,7 @@ class AccountSettings extends Component {
                 <li>Billing</li>
               </ul>
             </div>
-            <AccountSettingsForm />
+            <GeneralInfoForm />
           </div>
         </div>
       </div>

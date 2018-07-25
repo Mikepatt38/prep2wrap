@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
+import { api } from '../../db'
+import { setAlert } from '../../actions/components'
 
-class AccountSettingsForm extends Component {
+class ProfileSettingsForm extends Component {
   state = {
     username: '',
     location: '',
@@ -20,6 +22,21 @@ class AccountSettingsForm extends Component {
   componentWillUnmount() {
     this.props.onSetAlert(false, '', '')
  }
+
+  onSubmit = e => {
+    e.preventDefault()
+
+    const { firstName, lastName, email, headline, skills, fbLink, imdbLink, error } = this.state
+    const { authUser, onSetAlert } = this.props
+    api.updateUserData(firstName, lastName).then( () => {
+      api.setUserAccountSettings(authUser.uid.toString(), firstName, lastName, email, headline, skills, fbLink, imdbLink)
+      .then( (string) => {
+        console.log(string)
+        onSetAlert(true, "success", string)
+        this.setState({ firstName: '', lastName: '', email: '', headline: '', skills: '', fbLink: '', imdbLink: '', error: null })
+      })
+    })
+  }
 
   render() {
     const { authUser, alertActive, alertType, alertText } = this.props
@@ -151,4 +168,4 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps)
-)(AccountSettingsForm)
+)(ProfileSettingsForm)
