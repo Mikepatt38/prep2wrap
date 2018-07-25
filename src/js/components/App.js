@@ -25,27 +25,31 @@ import Dashboard from '../views/Dashboard'
 class App extends Component {
 
   render() {
-    const { authUser, alertActive, onSetAlert } = this.props
+    const { authUser } = this.props
 
     return (
       <Router>
-        <React.Fragment>
-          <Sidebar />
-          <main className={ authUser ? 'main-content' : 'page-wrap gradient-primary'}>
+        <div className="app-container">
+          <div className="app-container-sidebar">
+            <Sidebar />
+          </div>
+          <div className="app-container-main">
             <Alert />
-            <Switch>
-              <Route exact path='/' component={Landing} />
-              <Route exact path='/login' component={LoginPage} />
-              <Route exact path='/signup' component={SignUpPage} />
-              <Route exact path='/password-reset' component={PasswordReset} />
-              <Route exact path='/password-change' component={PasswordChange} />
-              <Route exact path='/dashboard' component={Dashboard} />
-              <Route exact path='/users' component={UsersPage} />
-              <Route exact path='/account-settings' component={AccountSettings} />
-            </Switch>
-          </main>
-          <Navbar />
-        </React.Fragment>
+            <Navbar />
+            <div className="app-container-main-body">
+              <Switch>
+                <Route exact path='/' component={Landing} />
+                <Route exact path='/login' component={LoginPage} />
+                <Route exact path='/signup' component={SignUpPage} />
+                <Route exact path='/password-reset' component={PasswordReset} />
+                <Route exact path='/password-change' component={PasswordChange} />
+                <Route exact path='/dashboard' component={Dashboard} />
+                <Route exact path='/users' component={UsersPage} />
+                <Route exact path='/account-settings' component={AccountSettings} />
+              </Switch>
+            </div>
+          </div>
+        </div>
       </Router>
     )
   }
