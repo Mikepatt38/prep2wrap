@@ -23,25 +23,30 @@ class ProfileSettingsForm extends Component {
     this.props.onSetAlert(false, '', '')
  }
 
-  onSubmit = e => {
-    e.preventDefault()
-
-    const { firstName, lastName, email, headline, skills, fbLink, imdbLink, error } = this.state
-    const { authUser, onSetAlert } = this.props
-    api.updateUserData(firstName, lastName).then( () => {
-      api.setUserAccountSettings(authUser.uid.toString(), firstName, lastName, email, headline, skills, fbLink, imdbLink)
-      .then( (string) => {
-        console.log(string)
-        onSetAlert(true, "success", string)
-        this.setState({ firstName: '', lastName: '', email: '', headline: '', skills: '', fbLink: '', imdbLink: '', error: null })
-      })
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
     })
   }
 
+  // onSubmit = e => {
+  //   e.preventDefault()
+
+  //   const { firstName, lastName, email, headline, skills, fbLink, imdbLink, error } = this.state
+  //   const { authUser, onSetAlert } = this.props
+  //   api.updateUserData(firstName, lastName).then( () => {
+  //     api.setUserAccountSettings(authUser.uid.toString(), firstName, lastName, email, headline, skills, fbLink, imdbLink)
+  //     .then( (string) => {
+  //       console.log(string)
+  //       onSetAlert(true, "success", string)
+  //       this.setState({ firstName: '', lastName: '', email: '', headline: '', skills: '', fbLink: '', imdbLink: '', error: null })
+  //     })
+  //   })
+  // }
+
   render() {
-    const { authUser, alertActive, alertType, alertText } = this.props
-    const { username, location, headline, skills, fbLink, imdbLink, error } = this.state
-    // const isValid = email === '' || name === '' || headline === '' || skills === '' || fbLink === '' || imdbLink === ''
+    const { username, location, headline, skills, fbLink, imdbLink } = this.state
+    const isValid = username !== '' || headline !== '' || skills !== '' || fbLink !== '' || imdbLink !== ''
     return (
       <React.Fragment>
         <div className="grid-account-body grid-account-body--profile">
@@ -142,8 +147,8 @@ class ProfileSettingsForm extends Component {
               <button 
                 type="submit"
                 onClick={this.onSubmit}
-                className="btn-primary" 
-                // disabled={isValid}
+                className={isValid ? 'btn btn-primary' : 'btn btn-disabled'} 
+                disabled={isValid}
               >
                 Update Account Settings
               </button>
@@ -157,9 +162,6 @@ class ProfileSettingsForm extends Component {
 
 const mapStateToProps = (state) => ({
   authUser: state.sessionState.authUser,
-  alertActive: state.sessionState.alertActive,
-  alertType: state.sessionState.alertType,
-  alertText: state.sessionState.alertText
 })
 
 const mapDispatchToProps = (dispatch) => ({
