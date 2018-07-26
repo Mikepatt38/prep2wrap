@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
-import { api } from '../../db'
+import { bindActionCreators } from 'redux'
+import { setName, setEmail } from '../../actions/accounts'
 import { setAlert } from '../../actions/components'
 
 class GeneralInfoForm extends Component {
@@ -23,13 +24,16 @@ class GeneralInfoForm extends Component {
   }
 
   onGeneralSubmit = (e) => {
+    const { firstName, lastName } = this.state
     e.preventDefault()
-    alert('General Info')
+    this.props.setName(firstName, lastName)
   }
 
   onEmailSubmit = (e) => {
+    const { authUser } = this.props
+    const { email } = this.state
     e.preventDefault()
-    alert('Email')
+    this.props.setEmail(authUser.uid.toString(), email)
   }
 
   onDeactivateSubmit = (e) => {
@@ -113,14 +117,15 @@ class GeneralInfoForm extends Component {
 
 const mapStateToProps = (state) => ({
   authUser: state.sessionState.authUser,
-  alertActive: state.sessionState.alertActive,
-  alertType: state.sessionState.alertType,
-  alertText: state.sessionState.alertText
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  onSetAlert: (alertActive, alertType, text) => dispatch(setAlert(alertActive, alertType, text))
-})
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setName: bindActionCreators(setName, dispatch),
+    setEmail: bindActionCreators(setEmail, dispatch),
+    onSetAlert: (alertActive, alertType, text) => dispatch(setAlert(alertActive, alertType, text))
+  }
+}
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps)
