@@ -27,6 +27,7 @@ class GeneralInfoForm extends Component {
     const { firstName, lastName } = this.state
     e.preventDefault()
     this.props.setName(firstName, lastName)
+    this.setState({ firstName: '', lastName: ''})
   }
 
   onEmailSubmit = (e) => {
@@ -34,6 +35,7 @@ class GeneralInfoForm extends Component {
     const { email } = this.state
     e.preventDefault()
     this.props.setEmail(authUser.uid.toString(), email)
+    this.setState({ email: ''})
   }
 
   onDeactivateSubmit = (e) => {
@@ -42,8 +44,7 @@ class GeneralInfoForm extends Component {
   }
 
   render() {
-    const { authUser, alertActive, alertType, alertText } = this.props
-    const { firstName, lastName, email, error } = this.state
+    const { firstName, lastName, email } = this.state
     const isValid = email === '' && firstName === '' && lastName === ''
     return (
       <div className="grid-account-body grid-account-body--general">

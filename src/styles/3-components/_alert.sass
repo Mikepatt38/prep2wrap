@@ -1,7 +1,5 @@
 .alert
   position: absolute
-  max-width: 1200px
-  width: 100%
   margin: 0 auto
   font-weight: 400
   color: #676767
@@ -11,6 +9,10 @@
   opacity: 0
   transition: all 0.3s ease-in-out
   z-index: -1
+  right: 0
+  width: 100%
+  max-width: 500px
+  margin-right: 3%
 
   &.success
     background: #dff0d8
@@ -34,13 +36,13 @@
 
   &.active
     display: block
-    transform: translateY(0)
+    transform: translateY(100px)
     opacity: 1
     transition: all 0.3s ease-in-out
     z-index: 100
 
   .alert-info
-    padding: 20px
+    padding: 15px 20px
     display: flex
     justify-content: space-between
     flex-direction: row
@@ -51,7 +53,10 @@
 
       p
         margin: 0
-        font-weight: bold
+        font-weight: 600
+        text-transform: uppercase
+        letter-spacing: 0.75px
+        font-size: 14px
 
     .alert-close
       display: flex
@@ -61,4 +66,5 @@
 
       p
         margin: 0
+        font-size: 14px
         font-weight: bold
