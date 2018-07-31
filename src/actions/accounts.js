@@ -1,5 +1,10 @@
 import { db, auth } from '../db/firebase'
 
+export const setAccountView = (view) => ({
+  type: 'SET_ACCOUNT_VIEW',
+  payload: view
+})
+
 export const setName = (firstName, lastName) => dispatch => {
   auth.currentUser.updateProfile({
     displayName: firstName + ' ' + lastName

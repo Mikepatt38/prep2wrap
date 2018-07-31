@@ -1,7 +1,8 @@
 const INITIAL_STATE = {
   firstName: '',
   lastName: '',
-  email: ''
+  email: '',
+  accountView: 'general'
 }
 
 function accountReducer(state = INITIAL_STATE, action) {
@@ -11,6 +12,9 @@ function accountReducer(state = INITIAL_STATE, action) {
     }
     case 'SET_EMAIL': {
       return Object.assign({}, state, action.payload)
+    }
+    case 'SET_ACCOUNT_VIEW': {
+      return { ...state, accountView: action.payload }
     }
     default : return state
   }
