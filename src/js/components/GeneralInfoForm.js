@@ -79,7 +79,7 @@ class GeneralInfoForm extends Component {
               type="submit"
               className={isValidName ? 'input-btn btn btn-primary' : 'btn btn-disabled'}
               onClick={this.onGeneralSubmit}
-              disabled={isValidName}
+              disabled={!isValidName}
             > Update </button>
           </form>
         </div>
@@ -101,7 +101,7 @@ class GeneralInfoForm extends Component {
                 type="submit"
                 className={isValidEmail ? 'btn btn-primary' : 'btn btn-disabled'}
                 onClick={this.onEmailSubmit}
-                disabled={isValidEmail}
+                disabled={!isValidEmail}
               > Update </button>
             </div>
           </form>

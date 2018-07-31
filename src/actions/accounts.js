@@ -36,3 +36,31 @@ export const setEmail = (id, email) => async dispatch => {
     })
   })
 }
+
+export const setUserProfile = (id, username, location, headline, skills, fbLink, imdbLink, availability, travel, union, bilingual) => async dispatch => {
+  const database = await db
+  database.collection("users").doc(id).set({
+    username, 
+    location,
+    headline,
+    skills,
+    fbLink,
+    imdbLink,
+    availability,
+    travel,
+    union,
+    bilingual
+  }, { merge: true })
+  .then( () => {
+    dispatch({
+      type: 'SET_ALERT',
+      payload: [true, 'success', 'User Profile Updated']
+    })
+  })
+  .catch( (error) => {
+    dispatch({
+      type: 'SET_ALERT',
+      payload: [true, 'error', "ERROR: User Profile Not Updated"]   
+    })
+  })
+}

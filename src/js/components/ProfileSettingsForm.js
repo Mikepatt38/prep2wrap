@@ -1,8 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
-import { api } from '../../db'
+import { bindActionCreators } from 'redux'
+import { setUserProfile } from '../../actions/accounts'
 import { setAlert } from '../../actions/components'
+
+const INITIAL_STATE = {
+  username: '',
+  location: '',
+  headline: '',
+  skills: '',
+  fbLink: '',
+  imdbLink: '',
+  availability: false,
+  bilingual: false,
+  travel: false,
+  union: false,
+}
 
 class ProfileSettingsForm extends Component {
   state = {
@@ -16,7 +30,6 @@ class ProfileSettingsForm extends Component {
     bilingual: false,
     travel: false,
     union: false,
-    error: null
   }
 
   componentWillUnmount() {
@@ -29,24 +42,23 @@ class ProfileSettingsForm extends Component {
     })
   }
 
-  // onSubmit = e => {
-  //   e.preventDefault()
+  handleCheck = e => {
+    this.setState({
+      [e.target.id]: e.target.checked
+    })
+  }
 
-  //   const { firstName, lastName, email, headline, skills, fbLink, imdbLink, error } = this.state
-  //   const { authUser, onSetAlert } = this.props
-  //   api.updateUserData(firstName, lastName).then( () => {
-  //     api.setUserAccountSettings(authUser.uid.toString(), firstName, lastName, email, headline, skills, fbLink, imdbLink)
-  //     .then( (string) => {
-  //       console.log(string)
-  //       onSetAlert(true, "success", string)
-  //       this.setState({ firstName: '', lastName: '', email: '', headline: '', skills: '', fbLink: '', imdbLink: '', error: null })
-  //     })
-  //   })
-  // }
+  onUpdateUserProfile = e => {
+    const { authUser } = this.props
+    const { username, location, headline, skills, fbLink, imdbLink, availability, bilingual, travel, union} = this.state
+    e.preventDefault()
+    this.props.setUserProfile(authUser.uid.toString(), username, location, headline, skills, fbLink, imdbLink, availability, travel, union, bilingual)
+    this.setState({ username: '', location: '', headline: '', skills: '', fbLink: '', imdbLink: '', availability: false, bilingual: false, travel: false, union: false })
+  }
 
   render() {
-    const { username, location, headline, skills, fbLink, imdbLink } = this.state
-    const isValid = username !== '' || headline !== '' || skills !== '' || fbLink !== '' || imdbLink !== ''
+    const { username, location, headline, skills, fbLink, imdbLink, availability, travel, union, bilingual } = this.state
+    const isValid = username !== '' || headline !== '' || skills !== '' || fbLink !== '' || imdbLink !== '' || availability === false || travel === false || union === false || bilingual === false
     return (
       <React.Fragment>
         <div className="grid-account-body grid-account-body--profile">
@@ -118,37 +130,61 @@ class ProfileSettingsForm extends Component {
             <div className="form-group">
               <label>Willing To Travel:</label>
               <span className="custom-checkbox">
-                <input type="checkbox" id="travel" />
-                <label className="checkbox" for="travel">Yes</label>
+                <input 
+                  type="checkbox" 
+                  id="travel" 
+                  ref="travel" 
+                  onChange={this.handleCheck}
+                  value={travel}
+                />
+                <label className="checkbox" htmlFor="travel">Yes</label>
               </span>
             </div>
             <div className="form-group">
               <label>Daily Availability:</label>
               <span className="custom-checkbox">
-                <input type="checkbox" id="availability" />
-                <label className="checkbox" for="availability">Yes</label>
+                <input 
+                  type="checkbox" 
+                  id="availability" 
+                  ref="availability" 
+                  onChange={this.handleCheck}
+                  value={availability}
+                />
+                <label className="checkbox" htmlFor="availability">Yes</label>
               </span>
             </div>
             <div className="form-group">
               <label>Bilingual:</label>
               <span className="custom-checkbox">
-                <input type="checkbox" id="bilingual" />
-                <label className="checkbox" for="bilingual">Yes</label>
+                <input 
+                  type="checkbox" 
+                  id="bilingual" 
+                  ref="bilingual" 
+                  onChange={this.handleCheck}
+                  value={bilingual}
+                />
+                <label className="checkbox" htmlFor="bilingual">Yes</label>
               </span>
             </div>
             <div className="form-group">
               <label>Union:</label>
               <span className="custom-checkbox">
-                <input type="checkbox" id="union" />
-                <label className="checkbox" for="union">Yes</label>
+                <input 
+                type="checkbox" 
+                id="union" 
+                ref="union" 
+                onChange={this.handleCheck}
+                value={union}
+              />
+                <label className="checkbox" htmlFor="union">Yes</label>
               </span>
             </div>
             <div className="form-group">
               <button 
                 type="submit"
-                onClick={this.onSubmit}
+                onClick={this.onUpdateUserProfile}
                 className={isValid ? 'btn btn-primary' : 'btn btn-disabled'} 
-                disabled={isValid}
+                disabled={!isValid}
               >
                 Update Account Settings
               </button>
@@ -165,6 +201,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
+  setUserProfile: bindActionCreators(setUserProfile, dispatch),
   onSetAlert: (alertActive, alertType, text) => dispatch(setAlert(alertActive, alertType, text))
 })
 
