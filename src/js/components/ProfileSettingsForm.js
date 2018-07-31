@@ -58,12 +58,12 @@ class ProfileSettingsForm extends Component {
 
   render() {
     const { username, location, headline, skills, fbLink, imdbLink, availability, travel, union, bilingual } = this.state
-    const isValid = username !== '' || headline !== '' || skills !== '' || fbLink !== '' || imdbLink !== '' || availability === false || travel === false || union === false || bilingual === false
+    const isValid = username !== '' || location !== '' || headline !== '' || skills !== '' || fbLink !== '' || imdbLink !== '' || availability === true || travel === true || union === true || bilingual === true
     return (
       <React.Fragment>
         <div className="grid-account-body grid-account-body--profile">
           <div className="grid-account-body--header">
-            <h3>Profile Settings</h3>
+            {/* <h3>Profile Settings</h3> */}
             <p>This is your public profile information, it can be updated at any time.</p>            
           </div>
           <form className="form-account-body--profile">

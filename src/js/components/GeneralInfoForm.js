@@ -50,7 +50,7 @@ class GeneralInfoForm extends Component {
     return (
       <div className="grid-account-body grid-account-body--general">
         <div className="grid-account-body--header">
-          <h3>General Information</h3>
+          {/* <h3>General Information</h3> */}
           <p>This is your general account information, it can be updated at any time.</p>            
         </div>
         <div className="grid-account-body--name">
