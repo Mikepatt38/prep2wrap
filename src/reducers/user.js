@@ -1,25 +1,14 @@
 const INITIAL_STATE = {
-  users: [],
-  currentUserProfile: {}
+  currentUser: null
 }
-
-const applySetUsers = (state, action) => ({
-  ...state,
-  users: [...state.users, action.users]
-})
-
-const setCurrentUserProfile = (state, action) => ({
-  ...state,
-  currentUserProfile: action.user
-})
 
 function userReducer(state = INITIAL_STATE, action) {
   switch(action.type) {
-    case 'USERS_SET' : {
-      return applySetUsers(state, action)
+    case 'SET_CURRENT_USER' : {
+      return { ...state, currentUser: action.payload }
     }
-    case 'SET_CURRENT_USER_PROFILE' : {
-      return setCurrentUserProfile(state, action)
+    case 'REMOVE_CURRENT_USER' : {
+      return { ...state, currentUser: action.payload }
     }
     default : return state
   }

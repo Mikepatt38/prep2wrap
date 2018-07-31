@@ -1,7 +1,4 @@
 const INITIAL_STATE = {
-  firstName: '',
-  lastName: '',
-  email: '',
   accountView: 'general'
 }
 

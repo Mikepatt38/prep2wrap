@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { compose } from 'recompose'
 import { auth } from '../../db'
-import { PasswordResetLink } from '../components/PasswordResetForm'
+import { getCurrentUser } from '../../actions/users'
 
 class LoginForm extends Component {
   state = {
@@ -20,7 +21,7 @@ class LoginForm extends Component {
   onSubmit = (e) => {
     const { email, password } = this.state
 
-    const { history } = this.props
+    const { history, getCurrentUser } = this.props
     
     auth.doSignInWithEmailAndPassword(email, password)
       .then( authUser => {
@@ -29,6 +30,7 @@ class LoginForm extends Component {
           password: '',
           error: null
         }))
+        // getCurrentUser(authUser.user.uid.toString())
         history.push("/dashboard")
       })
       .catch(error => {
@@ -79,6 +81,13 @@ class LoginForm extends Component {
 
 const mapStateToProps = (state) => ({
   authUser: state.sessionState.authUser,
+  currentUser: state.userState.currentUser
 })
 
-export default connect(mapStateToProps)(LoginForm) 
+const mapDispatchToProps = (dispatch) => ({
+  getCurrentUser: (id) => dispatch(getCurrentUser(id))
+})
+
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps)
+)(LoginForm)

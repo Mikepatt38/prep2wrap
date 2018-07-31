@@ -65,13 +65,13 @@ const NonAuthUserSite = () => {
 class App extends Component {
 
   render() {
-    const { authUser } = this.props
+    const { currentUser } = this.props
 
     return (
       <Router>
-        { authUser 
-          ? <AuthUserApp />
-          : <NonAuthUserSite />
+        { currentUser === null 
+          ? <NonAuthUserSite />
+          : <AuthUserApp />
         }
       </Router>
     )
@@ -80,7 +80,7 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  authUser: state.sessionState.authUser,
+  currentUser: state.userState.currentUser,
 })
 
 export default compose(

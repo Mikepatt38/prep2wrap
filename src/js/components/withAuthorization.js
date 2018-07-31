@@ -16,12 +16,12 @@ const withAuthorization = (authCondition) => (Component) => {
     }
 
     render() {
-      return this.props.authUser ? <Component /> : null
+      return this.props.currentUser ? <Component /> : null
     }
   }
 
   const mapStateToProps = (state) => ({
-    authUser: state.sessionState.authUser,
+    currentUser: state.userState.currentUser,
   })
 
   return compose(

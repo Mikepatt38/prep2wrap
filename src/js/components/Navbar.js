@@ -57,18 +57,18 @@ const NonAuthNav = () => {
 
 class Navbar extends Component {
   render() {
-    const { authUser } = this.props
+    const { currentUser } = this.props
 
     return (
-      authUser 
-        ? <AuthNav />
-        : <NonAuthNav />
+      currentUser === null 
+        ? <NonAuthNav />
+        : <AuthNav />
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  authUser: state.sessionState.authUser,
+  currentUser: state.userState.currentUser,
 })
 
 export default connect(mapStateToProps)(Navbar)

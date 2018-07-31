@@ -4,20 +4,13 @@ import { compose } from 'recompose'
 import withAuthorization from '../components/withAuthorization'
 
 class Dashboard extends Component {
-  state = {
-    user: {
-      username: '',
-      email: '',
-      id: ''
-    }
-  }
 
   render() {
-    const { authUser } = this.props
-    console.log(authUser)
+    const { currentUser } = this.props
+    console.log(currentUser)
     return (
       <div className="container">
-        <h1 className="page-title">Welcome, {authUser.displayName}</h1>
+        <h1 className="page-title">Welcome, {currentUser.username}</h1>
       </div>
     )
   }
@@ -25,6 +18,7 @@ class Dashboard extends Component {
 
 const mapStateToProps = (state) => ({
   authUser: state.sessionState.authUser,
+  currentUser: state.userState.currentUser
 })
 
 const authCondition = (authUser) => !!authUser
