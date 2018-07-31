@@ -49,10 +49,10 @@ class ProfileSettingsForm extends Component {
   }
 
   onUpdateUserProfile = e => {
-    const { authUser } = this.props
+    const { currentUser } = this.props
     const { username, location, headline, skills, fbLink, imdbLink, availability, bilingual, travel, union} = this.state
     e.preventDefault()
-    this.props.setUserProfile(authUser.uid.toString(), username, location, headline, skills, fbLink, imdbLink, availability, travel, union, bilingual)
+    this.props.setUserProfile(currentUser.id, username, location, headline, skills, fbLink, imdbLink, availability, travel, union, bilingual)
     this.setState({ username: '', location: '', headline: '', skills: '', fbLink: '', imdbLink: '', availability: false, bilingual: false, travel: false, union: false })
   }
 
@@ -197,7 +197,7 @@ class ProfileSettingsForm extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  authUser: state.sessionState.authUser,
+  currentUser: state.userState.currentUser,
 })
 
 const mapDispatchToProps = (dispatch) => ({

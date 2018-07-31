@@ -4,7 +4,7 @@ const user = auth.currentUser
 
 // User API
 export const doCreateUser = (id, firstName, lastName, email) => 
-  collection.doc(id).set({
+  db.collection("users").doc(id).set({
     id: id,
     firstName: firstName,
     lastName: lastName,

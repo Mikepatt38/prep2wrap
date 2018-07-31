@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
-import { auth } from '../../db'
-import { getCurrentUser } from '../../actions/users'
+import { bindActionCreators } from 'redux'
+import { signUserIn } from '../../actions/users'
 
 class LoginForm extends Component {
   state = {
@@ -20,23 +20,14 @@ class LoginForm extends Component {
   
   onSubmit = (e) => {
     const { email, password } = this.state
-
-    const { history, getCurrentUser } = this.props
-    
-    auth.doSignInWithEmailAndPassword(email, password)
-      .then( authUser => {
-        this.setState(() => ({
-          email: '',
-          password: '',
-          error: null
-        }))
-        // getCurrentUser(authUser.user.uid.toString())
-        history.push("/dashboard")
-      })
-      .catch(error => {
-        this.setState({ error: error })
-      })
+    const { history } = this.props
     e.preventDefault()
+    this.props.signUserIn(email, password, history)
+    this.setState(() => ({
+      email: '',
+      password: '',
+      error: null
+    }))
   }
 
   render() {
@@ -80,13 +71,14 @@ class LoginForm extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  authUser: state.sessionState.authUser,
-  currentUser: state.userState.currentUser
+  authUser: state.sessionState.authUser
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  getCurrentUser: (id) => dispatch(getCurrentUser(id))
-})
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signUserIn: bindActionCreators(signUserIn, dispatch)
+  }
+}
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps)

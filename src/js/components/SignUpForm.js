@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { auth, api } from '../../db'
+import { connect } from 'react-redux'
+import { compose } from 'recompose'
+import { bindActionCreators } from 'redux'
+import { signUpUser } from '../../actions/users'
 
 class SignUpForm extends Component {
 
@@ -21,24 +24,10 @@ class SignUpForm extends Component {
   
   onSubmit = (e) => {
     const { firstName, lastName, email, passwordOne } = this.state
-
     const { history } = this.props
-    
-    auth.doCreateUserWithEmailAndPassword(email, passwordOne)
-      .then( authUser => {
-        api.doCreateUser(authUser.user.uid.toString(), firstName, lastName, email)
-          .then( () => {
-            this.setState({ firstName: '', lastName: '', email: '', passwordOne: '', passwordTwo: '', error: null })
-            history.push('/account-settings')
-          })
-          .catch(error => {
-            this.setState({ error: error })
-          })
-        })
-        .catch(error => {
-          this.setState({ error: error })
-      })
+    this.props.signUpUser(email, passwordOne, firstName, lastName, history)
     e.preventDefault()
+    // this.setState({ firstName: '', lastName: '', email: '', passwordOne: '', passwordTwo: '', error: null })
   }
 
   render() {
@@ -94,4 +83,12 @@ class SignUpForm extends Component {
   }
 }
 
-export default SignUpForm
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signUpUser: bindActionCreators(signUpUser, dispatch)
+  }
+}
+
+export default compose(
+  connect(null, mapDispatchToProps)
+)(SignUpForm)
