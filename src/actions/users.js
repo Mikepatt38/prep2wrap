@@ -25,6 +25,10 @@ export const signUpUser = (email, password, firstName, lastName, history) => dis
         email: email,
       })
       .then ( () => {
+        dispatch({
+          type: 'SET_ACCOUNT_VIEW',
+          payload: 'profile'  
+        })
         history.push("/account-settings")
       })
       .catch(error => {

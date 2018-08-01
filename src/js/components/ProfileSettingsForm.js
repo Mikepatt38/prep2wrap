@@ -17,10 +17,22 @@ class ProfileSettingsForm extends Component {
     bilingual: this.props.currentUser.bilingual,
     travel: this.props.currentUser.travel,
     union: this.props.currentUser.union,
-    isEditable: false
+    isEditable: false,
+    formMessage: 'This is your public profile information, it can be updated at any time.'
   }
 
-  componentWillUnmount() {
+  componentWillMount = () => {
+    const { currentUser } = this.props
+    console.log(currentUser.username)
+    currentUser.username === undefined 
+      ? this.setState({
+          isEditable: true,
+          formMessage: 'Fill out the form below to update your public profile information.'
+        })
+      : null
+  }
+
+  componentWillUnmount = () => {
     this.props.onSetAlert(false, '', '')
  }
 
@@ -48,18 +60,17 @@ class ProfileSettingsForm extends Component {
     const { username, location, headline, skills, fbLink, imdbLink, availability, bilingual, travel, union} = this.state
     e.preventDefault()
     this.props.setUserProfile(currentUser.id, username, location, headline, skills, fbLink, imdbLink, availability, travel, union, bilingual)
-    // this.setState({ username: '', location: '', headline: '', skills: '', fbLink: '', imdbLink: '', availability: false, bilingual: false, travel: false, union: false })
   }
 
   render() {
-    const { username, location, headline, skills, fbLink, imdbLink, availability, travel, union, bilingual, isEditable } = this.state
-    const isValid = username !== '' || location !== '' || headline !== '' || skills !== '' || fbLink !== '' || imdbLink !== '' || availability === true || travel === true || union === true || bilingual === true
+    const { username, location, headline, skills, fbLink, imdbLink, availability, travel, union, bilingual, isEditable, formMessage } = this.state
+    const { currentUser } = this.props
+    // const isValid = username !== '' || location !== '' || headline !== '' || skills !== '' || fbLink !== '' || imdbLink !== '' || availability !== (currentUser.availability||undefined) || travel !== (currentUser.travel||undefined) || union !== (currentUser.union||undefined) || bilingual !== (currentUser.bilingual||undefined)
     return (
       <React.Fragment>
         <div className="grid-account-body grid-account-body--profile">
           <div className="grid-account-body--header">
-            {/* <h3>Profile Settings</h3> */}
-            <p>This is your public profile information, it can be updated at any time.</p>            
+            <p>{formMessage}</p>            
           </div>
           <form className="form-account-body--profile">
             <div className="form-group">
@@ -158,7 +169,7 @@ class ProfileSettingsForm extends Component {
                   id="bilingual" 
                   ref="bilingual" 
                   onChange={this.handleCheck}
-                  vcheckedalue={bilingual}
+                  checked={bilingual}
                   disabled={!isEditable}
                 />
                 <label className="checkbox" htmlFor="bilingual">Yes</label>
