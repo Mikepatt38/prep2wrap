@@ -1,25 +1,6 @@
 import { db } from '../db/firebase'
 import { auth } from '../db'
 
-// const doCreateUser = (id, firstName, lastName, email) => async dispatch => {
-//   const database = await db
-//   database.collection("users").doc(id).set({
-//     id: id,
-//     firstName: firstName,
-//     lastName: lastName,
-//     email: email,
-//   })
-//   .then ( () => {
-//     console.log('success user created')
-//   })
-//   .catch(function(error) {
-//     dispatch({
-//       type: 'SET_ALERT',
-//       payload: [true, 'error', error]   
-//     })
-//   })
-// }
-
 export const signUserIn = (email, password, history) => dispatch => {
   auth.doSignInWithEmailAndPassword(email, password)
     .then( () => {
@@ -68,7 +49,7 @@ export const removeCurrentUser = () => ({
 
 export const getCurrentUser = (id) => async dispatch => {
   const database = await db
-  database.collection("users").doc(id).get().then((doc) => {
+  database.collection("users").doc(id).onSnapshot( (doc) => {
     if (doc.exists) {
       dispatch({
         type: 'SET_CURRENT_USER',
@@ -80,10 +61,11 @@ export const getCurrentUser = (id) => async dispatch => {
         payload: [true, 'error', 'ERROR: Something Went Wrong']   
       })
     }
-  }).catch(function(error) {
-    dispatch({
-      type: 'SET_ALERT',
-      payload: [true, 'error', error]   
-    })
   })
+  // .catch(function(error) {
+  //   dispatch({
+  //     type: 'SET_ALERT',
+  //     payload: [true, 'error', error]   
+  //   })
+  // })
 }

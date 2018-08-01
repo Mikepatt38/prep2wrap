@@ -5,9 +5,11 @@ export const setAccountView = (view) => ({
   payload: view
 })
 
-export const setName = (firstName, lastName) => dispatch => {
-  auth.currentUser.updateProfile({
-    displayName: firstName + ' ' + lastName
+export const setName = (id, firstName, lastName) => async dispatch => {
+  const database = await db
+  database.collection("users").doc(id).update({
+    firstName,
+    lastName
   })
   .then( () => {
     dispatch({
@@ -18,16 +20,16 @@ export const setName = (firstName, lastName) => dispatch => {
   .catch( (error) => {
     dispatch({
       type: 'SET_ALERT',
-      payload: [true, 'error', 'ERROR: User Name Not Updated']   
+      payload: [true, 'error', 'ERROR: ' + error]   
     })
   })
 }
 
 export const setEmail = (id, email) => async dispatch => {
   const database = await db
-  database.collection("users").doc(id).set({
+  database.collection("users").doc(id).update({
     email
-  }, { merge: true })
+  })
   .then( () => {
     dispatch({
       type: 'SET_ALERT',
@@ -37,14 +39,14 @@ export const setEmail = (id, email) => async dispatch => {
   .catch( (error) => {
     dispatch({
       type: 'SET_ALERT',
-      payload: [true, 'error', "ERROR: User Email Not Updated"]   
+      payload: [true, 'error', "ERROR: " + error]   
     })
   })
 }
 
 export const setUserProfile = (id, username, location, headline, skills, fbLink, imdbLink, availability, travel, union, bilingual) => async dispatch => {
   const database = await db
-  database.collection("users").doc(id).set({
+  database.collection("users").doc(id).update({
     username, 
     location,
     headline,
@@ -55,7 +57,7 @@ export const setUserProfile = (id, username, location, headline, skills, fbLink,
     travel,
     union,
     bilingual
-  }, { merge: true })
+  })
   .then( () => {
     dispatch({
       type: 'SET_ALERT',
@@ -65,7 +67,7 @@ export const setUserProfile = (id, username, location, headline, skills, fbLink,
   .catch( (error) => {
     dispatch({
       type: 'SET_ALERT',
-      payload: [true, 'error', "ERROR: User Profile Not Updated"]   
+      payload: [true, 'error', error]   
     })
   })
 }

@@ -5,36 +5,31 @@ import { bindActionCreators } from 'redux'
 import { setUserProfile } from '../../actions/accounts'
 import { setAlert } from '../../actions/components'
 
-const INITIAL_STATE = {
-  username: '',
-  location: '',
-  headline: '',
-  skills: '',
-  fbLink: '',
-  imdbLink: '',
-  availability: false,
-  bilingual: false,
-  travel: false,
-  union: false,
-}
-
 class ProfileSettingsForm extends Component {
   state = {
-    username: '',
-    location: '',
-    headline: '',
-    skills: '',
-    fbLink: '',
-    imdbLink: '',
-    availability: false,
-    bilingual: false,
-    travel: false,
-    union: false,
+    username: this.props.currentUser.username,
+    location: this.props.currentUser.location,
+    headline: this.props.currentUser.headline,
+    skills: this.props.currentUser.skills,
+    fbLink: this.props.currentUser.fbLink,
+    imdbLink: this.props.currentUser.imdbLink,
+    availability: this.props.currentUser.availability,
+    bilingual: this.props.currentUser.bilingual,
+    travel: this.props.currentUser.travel,
+    union: this.props.currentUser.union,
+    isEditable: false
   }
 
   componentWillUnmount() {
     this.props.onSetAlert(false, '', '')
  }
+
+  onEdit = (e) => {
+    e.preventDefault()
+    this.setState({
+      isEditable: true
+    })
+  }
 
   handleChange = e => {
     this.setState({
@@ -53,11 +48,11 @@ class ProfileSettingsForm extends Component {
     const { username, location, headline, skills, fbLink, imdbLink, availability, bilingual, travel, union} = this.state
     e.preventDefault()
     this.props.setUserProfile(currentUser.id, username, location, headline, skills, fbLink, imdbLink, availability, travel, union, bilingual)
-    this.setState({ username: '', location: '', headline: '', skills: '', fbLink: '', imdbLink: '', availability: false, bilingual: false, travel: false, union: false })
+    // this.setState({ username: '', location: '', headline: '', skills: '', fbLink: '', imdbLink: '', availability: false, bilingual: false, travel: false, union: false })
   }
 
   render() {
-    const { username, location, headline, skills, fbLink, imdbLink, availability, travel, union, bilingual } = this.state
+    const { username, location, headline, skills, fbLink, imdbLink, availability, travel, union, bilingual, isEditable } = this.state
     const isValid = username !== '' || location !== '' || headline !== '' || skills !== '' || fbLink !== '' || imdbLink !== '' || availability === true || travel === true || union === true || bilingual === true
     return (
       <React.Fragment>
@@ -73,8 +68,8 @@ class ProfileSettingsForm extends Component {
                 name="username"
                 onChange={this.handleChange}
                 type="text"
-                placeholder="Michael Patterson"
                 value={username}
+                disabled={!isEditable}
               />
             </div>
             <div className="form-group">
@@ -83,8 +78,8 @@ class ProfileSettingsForm extends Component {
                 name="location"
                 onChange={this.handleChange}
                 type="text"
-                placeholder="Your City"
                 value={location}
+                disabled={!isEditable}
               />
             </div>
             <div className="form-group form-group--fullWidth">
@@ -93,8 +88,8 @@ class ProfileSettingsForm extends Component {
                 name="headline"
                 onChange={this.handleChange}
                 type="text"
-                placeholder="Public profile headline"
                 value={headline}
+                disabled={!isEditable}
               />
             </div>
             <div className="form-group form-group--fullWidth">
@@ -103,8 +98,8 @@ class ProfileSettingsForm extends Component {
                 name="skills"
                 onChange={this.handleChange}
                 type="text"
-                placeholder="Type skills seperated by a comma"
                 value={skills}
+                disabled={!isEditable}
               />
             </div>
             <div className="form-group">
@@ -113,8 +108,8 @@ class ProfileSettingsForm extends Component {
                 name="fbLink"
                 onChange={this.handleChange}
                 type="text"
-                placeholder="Facebook Profile Link"
                 value={fbLink}
+                disabled={!isEditable}
               />
             </div>
             <div className="form-group">
@@ -123,8 +118,8 @@ class ProfileSettingsForm extends Component {
                 name="imdbLink"
                 onChange={this.handleChange}
                 type="text"
-                placeholder="IMDb Profile Link"
                 value={imdbLink}
+                disabled={!isEditable}
               />
             </div>  
             <div className="form-group">
@@ -135,7 +130,8 @@ class ProfileSettingsForm extends Component {
                   id="travel" 
                   ref="travel" 
                   onChange={this.handleCheck}
-                  value={travel}
+                  checked={travel}
+                  disabled={!isEditable}
                 />
                 <label className="checkbox" htmlFor="travel">Yes</label>
               </span>
@@ -148,7 +144,8 @@ class ProfileSettingsForm extends Component {
                   id="availability" 
                   ref="availability" 
                   onChange={this.handleCheck}
-                  value={availability}
+                  checked={availability}
+                  disabled={!isEditable}
                 />
                 <label className="checkbox" htmlFor="availability">Yes</label>
               </span>
@@ -161,7 +158,8 @@ class ProfileSettingsForm extends Component {
                   id="bilingual" 
                   ref="bilingual" 
                   onChange={this.handleCheck}
-                  value={bilingual}
+                  vcheckedalue={bilingual}
+                  disabled={!isEditable}
                 />
                 <label className="checkbox" htmlFor="bilingual">Yes</label>
               </span>
@@ -174,7 +172,8 @@ class ProfileSettingsForm extends Component {
                 id="union" 
                 ref="union" 
                 onChange={this.handleCheck}
-                value={union}
+                checked={union}
+                disabled={!isEditable}
               />
                 <label className="checkbox" htmlFor="union">Yes</label>
               </span>
@@ -182,9 +181,15 @@ class ProfileSettingsForm extends Component {
             <div className="form-group">
               <button 
                 type="submit"
+                onClick={this.onEdit}
+                className={!isEditable ? 'btn btn-primary' : 'btn btn-hidden'} 
+              >
+                Edit Account Settings
+              </button>
+              <button 
+                type="submit"
                 onClick={this.onUpdateUserProfile}
-                className={isValid ? 'btn btn-primary' : 'btn btn-disabled'} 
-                disabled={!isValid}
+                className={!isEditable ? 'btn btn-hidden' : 'btn btn-primary'} 
               >
                 Update Account Settings
               </button>

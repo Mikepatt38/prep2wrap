@@ -7,9 +7,11 @@ import { setAlert } from '../../actions/components'
 
 class GeneralInfoForm extends Component {
   state = {
-    firstName: '',
-    lastName: '',
-    email: '',
+    firstName: this.props.currentUser.firstName,
+    lastName: this.props.currentUser.lastName,
+    email: this.props.currentUser.email,
+    nameEditable: false,
+    emailEditable: false,
     error: null
   }
 
@@ -23,18 +25,28 @@ class GeneralInfoForm extends Component {
     })
   }
 
+  onGeneralEdit = (e) => {
+    e.preventDefault()
+    this.setState({ nameEditable: true })
+  }
+
+  onEmailEdit = (e) => {
+    e.preventDefault()
+    this.setState({ emailEditable: true })
+  }
+
   onGeneralSubmit = (e) => {
     const { firstName, lastName } = this.state
     e.preventDefault()
-    this.props.setName(firstName, lastName)
+    this.props.setName(this.props.currentUser.id, firstName, lastName)
     this.setState({ firstName: '', lastName: ''})
   }
 
   onEmailSubmit = (e) => {
-    const { authUser } = this.props
+    const { currentUser } = this.props
     const { email } = this.state
     e.preventDefault()
-    this.props.setEmail(authUser.uid.toString(), email)
+    this.props.setEmail(currentUser.id, email)
     this.setState({ email: ''})
   }
 
@@ -44,13 +56,13 @@ class GeneralInfoForm extends Component {
   }
 
   render() {
-    const { firstName, lastName, email } = this.state
+    const { firstName, lastName, email, nameEditable, emailEditable } = this.state
+    const { currentUser } = this.props
     const isValidName = firstName !== '' || lastName !== ''
     const isValidEmail = email !== ''
     return (
       <div className="grid-account-body grid-account-body--general">
         <div className="grid-account-body--header">
-          {/* <h3>General Information</h3> */}
           <p>This is your general account information, it can be updated at any time.</p>            
         </div>
         <div className="grid-account-body--name">
@@ -61,8 +73,9 @@ class GeneralInfoForm extends Component {
                 name="firstName"
                 onChange={this.handleChange}
                 type="text"
-                placeholder="Michael"
+                placeholder={currentUser.firstName}
                 value={firstName}
+                disabled={!nameEditable}
               />
             </div>
             <div className="form-group">
@@ -71,16 +84,21 @@ class GeneralInfoForm extends Component {
                 name="lastName"
                 onChange={this.handleChange}
                 type="text"
-                placeholder="Patterson"
-                value={lastName}
+                placeholder={currentUser.lastName}
+                value={currentUser.lastName}
+                disabled={!nameEditable}
               />
             </div>
             <button 
               type="submit"
-              className={isValidName ? 'input-btn btn btn-primary' : 'btn btn-disabled'}
+              className={!nameEditable ? 'input-btn btn btn-primary' : 'btn btn-hidden'}
+              onClick={this.onGeneralEdit}
+            > Edit </button>
+            <button 
+              type="submit"
+              className={!nameEditable ? 'btn btn-hidden' : 'input-btn btn btn-primary'}
               onClick={this.onGeneralSubmit}
-              disabled={!isValidName}
-            > Update </button>
+            > Update Name </button>
           </form>
         </div>
         <div className="grid-account--email">
@@ -92,16 +110,21 @@ class GeneralInfoForm extends Component {
                 name="email"
                 onChange={this.handleChange}
                 type="email"
-                placeholder="michael@outlyrs.com"
+                placeholder={currentUser.email}
                 value={email}
+                disabled={!emailEditable}
               />
             </div>
             <div className="form-group form-group--btn">
               <button 
                 type="submit"
-                className={isValidEmail ? 'btn btn-primary' : 'btn btn-disabled'}
+                className={!emailEditable ? 'input-btn btn btn-primary' : 'btn btn-hidden'}
+                onClick={this.onEmailEdit}
+              > Edit </button>
+              <button 
+                type="submit"
+                className={!emailEditable ? 'btn btn-hidden' : 'btn btn-primary'}
                 onClick={this.onEmailSubmit}
-                disabled={!isValidEmail}
               > Update </button>
             </div>
           </form>
@@ -120,7 +143,7 @@ class GeneralInfoForm extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  authUser: state.sessionState.authUser,
+  currentUser: state.userState.currentUser,
 })
 
 const mapDispatchToProps = (dispatch) => {
