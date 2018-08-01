@@ -2,21 +2,21 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
-import { setUserProfile } from '../../actions/accounts'
+import { setUserProfile, setAccountView } from '../../actions/accounts'
 import { setAlert } from '../../actions/components'
 
 class ProfileSettingsForm extends Component {
   state = {
-    username: this.props.currentUser.username,
-    location: this.props.currentUser.location,
-    headline: this.props.currentUser.headline,
-    skills: this.props.currentUser.skills,
-    fbLink: this.props.currentUser.fbLink,
-    imdbLink: this.props.currentUser.imdbLink,
-    availability: this.props.currentUser.availability,
-    bilingual: this.props.currentUser.bilingual,
-    travel: this.props.currentUser.travel,
-    union: this.props.currentUser.union,
+    username: this.props.currentUser.username === undefined ? '' : this.props.currentUser.username,
+    location: this.props.currentUser.location === undefined ? '' : this.props.currentUser.location,
+    headline: this.props.currentUser.headline === undefined ? '' : this.props.currentUser.headline,
+    skills: this.props.currentUser.skills === undefined ? '' : this.props.currentUser.skills,
+    fbLink: this.props.currentUser.fbLink === undefined ? '' : this.props.currentUser.fbLink,
+    imdbLink: this.props.currentUser.imdbLink  === undefined ? '' : this.props.currentUser.imdbLink,
+    availability: this.props.currentUser.availability === undefined ? false : this.props.currentUser.availability,
+    bilingual: this.props.currentUser.bilingual === undefined ? false : this.props.currentUser.bilingual,
+    travel: this.props.currentUser.travel === undefined ? false : this.props.currentUser.travel,
+    union: this.props.currentUser.union === undefined ? false : this.props.currentUser.union,
     isEditable: false,
     formMessage: 'This is your public profile information, it can be updated at any time.'
   }
@@ -34,6 +34,7 @@ class ProfileSettingsForm extends Component {
 
   componentWillUnmount = () => {
     this.props.onSetAlert(false, '', '')
+    this.props.onSetAccountView('general')
  }
 
   onEdit = (e) => {
@@ -50,6 +51,8 @@ class ProfileSettingsForm extends Component {
   }
 
   handleCheck = e => {
+    console.log(e.target.id)
+    console.log(e.target.checked)
     this.setState({
       [e.target.id]: e.target.checked
     })
@@ -63,9 +66,8 @@ class ProfileSettingsForm extends Component {
   }
 
   render() {
+    console.log(this.state)
     const { username, location, headline, skills, fbLink, imdbLink, availability, travel, union, bilingual, isEditable, formMessage } = this.state
-    const { currentUser } = this.props
-    // const isValid = username !== '' || location !== '' || headline !== '' || skills !== '' || fbLink !== '' || imdbLink !== '' || availability !== (currentUser.availability||undefined) || travel !== (currentUser.travel||undefined) || union !== (currentUser.union||undefined) || bilingual !== (currentUser.bilingual||undefined)
     return (
       <React.Fragment>
         <div className="grid-account-body grid-account-body--profile">
@@ -218,7 +220,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   setUserProfile: bindActionCreators(setUserProfile, dispatch),
-  onSetAlert: (alertActive, alertType, text) => dispatch(setAlert(alertActive, alertType, text))
+  onSetAlert: (alertActive, alertType, text) => dispatch(setAlert(alertActive, alertType, text)),
+  onSetAccountView: (view) => dispatch(setAccountView(view))
 })
 
 export default compose(
