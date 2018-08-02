@@ -37,47 +37,62 @@ class SignUpForm extends Component {
 
     return (
       <React.Fragment>
-        <form className="form-login" onSubmit={this.onSubmit}>
-          <legend>Sign Up</legend>
-          <input 
-            name="firstName"
-            onChange={this.handleChange}
-            type="text"
-            placeholder="First Name"
-          />
-          <input 
-            name="lastName"
-            onChange={this.handleChange}
-            type="text"
-            placeholder="Last Name"
-          />
-          <input
-            name="email"
-            onChange={this.handleChange}
-            type="text"
-            placeholder="Email"
-          />
-          <input
-            name="passwordOne"
-            onChange={this.handleChange}
-            type="password"
-            placeholder="Password"
-          />
-          <input
-            name="passwordTwo"
-            onChange={this.handleChange}
-            type="password"
-            placeholder="Confirm Password"
-          />
-          <button className="btn-primary" disabled={isValid} type="submit">
-            Create Account
-          </button>
+        <div className="form-wrap">
+          <form onSubmit={this.onSubmit}>
+            <legend>Get Started Today!</legend>
+            <div className="form-link">
+              Already A Member? &nbsp;
+              <Link to="/login">
+                <span>Login</span>
+              </Link>
+            </div>
+            <div className="form-group">
+              <label>First Name:</label>
+              <input 
+                name="firstName"
+                onChange={this.handleChange}
+                type="text"
+              />
+            </div>
+            <div className="form-group">
+              <label>Last Name:</label>
+              <input 
+                name="lastName"
+                onChange={this.handleChange}
+                type="text"
+              />
+            </div>
+            <div className="form-group">
+              <label>Email:</label>
+              <input
+                name="email"
+                onChange={this.handleChange}
+                type="text"
+              />
+            </div>
+            <div className="form-group">
+              <label>Password:</label>
+              <input
+                name="passwordOne"
+                onChange={this.handleChange}
+                type="password"
+              />
+            </div>
+            <div className="form-group">
+              <label>Confirm Password:</label>
+              <input
+                name="passwordTwo"
+                onChange={this.handleChange}
+                type="password"
+              />
+            </div>
+            <button className="btn-form" disabled={isValid} type="submit">
+              Create Account
+            </button>
 
-          {error && <p>{error.message}</p>}
-        </form>
-        <Link to="/login" className="form-footer">
-          Already A Member? <span>Login</span>
-        </Link>
+            {error && <p>{error.message}</p>}
+          </form>
+        </div>
       </React.Fragment>
     )
   }

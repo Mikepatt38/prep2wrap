@@ -1,0 +1,104 @@
+/* ===============
+  Styles for login, signup and password reset views
+  ================== */
+
+.page-background
+  background: #fff
+  width: 100%
+  min-height: 100vh
+  overflow: hidden
+  margin: 0 auto
+  position: relative
+
+  .page-background-skewed
+    transform: skewY(-11deg)
+    background: #f6fafd
+    height: 75%
+    position: absolute
+    bottom: 0
+    width: 100%
+    margin-bottom: -160px
+    z-index: 0
+
+  .logo
+    position: relative
+    z-index: 1
+    margin: 100px auto 30px
+
+    img
+      max-height: 30px
+
+  .container.container--form
+    max-width: 945px
+    margin: 0 auto
+
+    .form-wrap
+      margin: 30px auto 45px
+      position: relative
+      border-radius: 4px
+      box-shadow: 0 0 25px 0 rgba(113,150,193,0.2)
+      background: #fff
+      overflow: hidden
+      max-width: 600px
+
+      .form-link
+        max-width: 460px
+        margin: 0 auto 50px
+        text-align: center
+        font-size: 14px
+        font-weight: 400
+        line-height: 22px
+        color: #9aa8be
+
+        a
+          font-size: 14px
+          font-weight: 400
+          line-height: 22px
+          color: #9aa8be
+          display: inline-block
+
+        span
+          font-weight: bold
+          color: $color__blue
+
+      .form-footer
+        padding: 0 20px 30px 20px
+        display: block
+        background-color: white
+        border: none
+        max-width: 470px
+        margin: 0 auto
+        text-align: center
+
+        div
+          display: block
+          margin-bottom: 5px
+
+        div > a 
+          display: inline-block
+
+        div, div > a
+          font-size: 14px
+          font-weight: 400
+          line-height: 22px
+          color: #9aa8be
+
+        span
+          color: #9aa8be
+          font-weight: 700
+
+      form
+        max-width: 300px
+        margin: auto
+
+        .form-group label
+          max-width: 300px
+          margin: auto
+
+        button.btn-form
+          width: 100%
+          margin: auto
+          margin-bottom: 40px
+          height: 50px
+          line-height: 36px
+          margin-top: 10px

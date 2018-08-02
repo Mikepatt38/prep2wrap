@@ -5,6 +5,10 @@ import { bindActionCreators } from 'redux'
 import { setUserProfile, setAccountView } from '../../actions/accounts'
 import { setAlert } from '../../actions/components'
 
+const styles = {
+  marginTop: '25px'
+}
+
 class ProfileSettingsForm extends Component {
   state = {
     username: this.props.currentUser.username === undefined ? '' : this.props.currentUser.username,
@@ -191,18 +195,18 @@ class ProfileSettingsForm extends Component {
                 <label className="checkbox" htmlFor="union">Yes</label>
               </span>
             </div>
-            <div className="form-group">
+            <div className="form-group" style={styles}>
               <button 
                 type="submit"
                 onClick={this.onEdit}
-                className={!isEditable ? 'btn btn-primary' : 'btn btn-hidden'} 
+                className={!isEditable ? 'btn-form' : 'btn btn-hidden'} 
               >
                 Edit Account Settings
               </button>
               <button 
                 type="submit"
                 onClick={this.onUpdateUserProfile}
-                className={!isEditable ? 'btn btn-hidden' : 'btn btn-primary'} 
+                className={!isEditable ? 'btn btn-hidden' : 'btn-form'} 
               >
                 Update Account Settings
               </button>

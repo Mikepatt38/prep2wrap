@@ -42,29 +42,6 @@ form.form-login
     padding-top: 20px
     text-align: center
 
-.form-footer
-  padding: 30px 20px 40px 20px
-  display: block
-  background-color: white
-  border: 1px solid #d7dbe0
-  border-top: none
-  border-bottom-right-radius: 3px
-  border-bottom-left-radius: 3px
-  width: 470px
-  margin: 0 auto
-  text-align: center
-
-  a
-    font-size: 14px
-    font-weight: 400
-    line-height: 22px
-    color: #1f4160
-    display: block
-
-  span
-    color: $color__blue
-    text-decoration: underline
-
 legend
   text-align: center
   font-weight: 300
@@ -116,7 +93,7 @@ input
 label.checkbox
   position: relative
   display: block
-  padding: 2px
+  padding: 5px !important
   border: 2px solid #f1f1f1
   border-radius: 2px
   color: #ccc
@@ -198,19 +175,20 @@ form.form-account-body--general
     margin-bottom: 20px
 
     &.form-group--btn
-      justify-content: flex-end
+      justify-content: flex-start
+      margin-top: 20px
 
     label
       color: #676767
 
-  button
-    max-width: 48%
-    height: 40px
-    background: #ececec
-    color: #676767
-    border: 1px solid #ececec
-    font-weight: 400
-    font-size: 14px
+  // button
+  //   max-width: 48%
+  //   height: 40px
+  //   background: #ececec
+  //   color: #676767
+  //   border: 1px solid #ececec
+  //   font-weight: 400
+  //   font-size: 14px
       
 // Profile Form
 
@@ -239,3 +217,45 @@ form.form-account-body--profile
 
     &.form-group--third
       width: 31.5%
+
+/* ===============
+  Styles for applications forms
+  ================== */
+
+form
+  width: 100%
+
+  legend
+    margin: 45px auto 10px
+    max-width: 460px
+    font-weight: 600
+    font-size: 24px
+    line-height: 32px
+    letter-spacing: 0
+    // text-transform: uppercase
+    color: #24374e
+    //margin-bottom: 50px
+
+  .form-group
+    margin-bottom: 20px
+
+  .form-group label
+    font-size: 12px
+    color: #9aa8be
+    padding: 0 0 2px 0
+    display: block
+    font-weight: 600
+    text-transform: uppercase
+    letter-spacing: 1px
+
+  .form-group input
+    font-size: 14px
+    font-weight: 400
+    border: 1px solid #d6e0f1
+    border-radius: 2px
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075)
+    padding: 0 2px 0 10px
+    color: #4c5669
+
+    &:focus
+      border: 1px solid $color__blue

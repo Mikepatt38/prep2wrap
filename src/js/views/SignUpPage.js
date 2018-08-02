@@ -8,9 +8,14 @@ import SignUpForm from '../components/SignUpForm'
 
 const SignUpPage = ({history}) => {
   return (
-    <div className="container container__form">
-      <img className="logo" src={logo} alt="The Calltime Logo" />
+    <div className="page-background">
+      <div className="page-background-skewed"></div>
+      <div className="logo">
+        <img src={logo} alt="The Calltime Login Page Logo" />
+      </div>
+      <div className="container container--form">
       <SignUpForm history={history} />
+      </div>
     </div>
   )
 }

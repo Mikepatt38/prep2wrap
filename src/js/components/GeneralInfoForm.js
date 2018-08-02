@@ -91,12 +91,12 @@ class GeneralInfoForm extends Component {
             </div>
             <button 
               type="submit"
-              className={!nameEditable ? 'input-btn btn btn-primary' : 'btn btn-hidden'}
+              className={!nameEditable ? 'btn-form' : 'btn btn-hidden'}
               onClick={this.onGeneralEdit}
             > Edit </button>
             <button 
               type="submit"
-              className={!nameEditable ? 'btn btn-hidden' : 'input-btn btn btn-primary'}
+              className={!nameEditable ? 'btn btn-hidden' : 'btn-form'}
               onClick={this.onGeneralSubmit}
             > Update Name </button>
           </form>
@@ -118,12 +118,12 @@ class GeneralInfoForm extends Component {
             <div className="form-group form-group--btn">
               <button 
                 type="submit"
-                className={!emailEditable ? 'input-btn btn btn-primary' : 'btn btn-hidden'}
+                className={!emailEditable ? 'btn-form btn-short' : 'btn btn-hidden'}
                 onClick={this.onEmailEdit}
               > Edit </button>
               <button 
                 type="submit"
-                className={!emailEditable ? 'btn btn-hidden' : 'btn btn-primary'}
+                className={!emailEditable ? 'btn btn-hidden' : 'btn-form btn-short'}
                 onClick={this.onEmailSubmit}
               > Update </button>
             </div>
@@ -133,7 +133,7 @@ class GeneralInfoForm extends Component {
           <p>This will permanently delete your account and all of your data.</p>
           <button 
             type="submit"
-            className="input-btn btn btn-danger"
+            className="btn-form btn-danger"
             onClick={this.onDeactivateSubmit}
           > Deactive Account </button>
         </div>

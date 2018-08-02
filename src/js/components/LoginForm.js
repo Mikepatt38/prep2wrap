@@ -37,33 +37,45 @@ class LoginForm extends Component {
 
     return (
       <React.Fragment>
-        <form className="form-login" onSubmit={this.onSubmit}>
-          <legend>Log In</legend>
-          <input
-            name="email"
-            onChange={this.handleChange}
-            type="text"
-            placeholder="Email"
-          />
-          <input
-            name="password"
-            onChange={this.handleChange}
-            type="password"
-            placeholder="Password"
-          />
-          <button className="btn-primary" disabled={isValid} type="submit">
-            Login
-          </button>
+        <div className="form-wrap">
+          <form onSubmit={this.onSubmit}>
+            <legend>Glad to see you again!</legend>
+            <div className="form-link">
+              New To The Calltime? &nbsp;
+              <Link to="/signup">
+                <span>Sign Up</span>
+              </Link>
+            </div>
+            <div className="form-group">
+              <label>Email:</label>
+              <input
+                name="email"
+                onChange={this.handleChange}
+                type="text"
+              />
+            </div>
+            <div className="form-group">
+              <label>Password:</label>
+              <input
+                name="password"
+                onChange={this.handleChange}
+                type="password"
+              />
+            </div>
+            <button className="btn-form" disabled={isValid} type="submit">
+              Login
+            </button>
 
-          {error && <p>{error.message}</p>}
-        </form>
-        <div className="form-footer">
-          <Link to="/password-reset">
-            Forgot Password? <span>Reset Your Password</span>
-          </Link>
-          <Link to="/signup">
-            New To The Calltime? <span>Sign Up</span>
-          </Link>
+            {error && <p>{error.message}</p>}
+          </form>
+          <div className="form-footer">
+            <div>
+              Forgot Password? &nbsp;
+              <Link to="/password-reset">
+                <span>Reset Your Password</span>
+              </Link>
+            </div>
+          </div>
         </div>
       </React.Fragment>
     )

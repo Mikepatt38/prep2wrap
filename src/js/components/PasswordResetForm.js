@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { auth } from '../../db'
 import { Link } from 'react-router-dom'
 
-const style = {
-  paddingBottom: '40px'
+const margin = {
+  marginBottom: '50px'
 }
 
 class PasswordResetForm extends Component {
@@ -37,20 +37,23 @@ class PasswordResetForm extends Component {
     const isValid = email === '' 
 
     return (
-      <form className="form-login" onSubmit={this.onSubmit} style={style}>
-        <legend>Reset Your Password</legend>
-        <input
-          name="email"
-          onChange={this.handleChange}
-          type="text"
-          placeholder="Email"
-        />
-        <button className="btn-primary" disabled={isValid} type="submit">
-          Send Me A Reset Link
-        </button>
-
-        {error && <p>{error.message}</p>}
-      </form>
+      <div className="form-wrap">
+        <form onSubmit={this.onSubmit}>
+          <legend style={margin}>Reset Your Password</legend>
+          <div className="form-group">
+            <label>Email To Send Password Reset:</label>
+            <input
+              name="email"
+              onChange={this.handleChange}
+              type="text"
+            />
+          </div>
+          <button className="btn-form" disabled={isValid} type="submit">
+            Send Me A Reset Link
+          </button>
+          {error && <p>{error.message}</p>}
+        </form>
+      </div>
     )
   }
 }
