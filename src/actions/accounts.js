@@ -5,7 +5,8 @@ export const setAccountView = (view) => ({
   payload: view
 })
 
-export const setName = (id, firstName, lastName) => async dispatch => {
+export const setName = (id, firstName, lastName, e) => async dispatch => {
+  e.preventDefault()
   const database = await db
   database.collection("users").doc(id).update({
     firstName,
@@ -25,7 +26,8 @@ export const setName = (id, firstName, lastName) => async dispatch => {
   })
 }
 
-export const setEmail = (id, email) => async dispatch => {
+export const setEmail = (id, email, e) => async dispatch => {
+  e.preventDefault()
   const database = await db
   database.collection("users").doc(id).update({
     email

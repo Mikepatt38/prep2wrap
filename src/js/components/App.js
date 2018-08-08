@@ -18,8 +18,8 @@ import SignUpPage from '../views/SignUpPage'
 import PasswordReset from '../views/PasswordReset'
 import PasswordChange from '../views/PasswordChange'
 import UsersPage from '../views/UsersPage'
-import AccountSettings from '../views/AccountSettings'
-
+// import AccountSettings from '../views/AccountSettings'
+import AccountSettings from '../../containers/AccountSettings'
 import Dashboard from '../views/Dashboard'
 
 const AuthUserApp = () => {
