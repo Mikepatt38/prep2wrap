@@ -20,6 +20,7 @@ import PasswordChange from '../views/PasswordChange'
 import UsersPage from '../views/UsersPage'
 // import AccountSettings from '../views/AccountSettings'
 import AccountSettings from '../../containers/AccountSettings'
+import UserAuth from '../../containers/UserAuth'
 import Dashboard from '../views/Dashboard'
 
 const AuthUserApp = () => {
@@ -34,8 +35,8 @@ const AuthUserApp = () => {
         <div className="app-container-main-body">
           <Switch>
             <Route exact path='/' component={Landing} />
-            <Route exact path='/login' component={LoginPage} />
-            <Route exact path='/signup' component={SignUpPage} />
+            <Route exact path='/login' component={UserAuth} />
+            <Route exact path='/signup' component={UserAuth} />
             <Route exact path='/password-reset' component={PasswordReset} />
             <Route exact path='/password-change' component={PasswordChange} />
             <Route exact path='/dashboard' component={Dashboard} />
@@ -54,8 +55,8 @@ const NonAuthUserSite = () => {
       <Navbar />
       <Switch>
         <Route exact path='/' component={Landing} />
-        <Route exact path='/login' component={LoginPage} />
-        <Route exact path='/signup' component={SignUpPage} />
+        <Route exact path='/login' component={UserAuth} />
+        <Route exact path='/signup' component={UserAuth} />
         <Route exact path='/password-reset' component={PasswordReset} />
       </Switch>
     </React.Fragment>

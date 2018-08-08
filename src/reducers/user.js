@@ -10,6 +10,9 @@ function userReducer(state = INITIAL_STATE, action) {
     case 'SIGN_IN' : {
       return Object.assign({}, state, action.payload)
     }
+    case 'RESET_PASSWORD' : {
+      return Object.assign({}, state, action.payload)
+    }
     case 'SET_CURRENT_USER' : {
       return { ...state, currentUser: action.payload }
     }

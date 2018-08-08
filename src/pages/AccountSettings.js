@@ -1,72 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {FormTextInput} from '../components/FormTextInput'
-import {FormButton} from '../components/FormButton'
+import { NameForm } from '../components/NameForm'
+import { EmailForm } from '../components/EmailForm'
 import withAuthorization from '../js/components/withAuthorization'
-
-const NameForm = ({state, id, setName, handleChange, onGeneralEdit}) => {
-  return (
-    <form
-      method="form"
-      className="form-account-body--general"
-    >
-      <FormTextInput
-        label="First Name"
-        name="firstName"
-        type="text"
-        onChange={handleChange}
-        value={state.firstName}
-        disabled={!state.nameEditable}
-      />
-      <FormTextInput
-        label="Last Name"
-        name="lastName"
-        type="text"
-        onChange={handleChange}
-        value={state.lastName}
-        disabled={!state.nameEditable}
-      />
-      <FormButton
-        onClick={onGeneralEdit}
-        className={!state.nameEditable ? 'btn-form' : 'btn btn-hidden'}
-        buttonText="Edit"
-      />
-      <FormButton
-        onClick={(e) => setName(id, state.firstName, state.lastName, e)}
-        className={!state.nameEditable ? 'btn btn-hidden' : 'btn-form'}
-        buttonText="Update Name"
-      />
-    </form>
-  )
-}
-
-const EmailForm = ({ state, id, setEmail, handleChange, onEmailEdit }) => {
-  return (
-    <form
-      onSubmit={setEmail}
-      className="form-account-body--general"
-    >
-      <FormTextInput
-        label="email"
-        name="email"
-        type="email"
-        onChange={handleChange}
-        value={state.email}
-        disabled={!state.emailEditable}
-      />
-      <FormButton
-        onClick={onEmailEdit}
-        className={!state.emailEditable ? 'btn-form btn-short' : 'btn btn-hidden'}
-        buttonText="Edit"
-      />
-      <FormButton
-        onClick={(e) => setEmail(id, state.email, e)}
-        className={!state.emailEditable ? 'btn btn-hidden' : 'btn-form btn-short'}
-        buttonText="Update Email"
-      />
-    </form>
-  )
-}
 
 class AccountSettings extends Component {
   state = {

@@ -35,6 +35,7 @@ class LoginForm extends Component {
 
     const isValid = password === '' || email === '' 
 
+    
     return (
       <React.Fragment>
         <div className="form-wrap">

@@ -1,7 +1,8 @@
 import { db } from '../db/firebase'
 import { auth } from '../db'
 
-export const signUserIn = (email, password, history) => dispatch => {
+export const signUserIn = (email, password, history, e) => dispatch => {
+  e.preventDefault()
   auth.doSignInWithEmailAndPassword(email, password)
     .then( () => {
       history.push("/dashboard")
@@ -14,7 +15,8 @@ export const signUserIn = (email, password, history) => dispatch => {
     })
 }
 
-export const signUpUser = (email, password, firstName, lastName, history) => dispatch => {
+export const signUpUser = (email, password, firstName, lastName, history, e) => dispatch => {
+  e.preventDefault()
   auth.doCreateUserWithEmailAndPassword(email, password)
     .then( async (authUser) => {
       const database = await db
@@ -44,6 +46,23 @@ export const signUpUser = (email, password, firstName, lastName, history) => dis
         payload: [true, 'error', error]   
       })
     })
+}
+
+export const resetPassword = (email, e) => async dispatch => {
+  e.preventDefault()
+  auth.doPasswordReset(email)
+  .then(() => {
+    dispatch({
+      type: 'SET_ALERT',
+      payload: [true, 'success', 'Your Password Reset Link Was Sent']   
+    })
+  })
+  .catch(error => {
+    dispatch({
+      type: 'SET_ALERT',
+      payload: [true, 'error', error]   
+    })
+  })
 }
 
 export const removeCurrentUser = () => ({
