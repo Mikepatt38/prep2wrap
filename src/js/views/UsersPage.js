@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 // import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import withAuthorization from '../../containers/withAuthorization'
-import { api } from '../../db'
+// import { api } from '../../db'
 // import UsersList from '../components/UsersList'
 
 class UsersPage extends Component {
@@ -22,12 +22,12 @@ class UsersPage extends Component {
   onSubmit = e => {
     e.preventDefault()
     const { firstName, lastName } = this.state
-    api.userSearch(firstName, lastName).then( users => {
-      this.setState({
-        users: users,
-        name: ''
-      })
-    })
+    // api.userSearch(firstName, lastName).then( users => {
+    //   this.setState({
+    //     users: users,
+    //     name: ''
+    //   })
+    // })
   }
 
   render() {

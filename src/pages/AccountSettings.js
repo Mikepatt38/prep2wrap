@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { NameForm } from '../components/NameForm'
 import { EmailForm } from '../components/EmailForm'
-import withAuthorization from '../containers/withAuthorization'
 
 class AccountSettings extends Component {
   state = {
@@ -30,6 +29,7 @@ class AccountSettings extends Component {
 
   render() {
     const { setName, setEmail, currentUser } = this.props
+    console.log(this.props.authUser)
     return (
       <div className="container">
         <div className="account-settings-container">
@@ -68,7 +68,5 @@ AccountSettings.propTypes = {
     email: PropTypes.string
   })
 }
-
-const authCondition = (authUser) => !!authUser
 
 export default AccountSettings
