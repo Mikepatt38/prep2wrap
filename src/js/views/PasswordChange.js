@@ -3,7 +3,7 @@ import {
   withRouter,
 } from 'react-router-dom'
 
-import PasswordChangeForm from '../components/PasswordChangeForm'
+import PasswordChangeForm from '../../components/PasswordChangeForm'
 
 const PasswordChange = ({history}) => {
   return (

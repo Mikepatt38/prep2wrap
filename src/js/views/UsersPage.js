@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { compose } from 'recompose'
 import withAuthorization from '../../containers/withAuthorization'
 import { api } from '../../db'
-import UsersList from '../components/UsersList'
+// import UsersList from '../components/UsersList'
 
 class UsersPage extends Component {
   state = {
@@ -73,7 +73,7 @@ class UsersPage extends Component {
           </div>
         </form>
         <div>
-          <UsersList users={users} /> 
+          {/* <UsersList users={users} />  */}
         </div> 
       </div>
     )

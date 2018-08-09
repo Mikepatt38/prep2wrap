@@ -16,7 +16,7 @@ export const Alert = ({ active, alertText, alertType, onSetAlert }) => {
   )
 }
 
-Alert.PropTypes = {
+Alert.propTypes = {
   active: PropTypes.bool.isRequired,
   alertText: PropTypes.string.isRequired,
   alertType: PropTypes.string.isRequired

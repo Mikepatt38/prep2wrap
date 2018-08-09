@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import AccountIcon from '../../img/icon-account.svg'
 import { Link } from 'react-router-dom'
 
 const tempStyle = {
@@ -41,8 +39,4 @@ class Sidebar extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  authUser: state.sessionState.authUser,
-})
-
-export default connect(mapStateToProps)(Sidebar)
+export default Sidebar

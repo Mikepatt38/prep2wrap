@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { auth } from '../../db'
+import { auth } from '../db'
 
 class PasswordChangeForm extends Component {
   state = {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { removeCurrentUser } from '../../actions/users'
-import { auth } from '../../db'
+import { removeCurrentUser } from '../actions/users'
+import { auth } from '../db'
 
 const signOutStyles = {
   cursor: 'pointer'
