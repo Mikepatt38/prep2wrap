@@ -7,15 +7,15 @@ import {
 } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
-import withAuthentication from './withAuthentication'
+import withAuthentication from '../../containers/withAuthentication'
 
 import Navbar from '../components/Navbar'
 import Sidebar from '../components/Sidebar'
-import Alert from '../components/Alert'
+import Alert from '../../containers/Alert'
 import Landing from '../views/Landing'
-import LoginPage from '../views/LoginPage'
-import SignUpPage from '../views/SignUpPage'
-import PasswordReset from '../views/PasswordReset'
+// import LoginPage from '../views/LoginPage'
+// import SignUpPage from '../views/SignUpPage'
+// import PasswordReset from '../views/PasswordReset'
 import PasswordChange from '../views/PasswordChange'
 import UsersPage from '../views/UsersPage'
 // import AccountSettings from '../views/AccountSettings'
@@ -37,7 +37,7 @@ const AuthUserApp = () => {
             <Route exact path='/' component={Landing} />
             <Route exact path='/login' component={UserAuth} />
             <Route exact path='/signup' component={UserAuth} />
-            <Route exact path='/password-reset' component={PasswordReset} />
+            <Route exact path='/password-reset' component={UserAuth} />
             <Route exact path='/password-change' component={PasswordChange} />
             <Route exact path='/dashboard' component={Dashboard} />
             <Route exact path='/users' component={UsersPage} />
@@ -57,7 +57,7 @@ const NonAuthUserSite = () => {
         <Route exact path='/' component={Landing} />
         <Route exact path='/login' component={UserAuth} />
         <Route exact path='/signup' component={UserAuth} />
-        <Route exact path='/password-reset' component={PasswordReset} />
+        <Route exact path='/password-reset' component={UserAuth} />
       </Switch>
     </React.Fragment>
   )
