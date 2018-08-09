@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 // import { connect } from 'react-redux'
 import { compose } from 'recompose'
-import withAuthorization from '../components/withAuthorization'
+import withAuthorization from '../../containers/withAuthorization'
 import { api } from '../../db'
 import UsersList from '../components/UsersList'
 

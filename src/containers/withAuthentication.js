@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getCurrentUser } from '../../actions/users'
-import { firebase } from '../../db'
+import { getCurrentUser } from '../actions/users'
+import { firebase } from '../db'
 
 const withAuthentication = (Component) => {
   class WithAuthentication extends React.Component {

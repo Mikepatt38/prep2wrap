@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 
-import { firebase } from '../../db'
+import { firebase } from '../db'
 
 const withAuthorization = (authCondition) => (Component) => {
   class WithAuthorization extends React.Component {

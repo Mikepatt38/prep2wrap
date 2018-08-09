@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { NameForm } from '../components/NameForm'
 import { EmailForm } from '../components/EmailForm'
-import withAuthorization from '../js/components/withAuthorization'
+import withAuthorization from '../containers/withAuthorization'
 
 class AccountSettings extends Component {
   state = {
