@@ -6,7 +6,6 @@ import { FormButton } from './FormButton'
 export const SignUp = ({ state, handleChange, history, signUpUser }) => {
   return (
     <form
-      onSubmit={(e) => console.log('SignIn')}
       method="post"
       onSubmit={(e) => signUpUser(state.email, state.passwordOne, state.firstName, state.lastName, history, e)}
     >

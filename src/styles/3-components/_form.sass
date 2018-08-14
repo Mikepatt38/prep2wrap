@@ -60,33 +60,6 @@ form
       transition: opacity 0.4s ease-in-out
 
 /* ===============
-  Form Checkbox Type
-  ================== */
-
-.custom-checkbox > input
-  display: none
-
-label.checkbox
-  position: relative
-  display: block
-  padding: 5px !important
-  border: 2px solid #f1f1f1
-  border-radius: 2px
-  color: #ccc
-  font-size: 14px
-  font-weight: 400
-  max-width: 75px
-  text-align: center
-  cursor: pointer
-  transition: all 0.3s ease-in-out
-
-input[type="checkbox"]#travel:checked + label.checkbox, input[type="checkbox"]#availability:checked + label.checkbox, input[type="checkbox"]#bilingual:checked + label.checkbox, input[type="checkbox"]#union:checked + label.checkbox
-  border: 2px solid $color__blue
-  background: $color__blue
-  color: white
-  transition: all 0.3s ease-in-out
-
-/* ===============
   Form Switch Type
   ================== */
 .switch
@@ -184,3 +157,30 @@ form.form-account-body--profile
 
     &.form-group--third
       width: 31.5%
+
+/* ===============
+  Form Checkbox Type
+  ================== */
+
+.custom-checkbox > input
+  display: none
+
+label.checkbox
+  position: relative
+  display: block
+  padding: 5px !important
+  border: 2px solid #f1f1f1
+  border-radius: 2px
+  color: #ccc
+  font-size: 14px
+  font-weight: 400
+  max-width: 75px
+  text-align: center
+  cursor: pointer
+  transition: all 0.3s ease-in-out
+
+input[type="checkbox"]#travel:checked + label.checkbox, input[type="checkbox"]#availability:checked + label.checkbox, input[type="checkbox"]#bilingual:checked + label.checkbox, input[type="checkbox"]#union:checked + label.checkbox
+  border: 2px solid $color__blue
+  background: $color__blue
+  color: white
+  transition: all 0.3s ease-in-out
