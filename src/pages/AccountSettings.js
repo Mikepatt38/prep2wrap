@@ -58,7 +58,6 @@ class AccountSettings extends Component {
 
   render() {
     const { setName, setEmail, currentUser, accountView, setAccountView, setUserProfile } = this.props
-    console.log(this.state)
     return (
       <div className="container">
         <div className="account-settings-container">
