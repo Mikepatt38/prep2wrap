@@ -11,6 +11,9 @@
 
 form
   width: 100%
+  display: flex
+  justify-content: space-between
+  flex-wrap: wrap
 
   legend
     margin: 45px auto 10px
@@ -25,6 +28,11 @@ form
 
   .form-group
     margin-bottom: 20px
+
+    &.input--half
+      width: 48.5%
+      display: inline-block
+      justify-content: space-between
 
   .form-group label
     font-size: 12px

@@ -13,6 +13,7 @@ export const UserSearch = ({ state, handleChange, searchUsersByName }) => {
         type="text"
         onChange={handleChange}
         value={state.firstName}
+        className="input--half"
       />
       <FormTextInput
         label="Last Name"
@@ -20,6 +21,7 @@ export const UserSearch = ({ state, handleChange, searchUsersByName }) => {
         type="text"
         onChange={handleChange}
         value={state.lastName}
+        className="input--half"
       />
       <FormButton
         onClick={(e) => searchUsersByName(state.firstName, state.lastName, e)}

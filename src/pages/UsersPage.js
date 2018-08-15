@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { UserSearch } from '../components/UserSearch'
+import { Card } from '../components/Card'
+
 
 class UsersPage extends Component {
   state = {
@@ -18,7 +20,10 @@ class UsersPage extends Component {
     return (
       <div className="container">
         <h1 className="page-title">Search For Users</h1>
-        <UserSearch state={this.state} handleChange={this.handleChange} searchUsersByName={searchUsersByName} />
+        <Card
+          cardText="Search for users by their first or last name."
+          children={<UserSearch state={this.state} handleChange={this.handleChange} searchUsersByName={searchUsersByName} />}
+        />
         { userSearchByNameResults !== [] &&
           userSearchByNameResults.map(user => {
             return <p key={user.id}>{user.firstName}</p>

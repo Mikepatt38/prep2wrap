@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export const FormTextInput = ( {label, name, value, type, disabled, placeholder, onChange} ) => {
+export const FormTextInput = ( {label, name, value, type, disabled, placeholder, onChange, className} ) => {
   return (
-    <div className="form-group">
+    <div className={'form-group' + ` ${className}`}>
       <label>{label}:</label>
       <input 
         name={name}
@@ -23,6 +23,7 @@ FormTextInput.propTypes = {
   value: PropTypes.string,
   type: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
+  className: PropTypes.string,
   disabled: PropTypes.bool,
   onChange: PropTypes.func.isRequired
 }
