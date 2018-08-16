@@ -26,7 +26,7 @@ class Sidebar extends Component {
         </div>
         <div className="sidebar-section">
           <div>
-            <h5><Link to="/dashboard">Availability</Link></h5>
+            <h5><Link to="/availability">Availability</Link></h5>
           </div>
         </div>
         <div className="sidebar-section">
