@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { UserSearch } from '../components/UserSearch'
 import { Card } from '../components/Card'
+import { UserTable } from '../components/UserTable'
 
 
 class UsersPage extends Component {
@@ -24,11 +25,9 @@ class UsersPage extends Component {
           cardText="Search for users by their first or last name."
           children={<UserSearch state={this.state} handleChange={this.handleChange} searchUsersByName={searchUsersByName} />}
         />
-        { userSearchByNameResults !== [] &&
-          userSearchByNameResults.map(user => {
-            return <p key={user.id}>{user.firstName}</p>
-          })
-        }
+        <UserTable 
+          users={userSearchByNameResults}
+        />
       </div>
     )
   }

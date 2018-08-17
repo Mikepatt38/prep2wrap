@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import { Card } from '../components/Card'
+import { AvailabilityTable } from '../components/AvailabilityTable'
 import { AvailabilityForm } from '../components/Availability'
 
 
@@ -48,12 +49,12 @@ class Availability extends Component {
               currentUser={currentUser} 
               setAvailabilityDate={setAvailabilityDate} 
               getAvailabilityDates={getAvailabilityDates} 
-              userDates={userDates} 
               stopListeningForDates={stopListeningForDates} 
               handleChange={this.handleChange}
               onChange={this.onChange}
             />}
         />
+        <AvailabilityTable userDates={userDates} />
       </div>
     )
   }

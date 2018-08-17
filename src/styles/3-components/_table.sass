@@ -1,0 +1,116 @@
+/* ================
+  Styles for Table components
+  =============== */
+
+.table-title
+  color: #444
+  letter-spacing: .06rem
+  font-size: .8rem
+  font-weight: 600
+  margin-top: 25px
+  margin-bottom: .5rem
+  text-transform: uppercase
+
+.table
+  position: relative
+  width: 100%
+  margin-bottom: 25px
+
+  .table-headers
+    background: #f1f1f1
+    border: 1px solid #d1d1d1
+    border-radius: 3px 3px 0 0
+    padding: 10px 15px
+    display: grid
+    grid-template-columns: 300px 300px auto 100px
+    
+    .table-header
+      display: grid
+      justify-content: flex-start
+      align-items: center
+
+      h4
+        font-weight: 600
+        font-size: 14px
+        color: #676767
+        margin: 0
+
+  .table-row
+    border: 1px solid #d1d1d1
+    margin-top: -1px
+    // box-shadow: 1px 2px 4px rgba(0,0,0,.03)
+    border-radius: 3px 3px 0 0
+    // margin-bottom: 8px
+
+    .table-row-content
+      list-style: none
+      background-color: #fff
+      text-align: left
+      display: inline-flex
+      position: relative
+      padding: 10px 15px
+      display: grid
+      grid-template-columns: 300px auto 100px
+
+      &.col-4
+        grid-template-columns: 300px 300px auto 100px
+
+      .table-row-content-item
+        display: grid
+        justify-content: flex-start
+        align-items: center
+
+        p
+          margin: 0
+
+        button.btn-learnmore
+          font-size: 11px
+          font-weight: 600
+          text-transform: uppercase
+          letter-spacing: 1px
+          padding: 0
+          width: 100px
+          background: #fff
+          border: none
+          color: $color__blue
+          transition: all 0.5s ease-in-out
+
+        button.btn-table
+          font-size: 11px
+          font-weight: 600
+          text-transform: uppercase
+          letter-spacing: 1px
+          padding: 0
+          width: 100px
+          background: #fff
+          border: none
+          color: #f2dede
+          transition: all 0.5s ease-in-out
+
+          &:hover
+            color: #a94442
+            transition: all 0.5s ease-in-out
+
+
+        .date-item-text 
+          display: grid
+          align-items: center
+          
+          p.date
+            margin: 0
+            margin-bottom: 3px
+            font-weight: 600
+            color: $color__blue
+
+          p.date-type
+            color: #676767
+            line-height: .8rem
+            font-size: .8rem
+            clear: left
+            overflow: hidden
+            text-overflow: ellipsis
+            white-space: nowrap
+            margin: 0
+            
+
+          

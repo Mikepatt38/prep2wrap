@@ -4,7 +4,7 @@ import { FormTextInput } from './FormTextInput'
 import { FormButton } from './FormButton'
 import 'react-datepicker/dist/react-datepicker.css'
 
-export const AvailabilityForm = ({ state, currentUser, setAvailabilityDate, fetching, userDates, handleChange, onChange }) => {
+export const AvailabilityForm = ({ state, currentUser, setAvailabilityDate, fetching, handleChange, onChange }) => {
   return ( 
     fetching ? <h1>Loading...</h1> :
     <React.Fragment>
@@ -31,9 +31,6 @@ export const AvailabilityForm = ({ state, currentUser, setAvailabilityDate, fetc
           onClick={(e) => setAvailabilityDate(currentUser.id, state.formattedDate, state.reason, e)}
         />
       </form>
-      { userDates.map((date, key) => {
-        return <p key={key}>{date.date}</p>
-      })}
     </React.Fragment>
   ) 
 }
