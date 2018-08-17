@@ -1,20 +1,24 @@
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
-import { setAvailabilityDate } from '../actions/availability'
+import { setAvailabilityDate, getAvailabilityDates, stopListeningForDates } from '../actions/availability'
 import Availability from '../pages/Availability'
 import withAuthorization from './withAuthorization'
 
 const mapStateToProps = (state) => {
   return {
     currentUser: state.userState.currentUser,
-    blackOutDates: state.availabilityState.availability
+    dates: state.availabilityState.availability,
+    userDates: state.availabilityState.userDates,
+    fetching: state.availabilityState.fetching
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getAvailabilityDates: bindActionCreators(getAvailabilityDates, dispatch),
     setAvailabilityDate: bindActionCreators(setAvailabilityDate, dispatch),
+    stopListeningForDates: bindActionCreators(stopListeningForDates, dispatch)
   }
 }
 

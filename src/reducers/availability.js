@@ -1,5 +1,7 @@
 const INITIAL_STATE = {
-  blackOutDates: []
+  dates: [],
+  userDates: [],
+  fetching: true
 }
 
 function availabilityReducer(state = INITIAL_STATE, action) {
@@ -7,10 +9,16 @@ function availabilityReducer(state = INITIAL_STATE, action) {
     case 'SET_AVAILABILITY_DATE': {
       return Object.assign({}, state, action.payload)
     }
-    case 'GET_AVAILABILITY_DATE': {
+    case 'SET_USERS_DATES': {
+      return { ...state, fetching: false, userDates: action.payload }
+    }
+    case 'GET_AVAILABILITY_DATES': {
       return Object.assign({}, state, {
-        blackOutDates: action.payload
+        dates: action.payload
       })
+    }
+    case 'STOP_LISTENING_FOR_DATES': {
+      return Object.assign({}, state, action.payload)
     }
     default : return state
   }

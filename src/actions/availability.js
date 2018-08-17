@@ -1,5 +1,29 @@
 import { db, auth } from '../db/firebase'
 
+export const getAvailabilityDates = (id) => async dispatch => {
+  const database = await db
+  database.collection("availability").orderBy('date', 'desc').doc(id).onSnapshot( (doc) => {
+    if (doc.exists) {
+      console.log(doc.data().date)
+      dispatch({
+        type: 'SET_USERS_DATES',
+        payload: doc.data().date   
+      })
+    }
+    else {
+      dispatch({
+        type: 'SET_ALERT',
+        payload: [true, 'error', 'ERROR: Something went wrong!']   
+      })
+    }
+  }) 
+}
+
+export const stopListeningForDates = (id) => async dispatch => {
+  const database = await db
+  database.collection("availability").doc(id).onSnapshot( () => {})
+}
+
 export const setAvailabilityDate = (id, date, reason, e) => async dispatch => {
   e.preventDefault()
   const database = await db
