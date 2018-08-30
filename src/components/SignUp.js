@@ -3,11 +3,16 @@ import { Link } from 'react-router-dom'
 import { FormTextInput } from './FormTextInput'
 import { FormButton } from './FormButton'
 
+const margin = {
+  marginBottom: '40px'
+}
+
 export const SignUp = ({ state, handleChange, history, signUpUser }) => {
   return (
     <form
       method="post"
       onSubmit={(e) => signUpUser(state.email, state.passwordOne, state.firstName, state.lastName, history, e)}
+      style={margin}
     >
       <legend>Get Started Today!</legend>
       <div className="form-link">
@@ -29,7 +34,7 @@ export const SignUp = ({ state, handleChange, history, signUpUser }) => {
         type="text"
       />
       <FormTextInput
-        label="Email Bithc"
+        label="Email"
         name="email"
         onChange={handleChange}
         type="email"
@@ -47,7 +52,7 @@ export const SignUp = ({ state, handleChange, history, signUpUser }) => {
         type="password"
       />
       <FormButton
-        className="btn-form"
+        className="button-primary button-fullwidth"
         buttonText="Create Account"
       />
       {state.error && <p>{state.error.message}</p>}

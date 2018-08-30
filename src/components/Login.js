@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom'
 import { FormTextInput } from './FormTextInput'
 import { FormButton } from './FormButton'
 
+const margin = {
+  marginTop: '10px'
+}
+
 export const Login = ({ state, handleChange, history, signUserIn, error }) => {
   return (
       <React.Fragment>
@@ -29,12 +33,12 @@ export const Login = ({ state, handleChange, history, signUserIn, error }) => {
             type="password"
           />
           <FormButton
-            className="btn-form"
+            className="button button-primary"
             buttonText="Login"
           />
           {error && <p>{error.message}</p>}
         </form>
-        <div className="form-footer">
+        <div className="form-footer" style={margin}>
           <div>
             Forgot Password? &nbsp;
             <Link to="/password-reset">

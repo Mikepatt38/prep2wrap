@@ -26,12 +26,12 @@ export const NameForm = ({state, id, setName, handleChange, onGeneralEdit}) => {
       />
       <FormButton
         onClick={onGeneralEdit}
-        className={!state.nameEditable ? 'btn-form' : 'btn btn-hidden'}
+        className={!state.nameEditable ? 'button-primary' : 'button button-hidden'}
         buttonText="Edit"
       />
       <FormButton
         onClick={(e) => setName(id, state.firstName, state.lastName, e)}
-        className={!state.nameEditable ? 'btn btn-hidden' : 'btn-form'}
+        className={!state.nameEditable ? 'button button-hidden' : 'button-primary'}
         buttonText="Update Name"
       />
     </form>

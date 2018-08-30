@@ -85,12 +85,12 @@ export const UserProfileForm = ({ state, id, setUserProfile, handleChange, handl
       />
       <FormButton
         onClick={onProfileEdit}
-        className={!state.profileEditable ? 'btn-form' : 'btn btn-hidden'}
+        className={!state.profileEditable ? 'button-primary' : 'button button-hidden'}
         buttonText="Edit"
       />
       <FormButton
         onClick={(e) => setUserProfile(id, state.username, state.location, state.headline, state.skills, state.fbLink, state.imdbLink, state.availability, state.travel, state.union, state.bilingual, e)}
-        className={!state.profileEditable ? 'btn btn-hidden' : 'btn-form'}
+        className={!state.profileEditable ? 'button button-hidden' : 'button-primary'}
         buttonText="Update User Profile"
       />
     </form>

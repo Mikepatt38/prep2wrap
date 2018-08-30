@@ -1,75 +1,121 @@
+// /* ===============
+//   Styles for button component
+//   ================== */
+
+// button, .btn
+//   position: relative
+//   border: 1px solid transparent
+//   border-radius: 3px
+//   cursor: pointer
+//   display: inline-block
+//   font-family: $font__main
+//   font-size: 16px
+//   font-weight: 400
+//   line-height: 1.5
+//   margin-bottom: 0
+//   padding: 8px 24px
+//   text-align: center
+//   user-select: none
+//   vertical-align: middle
+//   white-space: nowrap
+//   text-decoration: none
+//   transition: all .08s ease
+//   background: #ececec
+//   color: #676767
+//   border: 1px solid #ececec
+//   font-weight: 400
+
+//   &:active, &:focus
+//     outline: none
+
+//   &.btn-primary
+//     background-color: $color__blue
+//     border: 1px solid $color__blue
+//     color: white
+
+//   &.btn-danger
+//     background-color: white
+//     border: 1px solid #ED4F32
+//     color: #ED4F32
+
+//   &.btn-disabled
+//     cursor: not-allowed
+
+//   &.btn-hidden
+//     display: none
+
+
+// /* ===============
+//   Styles for form component buttons
+//   ================== */
+
+// button.btn-form
+//   padding: 10px 0
+//   background: $color__blue
+//   color: #fff
+//   font-weight: 600
+//   min-width: 300px
+//   font-size: 14px
+//   border-radius: 2px
+//   text-transform: uppercase
+//   letter-spacing: 1px
+//   box-shadow: 0 3px 6px rgba(36,129,215,0.05), 0 2px 3px rgba(36,129,215,0.04)
+
+//   &.btn-danger
+//     background-color: white
+//     border: 1px solid #ED4F32
+//     color: #ED4F32
+//     box-shadow: none
+
+//   &.btn-short
+//     max-width: 150px
+//     min-width: 150px
+//     margin-top: 20px
+//     margin-left: 20px
+//     max-height: 40px
+
+
 /* ===============
-  Styles for button component
+  Styles for Buttons
   ================== */
 
-button, .btn
-  position: relative
-  border: 1px solid transparent
-  border-radius: 3px
-  cursor: pointer
-  display: inline-block
-  font-family: $font__main
-  font-size: 16px
-  font-weight: 400
-  line-height: 1.5
-  margin-bottom: 0
-  padding: 8px 24px
-  text-align: center
-  user-select: none
-  vertical-align: middle
-  white-space: nowrap
-  text-decoration: none
-  transition: all .08s ease
-  background: #ececec
-  color: #676767
-  border: 1px solid #ececec
-  font-weight: 400
-
-  &:active, &:focus
-    outline: none
-
-  &.btn-primary
-    background-color: $color__blue
-    border: 1px solid $color__blue
-    color: white
-
-  &.btn-danger
-    background-color: white
-    border: 1px solid #ED4F32
-    color: #ED4F32
-
-  &.btn-disabled
-    cursor: not-allowed
-
-  &.btn-hidden
-    display: none
-
-
-/* ===============
-  Styles for form component buttons
-  ================== */
-
-button.btn-form
-  padding: 10px 0
-  background: $color__blue
-  color: #fff
+button
+  padding: 10px
+  color: #ffffff
   font-weight: 600
   min-width: 300px
+  max-width: 25%
   font-size: 14px
   border-radius: 2px
-  text-transform: uppercase
-  letter-spacing: 1px
-  box-shadow: 0 3px 6px rgba(36,129,215,0.05), 0 2px 3px rgba(36,129,215,0.04)
+  border: none
+  box-shadow: 0 3px 6px rgba(36, 129, 215, 0.05)
+  position: relative
+  cursor: pointer
+  font-family: 'Montserrat', sans-serif
+  line-height: 1.5
+  text-align: center
+  vertical-align: center
+  white-space: nowrap
+  text-decoration: none
+  transition: all 0.8s ease
 
-  &.btn-danger
-    background-color: white
+  &.button-primary
+    background-color: $color__blue
+    border: 1px solid $color__blue
+
+  &.button-danger
+    background-color: #ED4F32
     border: 1px solid #ED4F32
-    color: #ED4F32
-    box-shadow: none
 
-  &.btn-short
+  &.button-short
     max-width: 150px
     min-width: 150px
     margin-top: 20px
     margin-left: 20px
     max-height: 40px
+
+  &.button-disabled
+    cursor: not-allowed
+
+  &.button-hidden
+    display: none

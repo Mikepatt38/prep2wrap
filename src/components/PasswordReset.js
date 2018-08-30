@@ -8,7 +8,7 @@ const margin = {
 
 export const PasswordReset = ({ email, error, handleChange, resetPassword }) => {
   return (
-    <form onSubmit={(e) => resetPassword(email, e)}>
+    <form onSubmit={(e) => resetPassword(email, e)} style={margin}>
       <legend style={margin}>Reset Your Password</legend>
       <FormTextInput
         label="Email"
@@ -17,7 +17,7 @@ export const PasswordReset = ({ email, error, handleChange, resetPassword }) => 
         type="text"
       />
       <FormButton
-        className="btn-form"
+        className="button-primary"
         buttonText="Send Reset Password Link"
       />
       {error && <p>{error.message}</p>}

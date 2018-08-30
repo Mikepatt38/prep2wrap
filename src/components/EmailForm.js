@@ -18,12 +18,12 @@ export const EmailForm = ({ state, id, setEmail, handleChange, onEmailEdit }) =>
       />
       <FormButton
         onClick={onEmailEdit}
-        className={!state.emailEditable ? 'btn-form btn-short' : 'btn btn-hidden'}
+        className={!state.emailEditable ? 'button-primary' : 'button button-hidden'}
         buttonText="Edit"
       />
       <FormButton
         onClick={(e) => setEmail(id, state.email, e)}
-        className={!state.emailEditable ? 'btn btn-hidden' : 'btn-form btn-short'}
+        className={!state.emailEditable ? 'button button-hidden' : 'button-primary'}
         buttonText="Update Email"
       />
     </form>
