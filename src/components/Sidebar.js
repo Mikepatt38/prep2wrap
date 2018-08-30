@@ -37,7 +37,7 @@ class Sidebar extends Component {
         </div>
         <div className="sidebar-section">
           <div>
-            <h5><img src={AccountIcon} /><Link to="/account-settings">My Account</Link></h5>
+            <h5><img src={AccountIcon} /><Link to="/account-settings">Account Settings</Link></h5>
           </div>
         </div>
         <div className="sidebar-section sidebar-section--bottom">

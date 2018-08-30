@@ -25,11 +25,11 @@ const App = ({ currentUser }) => {
               <Sidebar />
             </div>
             <div className="app-container-main">
-              {/* <Alert />
+              <Alert />
               <Navbar />
               <div className="app-container-main-body">
                 <AuthRoutes />
-              </div> */}
+              </div>
             </div>
           </div>
       }
