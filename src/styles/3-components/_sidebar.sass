@@ -21,14 +21,46 @@
   &.closed
     display: none
 
+  .logo-wrapper
+    position: relative
+    cursor: pointer
+
+    a
+      background-image: url(../img/calltime-logo.png)
+      background-size: contain
+      background-repeat: no-repeat
+      height: 40px
+      display: block
+      position: relative
+      margin: 5px 20px 25px
+
+
   .sidebar-section
-    border-bottom: 1px solid rgba(180,188,199,.32)
+    // border-bottom: 1px solid rgba(180,188,199,.32)
+
+    &.sidebar-section--bottom
+      position: absolute
+      bottom: 0
+      border-top: 1px solid rgba(180,188,199,.32)
+      width: 100%
+
+    div
+      padding: 20px
+
+      h5
+        margin: 0
+        align-items: center
+        display: flex
+
+        img
+          height: 19px
+          margin-right: 8px
+          width: auto
 
     div > h5 > a
       text-transform: uppercase
       color: #677694
       font-weight: 600
-      padding: 25px 20px
       font-size: 12px
       letter-spacing: 0.750px
       transition: padding 0s linear .4s
