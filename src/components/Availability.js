@@ -26,7 +26,7 @@ export const AvailabilityForm = ({ state, currentUser, setAvailabilityDate, fetc
           value={state.reason}
         />
         <FormButton
-          className="btn-form"
+          className="button-primary"
           buttonText="Block Out Date"
           onClick={(e) => setAvailabilityDate(currentUser.id, state.formattedDate, state.reason, e)}
         />
