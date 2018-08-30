@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { NameForm } from '../components/NameForm'
 import { EmailForm } from '../components/EmailForm'
+import { Card } from '../components/Card'
 import { UserProfileForm } from '../components/UserProfileForm'
 
 class AccountSettings extends Component {
@@ -71,26 +72,22 @@ class AccountSettings extends Component {
               </ul>
             </div>
             { accountView === 'general' && 
-              <div className="grid-account-body grid-account-body--general">
-                <div className="grid-account-body--header">
-                  <p>This is your general account information, it can be updated at any time.</p>            
-                </div>
-                <div className="grid-account-body--name">
-                  <NameForm state={this.state} id={currentUser.id} setName={setName} handleChange={this.handleChange} onGeneralEdit={this.onGeneralEdit} />
-                </div>
-                <div className="grid-account--email">
-                  <p>This is your account's email address, it can be updated at any time.</p>     
-                    <EmailForm state={this.state} id={currentUser.id} setEmail={setEmail} handleChange={this.handleChange} onEmailEdit={this.onEmailEdit} />
-                </div>
-              </div>
+              <React.Fragment>
+                <Card 
+                  cardText="This is your general account information, it can be updated at any time."
+                  children={<NameForm state={this.state} id={currentUser.id} setName={setName} handleChange={this.handleChange} onGeneralEdit={this.onGeneralEdit} />}
+                />
+                <Card 
+                  cardText="This is your account's public email address, it can be updated at any time."
+                  children={<EmailForm state={this.state} id={currentUser.id} setEmail={setEmail} handleChange={this.handleChange} onEmailEdit={this.onEmailEdit} />}
+                />
+              </React.Fragment>
             }
             { accountView === 'profile' &&
-              <div className="grid-account-body grid-account-body--profile">
-                <div className="grid-account-body--header">
-                  <p>This is your public profile information, it can be updated at any time.</p>      
-                  <UserProfileForm state={this.state} id={currentUser.id} setUserProfile={setUserProfile} handleChange={this.handleChange} handleCheck={this.handleCheck} onProfileEdit={this.onProfileEdit} />
-                </div>
-              </div>
+              <Card 
+                cardText="This is your public profile information, it can be updated at any time."
+                children={<UserProfileForm state={this.state} id={currentUser.id} setUserProfile={setUserProfile} handleChange={this.handleChange} handleCheck={this.handleCheck} onProfileEdit={this.onProfileEdit} />}
+              />
             }
           </div>
         </div>
