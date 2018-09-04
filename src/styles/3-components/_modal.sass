@@ -1,0 +1,70 @@
+/* ===============
+  Styles for Modals
+  ================== */
+
+.modal
+  display: flex
+  align-items: center
+  justify-content: center
+  position: fixed
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  padding: 1rem
+  background-color: rgba(236,236,236, 0.8)
+  z-index: 9999
+  opacity: 1
+  overflow-x: hidden
+  overflow-y: auto
+  animation: fade .5s ease
+
+  .modal-dialouge
+    width: 400px 
+    margin: 0 auto
+
+    .modal-content
+      position: relative
+      background-color: #fff
+      border-radius: 3px
+      background-clip: padding-box
+      outline: 0
+      border: 1px solid #dfdfdf
+
+      .modal-header
+        padding: 3rem 2rem
+        padding-bottom: 0
+
+      .modal-header > h3
+        margin: 0
+        color: #444
+        font-size: 1.7rem
+
+      .modal-header > a
+        font-size: .9rem
+        color: #cbcbcb
+        position: absolute
+        top: 1.5rem
+        right: 1.5rem
+        border: 0
+        padding: 0
+        cursor: pointer
+        height: 30px
+
+      .modal-header > a > img
+        height: 100%
+        width: auto
+
+      .modal-body
+        position: relative
+        padding: 2rem
+
+@keyframes fade 
+  0%
+    display: none
+    opacity: 0
+  1%
+    display: flex
+    opacity: 0
+  100%
+    opacity: 1

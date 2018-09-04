@@ -3,7 +3,8 @@ const INITIAL_STATE = {
   dropdownOpen: false,
   alertType: '',
   alertActive: false,
-  alertText: ''
+  alertText: '',
+  modalActive: false
 }
 
 function sessionReducer(state = INITIAL_STATE, action) {
@@ -17,6 +18,9 @@ function sessionReducer(state = INITIAL_STATE, action) {
     case 'SET_ALERT' : {
       return { ...state, alertActive: action.payload[0], alertType: action.payload[1], alertText: action.payload[2]}
     }
+    case 'SET_MODAL': {
+      return { ...state, modalActive: action.payload }
+    }   
     default : return state
   }
 }

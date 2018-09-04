@@ -2,7 +2,7 @@ import React from 'react'
 import { FormTextInput } from './FormTextInput'
 import { FormButton } from './FormButton'
 
-export const NameForm = ({state, id, setName, handleChange, onGeneralEdit}) => {
+export const NameForm = ({state, id, setName, handleChange}) => {
   return (
     <form
       method="form"
@@ -14,7 +14,6 @@ export const NameForm = ({state, id, setName, handleChange, onGeneralEdit}) => {
         type="text"
         onChange={handleChange}
         value={state.firstName}
-        disabled={!state.nameEditable}
       />
       <FormTextInput
         label="Last Name"
@@ -22,16 +21,10 @@ export const NameForm = ({state, id, setName, handleChange, onGeneralEdit}) => {
         type="text"
         onChange={handleChange}
         value={state.lastName}
-        disabled={!state.nameEditable}
-      />
-      <FormButton
-        onClick={onGeneralEdit}
-        className={!state.nameEditable ? 'button-primary' : 'button button-hidden'}
-        buttonText="Edit"
       />
       <FormButton
         onClick={(e) => setName(id, state.firstName, state.lastName, e)}
-        className={!state.nameEditable ? 'button button-hidden' : 'button-primary'}
+        className="button-primary"
         buttonText="Update Name"
       />
     </form>
