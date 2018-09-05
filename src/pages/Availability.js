@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Card } from '../components/Card'
 import { AvailabilityForm } from '../components/Availability'
+import Calendar from '../components/Calendar'
 
 
 class Availability extends Component {
@@ -25,10 +26,7 @@ class Availability extends Component {
           onClick={() => 
             setModal(true, "Set Availability Date", <AvailabilityForm currentUser={currentUser} setAvailabilityDate={setAvailabilityDate} />
         )}>Set Availability</button></h1>
-        <Card
-          cardTitle="Availability Calendar"
-          cardText="Search through the calendar to view your current availability and blacked out dates."
-        />
+        <Calendar />
       </div>
     )
   }
