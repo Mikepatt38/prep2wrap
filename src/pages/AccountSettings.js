@@ -1,10 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { NameForm } from '../components/NameForm'
+import { NameForm, NameDisplay } from '../components/NameForm'
 import { EmailForm } from '../components/EmailForm'
 import { Card } from '../components/Card'
-import { UserProfileForm } from '../components/UserProfileForm'
+import { UserProfileForm, ProfileDisplayed } from '../components/UserProfileForm'
 import { Modal } from '../components/Modal'
+import EditIcon from '../img/icon-edit.svg'
 
 class AccountSettings extends Component {
   state = {
@@ -29,25 +30,10 @@ class AccountSettings extends Component {
 
   componentWillUnmount = () => {
     this.props.setAlert(false, '', '')
-    this.props.setAccountView('general')
-  }
-
-  onGeneralEdit = (e) => {
-    e.preventDefault()
-    this.setState({ nameEditable: true })
-  }
-
-  onProfileEdit = (e) => {
-    e.preventDefault()
-    this.setState ({ profileEditable: true })
-  }
-
-  onEmailEdit = (e) => {
-    e.preventDefault()
-    this.setState({ emailEditable: true })
   }
 
   handleChange = e => {
+    console.log(e.target.value)
     this.setState({
       [e.target.name]: e.target.value
     })
@@ -63,8 +49,17 @@ class AccountSettings extends Component {
     e.preventDefault()
     this.setState({
       modalActive: true,
-      modalTitle: 'Edit your name.',
+      modalTitle: 'Edit your account name.',
       modalChildren: <NameForm state={this.state} id={currentUser.id} setName={setName} handleChange={this.handleChange} />
+    })
+  }
+
+  editEmail = (setEmail, currentUser, e) => {
+    e.preventDefault()
+    this.setState({
+      modalActive: true,
+      modalTitle: 'Edit your account email.',
+      modalChildren: <EmailForm state={this.state} id={currentUser.id} setEmail={setEmail} handleChange={this.handleChange} />
     })
   }
 
@@ -77,6 +72,7 @@ class AccountSettings extends Component {
   }
 
   render() {
+    const { firstName, lastName, email } = this.state
     const { setName, setEmail, currentUser, accountView, setAccountView, setUserProfile } = this.props
     return (
       <React.Fragment>
@@ -88,36 +84,29 @@ class AccountSettings extends Component {
           />
         }
         <div className="container">
-          <div className="account-settings-container">
-            <h1 className="page-title">Account Settings</h1>
-            <div className="grid-account">
-              <div className="grid-account-nav">
-                <ul>
-                  <li className={accountView === 'general' ? 'active' : ''} onClick={() => setAccountView('general')}>General</li>
-                  <li className={accountView === 'profile' ? 'active' : ''} onClick={() => setAccountView('profile')}>Profile</li>
-                  <li>Billing</li>
-                </ul>
-              </div>
-              { accountView === 'general' && 
-                <button className="button-primary" onClick={(e) => this.editName(setName, currentUser, e)}>Edit Name</button>
-                // <React.Fragment>
-                //   <Card 
-                //     cardText="This is your general account information, it can be updated at any time."
-                //     children={<NameForm state={this.state} id={currentUser.id} setName={setName} handleChange={this.handleChange} onGeneralEdit={this.onGeneralEdit} />}
-                //   />
-                //   <Card 
-                //     cardText="This is your account's public email address, it can be updated at any time."
-                //     children={<EmailForm state={this.state} id={currentUser.id} setEmail={setEmail} handleChange={this.handleChange} onEmailEdit={this.onEmailEdit} />}
-                //   />
-                // </React.Fragment>
+          <h1 className="page-title">Account Settings</h1>
+          <div className="grid-account">
+            <Card 
+              cardTitle="Basic Information"
+              cardText="Your basic account information, hover over the text to update the field."
+              children={
+                <Fragment>
+                  <div className="card-item" onClick={(e) => this.editName(setName, currentUser, e)}>
+                    <label>Account Name: </label>
+                    <p> {firstName} {lastName}</p>
+                  </div>
+                  <div className="card-item" onClick={(e) => this.editEmail(setEmail, currentUser, e)}>
+                    <label>Account Email: </label>
+                    <p> {email} <img src={EditIcon} alt="edit icon" /></p>
+                  </div>
+                </Fragment>
               }
-              { accountView === 'profile' &&
-                <Card 
-                  cardText="This is your public profile information, it can be updated at any time."
-                  children={<UserProfileForm state={this.state} id={currentUser.id} setUserProfile={setUserProfile} handleChange={this.handleChange} handleCheck={this.handleCheck} onProfileEdit={this.onProfileEdit} />}
-                />
-              }
-            </div>
+            />
+            <Card 
+              cardTitle="Profile Settings"
+              cardText="Your public account profile settings, other members can access and view your profile."
+              children={<ProfileDisplayed state={this.state} />}
+            />
           </div>
         </div>
       </React.Fragment>

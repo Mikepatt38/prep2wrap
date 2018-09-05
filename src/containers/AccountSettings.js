@@ -3,7 +3,7 @@ import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
 import { setName, setEmail, setUserProfile, setAccountView } from '../actions/accounts'
 import { setAlert } from '../actions/components'
-import AccountSettings from '../pages/AccountSettings'
+import AccountSettings from '../pages/Settings'
 import withAuthorization from './withAuthorization'
 
 const mapStateToProps = (state) => {

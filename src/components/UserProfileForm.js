@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { FormTextInput } from './FormTextInput'
 import { FormCheckboxInput } from './FormCheckboxInput'
 import { FormButton } from './FormButton'
+import EditIcon from '../img/icon-edit.svg'
 
 export const UserProfileForm = ({ state, id, setUserProfile, handleChange, handleCheck, onProfileEdit }) => {
   return (
@@ -94,5 +95,48 @@ export const UserProfileForm = ({ state, id, setUserProfile, handleChange, handl
         buttonText="Update User Profile"
       />
     </form>
+  )
+}
+
+export const ProfileDisplayed = ({ state }) => {
+  return (
+    <Fragment>
+      <div className="card-item">
+        <label>Username: </label>
+        <p> {state.username} <img src={EditIcon} alt="edit icon" /></p>
+      </div>
+      <div className="card-item">
+        <label>Location: </label>
+        <p> {state.location} <img src={EditIcon} alt="edit icon" /></p>
+      </div>
+      <div className="card-item">
+        <label>Skills: </label>
+        <p> {state.skills} <img src={EditIcon} alt="edit icon" /></p>
+      </div>
+      <div className="card-item">
+        <label>Facebook Link: </label>
+        <p> {state.fbLink} <img src={EditIcon} alt="edit icon" /></p>
+      </div>
+      <div className="card-item">
+        <label>IMDB Link: </label>
+        <p> {state.imdbLink} <img src={EditIcon} alt="edit icon" /></p>
+      </div>
+      <div className="card-item">
+        <label>Willing To Travel: </label>
+        <p> {state.travel ? 'True' : 'False'} <img src={EditIcon} alt="edit icon" /></p>
+      </div>
+      <div className="card-item">
+        <label>Daily Availability: </label>
+        <p> {state.availability ? 'True' : 'False'} <img src={EditIcon} alt="edit icon" /></p>
+      </div>
+      <div className="card-item">
+        <label>Bilingual: </label>
+        <p> {state.bilingual ? 'True' : 'False'} <img src={EditIcon} alt="edit icon" /></p>
+      </div>
+      <div className="card-item">
+        <label>Apart of A Union: </label>
+        <p> {state.union ? 'True' : 'False'} <img src={EditIcon} alt="edit icon" /></p>
+      </div>
+    </Fragment>
   )
 }
