@@ -78,6 +78,7 @@ main
   max-width: 1450px
   background: #fff
   border: 2px solid rgba(180,188,199,.32)
+  border-radius: 3px
   .header
     text-transform: uppercase
     font-weight: 600
@@ -89,10 +90,10 @@ main
     .icon
       cursor: pointer
       transition: .15s ease-out
-      &:hover
-        transform: scale(1.75)
-        transition: .25s ease-out
-        color: #1a8fff
+      // &:hover
+      //   transform: scale(1.75)
+      //   transition: .25s ease-out
+      //   color: #1a8fff
       &:first-of-type
         margin-left: 1em
       &:last-of-type
@@ -115,13 +116,14 @@ main
       cursor: pointer
       background: #fff
       transition: 0.25s ease-out
-      &:hover
-        background: #f9f9f9
-        transition: 0.5s ease-out
+      // &:hover
+      //   background: #f9f9f9
+      //   transition: 0.5s ease-out
     .selected
-      border-left: 10px solid transparent
-      border-image: linear-gradient(45deg, #1a8fff 0%, #53cbf1 40%)
-      border-image-slice: 1
+      // border-left: 10px solid transparent
+      // border-image: linear-gradient(45deg, #1a8fff 0%, #53cbf1 40%)
+      // border-image-slice: 1
+      background: #f6fafd
     .row
       border-bottom: 1px solid rgba(180,188,199,.32)
       &:last-child
@@ -143,7 +145,7 @@ main
       .bg
         font-weight: 700
         line-height: 1
-        color: #1a8fff
+        color: rgba(180,188,199,.32)
         opacity: 0
         font-size: 8em
         position: absolute
@@ -151,9 +153,9 @@ main
         right: -.05em
         transition: .25s ease-out
         letter-spacing: -.07em
-      &:hover .bg
-        opacity: 0.05
-        transition: .5s ease-in
+      // &:hover .bg
+      //   opacity: 0.05
+      //   transition: .5s ease-in
     .selected .bg
       opacity: 0.05
       transition: .5s ease-in

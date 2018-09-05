@@ -27,7 +27,7 @@ class Sidebar extends Component {
         </div>
         <div className="sidebar-section">
           <div>
-            <h5><img src={UsersIcon} /><Link to="/users">Call Time Users</Link></h5>
+            <h5><img src={UsersIcon} /><Link to="/users">Users Directory</Link></h5>
           </div>
         </div>
         <div className="sidebar-section">

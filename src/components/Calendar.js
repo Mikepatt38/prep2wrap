@@ -73,7 +73,7 @@ class Calendar extends Component {
                 :  busyDate.includes(day) ? "selected" : ""
             }`}
             key={day}
-            onClick={() => this.onDateClick(dateFns.parse(cloneDay))}
+            onClick={() => {}}
           >
             <span className="number">{formattedDate}</span>
             <span className="bg">{formattedDate}</span>
