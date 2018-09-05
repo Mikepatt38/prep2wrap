@@ -22,7 +22,8 @@ class Availability extends Component {
         <h1 className="page-title">My Availability 
         <button 
           className="button-primary button-inline" 
-          onClick={() => setModal(true, "Set Availability Date", <AvailabilityForm currentUser={currentUser} setAvailabilityDate={setAvailabilityDate} />
+          onClick={() => 
+            setModal(true, "Set Availability Date", <AvailabilityForm currentUser={currentUser} setAvailabilityDate={setAvailabilityDate} />
         )}>Set Availability</button></h1>
         <Card
           cardTitle="Availability Calendar"

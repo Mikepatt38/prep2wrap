@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { setModal } from '../actions/components'
 import { Modal } from '../components/Modal'
 
@@ -9,7 +10,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onSetModal: (active) => dispatch(setModal(active))
+  setModal: bindActionCreators(setModal, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Modal)

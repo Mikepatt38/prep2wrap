@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import CloseIcon from '../img/icon-close.svg'
 
-export const Modal = ({ active, title, children }) => {
+export const Modal = ({ active, title, children, setModal }) => {
   return (
     <div className={ active ? 'modal modal-open' : 'modal'}>
       <div className="modal-dialouge">
@@ -10,6 +10,7 @@ export const Modal = ({ active, title, children }) => {
           <div className="modal-header">
             <a 
               role="button"
+              onClick={() => setModal(false, '', null)}
             >
               <img src={CloseIcon} />
             </a>
