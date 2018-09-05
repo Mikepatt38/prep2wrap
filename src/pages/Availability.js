@@ -1,17 +1,9 @@
 import React, { Component } from 'react'
-import moment from 'moment'
 import { Card } from '../components/Card'
-import { AvailabilityTable } from '../components/AvailabilityTable'
 import { AvailabilityForm } from '../components/Availability'
 
 
 class Availability extends Component {
-  state = {
-    startDate: moment(),
-    formattedDate: moment(),
-    reason: '',
-    dates: []
-  }
 
   componentWillMount = () => {
     this.props.getAvailabilityDates(this.props.currentUser.id)
@@ -23,38 +15,15 @@ class Availability extends Component {
     console.log('Stopped listening')
   }
 
-  handleChange = (date) => {
-    this.setState({
-      startDate: date,
-      formattedDate: date.format('MM/DD/YYYY')
-    })
-  }
-  
-  onChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    })
-  }
-
   render() {
-    const { currentUser, setAvailabilityDate, getAvailabilityDates, userDates, stopListeningForDates } = this.props
+    const { currentUser, setAvailabilityDate } = this.props
     return (
       <div className="container">
-        <h1 className="page-title">Your Availability</h1>
+        <h1 className="page-title">My Availability <button className="button-primary button-inline">Set Availability</button></h1>
         <Card
-          cardText="Select dates that you are unavailable or do not wish to receive jobs for."
-          children={
-            <AvailabilityForm 
-              state={this.state}
-              currentUser={currentUser} 
-              setAvailabilityDate={setAvailabilityDate} 
-              getAvailabilityDates={getAvailabilityDates} 
-              stopListeningForDates={stopListeningForDates} 
-              handleChange={this.handleChange}
-              onChange={this.onChange}
-            />}
+          cardTitle="Availability Calendar"
+          cardText="Search through the calendar to view your current availability and blacked out dates."
         />
-        <AvailabilityTable userDates={userDates} />
       </div>
     )
   }
