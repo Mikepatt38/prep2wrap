@@ -54,17 +54,23 @@ class Calendar extends Component {
     let days = []
     let day = startDate
     let formattedDate = ""
+    let compareDate = ""
+    let busyDate = []
 
     while (day <= endDate) {
       for (let i = 0; i < 7; i++) {
         formattedDate = dateFns.format(day, dateFormat)
+        compareDate = dateFns.format(day, "MM/DD/YYYY")
         const cloneDay = day
+        this.props.dates.map( (date) => {
+          compareDate === date.date ? busyDate.push(day) : ''
+        })
         days.push(
           <div
             className={`col cell ${
               !dateFns.isSameMonth(day, monthStart)
                 ? "disabled"
-                : dateFns.isSameDay(day, selectedDate) ? "selected" : ""
+                :  busyDate.includes(day) ? "selected" : ""
             }`}
             key={day}
             onClick={() => this.onDateClick(dateFns.parse(cloneDay))}

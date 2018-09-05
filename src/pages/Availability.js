@@ -17,7 +17,7 @@ class Availability extends Component {
   }
 
   render() {
-    const { currentUser, setAvailabilityDate, setModal } = this.props
+    const { currentUser, setAvailabilityDate, setModal, userDates } = this.props
     return (
       <div className="container">
         <h1 className="page-title">My Availability 
@@ -26,7 +26,7 @@ class Availability extends Component {
           onClick={() => 
             setModal(true, "Set Availability Date", <AvailabilityForm currentUser={currentUser} setAvailabilityDate={setAvailabilityDate} />
         )}>Set Availability</button></h1>
-        <Calendar />
+        <Calendar dates={userDates} />
       </div>
     )
   }
