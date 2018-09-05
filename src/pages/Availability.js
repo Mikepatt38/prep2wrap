@@ -16,10 +16,14 @@ class Availability extends Component {
   }
 
   render() {
-    const { currentUser, setAvailabilityDate } = this.props
+    const { currentUser, setAvailabilityDate, setModal } = this.props
     return (
       <div className="container">
-        <h1 className="page-title">My Availability <button className="button-primary button-inline">Set Availability</button></h1>
+        <h1 className="page-title">My Availability 
+        <button 
+          className="button-primary button-inline" 
+          onClick={() => setModal(true, "Set Availability Date", <AvailabilityForm currentUser={currentUser} setAvailabilityDate={setAvailabilityDate} />
+        )}>Set Availability</button></h1>
         <Card
           cardTitle="Availability Calendar"
           cardText="Search through the calendar to view your current availability and blacked out dates."

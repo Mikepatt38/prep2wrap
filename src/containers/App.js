@@ -9,6 +9,7 @@ import Sidebar from '../components/Sidebar'
 import withAuthentication from './withAuthentication'
 import Navbar from './Navigation'
 import Alert from './Alert'
+import Modal from './Modal'
 
 const App = ({ currentUser }) => {
   return (
@@ -26,6 +27,7 @@ const App = ({ currentUser }) => {
             </div>
             <div className="app-container-main">
               <Alert />
+              <Modal />
               <Navbar />
               <div className="app-container-main-body">
                 <AuthRoutes />

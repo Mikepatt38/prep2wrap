@@ -4,6 +4,8 @@ import { Modal } from '../components/Modal'
 
 const mapStateToProps = (state) => ({
   active: state.sessionState.modalActive,
+  title: state.sessionState.modalTitle,
+  children: state.sessionState.modalChildren
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -3,7 +3,7 @@
   ================== */
 
 .modal
-  display: flex
+  display: none
   align-items: center
   justify-content: center
   position: fixed
@@ -14,10 +14,18 @@
   padding: 1rem
   background-color: rgba(236,236,236, 0.9)
   z-index: 9999
-  opacity: 1
+  opacity: 0
+  visibility: hidden
   overflow-x: hidden
   overflow-y: auto
   animation: fade .5s ease-in-out
+
+  &.modal-open
+    display: flex
+    opacity: 1
+    visibility: visible
+    animation: fade .5s ease-in-out
+
 
   .modal-dialouge
     width: 400px 
