@@ -6,7 +6,7 @@ class UserInfoForm extends Component {
   state = {
     firstName: this.props.currentUser.firstName,
     lastName: this.props.currentUser.lastName,
-    email: this.props.currentUser.email,
+    email: this.props.currentUser.email,  
   }
 
   handleChange = e => {
@@ -18,6 +18,7 @@ class UserInfoForm extends Component {
   render() {
     const { firstName, lastName, email } = this.state
     const { setName } = this.props
+    console.log(this.props)
     
     return (
       <form
@@ -28,15 +29,15 @@ class UserInfoForm extends Component {
           label="First Name"
           name="firstName"
           type="text"
-          onChange={handleChange}
-          value={state.firstName}
+          onChange={this.handleChange}
+          value={firstName}
         />
         <FormTextInput
           label="Last Name"
           name="lastName"
           type="text"
-          onChange={handleChange}
-          value={state.lastName}
+          onChange={this.handleChange}
+          value={lastName}
         />
         <FormButton
           onClick={(e) => setName(this.props.currentUser.id, firstName, lastName, e)}
