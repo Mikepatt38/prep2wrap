@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
 import { searchUsersByName } from '../actions/users'
+import { setModal } from '../actions/components'
 import UsersPage from '../pages/UsersPage'
 import withAuthorization from './withAuthorization'
 
@@ -13,7 +14,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    searchUsersByName: bindActionCreators(searchUsersByName, dispatch)
+    searchUsersByName: bindActionCreators(searchUsersByName, dispatch),
+    setModal: bindActionCreators(setModal, dispatch)
   }
 }
 
