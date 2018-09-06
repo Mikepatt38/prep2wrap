@@ -44,7 +44,6 @@ class AccountSettings extends Component {
       [e.target.id]: e.target.checked
     })
   }
-
   editName = (setName, currentUser, e) => {
     e.preventDefault()
     this.setState({

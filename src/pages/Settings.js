@@ -8,13 +8,8 @@ import { Modal } from '../components/Modal'
 import EditIcon from '../img/icon-edit.svg'
 
 class AccountSettings extends Component {
-  state = {
-    nameEditable: false,
-    emailEditable: false
-  }
 
   render() {
-    const { nameEditable, emailEditable } = this.state
     const { currentUser, setName, setEmail } = this.props
 
     return (
@@ -28,11 +23,11 @@ class AccountSettings extends Component {
               <Fragment>
                 <div className="card-item" onClick={() => this.setState({ nameEditable: true })}>
                   <label>Account Name: </label>
-                  { nameEditable ? <InlineForm values={[currentUser.firstName, currentUser.lastName]} onClick={setName} /> : <p> {currentUser.firstName} {currentUser.lastName} <img src={EditIcon} alt="edit icon" /></p> }
+                  <p> {currentUser.firstName} {currentUser.lastName}</p>
                 </div>
                 <div className="card-item" onClick={() => this.setState({ nameEditable: true })}>
                   <label>Account Email: </label>
-                  { emailEditable ? <InlineForm values={[currentUser.email]} onClick={setEmail} /> : <p> {currentUser.email} <img src={EditIcon} alt="edit icon" /></p> }
+                  <p> {currentUser.email}</p>
                 </div>
               </Fragment>
               }
