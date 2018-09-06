@@ -17,34 +17,53 @@ class UserInfoForm extends Component {
 
   render() {
     const { firstName, lastName, email } = this.state
-    const { setName } = this.props
-    console.log(this.props)
+    const { setName, setEmail } = this.props
     
     return (
-      <form
-        method="form"
-        className="form-account-body--general"
-      >
-        <FormTextInput
-          label="First Name"
-          name="firstName"
-          type="text"
-          onChange={this.handleChange}
-          value={firstName}
-        />
-        <FormTextInput
-          label="Last Name"
-          name="lastName"
-          type="text"
-          onChange={this.handleChange}
-          value={lastName}
-        />
-        <FormButton
-          onClick={(e) => setName(this.props.currentUser.id, firstName, lastName, e)}
-          className="button-primary"
-          buttonText="Update Name"
-        />
-      </form>
+      <Fragment>
+        <form
+          method="form"
+          className="form-account-body--general"
+        >
+          <FormTextInput
+            label="First Name"
+            name="firstName"
+            type="text"
+            onChange={this.handleChange}
+            value={firstName}
+          />
+          <FormTextInput
+            label="Last Name"
+            name="lastName"
+            type="text"
+            onChange={this.handleChange}
+            value={lastName}
+          />
+          <FormButton
+            onClick={(e) => setName(this.props.currentUser.id, firstName, lastName, e)}
+            className="button-primary"
+            buttonText="Update Name"
+          />
+        </form>    
+        <br />
+        <form
+          onSubmit={setEmail}
+          className="form-account-body--general"
+        >
+          <FormTextInput
+            label="email"
+            name="email"
+            type="email"
+            onChange={this.handleChange}
+            value={email}
+          />
+          <FormButton
+            onClick={(e) => setEmail(this.props.currentUser.id, email, e)}
+            className="button-primary"
+            buttonText="Update Email"
+          />
+        </form>
+      </Fragment>
     )
   }
 }
