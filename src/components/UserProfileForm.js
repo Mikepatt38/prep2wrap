@@ -1,7 +1,37 @@
 import React, { Component, Fragment } from 'react'
 import { FormTextInput } from './FormTextInput'
 import { FormCheckboxInput } from './FormCheckboxInput'
+import FormSelectInput from './FormSelectInput'
 import { FormButton } from './FormButton'
+
+const options = [
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' }
+]
+
+const skillsObj = [
+  { value: 'made to order', label: 'Made To Order' },
+  { value: 'Dress BG', label: 'Dress BG' },
+  { value: 'Fit periocc', label: 'Fit periocc' },
+  { value: 'Shop', label: 'Shop' },
+  { value: 'Fit', label: 'Fit' },
+  { value: 'Returns', label: 'Returns' },
+  { value: 'Pull Stock', label: 'Pull Stock' },
+  { value: 'Aging/ Blood Work', label: 'Aging/ Blood Work' },
+  { value: 'Basic Sewing', label: 'Basic Sewing' },
+  { value: 'Advance Sewing', label: 'Advance Sewing' },
+  { value: 'Pattern Cutting & Draping', label: 'Pattern Cutting & Draping' },
+  { value: 'Mens Tailoring', label: 'Mens Tailoring' },
+  { value: 'Water Work', label: 'Water Work' },
+  { value: 'Stunt Work', label: 'Stunt Work' },
+  { value: 'Fire Work', label: 'Fire Work' },
+  { value: 'Track Continuity', label: 'Track Continuity' },
+  { value: 'Night Shoots', label: 'Night Shoots' },
+  { value: 'Wrap Shows', label: 'Wrap Shows' },
+  { value: 'Military/ Uniform', label: 'Military/ Uniform' },
+  { value: 'Fabric Sourcing', label: 'Fabric Sourcing' }
+]
 
 class UserProfileForm extends Component {
   state = {
@@ -47,6 +77,10 @@ class UserProfileForm extends Component {
           type="text"
           onChange={this.handleChange}
           value={location}
+        />
+        <FormSelectInput
+          label="Skills"
+          options={skillsObj}
         />
         <FormTextInput 
           label="Skills"

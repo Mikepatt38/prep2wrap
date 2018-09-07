@@ -34,8 +34,8 @@ export const setEmail = (id, email, e) => async dispatch => {
   })
   .then( () => {
     dispatch({
-      type: 'SET_ALERT',
-      payload: [true, 'success', 'User Email Updated']
+      type: 'ON_MODAL_SUCCESS',
+      payload: [true, false]
     })
   })
   .catch( (error) => {
@@ -63,8 +63,8 @@ export const setUserProfile = (id, username, location, headline, skills, fbLink,
   })
   .then( () => {
     dispatch({
-      type: 'SET_ALERT',
-      payload: [true, 'success', 'User Profile Updated']
+      type: 'ON_MODAL_SUCCESS',
+      payload: [true, false]
     })
   })
   .catch( (error) => {
