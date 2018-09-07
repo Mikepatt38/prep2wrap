@@ -14,8 +14,8 @@ export const setName = (id, firstName, lastName, e) => async dispatch => {
   })
   .then( () => {
     dispatch({
-      type: 'SET_ALERT',
-      payload: [true, 'success', 'User Name Updated']
+      type: 'ON_MODAL_SUCCESS',
+      payload: [true, false]
     })
   })
   .catch( (error) => {

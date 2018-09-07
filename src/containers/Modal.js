@@ -1,12 +1,13 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { setModal } from '../actions/components'
-import { Modal } from '../components/Modal'
+import Modal from '../components/Modal'
 
 const mapStateToProps = (state) => ({
   active: state.sessionState.modalActive,
   title: state.sessionState.modalTitle,
-  children: state.sessionState.modalChildren
+  children: state.sessionState.modalChildren,
+  modalSuccess: state.sessionState.modalSuccess,
 })
 
 const mapDispatchToProps = (dispatch) => ({

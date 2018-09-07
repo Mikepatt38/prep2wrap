@@ -10,7 +10,7 @@ import withAuthorization from './withAuthorization'
 const mapStateToProps = (state) => {
   return {
     currentUser: state.userState.currentUser,
-    accountView: state.accountState.accountView
+    accountView: state.accountState.accountView,
   }
 }
 
@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => {
     setUserProfile: bindActionCreators(setUserProfile, dispatch),
     setAccountView: bindActionCreators(setAccountView, dispatch),
     setAlert: bindActionCreators(setAlert, dispatch),
-    setModal: bindActionCreators(setModal, dispatch)
+    setModal: bindActionCreators(setModal, dispatch),
 
   }
 }

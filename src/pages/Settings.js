@@ -1,9 +1,10 @@
-import React, { Component, Fragment } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import UserProfileForm, { ProfileDisplayed } from '../components/UserProfileForm'
 import UserInfoForm from '../components/UserInfoForm'
+import CheckIcon from '../img/icon-check.svg'
 
-const AccountSettings = ({ currentUser, setModal, setName, setEmail, setUserProfile }) => {
+const AccountSettings = ({ currentUser, setModal, setName, setEmail, setUserProfile  }) => {
   return (
     <div className="container">
       <h1 className="page-title">Account Settings</h1>
@@ -11,7 +12,7 @@ const AccountSettings = ({ currentUser, setModal, setName, setEmail, setUserProf
         <div className="card">
           <div className="card-header">
             <h2>Basic Information <button onClick={() => setModal(true, "Update account information", 
-              <UserInfoForm setName={setName} setEmail={setEmail} currentUser={currentUser} />)} className="button-primary button-card">Update</button>
+              <UserInfoForm setName={setName} setEmail={setEmail} currentUser={currentUser} />)} className="button-card button-primary">Update</button>
             </h2>
             <p>Your basic account information, hover over the text to update the field.</p>
           </div>
@@ -36,7 +37,7 @@ const AccountSettings = ({ currentUser, setModal, setName, setEmail, setUserProf
         </div>
 
       </div>
-    </div>   
+    </div>     
   )
 }
 

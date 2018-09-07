@@ -30,6 +30,19 @@ button
     background-color: #ED4F32
     border: 1px solid #ED4F32
 
+  &.button-success
+    background-color: $color__green
+    border: 1px solid $color__green
+    color: #fff
+    display: flex
+    flex-direction: row
+    justify-content: center
+    align-items: center
+
+    img
+      height: 90%
+      width: 30px
+
   &.button-short
     max-width: 150px
     min-width: 150px
@@ -43,10 +56,16 @@ button
   &.button-hidden
     display: none
 
-  &.button-inline, &.button-card
+  &.button-inline
     height: 40px
     background-color: $color__blue
     border: 1px solid $color__blue
     position: relative
     max-width: 200px
     min-width: 150px
+
+  &.button-card
+    height: 40px
+    position: relative
+    max-width: 200px
+    min-width: 150px   
