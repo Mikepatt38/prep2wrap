@@ -144,6 +144,12 @@ export const ProfileDisplayed = ({ currentUser }) => {
         <p> {currentUser.location}</p>
       </div>
       <div className="card-item">
+        <label>Skills: </label>
+        <p>{currentUser.skills.map( (skill, key) => {
+          return key ===  (currentUser.skills.length -1) ? skill.value : skill.value + ', '
+        })}</p>
+      </div>
+      <div className="card-item">
         <label>Facebook Link: </label>
         <p> {currentUser.fbLink}</p>
       </div>
