@@ -4,12 +4,6 @@ import { FormCheckboxInput } from './FormCheckboxInput'
 import FormSelectInput from './FormSelectInput'
 import { FormButton } from './FormButton'
 
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' }
-]
-
 const skillsObj = [
   { value: 'made to order', label: 'Made To Order' },
   { value: 'Dress BG', label: 'Dress BG' },
@@ -59,6 +53,12 @@ class UserProfileForm extends Component {
     })
   }
 
+  handleSelect = (val) => {
+    this.setState({
+      skills: val
+    })
+  }
+
   render() {
     const { currentUser, setUserProfile } = this.props
     const { username, location, headline, skills, fbLink, imdbLink, availability, bilingual, travel, union } = this.state
@@ -81,14 +81,8 @@ class UserProfileForm extends Component {
         <FormSelectInput
           label="Skills"
           options={skillsObj}
-        />
-        <FormTextInput 
-          label="Skills"
-          name="skills"
-          type="text"
-          onChange={this.handleChange}
-          value={skills}
-          placeholder="Type Skills seperated by a comma"
+          currentSkills={currentUser.skills}
+          onSelect={this.handleSelect}
         />
         <FormTextInput 
           label="Facebook Profile Link"
@@ -148,10 +142,6 @@ export const ProfileDisplayed = ({ currentUser }) => {
       <div className="card-item">
         <label>Location: </label>
         <p> {currentUser.location}</p>
-      </div>
-      <div className="card-item">
-        <label>Skills: </label>
-        <p> {currentUser.skills}</p>
       </div>
       <div className="card-item">
         <label>Facebook Link: </label>
