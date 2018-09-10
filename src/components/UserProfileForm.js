@@ -27,6 +27,30 @@ const skillsObj = [
   { value: 'Fabric Sourcing', label: 'Fabric Sourcing' }
 ]
 
+const locationObj = [
+  { value: 'New York, NY', label: 'New York, NY' },
+  { value: 'Wilmington, NC', label: 'Wilmington, NC' },
+  { value: 'Shreveport, LA', label: 'Shreveport, LA' },
+  { value: 'New Orleans, LA', label: 'New Orleans, LA' },
+  { value: 'Atlanta, GA', label: 'Atlanta, GA' },
+  { value: 'Albuquerque, NM', label: 'Albuquerque, NM' },
+  { value: 'Santa Fe, NM', label: 'Santa Fe, NM' },
+  { value: 'Los Angeles, CA', label: 'Los Angeles, CA' },
+  { value: 'Detroit, MI', label: 'Detroit, MI' },
+  { value: 'Portland, OR', label: 'Portland, OR' },
+  { value: 'Las Vegas, NV', label: 'Las Vegas, NV' },
+  { value: 'Austin, TX', label: 'Austin, TX' },
+  { value: 'Dallas, TX', label: 'Dallas, TX' },
+  { value: 'Pittsburgh, PA', label: 'Pittsburgh, PA' },
+  { value: 'Boston, MA', label: 'Boston, MA' },
+  { value: 'Oahu, HI', label: 'Oahu, HI' },
+  { value: 'Chicago, IL', label: 'Chicago, IL' },
+  { value: 'Puerto Rico', label: 'Puerto Rico' },
+  { value: 'Miami, FL', label: 'Miami, FL' },
+  { value: 'Savannah, GA', label: 'Savannah, GA' },
+  { value: 'Seattle, WA', label: 'Seattle, WA' }
+]
+
 class UserProfileForm extends Component {
   state = {
     username: this.props.currentUser.username,
@@ -53,9 +77,9 @@ class UserProfileForm extends Component {
     })
   }
 
-  handleSelect = (val) => {
+  handleSelect = (name, val) => {
     this.setState({
-      skills: val
+      [name]: val
     })
   }
 
@@ -71,17 +95,22 @@ class UserProfileForm extends Component {
           onChange={this.handleChange}
           value={username}
         />
-        <FormTextInput 
+        <FormSelectInput
           label="Location"
           name="location"
-          type="text"
-          onChange={this.handleChange}
-          value={location}
+          options={locationObj}
+          currentSkills={currentUser.location}
+          placeholder="Select Cities You Work In"
+          isMultiSelect={true}
+          onSelect={this.handleSelect}
         />
         <FormSelectInput
           label="Skills"
+          name="skills"
           options={skillsObj}
           currentSkills={currentUser.skills}
+          placeholder="Select Skills You're Qualified For"
+          isMultiSelect={true}
           onSelect={this.handleSelect}
         />
         <FormTextInput 
@@ -141,12 +170,14 @@ export const ProfileDisplayed = ({ currentUser }) => {
       </div>
       <div className="card-item">
         <label>Location: </label>
-        <p> {currentUser.location}</p>
+        <p> {currentUser.location.map( (location, key) => {
+          return key === currentUser.location.length -1 ? location.value : location.value + ', '
+        })}</p>
       </div>
       <div className="card-item">
         <label>Skills: </label>
-        <p>{currentUser.skills.map( (skill, key) => {
-          return key ===  (currentUser.skills.length -1) ? skill.value : skill.value + ', '
+        <p> {currentUser.skills.map( (skill, key) => {
+          return key === currentUser.skills.length -1 ? skill.value : skill.value + ', '
         })}</p>
       </div>
       <div className="card-item">

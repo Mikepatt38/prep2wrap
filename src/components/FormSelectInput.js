@@ -8,23 +8,23 @@ class FormSelectInput extends Component {
 
   handleChange = (selectedOption) => {
     this.setState({ selectedOption }, () => {
-      this.props.onSelect(this.state.selectedOption)
+      this.props.onSelect(this.props.name, this.state.selectedOption)
     })
   }
 
   render() {
-    const { options, className, label } = this.props
+    const { options, className, label, placeholder, isMultiSelect } = this.props
     return (
       <div className={'form-group' + ` ${className}`}>
         <label>{label}:</label>
         <Select
-          closeMenuOnSelect={false}
+          closeMenuOnSelect={!isMultiSelect}
           value={this.state.selectedOption}
           onChange={this.handleChange}
           defaultValue={this.state.selectedOption}
-          isMulti
+          isMulti={isMultiSelect}
           options={options}
-          placeholder="Select Skills You're Qualified For"
+          placeholder={placeholder}
         />
       </div>
     )
