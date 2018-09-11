@@ -1,6 +1,7 @@
 import React from 'react'
 import { UserSearch } from '../components/UserSearch'
 import { Card } from '../components/Card'
+import Table from '../components/Table'
 
 const UsersPage = ({ searchUsersByName, setModal }) => {
   return (
@@ -11,9 +12,25 @@ const UsersPage = ({ searchUsersByName, setModal }) => {
           onClick={() => 
             setModal(true, "Search users by name", <UserSearch searchUsersByName={searchUsersByName} />
         )}>Search Users</button></h1>
-      <Card
-        cardTitle="Favorites"
-        cardText="These are your favorited users that you personally vouch for or support."
+      <Table 
+        headers={['name', 'location', 'available', '']}
+        data={[
+          {
+            name: 'Michael Jones',
+            location: 'Los Angeles, CA',
+            available: 'true'
+          },
+          {
+            name: 'Ben Patterson',
+            location: 'Los Angeles, CA',
+            available: 'false'
+          },
+          {
+            name: 'Hannah Patterson',
+            location: 'Los Angeles, CA',
+            available: 'true'
+          },
+        ]}
       />
     </div>  
   )
