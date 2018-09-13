@@ -51,12 +51,30 @@ const locationObj = [
   { value: 'Seattle, WA', label: 'Seattle, WA' }
 ]
 
+const positionsObj = [
+  { value: 'Production Assistant', label: 'Production Assistant' },
+  { value: 'Shopper', label: 'Shopper' },
+  { value: 'Set Costumer', label: 'Set Costumer' },
+  { value: 'Costumer', label: 'Costumer' },
+  { value: 'Key Costumer', label: 'Key Costumer' },
+  { value: 'Supervisor', label: 'Supervisor' },
+  { value: 'Assistant Costume Designer', label: 'Assistant Costume Designer' },
+  { value: 'Costume Designer', label: 'Costume Designer' },
+  { value: 'Truck Costumer', label: 'Truck Costumer' },
+  { value: 'Cutter/ Fitter', label: 'Cutter/ Fitter' },
+  { value: 'Coordinator', label: 'Coordinator' },
+  { value: 'Tailor', label: 'Tailor' },
+  { value: 'Ager/ Dryer', label: 'Ager/ Dryer' },
+  { value: 'Illustrator/ Concept Artist', label: 'Illustrator/ Concept Artist' }
+]
+
 class UserProfileForm extends Component {
   state = {
     username: this.props.currentUser.username,
     location: this.props.currentUser.location,
     headline: this.props.currentUser.headline,
     skills: this.props.currentUser.skills,
+    positions: this.props.currentUser.positions,
     fbLink: this.props.currentUser.fbLink,
     imdbLink: this.props.currentUser.imdbLink,
     availability: this.props.currentUser.availability,
@@ -85,7 +103,7 @@ class UserProfileForm extends Component {
 
   render() {
     const { currentUser, setUserProfile } = this.props
-    const { username, location, headline, skills, fbLink, imdbLink, availability, bilingual, travel, union } = this.state
+    const { username, location, headline, skills, positions, fbLink, imdbLink, availability, bilingual, travel, union } = this.state
     return (
       <form className="form-account-body--profile">
         <FormTextInput 
@@ -110,6 +128,15 @@ class UserProfileForm extends Component {
           options={skillsObj}
           currentSkills={currentUser.skills}
           placeholder="Select Skills You're Qualified For"
+          isMultiSelect={true}
+          onSelect={this.handleSelect}
+        />
+        <FormSelectInput
+          label="Positions"
+          name="positions"
+          options={positionsObj}
+          currentSkills={currentUser.positions}
+          placeholder="Select Positions For Jobs You're Seeking"
           isMultiSelect={true}
           onSelect={this.handleSelect}
         />
@@ -152,7 +179,7 @@ class UserProfileForm extends Component {
           value={union}
         />
         <FormButton
-          onClick={(e) => setUserProfile(currentUser.id, username, location, headline, skills, fbLink, imdbLink, availability, travel, union, bilingual, e)}
+          onClick={(e) => setUserProfile(currentUser.id, username, location, headline, skills, positions, fbLink, imdbLink, availability, travel, union, bilingual, e)}
           className="button-primary"
           buttonText="Update User Profile"
         />
@@ -178,6 +205,12 @@ export const ProfileDisplayed = ({ currentUser }) => {
         <label>Skills: </label>
         <p> {currentUser.skills.map( (skill, key) => {
           return key === currentUser.skills.length -1 ? skill.value : skill.value + ', '
+        })}</p>
+      </div>
+      <div className="card-item">
+        <label>Positions: </label>
+        <p> {currentUser.positions.map( (position, key) => {
+          return key === currentUser.positions.length -1 ? position.value : position.value + ', '
         })}</p>
       </div>
       <div className="card-item">
