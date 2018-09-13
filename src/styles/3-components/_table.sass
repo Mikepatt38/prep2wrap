@@ -1,21 +1,22 @@
 /* ================
   Styles for Table components
   =============== */
+
 .table
   position: relative
   display: block
   width: 100%
   max-width: 1450px
   background: #ffffff
-  border: 2px solid rgba(180,188,199,.32)
+  border: 1px solid rgba(180,188,199,.32)
   border-radius: 3px
 
   .table-header
     padding: 1em
-    border-bottom: 2px solid rgba(180,188,199,.32)
+    border-bottom: 1px solid rgba(180,188,199,.32)
     display: grid
     grid-gap: 0
-    background: #fff
+    background: #f6fafd
 
     &.table-header-users
       grid-template-columns: 1fr 1fr 1fr 100px
@@ -25,17 +26,20 @@
       text-transform: uppercase
       font-weight: 600
       letter-spacing: 1px
-      color: #677694
+      color: #676767
       opacity: 0.7
       font-size: 18
       display: grid
 
   .table-row
     padding: .75em
-    border-bottom: 2px solid rgba(180,188,199,.32)
+    border-bottom: 1px solid rgba(180,188,199,.32)
     display: grid
     grid-gap: 0
     width: 100%
+
+    &:last-child
+      border: none
 
     &.table-row--users
       grid-template-columns: 1fr 1fr 1fr 100px

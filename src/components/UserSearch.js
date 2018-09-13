@@ -21,6 +21,7 @@ export class UserSearch extends Component {
     return (
       <form
         method="form"
+        className="user-search-form"
       >
         <FormTextInput
           label="First Name"

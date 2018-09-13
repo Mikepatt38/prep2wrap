@@ -16,7 +16,6 @@ class Table extends Component {
 
     this.props.data.map( (data, key) => {
       this.props.headers.map( (header) => {
-        console.log(this.props.data)
         cells.push(
           <div className="table-row-cell">{data[`${header}`]}</div>
         )
@@ -32,13 +31,13 @@ class Table extends Component {
   }
 
   render() {
-    console.log(this.props.data)
+    const { data } = this.props
     return (
       <div className="table">
         <div className="table-header table-header-users">
           {this.renderHeaders()}
         </div>
-          {this.renderRows()}
+          {data !== null ? this.renderRows() : <p>Use the search to find users by name.</p>}
       </div>
     )
   }

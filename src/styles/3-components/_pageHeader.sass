@@ -1,0 +1,45 @@
+/* ===============
+  Styles for Page Header Component
+  ================== */
+
+.page-header--wrapper
+  position: relative
+  height: 70px
+  width: 100%
+  margin-bottom: 50px
+  overflow: visible
+
+.page-header
+  position: fixed
+  display: block
+  top: 0
+  left: 250px
+  right: 0
+  // width: 100%
+  background: #fff
+  height: 70px
+  padding: 0 15px
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  align-content: center
+  border-bottom: 1px solid rgba(180,188,199,.32)
+  z-index: 1000
+
+  .page-header--title
+    align-self: center
+
+  .page-header--title > h1.page-title
+    margin: 0
+
+  .page-header--nav
+    align-self: center
+  
+  .page-header--nav > h3
+    margin: 0
+    align-items: center
+    font-size: 14px
+    font-weight: 600
+    letter-spacing: 1px
+    text-transform: uppercase
+    color: #676767

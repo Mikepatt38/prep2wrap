@@ -28,7 +28,6 @@ const App = ({ currentUser }) => {
             <div className="app-container-main">
               <Alert />
               <Modal />
-              <Navbar />
               <div className="app-container-main-body">
                 <AuthRoutes />
               </div>

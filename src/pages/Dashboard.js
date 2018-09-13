@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
 import withAuthorization from '../containers/withAuthorization'
+import { PageHeader } from '../components/PageHeader'
 
 class Dashboard extends Component {
   render() {
     return (
-      <div className="container">
-        <h1 className="page-title">Welcome, UserDashboard</h1>
-      </div>
+      <React.Fragment>
+        <PageHeader pageTitle="Dashboard" />
+        <div className="container">
+          <h1 className="page-title">Welcome, UserDashboard</h1>
+        </div>
+      </React.Fragment>
     )
   }
 }
