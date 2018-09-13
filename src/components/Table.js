@@ -5,7 +5,7 @@ class Table extends Component {
   renderHeaders() {
     return (
       this.props.headers.map( (header) => {
-        return <div className="table-header-col">{header}</div>
+        return <div className="table-header-col" key={header}>{header}</div>
       })
     )
   }
@@ -14,12 +14,15 @@ class Table extends Component {
     let rows = []
     let cells = []
 
-    this.props.data.map( (data, key) => {
-      this.props.headers.map( (header) => {
-        cells.push(
-          <div className="table-row-cell">{data[`${header}`]}</div>
-        )
-      })
+    this.props.value.map( (value, key) => {
+      cells.push(
+        <React.Fragment>
+          <div key={value.username} className="table-row-cell">{value.firstName + ' ' + value.lastName}</div>
+          <div key={value.availability} className="table-row-cell">{value.availability.toString()}</div>
+          <div key={value.availability} className="table-row-cell">{value.availability.toString()}</div>  
+          <div key={'CTA' + key} className="table-row-cell"><span>View Profile</span></div>       
+        </React.Fragment>
+      )
       rows.push(
         <div className="table-row table-row--users" key={key}>
           {cells}
