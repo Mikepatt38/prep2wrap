@@ -37,12 +37,14 @@ class Availability extends Component {
       this.props.setModal(true, "Set Availability Date", 
         <AvailabilityForm 
           currentUser={this.props.currentUser} 
+          selectedDate={this.state.bookedDate}
           setAvailabilityDate={this.props.setAvailabilityDate} 
         />
     ))
   }
 
   render() {
+    console.log(this.state.bookedDate)
     const { currentUser, setAvailabilityDate, setModal, userDates } = this.props
     return (
       <React.Fragment>

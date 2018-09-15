@@ -37,6 +37,7 @@ export class AvailabilityForm extends Component {
         <FormDatePicker
           label="Select a date"
           startDate={startDate}
+          selectedDate={this.props.selectedDate}
           className="date-picker-form-group"
           handleChange={this.handleChange}
         />

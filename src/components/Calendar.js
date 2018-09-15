@@ -76,10 +76,9 @@ class Calendar extends Component {
             }`}
             key={day}
             onClick={ () => 
-              // console.log(this.state.bookedDates.includes(dateFns.format(dateFns.parse(cloneDay), "MM/DD/YYYY")) + ' ' + dateFns.format(dateFns.parse(cloneDay), "MM/DD/YYYY") )
               this.state.bookedDates.includes(dateFns.format(dateFns.parse(cloneDay), "MM/DD/YYYY"))
                 ? this.onDateClick(dateFns.parse(cloneDay))
-                : this.setDateClick(cloneDay)
+                : this.setDateClick(dateFns.parse(cloneDay))
             }
           >
             <span className="number">{formattedDate}</span>
@@ -129,7 +128,6 @@ class Calendar extends Component {
   }
 
   render() {
-    console.log(this.props.dates)
     return (
       <div className="calendar">
         {this.renderHeader()}
