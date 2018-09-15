@@ -1,3 +1,7 @@
+/* ===============
+  Styles for Calendar Layout
+  ================== */
+  
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons)
 
 .icon
@@ -69,7 +73,9 @@ main
   justify-content: flex-end
   text-align: right
 
-/* Calendar
+/* ===============
+  Styles for Calendar
+  ================== */
 
 .calendar
   display: block
@@ -164,3 +170,36 @@ main
       flex-grow: 0
       flex-basis: calc(100%/7)
       width: calc(100%/7)
+
+/* ===============
+  Styles for Calendar Alerts
+  ================== */
+
+.calendar-alert
+  position: relative
+  display: flex
+  justify-content: space-between
+  align-content: center
+
+  .calendar-alert-text
+    position: relative
+    align-self: center
+    
+    h6
+      color: #444
+      font-size: 14px
+      font-weight: 600
+      text-transform: uppercase
+      letter-spacing: 1px
+      margin: 0
+
+  .calendar-alert-action
+    position: relative
+    display: flex
+    align-self: center
+
+
+    img
+      height: 27px
+      width: 27px
+      cursor: pointer

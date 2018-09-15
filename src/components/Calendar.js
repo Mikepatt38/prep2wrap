@@ -4,7 +4,9 @@ import dateFns from "date-fns"
 class Calendar extends Component {
   state = {
     currentMonth: new Date(),
-    selectedDate: new Date()
+    selectedDate: null,
+    selectedDateType: '',
+    bookedDates: []
   }
 
   renderHeader() {
@@ -63,22 +65,27 @@ class Calendar extends Component {
         compareDate = dateFns.format(day, "MM/DD/YYYY")
         const cloneDay = day
         this.props.dates.map( (date) => {
-          compareDate === date.date ? busyDate.push(day) : ''
+          compareDate === date.date ? this.state.bookedDates.push(dateFns.format(day, "MM/DD/YYYY")) : ''
         })
         days.push(
           <div
             className={`col cell ${
               !dateFns.isSameMonth(day, monthStart)
                 ? "disabled"
-                :  busyDate.includes(day) ? "selected" : ""
+                :  this.state.bookedDates.includes(compareDate) ? "selected" : ""
             }`}
             key={day}
-            onClick={() => {}}
+            onClick={ () => 
+              // console.log(this.state.bookedDates.includes(dateFns.format(dateFns.parse(cloneDay), "MM/DD/YYYY")) + ' ' + dateFns.format(dateFns.parse(cloneDay), "MM/DD/YYYY") )
+              this.state.bookedDates.includes(dateFns.format(dateFns.parse(cloneDay), "MM/DD/YYYY"))
+                ? this.onDateClick(dateFns.parse(cloneDay))
+                : this.setDateClick(cloneDay)
+            }
           >
             <span className="number">{formattedDate}</span>
             <span className="bg">{formattedDate}</span>
           </div>
-        );
+        )
         day = dateFns.addDays(day, 1)
       }
       rows.push(
@@ -90,10 +97,22 @@ class Calendar extends Component {
     }
     return <div className="body">{rows}</div>
   }
+  
+  setDateClick = day => {
+    this.setState({
+      bookDate: day
+    },
+    () => {
+      this.props.setSelectedDate(day)
+    })
+  }
 
   onDateClick = day => {
     this.setState({
       selectedDate: day
+    },
+    () => {
+      this.props.onSelectedDate(dateFns.format(this.state.selectedDate, "MM/DD/YYYY"))
     })
   }
 
@@ -110,6 +129,7 @@ class Calendar extends Component {
   }
 
   render() {
+    console.log(this.props.dates)
     return (
       <div className="calendar">
         {this.renderHeader()}
