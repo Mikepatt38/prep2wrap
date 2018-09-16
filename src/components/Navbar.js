@@ -14,9 +14,7 @@ const Navbar = ({ currentUser, dropdownOpen, onToggleDropdown }) => {
         <div className="navbar-nav">
           <nav>
             <ul>
-              <li>
-                <NavDropdown onToggleDropdown={onToggleDropdown} dropdownOpen={dropdownOpen} />
-              </li>
+
             </ul>
           </nav>
         </div>

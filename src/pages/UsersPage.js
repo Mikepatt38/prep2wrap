@@ -4,6 +4,10 @@ import { UserSearch } from '../components/UserSearch'
 import { Card } from '../components/Card'
 import Table from '../components/Table'
 
+const styles = {
+  marginTop: '50px'
+}
+
 class UsersPage extends Component {
   state = {
     userData: []
@@ -42,6 +46,13 @@ class UsersPage extends Component {
             :
               ''
             }
+          </div>
+        </div> 
+        <div className="container" style={styles}>
+          <h2 className="component-title">My Favorites</h2>
+          <p className="component-text">These are your top eight recommendations from people in the industry that you vouch for.</p>
+          <div className="component-section">
+            <p>You currently do not have any favorite friends. To add a favorite, search the user and visit their profile.</p>
           </div>
         </div>  
       </React.Fragment>

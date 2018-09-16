@@ -22,7 +22,7 @@ class Sidebar extends Component {
         </div>
         <div className="sidebar-section">
           <div>
-            <h5><img src={JobsIcon} /><Link to="/dashboard">Hire A Crew</Link></h5>
+            <h5><img src={JobsIcon} /><Link to="/jobs">Hire A Crew</Link></h5>
           </div>
         </div>
         <div className="sidebar-section">

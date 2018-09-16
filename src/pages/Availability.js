@@ -44,8 +44,7 @@ class Availability extends Component {
   }
 
   render() {
-    console.log(this.state.bookedDate)
-    const { currentUser, setAvailabilityDate, setModal, userDates } = this.props
+    const { userDates } = this.props
     return (
       <React.Fragment>
         <PageHeader pageTitle="User Availability" />
@@ -75,9 +74,3 @@ class Availability extends Component {
 }
 
 export default Availability
-
-// <button 
-// className="button-primary button-inline" 
-// onClick={() => 
-//   setModal(true, "Set Availability Date", <AvailabilityForm currentUser={currentUser} setAvailabilityDate={setAvailabilityDate} />
-// )}>Set Availability</button>

@@ -1,4 +1,7 @@
 import React from 'react'
+import HelpIcon from '../img/icon-info.svg'
+import NotificationIcon from '../img/icon-alert.svg'
+import DownArrowIcon from '../img/icon-downarr.svg'
 
 export const PageHeader = ({ pageTitle }) => {
   return (
@@ -8,7 +11,8 @@ export const PageHeader = ({ pageTitle }) => {
           <h1 className="page-title">{pageTitle}</h1>
         </div>
         <div className="page-header--nav">
-          <button className="button-primary button-inline">Quick Action</button>
+          <img src={HelpIcon} alt="Help Icon" />
+          <img src={NotificationIcon} alt="Notification Icon" />
         </div>
       </div> 
     </div>

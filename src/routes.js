@@ -8,6 +8,7 @@ import Availability from './containers/Availability'
 
 import Landing from './pages/Landing'
 import Dashboard from './pages/Dashboard'
+import Jobs from './pages/Jobs'
 
 export const AuthRoutes = () => {
   return (
@@ -18,6 +19,7 @@ export const AuthRoutes = () => {
       <Route exact path='/password-reset' component={UserAuth} />
       {/* <Route exact path='/password-change' component={PasswordChange} /> */}
       <Route exact path='/dashboard' component={Dashboard} />
+      <Route exact path='/jobs' component={Jobs} />
       <Route exact path='/users' component={UsersPage} />
       <Route exact path='/availability' component={Availability} />
       <Route exact path='/account-settings' component={AccountSettings} />
