@@ -8,7 +8,7 @@ export const PageHeader = ({ pageTitle }) => {
     <div className="page-header--wrapper">
       <div className="page-header">
         <div className="page-header--title">
-          <h1 className="page-title">{pageTitle}</h1>
+          <h1>{pageTitle}</h1>
         </div>
         <div className="page-header--nav">
           <img src={HelpIcon} alt="Help Icon" />
