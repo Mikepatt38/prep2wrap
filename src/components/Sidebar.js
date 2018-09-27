@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import SignOutButton from '../containers/SignOut'
 import logo from '../img/calltime-logo.png'
 import DashboardIcon from '../img/icon-dashboard.svg'
 import JobsIcon from '../img/icon-jobs.svg'
@@ -42,7 +43,7 @@ class Sidebar extends Component {
         </div>
         <div className="sidebar-section sidebar-section--bottom">
           <div>
-            <h5><img src={LogoutIcon} /><Link to="/account-settings">Logout</Link></h5>
+            <h5><img src={LogoutIcon} /><SignOutButton /></h5>
           </div>
         </div>
       </div> 

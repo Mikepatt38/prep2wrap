@@ -21,7 +21,7 @@ class SignOutButton extends Component {
         onClick={this.signOut}
         style={signOutStyles}
       >
-        Sign Out
+        Logout
       </a>
     )
   }
