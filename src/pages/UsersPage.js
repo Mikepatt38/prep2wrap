@@ -31,28 +31,36 @@ class UsersPage extends Component {
       <React.Fragment>
         <PageHeader pageTitle="Users Directory" />
         <div className="container">
-          <h2 className="component-title">Search For Users</h2>
-          <p className="component-text">This is text that will be shown above the components such as tables and calendar to give a brief description.</p>
-          <div className="component-section">
-            <UserSearch searchUsersByName={searchUsersByName} />
-            { this.state.userData.length !== 0 ? 
-              <React.Fragment>
-                <hr />
-                <Table 
-                  headers={['Users Name', "Location", "Available Today"]}
-                  value={userSearchByNameResults}
-                />
-              </React.Fragment>
-            :
-              ''
-            }
+          <div className="card">
+            <div className="card-header">
+              <h2 className="card-title">Search For Users</h2>
+              <p className="card-subtitle">This is text that will be shown above the components such as tables and calendar to give a brief description.</p>
+            </div>
+            <div className="card-item">
+              <UserSearch searchUsersByName={searchUsersByName} />
+              { this.state.userData.length !== 0 ? 
+                <React.Fragment>
+                  <hr />
+                  <Table 
+                    headers={['Users Name', "Location", "Available Today"]}
+                    value={userSearchByNameResults}
+                  />
+                </React.Fragment>
+              :
+                ''
+              }
+            </div>
           </div>
         </div> 
         <div className="container" style={styles}>
-          <h2 className="component-title">My Favorites</h2>
-          <p className="component-text">These are your top eight recommendations from people in the industry that you vouch for.</p>
-          <div className="component-section">
-            <p>You currently do not have any favorite friends. To add a favorite, search the user and visit their profile.</p>
+          <div className="card">
+            <div className="card-header">
+              <h2 className="card-title">My Favorites</h2>
+              <p className="card-subtitle">These are your top eight recommendations from people in the industry that you vouch for.</p>
+            </div>
+            <div className="card-item">
+              <p>You currently do not have any favorite friends. To add a favorite, search the user and visit their profile.</p>
+            </div>
           </div>
         </div>  
       </React.Fragment>

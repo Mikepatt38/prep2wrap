@@ -1,62 +1,65 @@
 /* ================
   Styles for Card component
   =============== */
-
 .card
   position: relative
-  background: #fff
-  border: 2px solid #fff
+  max-width: 1250px
+  margin: 0 auto
+  background: #ffffff
+  border: 1px solid #f0f4f7
   border-radius: 3px
-  box-shadow: 1px 4px 9px 2px rgba(23, 28, 33, 0.04)
-  padding: 35px
-  margin-bottom: 50px
-  max-width: 1450px
+  padding: 0 0 20px 0
+  margin: 20px 0
+  // box-shadow: 1px 4px 9px 2px rgba(23, 28, 33, 0.04)
+  visibility: visible
+  display: block
+  opacity: 1
   
   .card-header
     position: relative
     margin-bottom: 20px
     display: flex
-    align-items: center
-    flex-direction: row
+    align-items: flex-start
+    flex-direction: column
     flex-wrap: wrap
-    justify-content: space-between
+    justify-content: flex-start
+    border-bottom: 1px solid #f0f4f7
+    padding: 20px 30px 10px 30px
 
     h2
-      font-weight: 400
-      font-size: 1.7rem
       color: #444
+      font-size: 16px
+      font-weight: 500
+      // text-transform: uppercase
+      // letter-spacing: 1px
       margin: 0
-      margin-bottom: .5rem
-      display: flex
-      justify-content: space-between
-      align-items: center
-      width: 100%
+      margin-bottom: 1px
+
+    p
+      color: #676767
+      font-size: 16px
+      font-weight: normal
+      margin: 0
+      max-width: 1050px
+
+
+  .card-item
+    position: relative
+    margin-bottom: 10px
+    padding: 0 30px 0 30px
+
+    label
+      color: #444
+      font-size: 12px
+      padding: 0 0 2px 0
+      display: block
+      font-weight: 600
+      text-transform: uppercase
+      letter-spacing: 1px
 
     p
       font-size: 16px
       line-height: 1.5
-      color: #999
-      margin: 0  
-      margin-bottom: 1rem   
-      width: 100%
-
-
-.card-item
-  position: relative
-  margin-bottom: 10px
-
-  label
-    color: #444
-    font-size: 12px
-    padding: 0 0 2px 0
-    display: block
-    font-weight: 600
-    text-transform: uppercase
-    letter-spacing: 1px
-
-  p
-    font-size: 16px
-    line-height: 1.5
-    color: #676767
-    margin: 0 0 5px 0
-    display: inline-block
+      color: #676767
+      margin: 0 0 5px 0
+      display: inline-block

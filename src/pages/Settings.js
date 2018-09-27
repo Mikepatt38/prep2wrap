@@ -17,9 +17,11 @@ const AccountSettings = ({ currentUser, setModal, setName, setEmail, setUserProf
         <div className="settings">
 
           <div style={styles}>
-            <h2 className="component-title">Basic Information</h2>
-            <p className="component-text">Your basic account information, hover over the text to update the field.</p>
-            <div className="component-section">
+            <div className="card">
+              <div className="card-header">
+                <h2 className="card-title">Basic Information</h2>
+                <p className="card-subtitle">Your basic account information, hover over the text to update the field.</p>
+              </div>
               <div className="card-item">
                 <label>Account Name: </label>
                 <p> {currentUser.firstName} {currentUser.lastName}</p>
@@ -28,20 +30,26 @@ const AccountSettings = ({ currentUser, setModal, setName, setEmail, setUserProf
                 <label>Account Email: </label>
                 <p> {currentUser.email}</p>
               </div>
-              <button onClick={() => setModal(true, "Update account information", 
-                <UserInfoForm setName={setName} setEmail={setEmail} currentUser={currentUser} />)} className="button-card button-primary">Update
-              </button>
+              <div className="card-item">
+                <button onClick={() => setModal(true, "Update account information", 
+                  <UserInfoForm setName={setName} setEmail={setEmail} currentUser={currentUser} />)} className="button-card button-primary">Update
+                </button>
+              </div>
             </div>
           </div>
 
           <div style={styles}>
-            <h2 className="component-title">User Profile</h2>
-            <p className="component-text">Your public profile information, it can be updated at any time.</p>
-            <div className="component-section">
+            <div className="card">
+              <div className="card-header">
+                <h2 className="card-title">User Profile</h2>
+                <p className="card-subtitle">Your public profile information, it can be updated at any time.</p>
+              </div>
               <ProfileDisplayed currentUser={currentUser} />
-              <button onClick={() => setModal(true, "Update profile information", 
-                <UserProfileForm setUserProfile={setUserProfile} currentUser={currentUser} />)} className="button-primary button-card">Update
-              </button>
+              <div className="card-item">
+                <button onClick={() => setModal(true, "Update profile information", 
+                  <UserProfileForm setUserProfile={setUserProfile} currentUser={currentUser} />)} className="button-primary button-card">Update
+                </button>
+              </div>
             </div>
           </div>
 
