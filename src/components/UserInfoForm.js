@@ -14,7 +14,7 @@ class UserInfoForm extends Component {
       [e.target.name]: e.target.value
     })
   }
-
+  
   render() {
     const { firstName, lastName, email } = this.state
     const { setName, setEmail } = this.props

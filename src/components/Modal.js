@@ -18,9 +18,10 @@ class Modal extends Component {
 
     return (
       <div className={ active ? 'modal modal-open' : 'modal'}>
-        <div className="modal-dialouge">
+        <div id="linktotop"></div>
+        <div className="modal-dialogue">
           <div className="modal-content">
-            { this.state.formSuccess && 
+            { this.state.formSuccess &&  
               <div className="alert success active alert-modal">
                 <p>Success!</p>
               </div>

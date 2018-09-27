@@ -101,6 +101,12 @@ class UserProfileForm extends Component {
     })
   }
 
+  handleClick = (e) => {
+    e.preventDefault()
+    this.props.setUserProfile(this.props.currentUser.id, this.state.username, this.state.location, this.state.headline, this.state.skills, this.state.positions, this.state.fbLink, this.state.imdbLink, this.state.availability, this.state.travel, this.state.union, this.state.bilingual, e)
+    document.getElementById('linktotop').scrollIntoView({behavior: 'smooth'})
+  }
+
   render() {
     const { currentUser, setUserProfile } = this.props
     const { username, location, headline, skills, positions, fbLink, imdbLink, availability, bilingual, travel, union } = this.state
@@ -179,7 +185,7 @@ class UserProfileForm extends Component {
           value={union}
         />
         <FormButton
-          onClick={(e) => setUserProfile(currentUser.id, username, location, headline, skills, positions, fbLink, imdbLink, availability, travel, union, bilingual, e)}
+          onClick={(e) => this.handleClick(e)}
           className="button-primary"
           buttonText="Update User Profile"
         />
