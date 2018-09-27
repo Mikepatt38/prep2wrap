@@ -27,14 +27,18 @@ const AccountSettings = ({ currentUser, setModal, setName, setEmail, setUserProf
                   <label>Account Name: </label>
                   <p> {currentUser.firstName} {currentUser.lastName}</p>
                 </div>
-                <span><a role="button">Edit</a></span>
+                <span><a role="button" onClick={() => setModal(true, "Update account name", 
+                  <UserInfoForm setName={setName} setEmail={null} currentUser={currentUser} />)}>Edit</a>
+                </span>
               </div>
               <div className="card-item">
                 <div className="card-item-info">
                   <label>Account Email: </label>
                   <p> {currentUser.email}</p>
                 </div>
-                <span><a role="button">Edit</a></span>
+                <span><a role="button" onClick={() => setModal(true, "Update account email", 
+                  <UserInfoForm setName={null} setEmail={setEmail} currentUser={currentUser} />)}>Edit</a>
+                </span>
               </div>
             </div>
           </div>
@@ -47,7 +51,9 @@ const AccountSettings = ({ currentUser, setModal, setName, setEmail, setUserProf
               </div>
               <div className="card-item">
                 <ProfileDisplayed currentUser={currentUser} />
-                <span><a role="button">Edit</a></span>
+                <span><a role="button" onClick={() => setModal(true, "Update profile information", 
+                  <UserProfileForm setUserProfile={setUserProfile} currentUser={currentUser} />)}>Edit</a>
+                </span>
               </div>
             </div>
           </div>
@@ -67,17 +73,3 @@ AccountSettings.propTypes = {
 }
 
 export default AccountSettings
-
-
-// <div className="card-item">
-// <button onClick={() => setModal(true, "Update account information", 
-//   <UserInfoForm setName={setName} setEmail={setEmail} currentUser={currentUser} />)} className="button-card button-primary">Update
-// </button>
-// </div>
-
-
-// <div className="card-item">
-// <button onClick={() => setModal(true, "Update profile information", 
-//   <UserProfileForm setUserProfile={setUserProfile} currentUser={currentUser} />)} className="button-primary button-card">Update
-// </button>
-// </div>
