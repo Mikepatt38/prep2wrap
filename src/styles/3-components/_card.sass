@@ -1,6 +1,7 @@
 /* ================
   Styles for Card component
   =============== */
+
 .card
   position: relative
   max-width: 1250px
@@ -51,6 +52,21 @@
     justify-content: space-between
     flex-wrap: wrap
     align-items: center
+
+    h6
+      color: #444
+      font-size: 12px
+      padding: 0 0 2px 0
+      display: block
+      font-weight: 600
+      text-transform: uppercase
+      letter-spacing: 1px
+      margin: 0 0 5px 0
+
+    &.closed
+      display: none
+      visibility: hidden
+      opacity: 0
 
     span
       justify-self: flex-end
