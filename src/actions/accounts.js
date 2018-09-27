@@ -46,7 +46,7 @@ export const setEmail = (id, email, e) => async dispatch => {
   })
 }
 
-export const setUserProfile = (id, username, location, headline, skills, positions, fbLink, imdbLink, availability, travel, union, bilingual, e) => async dispatch => {
+export const setUserProfile = (id, username, location, headline, skills, positions, fbLink, imdbLink, availability, travel, union, bilingual, unions, languages, e) => async dispatch => {
   e.preventDefault()
   const database = await db
   database.collection("users").doc(id).update({
@@ -60,7 +60,9 @@ export const setUserProfile = (id, username, location, headline, skills, positio
     availability,
     travel,
     union,
-    bilingual
+    bilingual,
+    unions, 
+    languages
   })
   .then( () => {
     dispatch({

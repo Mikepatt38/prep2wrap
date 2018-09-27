@@ -79,8 +79,10 @@ class UserProfileForm extends Component {
     imdbLink: this.props.currentUser.imdbLink,
     availability: this.props.currentUser.availability,
     bilingual: this.props.currentUser.bilingual, 
+    languages: this.props.currentUser.languages,
     travel: this.props.currentUser.travel, 
     union: this.props.currentUser.union, 
+    unions: this.props.currentUser.unions,
   }
 
   handleChange = e => {
@@ -103,7 +105,7 @@ class UserProfileForm extends Component {
 
   handleClick = (e) => {
     e.preventDefault()
-    this.props.setUserProfile(this.props.currentUser.id, this.state.username, this.state.location, this.state.headline, this.state.skills, this.state.positions, this.state.fbLink, this.state.imdbLink, this.state.availability, this.state.travel, this.state.union, this.state.bilingual, e)
+    this.props.setUserProfile(this.props.currentUser.id, this.state.username, this.state.location, this.state.headline, this.state.skills, this.state.positions, this.state.fbLink, this.state.imdbLink, this.state.availability, this.state.travel, this.state.union, this.state.bilingual, this.state.unions, this.state.languages, e)
     document.getElementById('linktotop').scrollIntoView({behavior: 'smooth'})
   }
 
@@ -177,12 +179,20 @@ class UserProfileForm extends Component {
           checkboxId="bilingual"
           onChange={this.handleCheck}
           value={bilingual}
+          inputName="languages"
+          inputLabel="List All Fluent Languages"
+          inputValue={this.state.languages === undefined ? '' : this.state.languages}
+          inputOnChange={this.handleChange}
         />
         <FormCheckboxInput
           label="Union"
           checkboxId="union"
           onChange={this.handleCheck}
           value={union}
+          inputName="unions"
+          inputLabel="List Union Names"
+          inputValue={this.state.unions === undefined ? '' : this.state.unions}
+          inputOnChange={this.handleChange}
         />
         <FormButton
           onClick={(e) => this.handleClick(e)}
@@ -231,8 +241,14 @@ export const ProfileDisplayed = ({ currentUser }) => {
         <label>Bilingual: </label>
         <p> {currentUser.bilingual ? 'True' : 'False'}</p>
 
+        <label>Languages Spoken:</label>
+        <p>{ currentUser.languages.length > 0 ? currentUser.languages : 'N/A'}</p>
+
         <label>Apart of A Union: </label>
         <p> {currentUser.union ? 'True' : 'False'}</p>
+
+        <label>Unions Apart Of:</label>
+        <p>{ currentUser.unions.length > 0 ? currentUser.unions : 'N/A'}</p>
       </div>
     </Fragment>
   )
