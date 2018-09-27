@@ -23,17 +23,18 @@ const AccountSettings = ({ currentUser, setModal, setName, setEmail, setUserProf
                 <p className="card-subtitle">Your basic account information, hover over the text to update the field.</p>
               </div>
               <div className="card-item">
-                <label>Account Name: </label>
-                <p> {currentUser.firstName} {currentUser.lastName}</p>
+                <div className="card-item-info">
+                  <label>Account Name: </label>
+                  <p> {currentUser.firstName} {currentUser.lastName}</p>
+                </div>
+                <span><a role="button">Edit</a></span>
               </div>
               <div className="card-item">
-                <label>Account Email: </label>
-                <p> {currentUser.email}</p>
-              </div>
-              <div className="card-item">
-                <button onClick={() => setModal(true, "Update account information", 
-                  <UserInfoForm setName={setName} setEmail={setEmail} currentUser={currentUser} />)} className="button-card button-primary">Update
-                </button>
+                <div className="card-item-info">
+                  <label>Account Email: </label>
+                  <p> {currentUser.email}</p>
+                </div>
+                <span><a role="button">Edit</a></span>
               </div>
             </div>
           </div>
@@ -44,11 +45,9 @@ const AccountSettings = ({ currentUser, setModal, setName, setEmail, setUserProf
                 <h2 className="card-title">User Profile</h2>
                 <p className="card-subtitle">Your public profile information, it can be updated at any time.</p>
               </div>
-              <ProfileDisplayed currentUser={currentUser} />
               <div className="card-item">
-                <button onClick={() => setModal(true, "Update profile information", 
-                  <UserProfileForm setUserProfile={setUserProfile} currentUser={currentUser} />)} className="button-primary button-card">Update
-                </button>
+                <ProfileDisplayed currentUser={currentUser} />
+                <span><a role="button">Edit</a></span>
               </div>
             </div>
           </div>
@@ -68,3 +67,17 @@ AccountSettings.propTypes = {
 }
 
 export default AccountSettings
+
+
+// <div className="card-item">
+// <button onClick={() => setModal(true, "Update account information", 
+//   <UserInfoForm setName={setName} setEmail={setEmail} currentUser={currentUser} />)} className="button-card button-primary">Update
+// </button>
+// </div>
+
+
+// <div className="card-item">
+// <button onClick={() => setModal(true, "Update profile information", 
+//   <UserProfileForm setUserProfile={setUserProfile} currentUser={currentUser} />)} className="button-primary button-card">Update
+// </button>
+// </div>

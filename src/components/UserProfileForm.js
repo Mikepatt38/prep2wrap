@@ -191,49 +191,40 @@ class UserProfileForm extends Component {
 export const ProfileDisplayed = ({ currentUser }) => {
   return (
     <Fragment>
-      <div className="card-item">
+      <div className="card-item-info card-item-info--large">
         <label>Username: </label>
         <p> {currentUser.username}</p>
-      </div>
-      <div className="card-item">
+
         <label>Location: </label>
         <p> {currentUser.location.map( (location, key) => {
           return key === currentUser.location.length -1 ? location.value : location.value + ', '
         })}</p>
-      </div>
-      <div className="card-item">
+
         <label>Skills: </label>
         <p> {currentUser.skills.map( (skill, key) => {
           return key === currentUser.skills.length -1 ? skill.value : skill.value + ', '
         })}</p>
-      </div>
-      <div className="card-item">
+
         <label>Positions: </label>
         <p> {currentUser.positions.map( (position, key) => {
           return key === currentUser.positions.length -1 ? position.value : position.value + ', '
         })}</p>
-      </div>
-      <div className="card-item">
+
         <label>Facebook Link: </label>
         <p> {currentUser.fbLink}</p>
-      </div>
-      <div className="card-item">
+
         <label>IMDB Link: </label>
         <p> {currentUser.imdbLink}</p>
-      </div>
-      <div className="card-item">
+
         <label>Willing To Travel: </label>
         <p> {currentUser.travel ? 'True' : 'False'}</p>
-      </div>
-      <div className="card-item">
+
         <label>Daily Availability: </label>
         <p> {currentUser.availability ? 'True' : 'False'}</p>
-      </div>
-      <div className="card-item">
+
         <label>Bilingual: </label>
         <p> {currentUser.bilingual ? 'True' : 'False'}</p>
-      </div>
-      <div className="card-item">
+
         <label>Apart of A Union: </label>
         <p> {currentUser.union ? 'True' : 'False'}</p>
       </div>
