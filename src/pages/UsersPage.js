@@ -4,6 +4,7 @@ import { UserSearch } from '../components/UserSearch'
 import { Card } from '../components/Card'
 import Table from '../components/Table'
 
+
 const styles = {
   marginTop: '50px'
 }
