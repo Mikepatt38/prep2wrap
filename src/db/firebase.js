@@ -49,4 +49,5 @@ const auth = firebase.auth()
 export {
   db,
   auth,
+  firebase
 }

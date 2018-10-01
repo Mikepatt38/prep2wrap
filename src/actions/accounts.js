@@ -1,4 +1,5 @@
 import { db, auth } from '../db/firebase'
+import { firebase } from '../db/firebase'
 
 export const setAccountView = (view) => ({
   type: 'SET_ACCOUNT_VIEW',
@@ -76,4 +77,27 @@ export const setUserProfile = (id, username, location, headline, skills, positio
       payload: [true, 'error', error]   
     })
   })
+}
+
+export const uploadProfileImage = (filename) => async dispatch => {
+  const ref = firebase.storage().ref
+  const file = filename
+  const name = file.name + '-' + (+new Date())
+  const metadata = {
+    contentType: file.type
+  }
+
+  const task  = ref.child(name).put(file, metadata)
+
+  task
+    .then( (snapshot) => { snapshot.ref.getDownloadURL() })
+    .then( (url) => {
+      console.log(url)
+      dispatch({
+        type: 'SET_PROFILE_IMAGE',
+        payload: url  
+      })
+    })
+    .catch(console.error)
+
 }
