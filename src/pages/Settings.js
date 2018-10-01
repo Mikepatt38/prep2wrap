@@ -9,7 +9,7 @@ const styles = {
   marginBottom: '50px'
 }
 
-const AccountSettings = ({ currentUser, setModal, setName, setEmail, setUserProfile  }) => {
+const AccountSettings = ({ currentUser, setModal, setName, setEmail, setUserProfile, uploadProfileImage  }) => {
   return (
     <React.Fragment>
       <PageHeader pageTitle="Account Settings" />
@@ -21,6 +21,15 @@ const AccountSettings = ({ currentUser, setModal, setName, setEmail, setUserProf
               <div className="card-header">
                 <h2 className="card-title">Basic Information</h2>
                 <p className="card-subtitle">Your basic account information, hover over the text to update the field.</p>
+              </div>
+              <div className="card-item">
+                <div className="card-item-info">
+                  <label>Account Profile Image: </label>
+                  <input type="file" name="profileImage" id="profileImage" />
+                  { currentUser.avatar !== '' ? <img src={currentUser.avatar} alt="User Profile Image" /> : <p>Upload a profile image</p> }
+                </div>
+                <span><a role="button" onClick={() => uploadProfileImage(currentUser.id, document.querySelector('#profileImage').files[0])}> { currentUser.avatar !== '' ? 'Edit' : 'Upload' } </a>
+                </span>
               </div>
               <div className="card-item">
                 <div className="card-item-info">

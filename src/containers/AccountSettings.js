@@ -10,8 +10,7 @@ import withAuthorization from './withAuthorization'
 const mapStateToProps = (state) => {
   return {
     currentUser: state.userState.currentUser,
-    accountView: state.accountState.accountView,
-    profileImageURL: state.accountState.profileImageURL
+    accountView: state.accountState.accountView
   }
 }
 

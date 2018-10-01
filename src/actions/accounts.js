@@ -1,5 +1,5 @@
 import { db, auth } from '../db/firebase'
-import { firebase } from '../db/firebase'
+import { storage } from '../db/firebase'
 
 export const setAccountView = (view) => ({
   type: 'SET_ACCOUNT_VIEW',
@@ -79,10 +79,11 @@ export const setUserProfile = (id, username, location, headline, skills, positio
   })
 }
 
-export const uploadProfileImage = (filename) => async dispatch => {
-  const ref = firebase.storage().ref
+export const uploadProfileImage = (id, filename) => async dispatch => {
+  const ref = storage.ref()
   const file = filename
   const name = file.name + '-' + (+new Date())
+  const database = await db
   const metadata = {
     contentType: file.type
   }
@@ -90,14 +91,45 @@ export const uploadProfileImage = (filename) => async dispatch => {
   const task  = ref.child(name).put(file, metadata)
 
   task
-    .then( (snapshot) => { snapshot.ref.getDownloadURL() })
+    .then( (snapshot) => snapshot.ref.getDownloadURL() )
     .then( (url) => {
-      console.log(url)
-      dispatch({
-        type: 'SET_PROFILE_IMAGE',
-        payload: url  
+      database.collection("users").doc(id).update({
+        avatar: url
+      })
+      .then( () => {
+        console.log('success')
+        dispatch({
+          type: 'ON_MODAL_SUCCESS',
+          payload: [true, false]
+        })
+      })
+      .catch( (error) => {
+        dispatch({
+          type: 'SET_ALERT',
+          payload: [true, 'error', error]   
+        })
       })
     })
     .catch(console.error)
 
+}
+
+export const setProfileImage = (id, filename) =>  async dispatch => {
+  const database = await db
+  database.collection("users").doc(id).update({
+    avatar: filename
+  })
+  .then( () => {
+    console.log('success')
+    dispatch({
+      type: 'ON_MODAL_SUCCESS',
+      payload: [true, false]
+    })
+  })
+  .catch( (error) => {
+    dispatch({
+      type: 'SET_ALERT',
+      payload: [true, 'error', error]   
+    })
+  })
 }
