@@ -207,49 +207,56 @@ class UserProfileForm extends Component {
 export const ProfileDisplayed = ({ currentUser }) => {
   return (
     <Fragment>
-      <div className="card-item-info card-item-info--large">
-        <label>Username: </label>
-        <p> {currentUser.username}</p>
+      { currentUser.location 
+        ?
+          <div className="card-item-info card-item-info--large">
+            <label>Username: </label>
+            <p> {currentUser.username}</p>
 
-        <label>Location: </label>
-        <p> {currentUser.location.map( (location, key) => {
-          return key === currentUser.location.length -1 ? location.value : location.value + ', '
-        })}</p>
+            <label>Location: </label>
+            <p> {currentUser.location.map( (location, key) => {
+              return key === currentUser.location.length -1 ? location.value : location.value + ', '
+            })}</p>
 
-        <label>Skills: </label>
-        <p> {currentUser.skills.map( (skill, key) => {
-          return key === currentUser.skills.length -1 ? skill.value : skill.value + ', '
-        })}</p>
+            <label>Skills: </label>
+            <p> {currentUser.skills.map( (skill, key) => {
+              return key === currentUser.skills.length -1 ? skill.value : skill.value + ', '
+            })}</p>
 
-        <label>Positions: </label>
-        <p> {currentUser.positions.map( (position, key) => {
-          return key === currentUser.positions.length -1 ? position.value : position.value + ', '
-        })}</p>
+            <label>Positions: </label>
+            <p> {currentUser.positions.map( (position, key) => {
+              return key === currentUser.positions.length -1 ? position.value : position.value + ', '
+            })}</p>
 
-        <label>Facebook Link: </label>
-        <p> {currentUser.fbLink}</p>
+            <label>Facebook Link: </label>
+            <p> {currentUser.fbLink}</p>
 
-        <label>IMDB Link: </label>
-        <p> {currentUser.imdbLink}</p>
+            <label>IMDB Link: </label>
+            <p> {currentUser.imdbLink}</p>
 
-        <label>Willing To Travel: </label>
-        <p> {currentUser.travel ? 'True' : 'False'}</p>
+            <label>Willing To Travel: </label>
+            <p> {currentUser.travel ? 'True' : 'False'}</p>
 
-        <label>Daily Availability: </label>
-        <p> {currentUser.availability ? 'True' : 'False'}</p>
+            <label>Daily Availability: </label>
+            <p> {currentUser.availability ? 'True' : 'False'}</p>
 
-        <label>Bilingual: </label>
-        <p> {currentUser.bilingual ? 'True' : 'False'}</p>
+            <label>Bilingual: </label>
+            <p> {currentUser.bilingual ? 'True' : 'False'}</p>
 
-        <label>Languages Spoken:</label>
-        <p>{ currentUser.languages.length > 0 ? currentUser.languages : 'N/A'}</p>
+            <label>Languages Spoken:</label>
+            <p>{ currentUser.languages.length > 0 ? currentUser.languages : 'N/A'}</p>
 
-        <label>Apart of A Union: </label>
-        <p> {currentUser.union ? 'True' : 'False'}</p>
+            <label>Apart of A Union: </label>
+            <p> {currentUser.union ? 'True' : 'False'}</p>
 
-        <label>Unions Apart Of:</label>
-        <p>{ currentUser.unions.length > 0 ? currentUser.unions : 'N/A'}</p>
-      </div>
+            <label>Unions Apart Of:</label>
+            <p>{ currentUser.unions.length > 0 ? currentUser.unions : 'N/A'}</p>
+          </div>
+        :
+          <div className="card-item-info">
+            <p>Click Edit to add your public profile information.</p>
+          </div>
+      }
     </Fragment>
   )
 }
