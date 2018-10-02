@@ -81,7 +81,7 @@ export const setUserProfile = (id, username, location, headline, skills, positio
 
 
 
-export const uploadProfileImage = (id, filename) => async dispatch => {
+export const uploadProfileImage = (id, avatar, filename) => async dispatch => {
   const ref = storage.ref()
   console.log(ref)
   const file = filename
@@ -93,7 +93,7 @@ export const uploadProfileImage = (id, filename) => async dispatch => {
 
   
   const deleted = new Promise( (resolve, reject) => {
-    if(ref.child(name)) {
+    if(avatar) {
       console.log(ref.child(name))
       ref.child(name).delete().then(function() {
         console.log('deleted image')
