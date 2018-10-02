@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import UserProfileForm, { ProfileDisplayed } from '../components/UserProfileForm'
 import UserInfoForm from '../components/UserInfoForm'
 import { PageHeader } from '../components/PageHeader'
-import CheckIcon from '../img/icon-check.svg'
+import { ProfileImageUpload } from '../components/ProfileImageUpload'
 
 const styles = {
   marginBottom: '50px'
@@ -25,10 +25,10 @@ const AccountSettings = ({ currentUser, setModal, setName, setEmail, setUserProf
               <div className="card-item">
                 <div className="card-item-info">
                   <label>Account Profile Image: </label>
-                  <input type="file" name="profileImage" id="profileImage" />
                   { currentUser.avatar ? <img src={currentUser.avatar} alt="User Profile Image" /> : <p>Upload a profile image</p> }
                 </div>
-                <span><a role="button" onClick={() => uploadProfileImage(currentUser.id, currentUser.avatar, document.querySelector('#profileImage').files[0])}> { currentUser.avatar ? 'Edit' : 'Upload' } </a>
+                <span><a role="button" onClick={() => setModal(true, currentUser.avatar ? 'Edit your profile image.' : 'Upload your profile image.' , 
+                  <ProfileImageUpload currentUser={currentUser} uploadProfileImage={uploadProfileImage} />)}>{ currentUser.avatar ? 'Edit' : 'Upload' }</a>
                 </span>
               </div>
               <div className="card-item">
