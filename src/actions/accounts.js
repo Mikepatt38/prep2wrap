@@ -79,18 +79,38 @@ export const setUserProfile = (id, username, location, headline, skills, positio
   })
 }
 
+
+
 export const uploadProfileImage = (id, filename) => async dispatch => {
   const ref = storage.ref()
+  console.log(ref)
   const file = filename
-  const name = file.name + '-' + (+new Date())
+  const name = id
   const database = await db
   const metadata = {
     contentType: file.type
   }
 
+  
+  const deleted = new Promise( (resolve, reject) => {
+    if(ref.child(name)) {
+      console.log(ref.child(name))
+      ref.child(name).delete().then(function() {
+        console.log('deleted image')
+        resolve(true)
+      }).catch(function(error) {
+        console.log(error + ' could not delete image')
+        reject(false)
+      })
+    }
+    resolve(true)
+  })
+
+  const success = await deleted
+
   const task  = ref.child(name).put(file, metadata)
 
-  task
+  success && task
     .then( (snapshot) => snapshot.ref.getDownloadURL() )
     .then( (url) => {
       database.collection("users").doc(id).update({
@@ -111,25 +131,4 @@ export const uploadProfileImage = (id, filename) => async dispatch => {
       })
     })
     .catch(console.error)
-
-}
-
-export const setProfileImage = (id, filename) =>  async dispatch => {
-  const database = await db
-  database.collection("users").doc(id).update({
-    avatar: filename
-  })
-  .then( () => {
-    console.log('success')
-    dispatch({
-      type: 'ON_MODAL_SUCCESS',
-      payload: [true, false]
-    })
-  })
-  .catch( (error) => {
-    dispatch({
-      type: 'SET_ALERT',
-      payload: [true, 'error', error]   
-    })
-  })
 }

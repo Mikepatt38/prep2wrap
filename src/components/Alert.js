@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 export const Alert = ({ active, alertText, alertType, onSetAlert }) => {
   return (
     <div className={active ? 'alert active ' + `${alertType}` : 'alert'} onClick={ () => onSetAlert(false, '', '') }>
-      <p>{alertText}</p>
+      <p></p>
     </div>
   )
 }
