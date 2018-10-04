@@ -13,15 +13,25 @@ class Table extends Component {
   renderRows(){
     let rows = []
     let cells = []
+    let locations = []
+    let available = ''
     this.props.value.map( (value, key) => {
-      const locations = this.props.value[key].location.map ( (value) => {
-        return value.label
-      })
+      if( typeof value.location === 'undefined' && typeof value.availability === 'undefined') {
+        locations = ['Unknown']
+        available = 'Unknown'
+      }
+      else {
+        locations = value.location.map ( (loc) => {
+          return loc.label
+        })
+        available = value.available ? 'Available' : 'Busy'
+      }
+
       cells.push(
         <React.Fragment key={key}>
           <div className="table-row-cell">{value.firstName + ' ' + value.lastName}</div>
           <div className="table-row-cell">{locations.map( (location) => {return location})}</div>
-          <div className="table-row-cell">{value.availability.toString()}</div>  
+          <div className="table-row-cell">{available}</div>  
           <div className="table-row-cell"><span>View Profile</span></div>       
         </React.Fragment>
       )
@@ -36,7 +46,6 @@ class Table extends Component {
   }
 
   render() {
-    // console.log(this.props.value[0].location)
     return (
       <div className="table">
         <div className="table-header table-header-users">

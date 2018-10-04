@@ -14,12 +14,12 @@ export class UserSearch extends Component {
     () => {
       searchUsersByName(this.state.searchTerm)
     })
+    // )
   }
 
   render() {
     const { searchTerm } = this.state
     const { searchUsersByName } = this.props
-    console.log(searchTerm)
 
     return (
       <form

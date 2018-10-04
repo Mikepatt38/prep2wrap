@@ -18,7 +18,7 @@ class UsersPage extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       loading: true,
-      userData: nextProps.userSearchByNameResults
+      userData: nextProps.userSearchByNameResults.length > 0 ? nextProps.userSearchByNameResults : []
     })
     setTimeout( ()=> {
       this.setState({
@@ -49,19 +49,20 @@ class UsersPage extends Component {
                 <UserSearch searchUsersByName={searchUsersByName} />
               </div>
             </div>
-              { this.state.loading 
+              {
+                this.state.userData.length > 0
                 ?
-                  <div className="card-item"><p>Loading...</p></div>
-                :
-                  this.state.userData.length > 0
-                  ?
                   <div className="card-item card-item-full">
                     <UserSearchTable 
                       headers={['Users Name', "Location", "Available Today"]}
                       value={this.state.userData}
                     />
                   </div>
-                  :
+                :
+                  this.state.loading 
+                ?
+                  <div className="card-item"><p>Loading...</p></div>
+                :
                   <span></span>
               }
           </div>

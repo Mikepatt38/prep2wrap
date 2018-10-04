@@ -93,7 +93,7 @@ export const getCurrentUser = (id) => async dispatch => {
   // })
 }
 
-export const searchUsersByName = (searchTerm) => async dispatch => {
+export const searchUsersByName = (searchTerm, e) => async dispatch => {
   // e.preventDefault()
   const database = await db
   let users = []
