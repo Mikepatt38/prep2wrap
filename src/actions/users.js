@@ -93,13 +93,13 @@ export const getCurrentUser = (id) => async dispatch => {
   // })
 }
 
-export const searchUsersByName = (firstName, lastName, e) => async dispatch => {
-  e.preventDefault()
+export const searchUsersByName = (searchTerm) => async dispatch => {
+  // e.preventDefault()
   const database = await db
   let users = []
   database.collection("users").get().then( (querySnapshot) => {
     querySnapshot.forEach( (doc) => {
-      doc.data().firstName === firstName || doc.data().lastName === lastName ? users.push(doc.data()) : null
+      searchTerm.includes(doc.data().firstName) || searchTerm.includes(doc.data().lastName) ? users.push(doc.data()) : null
     })
     dispatch({
       type: 'SEARCH_USER_BY_NAME_RESULTS',

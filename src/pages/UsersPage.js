@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { PageHeader } from '../components/PageHeader'
 import { UserSearch } from '../components/UserSearch'
 import { Card } from '../components/Card'
-import Table from '../components/Table'
+import UserSearchTable from '../components/UserSearchTable'
 
 
 const styles = {
@@ -11,13 +11,20 @@ const styles = {
 
 class UsersPage extends Component {
   state = {
-    userData: []
+    userData: [],
+    loading: false
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
+      loading: true,
       userData: nextProps.userSearchByNameResults
     })
+    setTimeout( ()=> {
+      this.setState({
+        loading: false
+      })
+    }, 1000)
   }
 
   componentWillUnmount() {
@@ -33,24 +40,30 @@ class UsersPage extends Component {
         <PageHeader pageTitle="Users Directory" />
         <div className="container">
           <div className="card">
-            <div className="card-header">
-              <h2 className="card-title">Search For Users</h2>
-              <p className="card-subtitle">This is text that will be shown above the components such as tables and calendar to give a brief description.</p>
+            <div className="card-header card-header-flex">
+              <div className="card-header-flex-text">
+                <h2 className="card-title">User Search</h2>
+                <p className="card-subtitle">Search for users by their first or last name.</p>
+              </div>
+              <div className="card-header-flex-component">
+                <UserSearch searchUsersByName={searchUsersByName} />
+              </div>
             </div>
-            <div className="card-item">
-              <UserSearch searchUsersByName={searchUsersByName} />
-              { this.state.userData.length !== 0 ? 
-                <React.Fragment>
-                  <hr />
-                  <Table 
-                    headers={['Users Name', "Location", "Available Today"]}
-                    value={userSearchByNameResults}
-                  />
-                </React.Fragment>
-              :
-                ''
+              { this.state.loading 
+                ?
+                  <div className="card-item"><p>Loading...</p></div>
+                :
+                  this.state.userData.length > 0
+                  ?
+                  <div className="card-item card-item-full">
+                    <UserSearchTable 
+                      headers={['Users Name', "Location", "Available Today"]}
+                      value={this.state.userData}
+                    />
+                  </div>
+                  :
+                  <div className="card-item"><p>Enter user's name to find users</p></div>
               }
-            </div>
           </div>
         </div> 
         <div className="container" style={styles}>
@@ -70,3 +83,25 @@ class UsersPage extends Component {
 }
 
 export default UsersPage
+
+
+// <div className="card">
+// <div className="card-header">
+//   <h2 className="card-title">Search For Users</h2>
+//   <p className="card-subtitle">This is text that will be shown above the components such as tables and calendar to give a brief description.</p>
+// </div>
+// <div className="card-item">
+//   <UserSearch searchUsersByName={searchUsersByName} />
+//   { this.state.userData.length !== 0 ? 
+//     <React.Fragment>
+//       <hr />
+//       <UserSearchTable 
+//         headers={['Users Name', "Location", "Available Today"]}
+//         value={userSearchByNameResults}
+//       />
+//     </React.Fragment>
+//   :
+//     ''
+//   }
+// </div>
+// </div>

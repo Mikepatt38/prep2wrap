@@ -4,47 +4,44 @@ import { FormButton } from './FormButton'
 
 export class UserSearch extends Component {
   state = {
-    firstName: '',
-    lastName: ''
+    searchTerm: ''
   }
 
-  handleChange = e => {
+  handleChange = (e, searchUsersByName) => {
     this.setState({
       [e.target.name]: e.target.value
+    },
+    () => {
+      searchUsersByName(this.state.searchTerm)
     })
   }
 
   render() {
-    const { firstName, lastName } = this.state
+    const { searchTerm } = this.state
     const { searchUsersByName } = this.props
+    console.log(searchTerm)
 
     return (
       <form
         method="form"
         className="user-search-form"
       >
-        <FormTextInput
-          label="First Name"
-          name="firstName"
-          type="text"
-          onChange={this.handleChange}
-          value={firstName}
-          className="input--half"
-        />
-        <FormTextInput
-          label="Last Name"
-          name="lastName"
-          type="text"
-          onChange={this.handleChange}
-          value={lastName}
-          className="input--half"
-        />
-        <FormButton
-          onClick={(e) => searchUsersByName(firstName, lastName, e)}
-          className="button-primary"
-          buttonText="Search For Users"
-        />
+        <div className="form-group input--half">
+          <input 
+            name="searchTerm"
+            onChange={(e) => this.handleChange(e, searchUsersByName)}
+            type="text"
+            placeholder="Enter User's Name"
+          />
+        </div>
       </form>
     )
   }
 }
+
+
+// <FormButton
+// onClick={(e) => searchUsersByName(searchTerm, e)}
+// className="button-primary"
+// buttonText="Search For Users"
+// />
