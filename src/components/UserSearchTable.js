@@ -13,14 +13,16 @@ class Table extends Component {
   renderRows(){
     let rows = []
     let cells = []
-
     this.props.value.map( (value, key) => {
+      const locations = this.props.value[key].location.map ( (value) => {
+        return value.label
+      })
       cells.push(
-        <React.Fragment>
-          <div key={value.username} className="table-row-cell">{value.firstName + ' ' + value.lastName}</div>
-          <div className="table-row-cell">Los Angeles</div>
-          <div className="table-row-cell">True</div>  
-          <div key={'CTA' + key} className="table-row-cell"><span>View Profile</span></div>       
+        <React.Fragment key={key}>
+          <div className="table-row-cell">{value.firstName + ' ' + value.lastName}</div>
+          <div className="table-row-cell">{locations.map( (location) => {return location})}</div>
+          <div className="table-row-cell">{value.availability.toString()}</div>  
+          <div className="table-row-cell"><span>View Profile</span></div>       
         </React.Fragment>
       )
       rows.push(
@@ -34,6 +36,7 @@ class Table extends Component {
   }
 
   render() {
+    // console.log(this.props.value[0].location)
     return (
       <div className="table">
         <div className="table-header table-header-users">
