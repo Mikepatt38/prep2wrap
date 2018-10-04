@@ -62,7 +62,7 @@ class UsersPage extends Component {
                     />
                   </div>
                   :
-                  <div className="card-item"><p>Enter user's name to find users</p></div>
+                  <span></span>
               }
           </div>
         </div> 
