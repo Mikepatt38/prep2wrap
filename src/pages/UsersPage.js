@@ -34,7 +34,7 @@ class UsersPage extends Component {
   }
 
   render() {
-    const { searchUsersByName, setModal, userSearchByNameResults } = this.props
+    const { searchUsersByName, setUserModal} = this.props
     return (
       <React.Fragment>
         <PageHeader pageTitle="Users Directory" />
@@ -56,6 +56,7 @@ class UsersPage extends Component {
                     <UserSearchTable 
                       headers={['Users Name', "Location", "Available Today"]}
                       value={this.state.userData}
+                      setUserModal={setUserModal}
                     />
                   </div>
                 :
@@ -84,25 +85,3 @@ class UsersPage extends Component {
 }
 
 export default UsersPage
-
-
-// <div className="card">
-// <div className="card-header">
-//   <h2 className="card-title">Search For Users</h2>
-//   <p className="card-subtitle">This is text that will be shown above the components such as tables and calendar to give a brief description.</p>
-// </div>
-// <div className="card-item">
-//   <UserSearch searchUsersByName={searchUsersByName} />
-//   { this.state.userData.length !== 0 ? 
-//     <React.Fragment>
-//       <hr />
-//       <UserSearchTable 
-//         headers={['Users Name', "Location", "Available Today"]}
-//         value={userSearchByNameResults}
-//       />
-//     </React.Fragment>
-//   :
-//     ''
-//   }
-// </div>
-// </div>

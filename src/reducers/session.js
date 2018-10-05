@@ -8,7 +8,9 @@ const INITIAL_STATE = {
   modalTitle: '',
   modalChildren: null,
   modalSuccess: false,
-  modalError: false
+  modalError: false,
+  userModalActive: false,
+  user: null
 }
 
 function sessionReducer(state = INITIAL_STATE, action) {
@@ -27,7 +29,10 @@ function sessionReducer(state = INITIAL_STATE, action) {
     }   
     case 'ON_MODAL_SUCCESS': {
       return { ...state, modalSuccess: action.payload[0], modalError: action.payload[1] }
-    }   
+    }  
+    case 'SET_USER_MODAL': {
+      return {...state, userModalActive: action.payload[0], user: action.payload[1]}
+    } 
     default : return state
   }
 }

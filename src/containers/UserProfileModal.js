@@ -1,14 +1,12 @@
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
-import { searchUsersByName } from '../actions/users'
-import { setModal, setUserModal } from '../actions/components'
-import UsersPage from '../pages/UsersPage'
+import { setUserModal } from '../actions/components'
 import withAuthorization from './withAuthorization'
+import UserProfileModal from '../components/UserProfileModal'
 
 const mapStateToProps = (state) => {
   return {
-    userSearchByNameResults: state.userState.userSearchByNameResults,
     userModalActive: state.sessionState.userModalActive,
     user: state.sessionState.user
   }
@@ -16,8 +14,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    searchUsersByName: bindActionCreators(searchUsersByName, dispatch),
-    setModal: bindActionCreators(setModal, dispatch),
     setUserModal: bindActionCreators(setUserModal, dispatch)
   }
 }
@@ -28,4 +24,4 @@ const authCondition = (authUser) => !!authUser
 export default compose(
   withAuthorization(authCondition),
   connect(mapStateToProps, mapDispatchToProps)
-)(UsersPage)
+)(UserProfileModal)

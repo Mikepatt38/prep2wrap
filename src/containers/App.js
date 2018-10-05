@@ -10,6 +10,7 @@ import withAuthentication from './withAuthentication'
 import Navbar from './Navigation'
 import Alert from './Alert'
 import Modal from './Modal'
+import UserProfileModal from './UserProfileModal'
 
 const App = ({ currentUser }) => {
   return (
@@ -28,6 +29,7 @@ const App = ({ currentUser }) => {
             <div className="app-container-main">
               <Alert />
               <Modal />
+              <UserProfileModal />
               <div className="app-container-main-body">
                 <AuthRoutes />
               </div>

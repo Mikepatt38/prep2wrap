@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import UserProfileModal from './UserProfileModal'
 
 class Table extends Component {
 
@@ -32,7 +33,9 @@ class Table extends Component {
           <div className="table-row-cell">{value.firstName + ' ' + value.lastName}</div>
           <div className="table-row-cell">{locations.map( (location) => {return location})}</div>
           <div className="table-row-cell">{available}</div>  
-          <div className="table-row-cell"><span>View Profile</span></div>       
+          <div className="table-row-cell">
+            <span onClick={() => {this.props.setUserModal(true, this.props.value)}}>View Profile</span>
+          </div>       
         </React.Fragment>
       )
       rows.push(
