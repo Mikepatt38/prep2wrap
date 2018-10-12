@@ -109,12 +109,12 @@ class UserProfileModal extends Component {
                     <a href={user.imdbLink}>Visit {user.firstName} IMDb</a>
                   </div>
                   <div className='user-overview-item'>
-                    <button className="btn-user-overview">Email {user.firstName}</button>
+                    <a href="/">Email {user.firstName}</a>
                   </div>
                   <div className='user-overview-item'>
                     <button 
                       className="btn-user-overview"
-                      onClick={() => addUserToFavorite(currentUser.id.toString(), user.id.toString())}
+                      onClick={() => addUserToFavorite(currentUser.id.toString(), user)}
                     >
                       Add User To Favorites
                     </button>
