@@ -41,14 +41,31 @@ class UserProfileModal extends Component {
     return arr
   }
 
+  handleAddFavorite = async (addUserToFavorite, user) => {
+    const userAdded = await addUserToFavorite(this.props.currentUser.id.toString(), user)
+      .then(() => {
+        return true
+      })
+      .catch((error) => {
+        console.log("Error: " + error)
+      })
+    this.setState({
+      favoritesUpdated: userAdded ? true : false
+    })
+  }
+
   render() {
-    console.log(this.props.user)
-    const { user, setUserModal, addUserToFavorite, currentUser} = this.props
+    const { user, setUserModal, addUserToFavorite } = this.props
 
     return (
       <div className={ this.props.userModalActive ? 'modal modal-open' : 'modal'}>
         <div className="modal-dialogue user-modal">
           <div className="modal-content">
+            { this.state.favoritesUpdated &&  
+              <div className="alert success active alert-modal">
+                <p>Success: User was added to your favoritesUpdated!</p>
+              </div>
+            } 
             <div className="modal-header">
               <h3>{ user && user.firstName } { user && user.lastName}</h3>  
               <a 
@@ -114,7 +131,7 @@ class UserProfileModal extends Component {
                   <div className='user-overview-item'>
                     <button 
                       className="btn-user-overview"
-                      onClick={() => addUserToFavorite(currentUser.id.toString(), user)}
+                      onClick={() => this.handleAddFavorite(addUserToFavorite, user)}
                     >
                       Add User To Favorites
                     </button>

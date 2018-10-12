@@ -133,7 +133,7 @@ export const uploadProfileImage = (id, avatar, filename) => async dispatch => {
     .catch(console.error)
 }
 
-export const addUserToFavorite = (currentUserId, userToBeAdded) => async dispatch => {
+export const addUserToFavorite = (currentUserId, userToBeAdded, resolve) => async dispatch => {
   const database = await db
   let emptyArr = []
   const getUsersFavorites = new Promise( (resolve, reject) => {
@@ -157,10 +157,4 @@ export const addUserToFavorite = (currentUserId, userToBeAdded) => async dispatc
   const updateFavorites = database.collection("favorites").doc(currentUserId).set({ favoritedUsers: [...favorites, userToBeAddedObj] })
 
   updateFavorites 
-    .then( ()=> {
-      console.log("Favorites Updated")
-    })
-    .catch((error) => {
-      console.log("Error: " + error)
-    })
 }
