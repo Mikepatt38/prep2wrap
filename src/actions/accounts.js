@@ -132,3 +132,43 @@ export const uploadProfileImage = (id, avatar, filename) => async dispatch => {
     })
     .catch(console.error)
 }
+
+export const addUserToFavorite = (currentUserId, userToBeAddedId) => async dispatch => {
+  const database = await db
+  let emptyArr = []
+  const getUsersFavorites = new Promise( (resolve, reject) => {
+    try {
+      database.collection("favorites").doc(currentUserId).get().then( (results) => {
+        results.exist ? resolve(results) : resolve(emptyArr)
+      })
+    }
+    catch(error) {
+      reject(error)
+    }
+  })
+
+  const userToBeAddedObj = {
+    id: userToBeAddedId
+  }
+
+  const favorites = await getUsersFavorites
+  const updateFavorites = database.collection("favorites").doc(currentUserId).set({ favoritedUsers: [...favorites, userToBeAddedObj] })
+
+  updateFavorites 
+    .then( ()=> {
+      console.log("Favorites Updated")
+    })
+    .catch((error) => {
+      console.log("Error: " + error)
+    })
+  // console.log(favorites)
+  // database.collection("favorites").doc(currentUserId).update({
+
+  // })
+  // .then(
+  //   console.log('Success, added user ' + userToBeAddedId + 'to the DB.')
+  // )
+  // .catch( (error) => {
+  //   console.log("Error: " + error)
+  // })
+}

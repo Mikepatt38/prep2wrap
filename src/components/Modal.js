@@ -27,13 +27,13 @@ class Modal extends Component {
               </div>
             } 
             <div className="modal-header">
+              <h3>{title}</h3>
               <a 
                 role="button"
                 onClick={() => setModal(false, '', null)}
               >
                 <img src={CloseIcon} />
               </a>
-              <h3>{title}</h3>
             </div>
             <div className="modal-body">
               {children}

@@ -34,7 +34,7 @@ class UsersPage extends Component {
   }
 
   render() {
-    const { searchUsersByName, setUserModal} = this.props
+    const { searchUsersByName, setUserModal, addUserToFavorite, currentUser} = this.props
     return (
       <React.Fragment>
         <PageHeader pageTitle="Users Directory" />

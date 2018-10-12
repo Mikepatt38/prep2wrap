@@ -2,19 +2,22 @@ import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
 import { setUserModal } from '../actions/components'
+import { addUserToFavorite } from '../actions/accounts'
 import withAuthorization from './withAuthorization'
 import UserProfileModal from '../components/UserProfileModal'
 
 const mapStateToProps = (state) => {
   return {
     userModalActive: state.sessionState.userModalActive,
-    user: state.sessionState.user
+    user: state.sessionState.user,
+    currentUser: state.userState.currentUser
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setUserModal: bindActionCreators(setUserModal, dispatch)
+    setUserModal: bindActionCreators(setUserModal, dispatch),
+    addUserToFavorite: bindActionCreators(addUserToFavorite, dispatch)
   }
 }
 
