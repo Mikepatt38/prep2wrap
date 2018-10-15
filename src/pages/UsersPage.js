@@ -3,6 +3,7 @@ import { PageHeader } from '../components/PageHeader'
 import { UserSearch } from '../components/UserSearch'
 import { Card } from '../components/Card'
 import UserSearchTable from '../components/UserSearchTable'
+import UserFavoritesTable from '../components/UserFavoritesTable'
 
 
 const styles = {
@@ -34,7 +35,7 @@ class UsersPage extends Component {
   }
 
   render() {
-    const { searchUsersByName, setUserModal, addUserToFavorite, currentUser} = this.props
+    const { searchUsersByName, setUserModal, currentUser} = this.props
     return (
       <React.Fragment>
         <PageHeader pageTitle="Users Directory" />
@@ -76,6 +77,10 @@ class UsersPage extends Component {
             </div>
             <div className="card-item">
               <p>You currently do not have any favorite friends. To add a favorite, search the user and visit their profile.</p>
+              <UserFavoritesTable
+                currentUser={currentUser}
+                getFavorites={this.props.getFavorites}
+              />
             </div>
           </div>
         </div>  
