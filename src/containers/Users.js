@@ -13,6 +13,7 @@ const mapStateToProps = (state) => {
     userSearchByNameResults: state.userState.userSearchByNameResults,
     userModalActive: state.sessionState.userModalActive,
     user: state.sessionState.user,
+    favorites: state.favoritesState.favorites
   }
 }
 

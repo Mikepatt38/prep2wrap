@@ -2,21 +2,12 @@ import React, { Component } from 'react'
 
 class UserFavoritesTable extends Component {
   state = {
-    favorites: []
-  }
-
-  componentWillMount = () => {
-    this.props.getUserFavorites(this.props.currentUser.id.toString())
-    console.log('Listening for favorites')
-  }
-
-  componentWillUnmount = () => {
-    this.props.stopListeningForFavorites(this.props.currentUser.id.toString())
-    console.log('Stopped listening for favorites')
+    favorites: [],
+    loading: true
   }
 
   renderHeaders() {
-    const headers = ['Name', 'Location', 'Contact']
+    const headers = ['Name']
     return (
       headers.map( (header) => {
         return <div className="table-header-col" key={header}>{header}</div>
@@ -27,17 +18,15 @@ class UserFavoritesTable extends Component {
   renderRows(){
     let rows = []
     let cells = []
-    this.state.favorites.length > 0 && this.state.favorites.map( (value, key) => {
+    this.props.favorites.map( (value, key) => {
 
       cells.push(
         <React.Fragment key={key}>
-          <div className="table-row-cell">{value.firstName + ' ' + value.lastName}</div>
+          <div className="table-row-cell">{value.Name}</div>
           <div className="table-row-cell">
-            <button>Contact</button>
-          </div>  
-          <div className="table-row-cell">
-            <button>Remove</button>
-          </div>       
+            <button className="button-primary">Contact</button>
+            <button className="button-primary">Remove</button>
+          </div>        
         </React.Fragment>
       )
       rows.push(

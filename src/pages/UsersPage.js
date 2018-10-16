@@ -13,13 +13,24 @@ const styles = {
 class UsersPage extends Component {
   state = {
     userData: [],
-    loading: false
+    loading: false,
+    favorites: []
+  }
+
+  componentWillMount = () => {
+    this.props.getUserFavorites(this.props.currentUser.id.toString())
+  }
+
+  componentWillUnmount = () => {
+    this.props.stopListeningForFavorites(this.props.currentUser.id.toString())
+    console.log('Stopped listening for favorites')
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       loading: true,
-      userData: nextProps.userSearchByNameResults.length > 0 ? nextProps.userSearchByNameResults : []
+      userData: nextProps.userSearchByNameResults.length > 0 ? nextProps.userSearchByNameResults : [],
+      favorites: nextProps.favorites
     })
     setTimeout( ()=> {
       this.setState({
@@ -35,7 +46,7 @@ class UsersPage extends Component {
   }
 
   render() {
-    const { searchUsersByName, setUserModal, currentUser} = this.props
+    const { searchUsersByName, setUserModal, currentUser, favorites} = this.props
     return (
       <React.Fragment>
         <PageHeader pageTitle="Users Directory" />
@@ -75,12 +86,11 @@ class UsersPage extends Component {
               <h2 className="card-title">My Favorites</h2>
               <p className="card-subtitle">These are your top eight recommendations from people in the industry that you vouch for.</p>
             </div>
-            <div className="card-item">
+            <div className="card-item card-item-full">
               <p>You currently do not have any favorite friends. To add a favorite, search the user and visit their profile.</p>
               <UserFavoritesTable
                 currentUser={currentUser}
-                getUserFavorites={this.props.getUserFavorites}
-                stopListeningForFavorites={this.props.stopListeningForFavorites}
+                favorites={favorites}
               />
             </div>
           </div>

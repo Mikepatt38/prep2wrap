@@ -4,6 +4,7 @@ export const getUserFavorites = (userId) => async dispatch => {
   const database = await db
   database.collection("favorites").doc(userId).onSnapshot( (doc) => {
     if (doc.exists) {
+      return doc.data().favoritedUsers,
       dispatch({
         type: 'GET_USER_FAVORITES',
         payload: doc.data().favoritedUsers 
