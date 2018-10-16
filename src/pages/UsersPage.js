@@ -79,7 +79,8 @@ class UsersPage extends Component {
               <p>You currently do not have any favorite friends. To add a favorite, search the user and visit their profile.</p>
               <UserFavoritesTable
                 currentUser={currentUser}
-                getFavorites={this.props.getFavorites}
+                getUserFavorites={this.props.getUserFavorites}
+                stopListeningForFavorites={this.props.stopListeningForFavorites}
               />
             </div>
           </div>

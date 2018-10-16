@@ -3,7 +3,7 @@ import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
 import { searchUsersByName } from '../actions/users'
 import { setModal, setUserModal } from '../actions/components'
-import { addUserToFavorite, getFavorites } from '../actions/favorites'
+import { addUserToFavorite, getUserFavorites, stopListeningForFavorites } from '../actions/favorites'
 import UsersPage from '../pages/UsersPage'
 import withAuthorization from './withAuthorization'
 
@@ -22,7 +22,8 @@ const mapDispatchToProps = (dispatch) => {
     setModal: bindActionCreators(setModal, dispatch),
     setUserModal: bindActionCreators(setUserModal, dispatch),
     addUserToFavorite: bindActionCreators(addUserToFavorite, dispatch),
-    getFavorites: bindActionCreators(getFavorites, dispatch)
+    getUserFavorites: bindActionCreators(getUserFavorites, dispatch),
+    stopListeningForFavorites: bindActionCreators(stopListeningForFavorites, dispatch)
   }
 }
 

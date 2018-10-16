@@ -5,6 +5,16 @@ class UserFavoritesTable extends Component {
     favorites: []
   }
 
+  componentWillMount = () => {
+    this.props.getUserFavorites(this.props.currentUser.id.toString())
+    console.log('Listening for favorites')
+  }
+
+  componentWillUnmount = () => {
+    this.props.stopListeningForFavorites(this.props.currentUser.id.toString())
+    console.log('Stopped listening for favorites')
+  }
+
   renderHeaders() {
     const headers = ['Name', 'Location', 'Contact']
     return (

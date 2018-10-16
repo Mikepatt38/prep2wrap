@@ -1,7 +1,27 @@
 import { db, auth } from '../db/firebase'
 
-export const getFavorites = (userId) => async dispatch => {
-  // const database = await db
+export const getUserFavorites = (userId) => async dispatch => {
+  const database = await db
+  database.collection("favorites").doc(userId).onSnapshot( (doc) => {
+    if (doc.exists) {
+      dispatch({
+        type: 'GET_USER_FAVORITES',
+        payload: doc.data().favoritedUsers 
+      })
+    }
+    else {
+      console.log("There are no favorites")
+      dispatch({
+        type: 'GET_USER_FAVORITES',
+        payload: []  
+      })
+    }
+  }) 
+}
+
+export const stopListeningForFavorites = (userId) => async () => {
+  const database = await db
+  database.collection("favorites").doc(userId).onSnapshot( () => {})
 }
 
 export const addUserToFavorite = (currentUserId, userToBeAdded) => async dispatch => {
