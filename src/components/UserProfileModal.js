@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import CloseIcon from '../img/icon-close.svg'
-import { addUserToFavorite } from '../actions/accounts';
 
 class UserProfileModal extends Component {
   state = {

@@ -5,11 +5,6 @@ class UserFavoritesTable extends Component {
     favorites: []
   }
 
-  async componentWillMount() {
-    // const favorites = await this.props.getFavorites(this.props.currentUser.id.toString())
-    // console.log(favorites)
-  }
-
   renderHeaders() {
     const headers = ['Name', 'Location', 'Contact']
     return (

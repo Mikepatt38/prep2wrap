@@ -3,7 +3,7 @@ import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
 import { searchUsersByName } from '../actions/users'
 import { setModal, setUserModal } from '../actions/components'
-import { addUserToFavorite, getFavorites } from '../actions/accounts'
+import { addUserToFavorite, getFavorites } from '../actions/favorites'
 import UsersPage from '../pages/UsersPage'
 import withAuthorization from './withAuthorization'
 

@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
 import { setUserModal } from '../actions/components'
-import { addUserToFavorite } from '../actions/accounts'
+import { addUserToFavorite } from '../actions/favorites'
 import withAuthorization from './withAuthorization'
 import UserProfileModal from '../components/UserProfileModal'
 
