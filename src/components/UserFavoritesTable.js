@@ -24,9 +24,11 @@ class UserFavoritesTable extends Component {
         <React.Fragment key={key}>
           <div className="table-row-cell">{value.Name}</div>
           <div className="table-row-cell">
-            <button className="button-primary">Contact</button>
-            <button className="button-primary">Remove</button>
+            <button className="button-table button-table-primary">Contact</button>
           </div>        
+          <div className="table-row-cell">
+            <button className="button-table button-table-danger">Remove</button>
+          </div>
         </React.Fragment>
       )
       rows.push(

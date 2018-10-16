@@ -87,11 +87,15 @@ class UsersPage extends Component {
               <p className="card-subtitle">These are your top eight recommendations from people in the industry that you vouch for.</p>
             </div>
             <div className="card-item card-item-full">
-              <p>You currently do not have any favorite friends. To add a favorite, search the user and visit their profile.</p>
-              <UserFavoritesTable
-                currentUser={currentUser}
-                favorites={favorites}
-              />
+              { favorites 
+                ?
+                <UserFavoritesTable
+                  currentUser={currentUser}
+                  favorites={favorites}
+                />
+                :
+                <p>You currently do not have any favorite friends. To add a favorite, search the user and visit their profile.</p>
+              }
             </div>
           </div>
         </div>  
