@@ -5,6 +5,7 @@ import AccountSettings from './containers/AccountSettings'
 import UserAuth from './containers/UserAuth'
 import UsersPage from './containers/Users'
 import Availability from './containers/Availability'
+// import Jobs from './containers/Jobs'
 
 import Landing from './pages/Landing'
 import Dashboard from './pages/Dashboard'

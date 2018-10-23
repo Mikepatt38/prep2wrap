@@ -6,10 +6,20 @@ class Jobs extends Component {
   render() {
     return (
       <React.Fragment>
-        <PageHeader pageTitle="Hire a Crew" />
+        <PageHeader pageTitle="Hire A Crew" />
         <div className="container">
-        <h2 className="component-title">All Jobs</h2>
-        <p className="component-text">View current or pending jobs here or create a new job.</p>
+          <div className="card">
+            <div className="card-header">
+              <h2 className="card-title">Create A Job</h2>
+              <p className="card-subtitle">Click the button to create a job.</p>
+            </div>
+            <div className="card-item">
+              <button
+                className="button-primary"  
+                onClick={() => {}}
+              >Create a Job</button>
+            </div>
+          </div>
         </div>
       </React.Fragment>
     )
