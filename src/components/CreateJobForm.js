@@ -19,11 +19,16 @@ export class CreateJobForm extends Component {
       jobLocation: []
     },
     step: 1,
-    currentPositionsInvited: [],
-    usersMatchedResults: [],
     startDate: moment(),
     formattedDate: moment(),
     selectedDate: moment(),
+    userResults: []
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      userResults: nextProps.userResults 
+    })
   }
 
   componentWillMount() {
@@ -105,6 +110,8 @@ export class CreateJobForm extends Component {
                 state={this.state} 
                 nextStep={this.nextStep}
                 prevState={this.prevStep} 
+                userResults={this.state.userResults}
+                userResultsForJobCreation={this.props.userResultsForJobCreation}
                />
     }
   
@@ -186,11 +193,30 @@ export class CreateJobFormStep1 extends Component {
 }
 
 class CreateJobFormStep2 extends Component {
+
+  state = {
+    currentPositionsInvited: [],
+    usersMatchedResults: [],
+  }
+
+  componentWillMount() {
+    this.props.userResultsForJobCreation(this.props.state.jobObj)
+      .then( (results) => {
+        this.setState({
+          usersMatchedResults: results
+        })
+      })
+  }
+
+  saveAndContinue = (e) => {
+    e.preventDefault()
+    this.props.nextStep()
+  }
+
   render() {
+    const { state } = this.props
     return (
-      <div>
-        <p>hey, there.</p>
-      </div>
+      <h1>User Select</h1>
     )
   }
 }

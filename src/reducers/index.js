@@ -4,13 +4,15 @@ import userReducer from './user'
 import accountReducer from './account'
 import availabilityReducer from './availability'
 import favoritesReducer from './favorites'
+import jobsReducer from './jobs'
 
 const rootReducer = combineReducers({
   sessionState: sessionReducer,
   userState: userReducer,
   accountState: accountReducer,
   availabilityState: availabilityReducer,
-  favoritesState: favoritesReducer
+  favoritesState: favoritesReducer,
+  jobsState: jobsReducer,
 })
 
 export default rootReducer
