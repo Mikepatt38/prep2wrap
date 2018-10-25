@@ -4,16 +4,6 @@ import { CreateJobForm } from '../components/CreateJobForm'
 
 class Jobs extends Component {
 
-  state = {
-    userResults: []
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      userResults: nextProps.userResults 
-    })
-  }
-
   handleClick = (e) => {
     e.preventDefault()
     console.log('clicked')
@@ -42,7 +32,6 @@ class Jobs extends Component {
                     currentUser={this.props.currentUser} 
                     createJob={this.props.createJob}
                     userResultsForJobCreation={this.props.userResultsForJobCreation}
-                    userResults={this.state.userResults}
                   />)} 
                 }
               >Create a Job</button>

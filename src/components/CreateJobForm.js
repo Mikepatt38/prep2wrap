@@ -22,13 +22,6 @@ export class CreateJobForm extends Component {
     startDate: moment(),
     formattedDate: moment(),
     selectedDate: moment(),
-    userResults: []
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      userResults: nextProps.userResults 
-    })
   }
 
   componentWillMount() {
@@ -110,7 +103,6 @@ export class CreateJobForm extends Component {
                 state={this.state} 
                 nextStep={this.nextStep}
                 prevState={this.prevStep} 
-                userResults={this.state.userResults}
                 userResultsForJobCreation={this.props.userResultsForJobCreation}
                />
     }

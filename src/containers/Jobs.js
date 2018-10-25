@@ -9,7 +9,6 @@ import withAuthorization from './withAuthorization'
 const mapStateToProps = (state) => {
   return {
     currentUser: state.userState.currentUser,
-    userResults: state.jobsState.userResults
   }
 }
 
