@@ -1,8 +1,19 @@
 import React, { Component } from 'react'
-import withAuthorization from '../containers/withAuthorization'
 import { PageHeader } from '../components/PageHeader'
+import { CreateJobForm } from '../components/CreateJobForm'
 
 class Jobs extends Component {
+
+  handleClick = (e) => {
+    e.preventDefault()
+    console.log('clicked')
+    this.props.setModal(true, "Create A Job Request", 
+      <CreateJobForm 
+        currentUser={this.props.currentUser} 
+        createJob={this.props.createJob}
+      />)
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -16,7 +27,12 @@ class Jobs extends Component {
             <div className="card-item">
               <button
                 className="button-primary"  
-                onClick={() => {}}
+                onClick={() => { this.props.setModal(true, "Create A Job Request", 
+                  <CreateJobForm 
+                    currentUser={this.props.currentUser} 
+                    createJob={this.props.createJob}
+                  />)} 
+                }
               >Create a Job</button>
             </div>
           </div>
@@ -26,7 +42,4 @@ class Jobs extends Component {
   }
 }
 
-const authCondition = (authUser) => !!authUser
-
-
-export default withAuthorization(authCondition)(Jobs)
+export default Jobs

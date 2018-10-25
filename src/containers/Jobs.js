@@ -1,8 +1,9 @@
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
-import { Jobs } from '../components/Jobs'
+import Jobs from '../pages/Jobs'
 import { createJob } from '../actions/jobs'
+import { setModal } from '../actions/components'
 import withAuthorization from './withAuthorization'
 
 const mapStateToProps = (state) => {
@@ -14,7 +15,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createJob: bindActionCreators(createJob, dispatch)
+    createJob: bindActionCreators(createJob, dispatch),
+    setModal: bindActionCreators(setModal, dispatch),
   }
 }
 
