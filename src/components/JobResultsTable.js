@@ -35,7 +35,7 @@ class JobResultsTable extends Component {
     }))
   }
 
-  removeUser = (user, position) => {
+  removeUser = (user) => {
     let tempArr = this.state.usersAssigned
     return new Promise( (resolve, reject) => {
       try {
@@ -44,11 +44,8 @@ class JobResultsTable extends Component {
         })
         this.setState({
           usersAssigned: tempArr
-        }, 
-        () => {
-          let message = "User " + user.id + ' has been deleted'
         })
-        resolve("User " + user.id + ' has been deleted')
+        resolve()
       }
       catch(error){
         reject(error)
@@ -62,33 +59,10 @@ class JobResultsTable extends Component {
     this.isUserAssigned(user.id, position)
       .then( (result) => {
         result 
-          ? this.removeUser(user, position).then( (message) => {
-            console.log(message)
-            this.addUser(user, position)
-          }) 
-          : this.setState( prevState => ({
-            usersAssigned: [
-              ...prevState.usersAssigned,
-              [user, position]
-            ]
-          }))
-          console.log('Added ' + this.state.usersAssigned)
+          ? this.removeUser(user, position)
+              .then( this.addUser(user, position) ) 
+          : this.addUser(user, position)
       })
-
-    // tempAssignment.push([person, position])
-    // console.log(tempAssignment + ' ' + tempAssignment.length)
-    // tempAssignment.length > 2 && tempAssignment.map( (result) => {
-    //   result.includes(position) || result.includes(person) ? deleteArr.push(result) : null
-    // })
-    // console.log(tempAssignment)
-    // tempAssignment = tempAssignment.filter(item => !deleteArr.includes(item))
-    // console.log(tempAssignment)
-    // this.setState({
-    //   usersAssigned: tempAssignment
-    // },
-    // () => {
-    //   this.props.assignPosition(this.state.usersAssigned)
-    // })
   }
 
   renderHeaders() {
