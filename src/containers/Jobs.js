@@ -3,12 +3,13 @@ import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
 import Jobs from '../pages/Jobs'
 import { createJob, userResultsForJobCreation } from '../actions/jobs'
-import { setModal } from '../actions/components'
+import { setModal, setUserModal } from '../actions/components'
 import withAuthorization from './withAuthorization'
 
 const mapStateToProps = (state) => {
   return {
     currentUser: state.userState.currentUser,
+    userModalActive: state.sessionState.userModalActive,
   }
 }
 
@@ -17,6 +18,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     createJob: bindActionCreators(createJob, dispatch),
     setModal: bindActionCreators(setModal, dispatch),
+    setUserModal: bindActionCreators(setUserModal, dispatch),
     userResultsForJobCreation: bindActionCreators(userResultsForJobCreation, dispatch)
   }
 }

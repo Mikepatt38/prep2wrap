@@ -5,6 +5,7 @@ import { FormButton } from './FormButton'
 import { FormCheckboxInput } from './FormCheckboxInput'
 import { FormDatePicker } from './FormDatePicker'
 import FormSelectInput from './FormSelectInput'
+import JobResultsTable from './JobResultsTable'
 
 export class CreateJobForm extends Component {
   state = {
@@ -16,7 +17,8 @@ export class CreateJobForm extends Component {
       jobDates: [],
       jobCreatedTime: new Date(),
       jobPositions: [],
-      jobLocation: []
+      jobLocation: [],
+      jobContact: []
     },
     step: 1,
     startDate: moment(),
@@ -104,7 +106,11 @@ export class CreateJobForm extends Component {
                 nextStep={this.nextStep}
                 prevState={this.prevStep} 
                 userResultsForJobCreation={this.props.userResultsForJobCreation}
+                setUserModal={this.props.setUserModal}
+                userModalActive={this.props.userModalActive}
                />
+      case 3:
+        return <h1>Job Created.</h1>
     }
   
   }
@@ -168,7 +174,7 @@ export class CreateJobFormStep1 extends Component {
         />
         <FormSelectInput
           label="Preferred Form of Contact"
-          name="jobPositions"
+          name="jobContact"
           options={contactObj}
           placeholder="Select Best Form of Contact"
           isMultiSelect={true}
@@ -189,13 +195,16 @@ class CreateJobFormStep2 extends Component {
   state = {
     currentPositionsInvited: [],
     usersMatchedResults: [],
+    loading: true,
+    usersAssigned: [[]]
   }
 
   componentWillMount() {
     this.props.userResultsForJobCreation(this.props.state.jobObj)
       .then( (results) => {
         this.setState({
-          usersMatchedResults: results
+          usersMatchedResults: results,
+          loading: false
         })
       })
   }
@@ -205,10 +214,31 @@ class CreateJobFormStep2 extends Component {
     this.props.nextStep()
   }
 
+  assignPosition = (usersAssignedArr) => {
+    console.log(usersAssignedArr)
+    this.setState({
+      usersAssigned: usersAssignedArr
+    })
+  }
+
   render() {
     const { state } = this.props
     return (
-      <h1>User Select</h1>
+      !this.state.loading && this.state.usersMatchedResults.length > 0 &&  
+      <React.Fragment>
+        <JobResultsTable
+          results={this.state.usersMatchedResults}
+          setUserModal={this.props.setUserModal}
+          userModalActive={this.props.userModalActive}
+          positions={state.jobObj.jobPositions}
+          assignPosition={this.assignPosition}
+        />
+        <FormButton
+          className="button-primary"
+          buttonText="Send Invite and Create Job"
+          onClick={this.saveAndContinue}
+        />
+      </React.Fragment>
     )
   }
 }

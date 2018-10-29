@@ -32,6 +32,8 @@ class Jobs extends Component {
                     currentUser={this.props.currentUser} 
                     createJob={this.props.createJob}
                     userResultsForJobCreation={this.props.userResultsForJobCreation}
+                    userModalActive={this.props.userModalActive}
+                    setUserModal={this.props.setUserModal}
                   />)} 
                 }
               >Create a Job</button>

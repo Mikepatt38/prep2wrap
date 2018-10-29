@@ -4,7 +4,6 @@ import moment from 'moment'
 import DatePicker from 'react-datepicker'
 
 export const FormDatePicker = ( {label, startDate, handleChange, className, selectedDate} ) => {
-  console.log(selectedDate)
   return (
     <div className={'form-group' + ` ${className}`}>
       <label className="date-picker-label">{label}</label>
