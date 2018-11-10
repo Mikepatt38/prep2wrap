@@ -108,6 +108,8 @@ export class CreateJobForm extends Component {
                 userResultsForJobCreation={this.props.userResultsForJobCreation}
                 setUserModal={this.props.setUserModal}
                 userModalActive={this.props.userModalActive}
+                createJob={this.props.createJob}
+                currentUser={this.props.currentUser}
                />
       case 3:
         return <h1>Job Created.</h1>
@@ -211,6 +213,7 @@ class CreateJobFormStep2 extends Component {
 
   saveAndContinue = (e) => {
     e.preventDefault()
+    this.props.createJob(this.props.currentUser.id.toString(), 'Job Name Here')
     this.props.nextStep()
   }
 
