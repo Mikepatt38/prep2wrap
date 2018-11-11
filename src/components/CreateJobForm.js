@@ -15,7 +15,7 @@ export class CreateJobForm extends Component {
       unionMember: false,
       jobDesc: '',
       jobDates: [],
-      jobCreatedTime: new Date(),
+      jobCreatedTime: moment(),
       jobPositions: [],
       jobLocation: [],
       jobContact: []
@@ -24,6 +24,7 @@ export class CreateJobForm extends Component {
     startDate: moment(),
     formattedDate: moment(),
     selectedDate: moment(),
+    selectedDates: [],
   }
 
   componentWillMount() {
@@ -64,6 +65,8 @@ export class CreateJobForm extends Component {
   handleCheck = e => {
     const newVal = e.target.checked
     const name = e.target.id
+    console.log('Check pressed:' +  e.target.checked)
+    console.log('Checkbox id: ' + e.target.id)
     this.setState(prevState => ({
       jobObj: {
           ...prevState.jobObj,
@@ -83,10 +86,23 @@ export class CreateJobForm extends Component {
   }
 
   handleDateChange = (date) => {
-    this.setState({
-      startDate: date,
-      formattedDate: date.format('MM/DD/YYYY')
-    })
+    this.setState(prevState => ({
+      jobObj: {
+          ...prevState.jobObj,
+          jobDates: [...prevState.jobObj.jobDates, date.format('MM/DD/YYYY')]
+      },
+      selectedDate: date,
+      selectedDates: [...prevState.selectedDates, date.format('MM/DD/YYYY')]
+    }))
+  }
+
+  removeDate = (dateClicked) => {
+    let temp = [...this.state.selectedDates]
+    let index = temp.indexOf(dateClicked)
+    if (index !== -1) {
+      temp.splice(index, 1);
+      this.setState({selectedDates: temp}, () => { console.log('Removed Date: ' + dateClicked)})
+    }
   }
 
   render(){
@@ -99,6 +115,8 @@ export class CreateJobForm extends Component {
                 handleCheck={this.handleCheck}
                 handleSelect={this.handleSelect}
                 handleDateChange={this.handleDateChange}
+                setJobObjData={this.props.setJobObjData}
+                removeDate={this.removeDate}
               />
       case 2:
         return <CreateJobFormStep2 
@@ -166,6 +184,19 @@ export class CreateJobFormStep1 extends Component {
           className="date-picker-form-group"
           handleChange={handleDateChange}
         />
+        <ul>
+          {state.selectedDates.map( date => {
+            return <li onClick={() => { this.props.removeDate(date) }}>{date}</li>
+          })}
+        </ul>
+        <FormSelectInput
+          label="Select the Job Location"
+          name="jobLocation"
+          options={locationObj}
+          placeholder="Select Location for Job"
+          isMultiSelect={false}
+          onSelect={handleSelect}
+        />
         <FormSelectInput
           label="Select Job Positions Hiring For"
           name="jobPositions"
@@ -179,7 +210,7 @@ export class CreateJobFormStep1 extends Component {
           name="jobContact"
           options={contactObj}
           placeholder="Select Best Form of Contact"
-          isMultiSelect={true}
+          isMultiSelect={false}
           onSelect={handleSelect}
         />
         <FormButton
@@ -226,6 +257,7 @@ class CreateJobFormStep2 extends Component {
 
   render() {
     const { state } = this.props
+    console.log(this.props.state)
     return (
       !this.state.loading && this.state.usersMatchedResults.length > 0 &&  
       <React.Fragment>
