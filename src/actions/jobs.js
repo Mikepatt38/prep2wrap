@@ -1,31 +1,31 @@
 import { db, auth } from '../db/firebase'
 
-export const createJob = (id, jobObj) => async dispatch => {
+export const createJob = (id, jobObj) => async () => {
   const database = await db
-  database.collection("jobs").doc(id).set({
-    jobId: id,
-    jobName: jobObj.jobName,
-    jobCreator: jobObj.jobCreator,
-    unionMember: jobObj.unionMember,
-    jobDesc: jobObj.jobDesc,
-    jobDates: jobObj.jobDates,
-    jobPositions: jobObj.jobPositions,
-    jobLocation: jobObj.jobLocation,
-    jobContact: jobObj.jobContact
+  const createJobSendInvitesSuccessful = new Promise( (resolve, reject) => {
+    try {
+      database.collection("jobs").doc(id).set({
+        jobId: id,
+        jobName: jobObj.jobName,
+        jobCreator: jobObj.jobCreator,
+        unionMember: jobObj.unionMember,
+        jobDesc: jobObj.jobDesc,
+        jobDates: jobObj.jobDates,
+        jobPositions: jobObj.jobPositions,
+        jobLocation: jobObj.jobLocation,
+        jobContact: jobObj.jobContact
+      })
+      resolve('success')
+    }
+    catch(error) {
+      reject('error')
+    }
   })
-  .then( ()=> {
-    dispatch({
-      type: 'SET_ALERT',
-      payload: [true, 'success', 'New job was created']
-    })
-  })
-  .catch ( (error) => {
-    console.log('Error: ' + error)
-  })
+  return await createJobSendInvitesSuccessful
 }
 
 
-export const userResultsForJobCreation = (jobObj) => async dispatch => {
+export const userResultsForJobCreation = (jobObj) => async () => {
   // e.preventDefault()
   const database = await db
   let users = []

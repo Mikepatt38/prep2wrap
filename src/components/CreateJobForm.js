@@ -52,6 +52,13 @@ export class CreateJobForm extends Component {
     })
   }
 
+  errorStep = () => {
+    const { step } = this.state
+    this.setState({
+      step: 'error'
+    })
+  }
+
 
   handleChange = e => {
     const newVal = e.target.value
@@ -157,15 +164,24 @@ export class CreateJobForm extends Component {
                 userResultsForJobCreation={this.props.userResultsForJobCreation}
                 setUserModal={this.props.setUserModal}
                 userModalActive={this.props.userModalActive}
-                createJob={this.props.createJob}
-                currentUser={this.props.currentUser}
                 assignedUsers={this.assignedUsers}
                />
       case 3:
         return <CreateJobFormStep3
                 state={this.state}
+                nextStep={this.nextStep}
                 prevStep={this.prevStep}
+                currentUser={this.props.currentUser}
+                createJob={this.props.createJob}
               />
+      case 4: 
+        return <div>
+                <p>Success! Your job invites have been sent.</p>
+              </div>
+      case 'error':
+        return <div>
+                <p>Oops! Something went wrong, try recreating your job to fix the error!</p>
+              </div>
     }
   
   }
@@ -279,7 +295,6 @@ class CreateJobFormStep2 extends Component {
 
   saveAndContinue = (e) => {
     e.preventDefault()
-    this.props.createJob(this.props.currentUser.id.toString(), this.props.state.jobObj)
     this.props.nextStep()
   }
 
@@ -316,11 +331,18 @@ class CreateJobFormStep2 extends Component {
 }
 
 class CreateJobFormStep3 extends Component {
-  render() {
+  
+  saveAndContinue = (e) => {
+    this.props.createJob(this.props.currentUser.id.toString(), this.props.state.jobObj)
+      .then( result => {
+        result === 'success' ? this.props.nextStep() : this.props.errorStep()
+      })
+  }
 
+  render() {
     const { state } = this.props
     return (
-      <div className="card">
+      <div className="card-item">
         <div className="card-item-info">
           <label>Job Creator: </label>
           <p>{state.jobObj.jobCreator}</p>
@@ -342,6 +364,11 @@ class CreateJobFormStep3 extends Component {
               return <li key={key}>{user[0].firstName}: {user[1]}</li>
             })}
           </ul>
+          <FormButton
+            className="button-primary"
+            buttonText="Send Invite and Create Job"
+            onClick={this.saveAndContinue}
+          />
         </div>
       </div>
     )
