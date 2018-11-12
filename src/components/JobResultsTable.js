@@ -32,7 +32,10 @@ class JobResultsTable extends Component {
         ...prevState.usersAssigned,
         [user, position]
       ]
-    }))
+    }),
+    () => {
+      this.props.assignPosition(this.state.usersAssigned)
+    })
   }
 
   removeUser = (user) => {
@@ -44,6 +47,9 @@ class JobResultsTable extends Component {
         })
         this.setState({
           usersAssigned: tempArr
+        },
+        () => {
+          this.props.assignPosition(this.state.usersAssigned)
         })
         resolve()
       }

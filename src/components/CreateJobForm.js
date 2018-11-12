@@ -26,6 +26,7 @@ export class CreateJobForm extends Component {
     formattedDate: moment(),
     selectedDate: moment(),
     selectedDates: [],
+    usersAssigned: []
   }
 
   componentWillMount() {
@@ -128,6 +129,12 @@ export class CreateJobForm extends Component {
     }
   }
 
+  assignedUsers = (assignedUsers) => {
+    this.setState({
+      usersAssigned: assignedUsers
+    })
+  }
+
   render(){
     switch(this.state.step) {
       case 1:
@@ -152,9 +159,13 @@ export class CreateJobForm extends Component {
                 userModalActive={this.props.userModalActive}
                 createJob={this.props.createJob}
                 currentUser={this.props.currentUser}
+                assignedUsers={this.assignedUsers}
                />
       case 3:
-        return <h1>Job Created.</h1>
+        return <CreateJobFormStep3
+                state={this.state}
+                prevStep={this.prevStep}
+              />
     }
   
   }
@@ -273,9 +284,11 @@ class CreateJobFormStep2 extends Component {
   }
 
   assignPosition = (usersAssignedArr) => {
-    console.log(usersAssignedArr)
     this.setState({
       usersAssigned: usersAssignedArr
+    }, 
+    () => {
+      this.props.assignedUsers(this.state.usersAssigned)
     })
   }
 
@@ -298,6 +311,39 @@ class CreateJobFormStep2 extends Component {
           onClick={this.saveAndContinue}
         />
       </React.Fragment>
+    )
+  }
+}
+
+class CreateJobFormStep3 extends Component {
+  render() {
+
+    const { state } = this.props
+    return (
+      <div className="card">
+        <div className="card-item-info">
+          <label>Job Creator: </label>
+          <p>{state.jobObj.jobCreator}</p>
+          <label>Job Name: </label>
+          <p>{state.jobObj.jobName}</p>
+          <label>Job Creator: </label>
+          <p>{state.jobObj.jobCreator}</p>
+          <label>Job Dates: </label>
+          <p>{state.jobObj.jobDates.map( date => {
+            return date
+          })}</p>
+          <label>Job Location: </label>
+          <p>{state.jobObj.jobLocation}</p>
+          <label>Preferred Contact: </label>
+          <p>{state.jobObj.jobContact}</p>
+          <label>Job Invitations: </label>
+          <ul>
+            {state.usersAssigned.map( (user, key) => {
+              return <li key={key}>{user[0].firstName}: {user[1]}</li>
+            })}
+          </ul>
+        </div>
+      </div>
     )
   }
 }
