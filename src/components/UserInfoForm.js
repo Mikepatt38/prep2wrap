@@ -7,6 +7,7 @@ class UserInfoForm extends Component {
     firstName: this.props.currentUser.firstName,
     lastName: this.props.currentUser.lastName,
     email: this.props.currentUser.email,  
+    mobileNumber: this.props.currentUser.mobileNumber
   }
 
   handleChange = e => {
@@ -16,8 +17,8 @@ class UserInfoForm extends Component {
   }
   
   render() {
-    const { firstName, lastName, email } = this.state
-    const { setName, setEmail } = this.props
+    const { firstName, lastName, email, mobileNumber } = this.state
+    const { setName, setEmail, setMobileNumber } = this.props
     
     return (
       <Fragment>
@@ -63,6 +64,25 @@ class UserInfoForm extends Component {
               onClick={(e) => setEmail(this.props.currentUser.id, email, e)}
               className="button-primary"
               buttonText="Update Email"
+            />
+          </form>
+        }
+        { setMobileNumber !== null &&
+          <form
+            onSubmit={setEmail}
+            className="form-account-body--general"
+          >
+            <FormTextInput
+              label="Mobile Number"
+              name="mobileNumber"
+              type="tel"
+              onChange={this.handleChange}
+              value={mobileNumber}
+            />
+            <FormButton
+              onClick={(e) => setMobileNumber(this.props.currentUser.id, mobileNumber, e)}
+              className="button-primary"
+              buttonText="Update Number"
             />
           </form>
         }

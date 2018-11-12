@@ -9,7 +9,7 @@ const styles = {
   marginBottom: '50px'
 }
 
-const AccountSettings = ({ currentUser, setModal, setName, setEmail, setUserProfile, uploadProfileImage  }) => {
+const AccountSettings = ({ currentUser, setModal, setName, setEmail, setMobileNumber, setUserProfile, uploadProfileImage  }) => {
   return (
     <React.Fragment>
       <PageHeader pageTitle="Account Settings" />
@@ -37,7 +37,7 @@ const AccountSettings = ({ currentUser, setModal, setName, setEmail, setUserProf
                   <p> {currentUser.firstName} {currentUser.lastName}</p>
                 </div>
                 <span><a role="button" onClick={() => setModal(true, "Update account name", 
-                  <UserInfoForm setName={setName} setEmail={null} currentUser={currentUser} />)}>Edit</a>
+                  <UserInfoForm setName={setName} setMobileNumber={null} setEmail={null} currentUser={currentUser} />)}>Edit</a>
                 </span>
               </div>
               <div className="card-item">
@@ -46,7 +46,16 @@ const AccountSettings = ({ currentUser, setModal, setName, setEmail, setUserProf
                   <p> {currentUser.email}</p>
                 </div>
                 <span><a role="button" onClick={() => setModal(true, "Update account email", 
-                  <UserInfoForm setName={null} setEmail={setEmail} currentUser={currentUser} />)}>Edit</a>
+                  <UserInfoForm setName={null} setMobileNumber={null} setEmail={setEmail} currentUser={currentUser} />)}>Edit</a>
+                </span>
+              </div>
+              <div className="card-item">
+                <div className="card-item-info">
+                  <label>Primary Mobile Number: </label>
+                  <p> {currentUser.mobileNumber}</p>
+                </div>
+                <span><a role="button" onClick={() => setModal(true, "Update account mobile number", 
+                  <UserInfoForm setName={null} setEmail={null} setMobileNumber={setMobileNumber} currentUser={currentUser} />)}>Edit</a>
                 </span>
               </div>
             </div>

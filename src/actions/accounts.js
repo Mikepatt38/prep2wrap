@@ -31,7 +31,27 @@ export const setEmail = (id, email, e) => async dispatch => {
   e.preventDefault()
   const database = await db
   database.collection("users").doc(id).update({
-    email
+    email,
+  })
+  .then( () => {
+    dispatch({
+      type: 'ON_MODAL_SUCCESS',
+      payload: [true, false]
+    })
+  })
+  .catch( (error) => {
+    dispatch({
+      type: 'SET_ALERT',
+      payload: [true, 'error', "ERROR: " + error]   
+    })
+  })
+}
+
+export const setMobileNumber = (id, mobileNumber, e) => async dispatch => {
+  e.preventDefault()
+  const database = await db
+  database.collection("users").doc(id).update({
+    mobileNumber
   })
   .then( () => {
     dispatch({

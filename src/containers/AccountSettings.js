@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
-import { setName, setEmail, setUserProfile, setAccountView, uploadProfileImage } from '../actions/accounts'
+import { setName, setEmail, setMobileNumber, setUserProfile, setAccountView, uploadProfileImage } from '../actions/accounts'
 import { setAlert } from '../actions/components'
 import { setModal } from '../actions/components'
 import AccountSettings from '../pages/Settings'
@@ -18,6 +18,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setName: bindActionCreators(setName, dispatch),
     setEmail: bindActionCreators(setEmail, dispatch),
+    setMobileNumber: bindActionCreators(setMobileNumber, dispatch),
     setUserProfile: bindActionCreators(setUserProfile, dispatch),
     setAccountView: bindActionCreators(setAccountView, dispatch),
     setAlert: bindActionCreators(setAlert, dispatch),
