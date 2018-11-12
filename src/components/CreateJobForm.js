@@ -20,6 +20,7 @@ export class CreateJobForm extends Component {
       jobLocation: [],
       jobContact: []
     },
+    jobDescCount: 0,
     step: 1,
     startDate: moment(),
     formattedDate: moment(),
@@ -59,7 +60,15 @@ export class CreateJobForm extends Component {
           ...prevState.jobObj,
           [name]: newVal
       }
-    }))
+    }), () => {
+      name === 'jobDesc' 
+      ? 
+        this.setState({
+          jobDescCount: this.state.jobObj.jobDesc.length 
+        })
+      : null
+    })
+
   }
 
   handleCheck = e => {
@@ -186,7 +195,7 @@ export class CreateJobFormStep1 extends Component {
           value={state.jobObj.unionMember}
         />
         <FormTextInput
-          label="Job Description"
+          label={"Job Description (" + state.jobDescCount + "/140)"}
           name="jobDesc"
           type="text"
           value={state.jobObj.jobDesc}
