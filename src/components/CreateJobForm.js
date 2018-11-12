@@ -76,11 +76,25 @@ export class CreateJobForm extends Component {
   }
 
   handleSelect = (name, val) => {
-    const newVal = val
+    const newVal = val.value
     this.setState(prevState => ({
       jobObj: {
           ...prevState.jobObj,
           [name]: newVal
+      }
+    }))
+  }
+
+  handleMultiSelect = (name, val) => {
+    const newArr = val
+    let tempArr = []
+    newArr.map( value => {
+      tempArr.push(value.value)
+    })
+    this.setState(prevState => ({
+      jobObj: {
+        ...prevState.jobObj,
+        [name]: tempArr
       }
     }))
   }
@@ -114,6 +128,7 @@ export class CreateJobForm extends Component {
                 handleChange={this.handleChange}
                 handleCheck={this.handleCheck}
                 handleSelect={this.handleSelect}
+                handleMultiSelect={this.handleMultiSelect}
                 handleDateChange={this.handleDateChange}
                 setJobObjData={this.props.setJobObjData}
                 removeDate={this.removeDate}
@@ -145,7 +160,7 @@ export class CreateJobFormStep1 extends Component {
 
   render() {
     const { state } = this.props
-    const { handleChange, handleCheck, handleDateChange, handleSelect } = this.props
+    const { handleChange, handleCheck, handleMultiSelect, handleDateChange, handleSelect } = this.props
     return (
       <form>
         <FormTextInput
@@ -203,7 +218,7 @@ export class CreateJobFormStep1 extends Component {
           options={positionsObj}
           placeholder="Select Positions For Jobs"
           isMultiSelect={true}
-          onSelect={handleSelect}
+          onSelect={handleMultiSelect}
         />
         <FormSelectInput
           label="Preferred Form of Contact"
@@ -244,7 +259,7 @@ class CreateJobFormStep2 extends Component {
 
   saveAndContinue = (e) => {
     e.preventDefault()
-    this.props.createJob(this.props.currentUser.id.toString(), 'Job Name Here')
+    this.props.createJob(this.props.currentUser.id.toString(), this.props.state.jobObj)
     this.props.nextStep()
   }
 

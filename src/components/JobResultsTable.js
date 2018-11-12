@@ -90,10 +90,10 @@ class JobResultsTable extends Component {
             >
               { this.props.positions.map( position => {
                 return <option 
-                  key={position.label}
-                  value={position.value}
+                  key={position}
+                  value={position}
                   >
-                    {position.value}
+                    {position}
                 </option>
               })}
             </select>

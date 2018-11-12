@@ -1,10 +1,17 @@
 import { db, auth } from '../db/firebase'
 
-export const createJob = (id, jobName) => async dispatch => {
+export const createJob = (id, jobObj) => async dispatch => {
   const database = await db
   database.collection("jobs").doc(id).set({
-    jobName,
-    jobId: id
+    jobId: id,
+    jobName: jobObj.jobName,
+    jobCreator: jobObj.jobCreator,
+    unionMember: jobObj.unionMember,
+    jobDesc: jobObj.jobDesc,
+    jobDates: jobObj.jobDates,
+    jobPositions: jobObj.jobPositions,
+    jobLocation: jobObj.jobLocation,
+    jobContact: jobObj.jobContact
   })
   .then( ()=> {
     dispatch({
