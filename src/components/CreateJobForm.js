@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import moment from 'moment'
+import 'whatwg-fetch'
+// import fetch from 'isomorphic-unfetch'
 import { FormTextInput } from './FormTextInput'
 import { FormButton } from './FormButton'
 import { FormCheckboxInput } from './FormCheckboxInput'
@@ -236,8 +238,8 @@ export class CreateJobFormStep1 extends Component {
           handleChange={handleDateChange}
         />
         <ul>
-          {state.selectedDates.map( date => {
-            return <li onClick={() => { this.props.removeDate(date) }}>{date}</li>
+          {state.selectedDates.map( (date, key) => {
+            return <li key={key} onClick={() => { this.props.removeDate(date) }}>{date}</li>
           })}
         </ul>
         <FormSelectInput
@@ -331,11 +333,27 @@ class CreateJobFormStep2 extends Component {
 }
 
 class CreateJobFormStep3 extends Component {
+
+  sendSMSWithTwilio = () => {
+    console.log('started message sending')
+    fetch('http://localhost:9000/sendsms', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/JSON',
+        'Content-Type': 'application/JSON',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: JSON.stringify({recipient: this.props.currentUser.mobileNumber})
+    })
+    .then(() => this.props.nextStep())  
+    .catch(error => console.log(error))
+  }
   
   saveAndContinue = (e) => {
     this.props.createJob(this.props.currentUser.id.toString(), this.props.state.jobObj)
       .then( result => {
-        result === 'success' ? this.props.nextStep() : this.props.errorStep()
+        console.log(result)
+        result === 'success' ? this.sendSMSWithTwilio() : this.props.errorStep()
       })
   }
 
