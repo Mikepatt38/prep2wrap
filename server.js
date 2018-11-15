@@ -32,6 +32,8 @@ app.use(bodyParser.json())
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
+app.use(cors(corsOptions))
+
 app.use(express.static(path.join(__dirname, 'build')))
 
 app.get('/*', function (req, res) {
@@ -46,10 +48,8 @@ app.post('/sendsms', bodyParser.json(), (req, res) => {
     from: '+16822049551',
     body: 'This is a test twilio text.'
    })
-  .then(() => res.send('success'))
-  .then(() => console.log('Text job invites sent successfully'))
+  .then(() => res.send())
   .catch(error => console.error(error.toString()))
-  // .done();
 })
 
 app.listen(PORT, _ =>

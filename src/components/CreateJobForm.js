@@ -335,7 +335,6 @@ class CreateJobFormStep2 extends Component {
 class CreateJobFormStep3 extends Component {
 
   sendSMSWithTwilio = () => {
-    console.log('started message sending')
     fetch('http://localhost:9000/sendsms', {
       method: 'POST',
       headers: {
@@ -345,14 +344,14 @@ class CreateJobFormStep3 extends Component {
       },
       body: JSON.stringify({recipient: this.props.currentUser.mobileNumber})
     })
-    .then(() => this.props.nextStep())  
-    .catch(error => console.log(error))
+    .then(resp => {
+      resp.status === 200 ? this.props.nextStep() : this.props.errorStep()
+    })
   }
   
   saveAndContinue = (e) => {
     this.props.createJob(this.props.currentUser.id.toString(), this.props.state.jobObj)
       .then( result => {
-        console.log(result)
         result === 'success' ? this.sendSMSWithTwilio() : this.props.errorStep()
       })
   }
