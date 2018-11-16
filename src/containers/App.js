@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
-import { AuthRoutes, NonAuthRoutes } from '../routes'
+import { AuthRoutes } from '../routes'
 
 import Sidebar from '../components/Sidebar'
 
@@ -19,7 +19,7 @@ const App = ({ currentUser }) => {
         ?
           <React.Fragment>
             <Navbar />
-            <NonAuthRoutes />
+            <AuthRoutes />
           </React.Fragment>
         :
           <div className="app-container">
