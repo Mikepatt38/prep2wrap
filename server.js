@@ -41,12 +41,16 @@ app.get('/*', function (req, res) {
 })
 
 app.post('/sendsms', bodyParser.json(), (req, res) => {
-  var client = require('twilio')('AC0936b65c8fa91d19c4f8ab2f6d0d9da8', '47ea0f5b93c0e4a2ef2c8c28269c6a33')
+  let SID = process.env.TWILIO_SID
+  let TOKEN = process.env.TWILIO_TOKEN
+  let SENDER = process.env.TWILIO_SENDER
+
+  var client = require('twilio')(SID, TOKEN)
   client.messages
   .create({
     to: '+18179654467',
     from: '+16822049551',
-    body: 'This is a test twilio text.'
+    body: req.body.message
    })
   .then(() => res.send())
   .catch(error => console.error(error.toString()))

@@ -335,6 +335,12 @@ class CreateJobFormStep2 extends Component {
 class CreateJobFormStep3 extends Component {
 
   sendSMSWithTwilio = () => {
+    const { state } = this.props
+    let textBody = `
+      Job Name: ${state.jobObj.jobName} \n \n Job Creator: ${state.jobObj.jobCreator} \n\n Job Dates: ${state.jobObj.jobDates.map( date => {
+        return ' ' + date 
+      })} \n\n Job Location: ${state.jobObj.jobLocation} \n \n Preferred Contact: ${state.jobObj.jobContact}
+    `
     fetch('http://localhost:9000/sendsms', {
       method: 'POST',
       headers: {
@@ -342,7 +348,9 @@ class CreateJobFormStep3 extends Component {
         'Content-Type': 'application/JSON',
         'Access-Control-Allow-Origin': '*'
       },
-      body: JSON.stringify({recipient: this.props.currentUser.mobileNumber})
+      body: JSON.stringify({
+        message: textBody
+      })
     })
     .then(resp => {
       resp.status === 200 ? this.props.nextStep() : this.props.errorStep()
@@ -365,8 +373,8 @@ class CreateJobFormStep3 extends Component {
           <p>{state.jobObj.jobCreator}</p>
           <label>Job Name: </label>
           <p>{state.jobObj.jobName}</p>
-          <label>Job Creator: </label>
-          <p>{state.jobObj.jobCreator}</p>
+          <label>Job Description: </label>
+          <p>{state.jobObj.jobDesc}</p>
           <label>Job Dates: </label>
           <p>{state.jobObj.jobDates.map( date => {
             return date
