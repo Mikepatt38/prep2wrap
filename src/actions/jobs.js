@@ -13,7 +13,8 @@ export const createJob = (id, jobObj) => async () => {
         jobDates: jobObj.jobDates,
         jobPositions: jobObj.jobPositions,
         jobLocation: jobObj.jobLocation,
-        jobContact: jobObj.jobContact
+        jobContact: jobObj.jobContact,
+        jobStatus: 'pending'
       })
       resolve('success')
     }
