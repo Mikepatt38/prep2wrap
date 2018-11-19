@@ -5,23 +5,23 @@ div#linktotop
   position: absolute
   top: 0
 
-.modal
-  display: none
-  align-items: center
-  justify-content: center
-  position: fixed
-  top: 0
-  right: 0
-  bottom: 0
-  left: 0
-  padding: 1rem
-  background-color: rgba(236,236,236, 0.9)
-  z-index: 9999
-  opacity: 0
-  visibility: hidden
-  overflow-x: hidden
-  overflow-y: auto
-  animation: fade .5s ease-in-out
+// .modal
+//   display: none
+//   align-items: center
+//   justify-content: center
+//   position: fixed
+//   top: 0
+//   right: 0
+//   bottom: 0
+//   left: 0
+//   padding: 1rem
+//   background-color: rgba(236,236,236, 0.9)
+//   z-index: 9999
+//   opacity: 0
+//   visibility: hidden
+//   overflow-x: hidden
+//   overflow-y: auto
+//   animation: fade .5s ease-in-out
 
   &.modal-open
     display: flex
@@ -113,3 +113,69 @@ div#linktotop
     button.btn-user-overview
       background-color: $color__blue
       border: 1px solid $color__blue
+
+// =========== General Modal Styles =========== //
+
+.modal
+  width: 47%
+  box-sizing: border-box
+  margin-left: auto
+  margin-right: auto
+  position: relative
+  margin-top: 60px
+  margin-bottom: 120px
+  background-color: #fff
+  padding: 40px 0
+  border-radius: 2px
+
+  .modal-header
+    text-align: center
+    padding-left: 17.37588652%
+    padding-right: 17.37588652%
+
+    img
+      width: 40px
+
+    h2
+      letter-spacing: -.5px
+      font-size: 39px
+      line-height: 1.5
+      font-weight: 700
+      margin-top: 0
+      margin-bottom: 10px
+      color: #16373B
+
+    p
+      font-size: 18px
+      line-height: 1.5
+      font-weight: 400
+      margin-top: 0
+      color: #9fa4a6
+
+  .modal-body
+    padding-top: 30px
+    padding-bottom: 30px
+    padding-left: 17.37588652%
+    padding-right: 17.37588652%
+
+  .modal-footer
+    position: relative
+    text-align: center
+    padding-left: 10.81560284%
+    padding-right: 10.81560284%
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: center
+    flex: 1
+    backface-visibility: hidden
+    text-align: center
+
+    a
+      color: $color__blue
+      cursor: pointer
+      font-size: 13px
+      font-weight: 500
+
+      &:hover
+        color: rgba(99,234,211,.9)

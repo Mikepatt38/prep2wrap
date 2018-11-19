@@ -3,49 +3,46 @@ import { Link } from 'react-router-dom'
 import { FormTextInput } from './FormTextInput'
 import { FormButton } from './FormButton'
 
-const margin = {
-  marginTop: '10px'
-}
-
 export const Login = ({ state, handleChange, history, signUserIn, error }) => {
   return (
-      <React.Fragment>
-        <form
-          onSubmit={(e) => signUserIn(state.email, state.password, history, e)}
-        >
-          <legend>Glad to see you again!</legend>
-          <div className="form-link">
-            New To The Calltime? &nbsp;
-            <Link to="/signup">
-              <span>Sign Up</span>
-            </Link>
-          </div>
-          <FormTextInput
-            label="Email"
-            name="email"
-            onChange={handleChange}
-            type="email"
-          />
-          <FormTextInput
-            label="password"
-            name="password"
-            onChange={handleChange}
-            type="password"
-          />
-          <FormButton
-            className="button button-primary"
-            buttonText="Login"
-          />
-          {error && <p>{error.message}</p>}
-        </form>
-        <div className="form-footer" style={margin}>
-          <div>
-            Forgot Password? &nbsp;
-            <Link to="/password-reset">
-              <span>Reset Your Password</span>
-            </Link>
-          </div>
-        </div>
-      </React.Fragment>
+    <form onSubmit={(e) => signUserIn(state.email, state.password, history, e)}> 
+      <FormTextInput
+        label="Email"
+        name="email"
+        onChange={handleChange}
+        errorMsg="Please enter your valid account email address"
+        className={state.emailInputClass}
+        type="email"
+      />
+      <FormTextInput
+        label="password"
+        name="password"
+        onChange={handleChange}
+        errorMsg="Please enter your valid account password"
+        className={state.emailPasswordClass}
+        type="password"
+      />
+      <FormButton
+        className="button-form"
+        buttonText="Login"
+      />
+    </form>
+  )
+}
+
+export const LoginText = () => {
+  return (
+    <React.Fragment>
+      <h2>Welcome back</h2>
+      <p>Log in to get to work.</p>
+    </React.Fragment>
+  )
+}
+
+export const ForgotPassword = () => {
+  return (
+    <Link to="/password-reset">
+      <a>Forgot your password?</a>
+    </Link>
   )
 }

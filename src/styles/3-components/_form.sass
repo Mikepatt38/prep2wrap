@@ -151,3 +151,85 @@ input[type="checkbox"]#unionMember:checked + label.checkbox, input[type="checkbo
     width: 100%
     color: $color__blue
     cursor: pointer
+
+
+/* ===============
+  General Form Styles
+  ================== */
+
+form
+  display: flex
+  flex-direction: row
+  align-items: flex-start
+  justify-content: space-between
+  flex-wrap: wrap
+  flex: 1
+
+  .form-group
+    width: 100%
+    position: relative
+    display: flex
+    flex-direction: column
+    margin-bottom: 40px
+
+    label
+      text-transform: uppercase
+      color: #14374c
+      font-weight: 700
+      font-size: 11px
+      margin-bottom: 10px
+      display: block
+      white-space: nowrap
+      letter-spacing: 1.25px
+
+    input
+      font-size: 16px
+      line-height: 1.2
+      font-weight: 400
+      color: #16374b
+      position: relative
+      outline: 0
+      border-radius: 2px
+      border: 1px solid #c9ced1
+      box-shadow: none
+      width: 100%
+      box-sizing: border-box
+      height: 60px
+      padding: 0 15px
+      
+      &:focus, &:active, &:focus-within, .css-2o5izw, .css-bl6clz
+        outline: none
+        border: 1px solid $color__blue
+
+    p.error-msg
+      display: none
+
+    &.field-error > label
+      color: $color__errorRed
+
+    &.field-error > input 
+      z-index: 1000
+      border-color: $color__errorRed
+    
+    &.field-error > p.error-msg
+      display: block
+      color: $color__errorRed
+      padding-top: 4px
+      font-size: 12px
+      line-height: 1
+
+  button.button-form
+    height: 50px
+    line-height: 50px
+    border-radius: 2px
+    border: 0
+    background-color: $color__mainBlue
+    display: inline-block
+    width: auto
+    padding: 0 50px
+    cursor: pointer
+    margin: 0 auto
+    transition: background 250ms 0s ease
+    position: relative
+    overflow: hidden
+    min-width: auto

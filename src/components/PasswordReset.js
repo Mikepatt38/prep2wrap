@@ -2,25 +2,30 @@ import React from 'react'
 import { FormTextInput } from './FormTextInput'
 import { FormButton } from './FormButton'
 
-const margin = {
-  marginBottom: '50px'
-}
-
-export const PasswordReset = ({ email, error, handleChange, resetPassword }) => {
+export const PasswordReset = ({ email, state, error, handleChange, resetPassword }) => {
   return (
-    <form onSubmit={(e) => resetPassword(email, e)} style={margin}>
-      <legend style={margin}>Reset Your Password</legend>
+    <form onSubmit={(e) => resetPassword(email, e)}>
       <FormTextInput
         label="Email"
         name="email"
         onChange={handleChange}
+        errorMsg="Please enter your valid account email address"
+        className={state.emailInputClass}
         type="text"
       />
       <FormButton
-        className="button-primary"
+        className="button-form"
         buttonText="Send Reset Password Link"
       />
-      {error && <p>{error.message}</p>}
     </form>
+  )
+}
+
+export const PasswordResetText = () => {
+  return (
+    <React.Fragment>
+      <h2>Oh no!</h2>
+      <p>Provide account email to receive a password reset link.</p>
+    </React.Fragment>
   )
 }

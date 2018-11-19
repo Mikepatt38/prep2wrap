@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export const FormTextInput = ( {label, name, value, type, disabled, placeholder, onChange, className} ) => {
+export const FormTextInput = ( {label, name, value, type, disabled, placeholder, onChange, className, errorMsg } ) => {
   return (
     <div className={'form-group' + ` ${className}`}>
       <label>{label}:</label>
@@ -13,6 +13,7 @@ export const FormTextInput = ( {label, name, value, type, disabled, placeholder,
         placeholder={placeholder}
         disabled={disabled}
       />
+      <p className="error-msg">{errorMsg}</p>
     </div>
   )
 }
