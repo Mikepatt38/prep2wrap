@@ -60,28 +60,6 @@ class UserAuth extends Component {
       </div>
     )
   }
-
-  // render() {
-  //   const { history, signUserIn, signUpUser, resetPassword} = this.props
-  //   return (
-  //     <div className="page-background">
-  //       <div className="page-background-skewed"></div>
-  //       <div className="logo">
-  //         <img src={logo} alt="The Calltime Login Page Logo" />
-  //       </div>
-  //       <div className="container container--form">
-  //         <div className="form-wrap">
-  //           {this.state.authStatus === 'login'
-  //             ? <Login state={this.state} handleChange={this.handleChange}  history={history} signUserIn={signUserIn} />
-  //             : this.state.authStatus === 'signup' 
-  //               ? <SignUp state={this.state} handleChange={this.handleChange}  history={history} signUpUser={signUpUser} />
-  //               : <PasswordReset email={this.state.email} error={this.state.error} handleChange={this.handleChange} resetPassword={resetPassword} />
-  //           }
-  //         </div>
-  //       </div>
-  //     </div>
-  //   )
-  // }
 }
 
 export default withRouter(UserAuth)
