@@ -50,38 +50,35 @@ class Availability extends Component {
   render() {
     const { userDates } = this.props
     return (
-      <React.Fragment>
-        <PageHeader pageTitle="User Availability" />
-        <div className="container">
-          <div className="card">
-            <div className="card-header">
-              <h2 className="card-title">Availability Calendar</h2>
-              <p className="card-subtitle">A calendar view of your current availability with dates that are booked or marked unavailable.</p>
-            </div>
-            <div className="card-item" style={style}>
-              { this.state.selectedDate !== null 
-                ? 
-                <div className="calendar-alert">
-                  <div className="calendar-alert-text">
-                    <h6>{this.state.selectedDate}</h6>
-                    <p>This date is currently booked, to change it to open to receive job request, click the button below.</p>
-                  </div>
-                  <div className="calendar-alert-action">
-                    <img onClick={() => this.setState({ selectedDate: null })} src={CloseIcon} alt="Close Icon" />
-                  </div>
-                </div>
-                :
-                <p>Select a date to change the current availability.</p>
-              }
-            </div>
+      <div className="container">
+        <div className="card">
+          <div className="card-header">
+            <h2 className="card-title">Availability Calendar</h2>
+            <p className="card-subtitle">A calendar view of your current availability with dates that are booked or marked unavailable.</p>
           </div>
-          <Calendar 
-            dates={userDates} 
-            setSelectedDate={this.setSelectedDate} 
-            onSelectedDate={this.onSelectedDate} 
-          />
+          <div className="card-item" style={style}>
+            { this.state.selectedDate !== null 
+              ? 
+              <div className="calendar-alert">
+                <div className="calendar-alert-text">
+                  <h6>{this.state.selectedDate}</h6>
+                  <p>This date is currently booked, to change it to open to receive job request, click the button below.</p>
+                </div>
+                <div className="calendar-alert-action">
+                  <img onClick={() => this.setState({ selectedDate: null })} src={CloseIcon} alt="Close Icon" />
+                </div>
+              </div>
+              :
+              <p>Select a date to change the current availability.</p>
+            }
+          </div>
         </div>
-      </React.Fragment>
+        <Calendar 
+          dates={userDates} 
+          setSelectedDate={this.setSelectedDate} 
+          onSelectedDate={this.onSelectedDate} 
+        />
+      </div>
     )
   }
 }

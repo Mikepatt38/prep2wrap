@@ -49,7 +49,6 @@ class UsersPage extends Component {
     const { searchUsersByName, setUserModal, currentUser, favorites} = this.props
     return (
       <React.Fragment>
-        <PageHeader pageTitle="Users Directory" />
         <div className="container">
           <div className="card">
             <div className="card-header card-header-flex">

@@ -29,7 +29,7 @@ const Navbar = ({ currentUser, dropdownOpen, onToggleDropdown }) => {
 export default class DashboardNavbar extends Component {
   render() {
     return (
-      <div className="header">
+      <div className="header" id="dashboard">
         <div className="header-section">
           <div className="grid-item">
             <a className="logo"><img src={logo} alt="Calltime Dashboard Logo" /></a>

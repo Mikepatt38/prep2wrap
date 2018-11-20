@@ -6,7 +6,6 @@ class Dashboard extends Component {
   render() {
     return (
       <React.Fragment>
-        <PageHeader pageTitle="Dashboard" />
         <div className="container">
           <h1 className="page-title">Welcome, UserDashboard</h1>
         </div>

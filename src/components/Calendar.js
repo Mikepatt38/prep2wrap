@@ -12,7 +12,7 @@ class Calendar extends Component {
   renderHeader() {
     const dateFormat = "MMMM YYYY";
     return (
-      <div className="header row flex-middle">
+      <div className="header row flex-middle" id="calendar">
         <div className="col col-start">
           <div className="icon" onClick={this.prevMonth}>
             chevron_left

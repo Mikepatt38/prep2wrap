@@ -17,30 +17,37 @@ const App = ({ currentUser }) => {
     <Router>
       {currentUser === null
         ?
-          <div className="app-container">
-            <Navbar />
-            <div className="app-container-main-body">
-              <NonAuthRoutes />
-            </div>
+          <div>
+            <AuthRoutes />
           </div>
         :
           <div className="app-container">
-            <div className="app-container-sidebar">
-              <Sidebar />
-            </div>
-            <div className="app-container-main">
-              <Alert />
-              <Modal />
-              <UserProfileModal />
-              <div className="app-container-main-body">
-                <AuthRoutes />
-              </div>
+            <Alert />
+            <Modal />
+            <UserProfileModal />
+            <Navbar />
+            <div className="app-container-main-body">
+              <AuthRoutes />
             </div>
           </div>
       }
     </Router>
   )
 }
+
+// <div className="app-container">
+// <div className="app-container-sidebar">
+//   <Sidebar />
+// </div>
+// <div className="app-container-main">
+//   <Alert />
+//   <Modal />
+//   <UserProfileModal />
+//   <div className="app-container-main-body">
+//     <AuthRoutes />
+//   </div>
+// </div>
+// </div>
 
 
 
