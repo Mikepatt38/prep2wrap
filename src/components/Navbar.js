@@ -22,6 +22,14 @@ const Navbar = ({ currentUser, dropdownOpen, onToggleDropdown }) => {
   )
 }
 
+export const DashboardNavbar = () => {
+  return (
+    <div className="header">
+
+    </div>
+  )
+}
+
 export class NavDropdown extends Component {
   state = {
     dropdownClass: 'navbar-dropdown'

@@ -10,6 +10,7 @@ import Jobs from './containers/Jobs'
 
 import Landing from './pages/Landing'
 import Dashboard from './pages/Dashboard'
+import JobsTest from './pages/JobsTest'
 
 export const AuthRoutes = () => {
   return (
@@ -25,5 +26,11 @@ export const AuthRoutes = () => {
       <ProtectedRoute exact path='/availability' component={Availability} />
       <ProtectedRoute exact path='/account-settings' component={AccountSettings} />
     </Switch>
+  )
+}
+
+export const NonAuthRoutes = () => {
+  return (
+    <Route exact path='/jobs-test' component={JobsTest} />
   )
 }
