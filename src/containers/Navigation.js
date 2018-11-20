@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { setDropdownToggle } from '../actions/components'
-import Navbar from '../components/Navbar'
+import DashboardNavbar from '../components/Navbar'
 
 
 const mapStateToProps = (state) => {
@@ -15,4 +15,4 @@ const mapDispatchToProps = (dispatch) => ({
   onToggleDropdown: (dropdownOpen) => dispatch(setDropdownToggle(dropdownOpen))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardNavbar)

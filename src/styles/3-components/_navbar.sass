@@ -67,6 +67,93 @@
 .header
   background: #ffffff
   position: relative
-  padding: 20px 3%
-  width: 100%
-  
+  z-index: 10
+  box-shadow: rgba(12, 52, 75, 0.05) 0px 3px 3px
+  width: 100vw
+  grid-template-columns: 1fr 2fr 1fr
+  display: grid
+  height: 68px
+  background: white
+
+  .header-section
+    display: grid
+
+    .grid-item
+      display: flex
+      align-items: center
+      pointer-events: all
+      opacity: 1
+
+      &.grid-item--centered
+        justify-content: center
+      &.grid-item--right
+        justify-content: flex-end
+        margin-right: 15px
+
+      .user
+        position: relative
+        padding-left: 20px
+
+      .user > p
+        margin: 0
+        line-height: 1
+
+      .user > p.name
+        font-size: 16px
+        font-weight: 500
+
+      .user > p.description
+        opacity: 0.6
+        font-size: 12px
+        margin-top: 4px
+
+      a.logo
+        width: 68px
+        height: 68px
+        display: flex
+        align-items: center
+        justify-content: center
+        background: $color__darkBlue
+
+        img
+          width: 35px
+
+      ul.nav
+        padding: 0
+        margin: 0
+        list-style: none
+        display: flex
+        align-content: center
+
+        li
+          display: inline-flex
+          align-items: center
+          padding: 0 15px
+          &.padding
+            padding: 0
+            padding-right: 5px
+          &:first-child
+            padding-left: 0
+          &:last-child
+            padding-right: 0
+
+          span, a
+            display: flex
+            align-content: center
+            justify-content: center
+          span > img, a > img
+            height: 16px
+            margin-right: 6px
+            width: auto
+            &.iconLg
+              height: 20px
+              cursor: pointer
+          span > a
+            text-transform: uppercase
+            color: #677694
+            font-weight: 500
+            font-size: 12px
+            letter-spacing: 0.750px
+            transition: padding 0s linear .4s
+            cursor: pointer
+            margin: 0
