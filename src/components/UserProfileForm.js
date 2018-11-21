@@ -113,12 +113,13 @@ class UserProfileForm extends Component {
     const { currentUser, setUserProfile } = this.props
     const { username, location, headline, skills, positions, fbLink, imdbLink, availability, bilingual, travel, union } = this.state
     return (
-      <form className="form-account-body--profile">
+      <form className="card-form-profile">
         <FormTextInput 
           label="Username"
           name="username"
           type="text"
           onChange={this.handleChange}
+          className="form-group--half"
           value={username}
         />
         <FormSelectInput
@@ -153,6 +154,7 @@ class UserProfileForm extends Component {
           name="fbLink"
           type="text"
           onChange={this.handleChange}
+          className="form-group--half"
           value={fbLink}
         />
         <FormTextInput 
@@ -160,6 +162,7 @@ class UserProfileForm extends Component {
           name="imdbLink"
           type="text"
           onChange={this.handleChange}
+          className="form-group--half"
           value={imdbLink}
         />
         <FormCheckboxInput
@@ -194,11 +197,13 @@ class UserProfileForm extends Component {
           inputValue={this.state.unions === undefined ? '' : this.state.unions}
           inputOnChange={this.handleChange}
         />
-        <FormButton
-          onClick={(e) => this.handleClick(e)}
-          className="button-primary"
-          buttonText="Update User Profile"
-        />
+        <div className="button-wrapper">
+          <FormButton
+            onClick={(e) => this.handleClick(e)}
+            className="button-form"
+            buttonText="Update User Profile"
+          />
+        </div>
       </form>  
     )
   }

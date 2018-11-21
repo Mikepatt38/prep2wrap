@@ -223,7 +223,8 @@ form
     line-height: 50px
     border-radius: 2px
     border: 0
-    background-color: $color__mainBlue
+    color: $color__mainBlue 
+    background-color: rgba(61, 119, 234, 0.2)
     display: inline-block
     width: auto
     padding: 0 50px
@@ -233,3 +234,40 @@ form
     position: relative
     overflow: hidden
     min-width: auto
+
+
+form.card-form-userName, form.card-form-email, form.card-form-profile
+
+  .form-group
+    width: 100%
+    margin: 0
+    margin-bottom: 24px
+
+    &.form-group--half
+      width: 48.5%
+
+    label
+      color: $color__text
+      margin-bottom: 2px
+
+    input
+      font-size: 12px
+      padding: 0
+      text-indent: 12px
+      height: 40px
+      margin: 0
+
+  .button-wrapper
+    display: flex
+    justify-content: flex-end
+    position: relative
+    width: 100%
+
+  button.button-form
+    height: 40px
+    line-height: 40px
+    border-radius: 2px
+    letter-spacing: 0.50px
+    margin: 0
+    padding: 0 20px
+    justify-self: flex-end
