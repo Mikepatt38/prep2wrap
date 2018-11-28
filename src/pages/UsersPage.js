@@ -49,17 +49,13 @@ class UsersPage extends Component {
     const { searchUsersByName, setUserModal, currentUser, favorites} = this.props
     return (
       <React.Fragment>
-        <div className="container">
+        <div className="container containerMargin">
+          <div className="card-title">
+            <h3>User Search</h3>
+            <p>Search for other user's profiles and information using the table below.</p>
+          </div>
           <div className="card">
-            <div className="card-header card-header-flex">
-              <div className="card-header-flex-text">
-                <h2 className="card-title">User Search</h2>
-                <p className="card-subtitle">Search for users by their first or last name.</p>
-              </div>
-              <div className="card-header-flex-component">
-                <UserSearch searchUsersByName={searchUsersByName} />
-              </div>
-            </div>
+            <UserSearch searchUsersByName={searchUsersByName} />
               {
                 this.state.userData.length > 0
                 ?
@@ -75,16 +71,16 @@ class UsersPage extends Component {
                 ?
                   <div className="card-item"><p>Loading...</p></div>
                 :
-                  <span></span>
+                <div className="card-item"><p>No users to return.</p></div>
               }
           </div>
         </div> 
         <div className="container" style={styles}>
+          <div className="card-title">
+            <h3>Favorited Users</h3>
+            <p>These are your top eight recommendations from people in the industry that you vouch for.</p>
+          </div>
           <div className="card">
-            <div className="card-header">
-              <h2 className="card-title">My Favorites</h2>
-              <p className="card-subtitle">These are your top eight recommendations from people in the industry that you vouch for.</p>
-            </div>
             <div className="card-item card-item-full">
               { favorites 
                 ?

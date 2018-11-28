@@ -50,12 +50,12 @@ class Availability extends Component {
   render() {
     const { userDates } = this.props
     return (
-      <div className="container">
+      <div className="container containerMargin">
+        <div className="card-title">
+          <h3>Availability Calendar</h3>
+          <p>A calendar view of your current availability. Click on the dates to change or update availability.</p>
+        </div>
         <div className="card">
-          <div className="card-header">
-            <h2 className="card-title">Availability Calendar</h2>
-            <p className="card-subtitle">A calendar view of your current availability with dates that are booked or marked unavailable.</p>
-          </div>
           <div className="card-item" style={style}>
             { this.state.selectedDate !== null 
               ? 
