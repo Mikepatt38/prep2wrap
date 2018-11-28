@@ -130,6 +130,7 @@ class UserProfileForm extends Component {
           placeholder="Select Cities You Work In"
           isMultiSelect={true}
           onSelect={this.handleSelect}
+          className="form-group--half"
         />
         <FormSelectInput
           label="Skills"
@@ -170,12 +171,14 @@ class UserProfileForm extends Component {
           checkboxId="travel"
           onChange={this.handleCheck}
           value={travel}
+          className="form-group--half"
         />
         <FormCheckboxInput
           label="Daily Availability"
           checkboxId="availability"
           onChange={this.handleCheck}
           value={availability}
+          className="form-group--half"
         />
         <FormCheckboxInput
           label="Bilingual"
@@ -186,6 +189,7 @@ class UserProfileForm extends Component {
           inputLabel="List All Fluent Languages"
           inputValue={this.state.languages === undefined ? '' : this.state.languages}
           inputOnChange={this.handleChange}
+          className="form-group--half"
         />
         <FormCheckboxInput
           label="Union"
@@ -196,6 +200,7 @@ class UserProfileForm extends Component {
           inputLabel="List Union Names"
           inputValue={this.state.unions === undefined ? '' : this.state.unions}
           inputOnChange={this.handleChange}
+          className="form-group--half"
         />
         <div className="button-wrapper">
           <FormButton

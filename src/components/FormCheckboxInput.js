@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 const style = {
   marginBottom: '5px'
 }
-export const FormCheckboxInput = ({ label, checkboxId, value, disabled, onChange, inputName, inputLabel, inputValue, inputOnChange }) => {
+export const FormCheckboxInput = ({ label, checkboxId, value, disabled, onChange, inputName, inputLabel, inputValue, inputOnChange, className }) => {
   return (
-    <div className="form-group">
+    <div className={'form-group ' + ` ${className}`}>
       <label>{label}:</label>
       <span className="custom-checkbox" style={style}>
         <input 
