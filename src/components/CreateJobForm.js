@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import 'whatwg-fetch'
-// import fetch from 'isomorphic-unfetch'
 import { FormTextInput } from './FormTextInput'
 import { FormButton } from './FormButton'
 import { FormCheckboxInput } from './FormCheckboxInput'
@@ -23,7 +22,7 @@ export class CreateJobForm extends Component {
       jobContact: []
     },
     jobDescCount: 0,
-    step: 1,
+    step: 0,
     startDate: moment(),
     formattedDate: moment(),
     selectedDate: moment(),
@@ -49,6 +48,7 @@ export class CreateJobForm extends Component {
 
   prevStep = () => {
     const { step } = this.state
+    console.log(step)
     this.setState({
         step : step - 1
     })
@@ -146,28 +146,49 @@ export class CreateJobForm extends Component {
 
   render(){
     switch(this.state.step) {
+      case 0:
+        return (
+          <div className="card">
+            <div className="card-header">
+              <h3>Create A Job</h3>
+              <p>Create a job to hire other local professionals to your project.</p>
+              <button 
+                className="button-form"
+                onClick={this.nextStep}
+              >
+                Create A New Job
+              </button>   
+            </div>
+          </div>   
+        )
       case 1:
-        return <CreateJobFormStep1
-                state={this.state}
-                nextStep={this.nextStep}
-                handleChange={this.handleChange}
-                handleCheck={this.handleCheck}
-                handleSelect={this.handleSelect}
-                handleMultiSelect={this.handleMultiSelect}
-                handleDateChange={this.handleDateChange}
-                setJobObjData={this.props.setJobObjData}
-                removeDate={this.removeDate}
-              />
+        return (
+          <CreateJobFormStep1
+            state={this.state}
+            nextStep={this.nextStep}
+            prevStep={this.prevStep}
+            handleChange={this.handleChange}
+            handleCheck={this.handleCheck}
+            handleSelect={this.handleSelect}
+            handleMultiSelect={this.handleMultiSelect}
+            handleDateChange={this.handleDateChange}
+            setJobObjData={this.props.setJobObjData}
+            removeDate={this.removeDate}
+          />   
+        )
       case 2:
-        return <CreateJobFormStep2 
-                state={this.state} 
-                nextStep={this.nextStep}
-                prevState={this.prevStep} 
-                userResultsForJobCreation={this.props.userResultsForJobCreation}
-                setUserModal={this.props.setUserModal}
-                userModalActive={this.props.userModalActive}
-                assignedUsers={this.assignedUsers}
-               />
+        return (
+          <CreateJobFormStep2 
+            state={this.state} 
+            nextStep={this.nextStep}
+            prevStep={this.prevStep} 
+            userResultsForJobCreation={this.props.userResultsForJobCreation}
+            setUserModal={this.props.setUserModal}
+            userModalActive={this.props.userModalActive}
+            assignedUsers={this.assignedUsers}
+          />   
+  
+        )
       case 3:
         return <CreateJobFormStep3
                 state={this.state}
@@ -196,82 +217,105 @@ export class CreateJobFormStep1 extends Component {
     this.props.nextStep()
   }
 
+  saveAndGoBack = (e) => {
+    e.preventDefault()
+    this.props.prevStep()
+  }
+
   render() {
     const { state } = this.props
     const { handleChange, handleCheck, handleMultiSelect, handleDateChange, handleSelect } = this.props
     return (
-      <form>
-        <FormTextInput
-          label="Job Creator"
-          name="jobCreator"
-          type="text"
-          value={state.jobObj.jobCreator}
-          placeholder={state.jobObj.jobCreator}
-          onChange={handleChange}
-          disabled={true}
-        />
-        <FormTextInput
-          label="Job Name"
-          name="jobName"
-          type="text"
-          value={state.jobObj.jobName}
-          onChange={handleChange}
-        />
-        <FormCheckboxInput
-          label="Union Required"
-          checkboxId="unionMember"
-          onChange={handleCheck}
-          value={state.jobObj.unionMember}
-        />
-        <FormTextInput
-          label={"Job Description (" + state.jobDescCount + "/140)"}
-          name="jobDesc"
-          type="text"
-          value={state.jobObj.jobDesc}
-          onChange={handleChange}
-        />
-        <FormDatePicker
-          label="Select Job Dates"
-          startDate={state.startDate}
-          selectedDate={state.selectedDate}
-          className="date-picker-form-group"
-          handleChange={handleDateChange}
-        />
-        <ul>
-          {state.selectedDates.map( (date, key) => {
-            return <li key={key} onClick={() => { this.props.removeDate(date) }}>{date}</li>
-          })}
-        </ul>
-        <FormSelectInput
-          label="Select the Job Location"
-          name="jobLocation"
-          options={locationObj}
-          placeholder="Select Location for Job"
-          isMultiSelect={false}
-          onSelect={handleSelect}
-        />
-        <FormSelectInput
-          label="Select Job Positions Hiring For"
-          name="jobPositions"
-          options={positionsObj}
-          placeholder="Select Positions For Jobs"
-          isMultiSelect={true}
-          onSelect={handleMultiSelect}
-        />
-        <FormSelectInput
-          label="Preferred Form of Contact"
-          name="jobContact"
-          options={contactObj}
-          placeholder="Select Best Form of Contact"
-          isMultiSelect={false}
-          onSelect={handleSelect}
-        />
-        <FormButton
-          className="button-primary"
-          buttonText="Invite Users"
-          onClick={this.saveAndContinue}
-        />
-      </form>
+      <div className="card">
+        <div className="card-header">
+          <h3>Job Information</h3>
+          <p>Fill out the job details to find the best users for the job.</p>
+        </div>
+        <div className="card-body">
+          <form className="card-form-general">
+            <FormTextInput
+              label="Job Creator"
+              name="jobCreator"
+              type="text"
+              value={state.jobObj.jobCreator}
+              placeholder={state.jobObj.jobCreator}
+              onChange={handleChange}
+              disabled={true}
+              className="form-group--half"
+            />
+            <FormTextInput
+              label="Job Name"
+              name="jobName"
+              type="text"
+              value={state.jobObj.jobName}
+              onChange={handleChange}
+              className="form-group--half"
+            />
+            <FormCheckboxInput
+              label="Union Required"
+              checkboxId="unionMember"
+              onChange={handleCheck}
+              value={state.jobObj.unionMember}
+              className="form-group--half"
+            />
+            <FormTextInput
+              label={"Job Description (" + state.jobDescCount + "/140)"}
+              name="jobDesc"
+              type="text"
+              value={state.jobObj.jobDesc}
+              onChange={handleChange}
+            />
+            <FormDatePicker
+              label="Select Job Dates"
+              startDate={state.startDate}
+              selectedDate={state.selectedDate}
+              className="date-picker-form-group"
+              handleChange={handleDateChange}
+            />
+            { state.selectedDates.length > 0 && <ul className="datesPickerList">
+              {state.selectedDates.map( (date, key) => {
+                return <li key={key} onClick={() => { this.props.removeDate(date) }}>{date}</li>
+              })}
+            </ul>}
+            <FormSelectInput
+              label="Select the Job Location"
+              name="jobLocation"
+              options={locationObj}
+              placeholder="Select Location for Job"
+              isMultiSelect={false}
+              onSelect={handleSelect}
+              className="form-group--half"
+            />
+            <FormSelectInput
+              label="Preferred Form of Contact"
+              name="jobContact"
+              options={contactObj}
+              placeholder="Select Best Form of Contact"
+              isMultiSelect={false}
+              onSelect={handleSelect}
+              className="form-group--half"
+            />
+            <FormSelectInput
+              label="Select Job Positions Hiring For"
+              name="jobPositions"
+              options={positionsObj}
+              placeholder="Select Positions For Jobs"
+              isMultiSelect={true}
+              onSelect={handleMultiSelect}
+            />
+            <FormButton
+              className="button-form"
+              buttonText="Prev Step"
+              onClick={this.saveAndGoBack}
+            />
+            <FormButton
+              className="button-form"
+              buttonText="Invite Users"
+              onClick={this.saveAndContinue}
+            />
+          </form>
+        </div>
+      </div>
     )
   }
 }
@@ -300,6 +344,11 @@ class CreateJobFormStep2 extends Component {
     this.props.nextStep()
   }
 
+  saveAndGoBack = (e) => {
+    e.preventDefault()
+    this.props.prevStep()
+  }
+
   assignPosition = (usersAssignedArr) => {
     this.setState({
       usersAssigned: usersAssignedArr
@@ -311,23 +360,35 @@ class CreateJobFormStep2 extends Component {
 
   render() {
     const { state } = this.props
-    console.log(this.props.state)
     return (
       !this.state.loading && this.state.usersMatchedResults.length > 0 &&  
-      <React.Fragment>
-        <JobResultsTable
-          results={this.state.usersMatchedResults}
-          setUserModal={this.props.setUserModal}
-          userModalActive={this.props.userModalActive}
-          positions={state.jobObj.jobPositions}
-          assignPosition={this.assignPosition}
-        />
-        <FormButton
-          className="button-primary"
-          buttonText="Send Invite and Create Job"
-          onClick={this.saveAndContinue}
-        />
-      </React.Fragment>
+      <div className="card">
+        <div className="card-header">
+          <h3>Assign Positions to Potential Users</h3>
+          <p>Fill out the job details to find the best users for the job.</p>
+        </div>
+        <div className="card-body">
+          <JobResultsTable
+            results={this.state.usersMatchedResults}
+            setUserModal={this.props.setUserModal}
+            userModalActive={this.props.userModalActive}
+            positions={state.jobObj.jobPositions}
+            assignPosition={this.assignPosition}
+          />
+          <form className="card-form-general">
+            <FormButton
+              className="button-form"
+              buttonText="Prev Step"
+              onClick={this.saveAndGoBack}
+            />
+            <FormButton
+              className="button-form"
+              buttonText="Send User Invites"
+              onClick={this.saveAndContinue}
+            />
+          </form>   
+        </div>
+      </div>
     )
   }
 }
@@ -364,36 +425,56 @@ class CreateJobFormStep3 extends Component {
       })
   }
 
+  saveAndGoBack = (e) => {
+    e.preventDefault()
+    this.props.prevStep()
+  }
+
   render() {
     const { state } = this.props
     return (
-      <div className="card-item">
-        <div className="card-item-info">
-          <label>Job Creator: </label>
-          <p>{state.jobObj.jobCreator}</p>
-          <label>Job Name: </label>
-          <p>{state.jobObj.jobName}</p>
-          <label>Job Description: </label>
-          <p>{state.jobObj.jobDesc}</p>
-          <label>Job Dates: </label>
-          <p>{state.jobObj.jobDates.map( date => {
-            return date
-          })}</p>
-          <label>Job Location: </label>
-          <p>{state.jobObj.jobLocation}</p>
-          <label>Preferred Contact: </label>
-          <p>{state.jobObj.jobContact}</p>
-          <label>Job Invitations: </label>
-          <ul>
-            {state.usersAssigned.map( (user, key) => {
-              return <li key={key}>{user[0].firstName}: {user[1]}</li>
-            })}
-          </ul>
-          <FormButton
-            className="button-primary"
-            buttonText="Send Invite and Create Job"
-            onClick={this.saveAndContinue}
-          />
+      <div className="card">
+        <div className="card-header">
+          <h3>Assign Positions to Potential Users</h3>
+          <p>Fill out the job details to find the best users for the job.</p>  
+        </div>
+        <div className="card-body">
+          <div className="card-item">
+            <div className="card-item-info">
+              <label>Job Creator: </label>
+              <p>{state.jobObj.jobCreator}</p>
+              <label>Job Name: </label>
+              <p>{state.jobObj.jobName}</p>
+              <label>Job Description: </label>
+              <p>{state.jobObj.jobDesc}</p>
+              <label>Job Dates: </label>
+              <p>{state.jobObj.jobDates.map( date => {
+                return date
+              })}</p>
+              <label>Job Location: </label>
+              <p>{state.jobObj.jobLocation}</p>
+              <label>Preferred Contact: </label>
+              <p>{state.jobObj.jobContact}</p>
+              <label>Job Invitations: </label>
+              <ul>
+                {state.usersAssigned.map( (user, key) => {
+                  return <li key={key}>{user[0].firstName}: {user[1]}</li>
+                })}
+              </ul>
+            </div>
+          </div>
+          <form className="card-form-general">
+            <FormButton
+              className="button-form"
+              buttonText="Prev Step"
+              onClick={this.saveAndGoBack}
+            />
+            <FormButton
+              className="button-form"
+              buttonText="Create Job"
+              onClick={this.saveAndContinue}
+            />
+          </form> 
         </div>
       </div>
     )

@@ -71,7 +71,7 @@ class UsersPage extends Component {
                 ?
                   <div className="card-item"><p>Loading...</p></div>
                 :
-                <div className="card-item"><p>No users to return.</p></div>
+                <div className="card-item centered"><p>No users to return.</p></div>
               }
           </div>
         </div> 
@@ -81,7 +81,7 @@ class UsersPage extends Component {
             <p>These are your top eight recommendations from people in the industry that you vouch for.</p>
           </div>
           <div className="card">
-            <div className="card-item card-item-full">
+            <div className="card-item">
               { favorites 
                 ?
                 <UserFavoritesTable

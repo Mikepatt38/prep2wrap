@@ -16,27 +16,14 @@ class Jobs extends Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="card">
-          <div className="card-header">
-            <h2 className="card-title">Create A Job</h2>
-            <p className="card-subtitle">Click the button to create a job.</p>
-          </div>
-          <div className="card-item">
-            <button
-              className="button-primary"  
-              onClick={() => { this.props.setModal(true, "Create A Job Request", 
-                <CreateJobForm 
-                  currentUser={this.props.currentUser} 
-                  createJob={this.props.createJob}
-                  userResultsForJobCreation={this.props.userResultsForJobCreation}
-                  userModalActive={this.props.userModalActive}
-                  setUserModal={this.props.setUserModal}
-                />)} 
-              }
-            >Create a Job</button>
-          </div>
-        </div>
+      <div className="container containerMargin">
+        <CreateJobForm 
+          currentUser={this.props.currentUser} 
+          createJob={this.props.createJob}
+          userResultsForJobCreation={this.props.userResultsForJobCreation}
+          userModalActive={this.props.userModalActive}
+          setUserModal={this.props.setUserModal}
+        />
       </div>
     )
   }

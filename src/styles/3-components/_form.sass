@@ -219,21 +219,15 @@ form
       line-height: 1
 
   button.button-form
-    height: 50px
-    line-height: 50px
+    line-height: 40px
     border-radius: 2px
-    border: 0
-    color: $color__mainBlue 
-    background-color: rgba(61, 119, 234, 0.2)
-    display: inline-block
-    width: auto
-    padding: 0 50px
-    cursor: pointer
-    margin: 0 auto
-    transition: background 250ms 0s ease
+    letter-spacing: 0.50px
+    text-transform: uppercase
+    margin: 0
+    padding: 0 20px
+    font-family: 'Gotham'
+    max-width: 200px
     position: relative
-    overflow: hidden
-    min-width: auto
 
 form .form-group input, form .form-group .css-1aya2g8, form .form-group .css-2o5izw
   font-size: 14px
@@ -251,6 +245,13 @@ form .form-group input, form .form-group .css-1aya2g8, form .form-group .css-2o5
   box-sizing: border-box
 
 form.card-form-general, form.card-form-userName, form.card-form-email, form.card-form-profile
+  &.card-form-inline
+    display: grid
+    grid-template-columns: 1fr 1fr 105px
+    grid-column-gap: 20px
+
+    button.button-form
+      margin-top: 18px
 
   .form-group
     width: 100%
@@ -286,3 +287,4 @@ form.card-form-general, form.card-form-userName, form.card-form-email, form.card
     margin: 0
     padding: 0 20px
     font-family: 'Gotham'
+    max-width: 200px

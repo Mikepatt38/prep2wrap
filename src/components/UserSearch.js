@@ -24,14 +24,13 @@ export class UserSearch extends Component {
     return (
       <form
         method="form"
-        className="card-form-general"
+        className="card-form-general card-form-inline"
       >
         <FormTextInput 
           label="First Name"
           name="firstName"
           type="text"
           onChange={this.handleChange}
-          className="form-group--half"
           value={firstName}
         />
         <FormTextInput 
@@ -39,16 +38,13 @@ export class UserSearch extends Component {
           name="lastName"
           type="text"
           onChange={this.handleChange}
-          className="form-group--half"
           value={lastName}
         />
-        <div className="button-wrapper">
-          <FormButton
-            onClick={(e) => searchUsersByName(searchTerm, e)}
-            className="button-form"
-            buttonText="Search"
-          />
-        </div>
+        <FormButton
+          onClick={(e) => searchUsersByName(searchTerm, e)}
+          className="button-form"
+          buttonText="Search"
+        />
       </form>
     )
   }
