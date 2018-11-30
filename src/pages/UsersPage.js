@@ -50,12 +50,13 @@ class UsersPage extends Component {
     return (
       <React.Fragment>
         <div className="container containerMargin">
-          <div className="card-title">
-            <h3>User Search</h3>
-            <p>Search for other user's profiles and information using the table below.</p>
-          </div>
           <div className="card">
-            <UserSearch searchUsersByName={searchUsersByName} />
+            <div className="card-header">
+              <h3>User Search</h3>
+              <p>Search for other user's profiles and information using the table below.</p>
+            </div>
+            <div className="card-body">
+              <UserSearch searchUsersByName={searchUsersByName} />
               {
                 this.state.userData.length > 0
                 ?
@@ -73,24 +74,27 @@ class UsersPage extends Component {
                 :
                 <div className="card-item centered"><p>No users to return.</p></div>
               }
+            </div>
           </div>
         </div> 
         <div className="container" style={styles}>
-          <div className="card-title">
-            <h3>Favorited Users</h3>
-            <p>These are your top eight recommendations from people in the industry that you vouch for.</p>
-          </div>
           <div className="card">
-            <div className="card-item">
-              { favorites 
-                ?
-                <UserFavoritesTable
-                  currentUser={currentUser}
-                  favorites={favorites}
-                />
-                :
-                <p>You currently do not have any favorite friends. To add a favorite, search the user and visit their profile.</p>
-              }
+            <div className="card-header">
+              <h3>Favorited Users</h3>
+              <p>These are your top eight recommendations from people in the industry that you vouch for.</p>
+            </div>
+            <div className="card-body">
+              <div className="card-item">
+                { favorites 
+                  ?
+                  <UserFavoritesTable
+                    currentUser={currentUser}
+                    favorites={favorites}
+                  />
+                  :
+                  <p>You currently do not have any favorite friends. To add a favorite, search the user and visit their profile.</p>
+                }
+              </div>
             </div>
           </div>
         </div>  

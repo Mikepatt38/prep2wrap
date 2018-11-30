@@ -4,7 +4,6 @@ import { FormTextInput } from '../components/FormTextInput'
 import { FormButton } from '../components/FormButton'
 import UserProfileForm, { ProfileDisplayed } from '../components/UserProfileForm'
 import UserInfoForm from '../components/UserInfoForm'
-import { PageHeader } from '../components/PageHeader'
 import { ProfileImageUpload } from '../components/ProfileImageUpload'
 
 class AccountSettings extends Component {
@@ -25,12 +24,11 @@ class AccountSettings extends Component {
     const { currentUser, setModal, setName, setEmail, setMobileNumber, setUserProfile, uploadProfileImage } = this.props
     return (
       <div className="container containerMargin">
-        <div className="card-title">
-          <h3>Account Settings</h3>
-          <p>Update your basic account settings, profile settings and billing information from this page.</p>
-        </div>
         <div className="card">
-          <div className="card-header"></div>
+          <div className="card-header">
+            <h3>Account Settings</h3>
+            <p>Update your basic account settings, profile settings and billing information from this page.</p>    
+          </div>
           <div className="card-body">
             <div className="card-form">
               <div className="card-form--left">
