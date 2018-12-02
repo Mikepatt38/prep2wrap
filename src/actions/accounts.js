@@ -6,8 +6,7 @@ export const setAccountView = (view) => ({
   payload: view
 })
 
-export const setName = (id, firstName, lastName, e) => async dispatch => {
-  e.preventDefault()
+export const setName = (id, firstName, lastName) => async dispatch => {
   const database = await db
   database.collection("users").doc(id).update({
     firstName,
@@ -27,8 +26,7 @@ export const setName = (id, firstName, lastName, e) => async dispatch => {
   })
 }
 
-export const setEmail = (id, email, e) => async dispatch => {
-  e.preventDefault()
+export const setEmail = (id, email) => async dispatch => {
   const database = await db
   database.collection("users").doc(id).update({
     email,
@@ -47,8 +45,7 @@ export const setEmail = (id, email, e) => async dispatch => {
   })
 }
 
-export const setMobileNumber = (id, mobileNumber, e) => async dispatch => {
-  e.preventDefault()
+export const setMobileNumber = (id, mobileNumber) => async dispatch => {
   const database = await db
   database.collection("users").doc(id).update({
     mobileNumber
@@ -99,8 +96,6 @@ export const setUserProfile = (id, username, location, headline, skills, positio
   })
 }
 
-
-
 export const uploadProfileImage = (id, avatar, filename) => async dispatch => {
   const ref = storage.ref()
   console.log(ref)
@@ -111,7 +106,6 @@ export const uploadProfileImage = (id, avatar, filename) => async dispatch => {
     contentType: file.type
   }
 
-  
   const deleted = new Promise( (resolve, reject) => {
     if(avatar) {
       console.log(ref.child(name))

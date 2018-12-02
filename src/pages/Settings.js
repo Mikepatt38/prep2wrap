@@ -19,9 +19,21 @@ class AccountSettings extends Component {
       [e.target.name]: e.target.value
     })
   }
+
+  updateBasicInformation = (e) => {
+    e.preventDefault()
+    const { currentUser } = this.props
+    const { firstName, lastName, email, mobileNumber} = this.state
+    firstName !== currentUser.firstName || lastName !== currentUser.lastName 
+      ? this.props.setName(this.props.currentUser.id, firstName, lastName)
+      : email !== currentUser.email 
+        ? this.props.setEmail(this.props.currentUser.id, email)
+        : this.props.setMobileNumber(this.props.currentUser.id, mobileNumber)
+  }
+
   render() {
     const { firstName, lastName, email, mobileNumber } = this.state
-    const { currentUser, setModal, setName, setEmail, setMobileNumber, setUserProfile, uploadProfileImage } = this.props
+    const { currentUser, setModal, setUserProfile, uploadProfileImage } = this.props
     return (
       <div className="container containerMargin">
         <div className="card">
@@ -59,7 +71,7 @@ class AccountSettings extends Component {
               />
               <div className="button-wrapper">
                 <FormButton
-                  onClick={(e) => setName(this.props.currentUser.id, firstName, lastName, e)}
+                  onClick={this.updateBasicInformation}
                   className="button-form"
                   buttonText="Update"
                 />
