@@ -26,69 +26,58 @@ class AccountSettings extends Component {
       <div className="container containerMargin">
         <div className="card">
           <div className="card-header">
-            <h3>Account Settings</h3>
-            <p>Update your basic account settings, profile settings and billing information from this page.</p>    
+            <h3>Basic Details</h3>
+            <p>Your basic account information, you can update this information at any time to keep your account up to date.</p>    
           </div>
           <div className="card-body">
-            <div className="card-form">
-              <div className="card-form--left">
-                <h4>Basic Details</h4>
-                <p>Your basic account information, you can update this information at any time to keep your account up to date.</p>
-              </div>
-              <div className="card-form--right">
-                <form
-                  method="form"
-                  className="card-form-userName"
-                >
-                  <FormTextInput
-                    label="First Name"
-                    name="firstName"
-                    type="text"
-                    onChange={this.handleChange}
-                    className="form-group--half"
-                    value={firstName}
-                  />
-                  <FormTextInput
-                    label="Last Name"
-                    name="lastName"
-                    type="text"
-                    onChange={this.handleChange}
-                    className="form-group--half"
-                    value={lastName}
-                  />
-                  <FormTextInput
-                    label="email"
-                    name="email"
-                    type="email"
-                    onChange={this.handleChange}
-                    value={email}
-                  />
-                  <div className="button-wrapper">
-                    <FormButton
-                      onClick={(e) => setName(this.props.currentUser.id, firstName, lastName, e)}
-                      className="button-form"
-                      buttonText="Update"
-                    />
-                  </div>
-                </form> 
-              </div>
-            </div>
-            <hr className="card-lineBreak" />
-            <div className="card-form">
-              <div className="card-form--left">
-                <h4>Profile Information</h4>
-                <p>Your basic account information, you can update this information at any time to keep your account up to date.</p>               
-              </div>
-              <div className="card-form--right">
-                <UserProfileForm 
-                  setUserProfile={setUserProfile} 
-                  currentUser={currentUser} 
+            <form
+              method="form"
+              className="card-form-userName"
+            >
+              <FormTextInput
+                label="First Name"
+                name="firstName"
+                type="text"
+                onChange={this.handleChange}
+                className="form-group--half"
+                value={firstName}
+              />
+              <FormTextInput
+                label="Last Name"
+                name="lastName"
+                type="text"
+                onChange={this.handleChange}
+                className="form-group--half"
+                value={lastName}
+              />
+              <FormTextInput
+                label="email"
+                name="email"
+                type="email"
+                onChange={this.handleChange}
+                value={email}
+              />
+              <div className="button-wrapper">
+                <FormButton
+                  onClick={(e) => setName(this.props.currentUser.id, firstName, lastName, e)}
+                  className="button-form"
+                  buttonText="Update"
                 />
               </div>
-            </div>
+            </form> 
           </div>
-          <div className="card-footer">
-    
+        </div>
+
+        <div className="card">
+          <div className="card-header">
+            <h3>Profile Settings</h3>
+            <p>Update your profile settings at any time to keep your profile up to date for potential connections.</p>
+          </div>
+          <div className="card-body">
+            <UserProfileForm 
+              setUserProfile={setUserProfile} 
+              currentUser={currentUser} 
+            />
           </div>
         </div>
       </div>
