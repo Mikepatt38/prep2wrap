@@ -40,7 +40,7 @@ class UserAuth extends Component {
     const { history, signUserIn, signUpUser, resetPassword} = this.props
     return (
       <div className="page-background">
-        <div className="modal">
+        <div className="modal" id="static">
           <div className="modal-header">
             <img src={logo} alt="Calltime Logo" />
             { authStatus === 'login' && <LoginText /> }
