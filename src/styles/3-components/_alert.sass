@@ -4,54 +4,75 @@
   
 .alert
   position: fixed
+  top: 0
+  left: 0
+  right: 0
   margin: 0 auto
   font-weight: 400
   color: #676767
   cursor: pointer
   background: #fafafa
-  border-radius: 3px
+  border-radius: 0
+  border: none
   transform: translateY(-40px)
   opacity: 0
   transition: all 0.3s ease-in-out
   z-index: -1
-  right: 0
   width: 100%
-  padding: 15px
-  // max-width: 500px
-  margin-right: 3%
+  padding: 15px 3%
+  display: flex
+  justify-content: space-between
+  flex-direction: row
+  align-content: center
+
 
   &.success
     background: #dff0d8
-    border: 1px solid #B8D9BA
+    // border: 1px solid #B8D9BA
+    // border-top: none
     color: #3c763d
   
   &.error
     background: #f2dede
-    border: 1px solid #D4B3AD
+    // border: 1px solid #D4B3AD
+    // border-top: none
     color: #a94442
 
   &.warning
     background: #fcf8e3
-    border: 1px solid #E3DFAE
+    // border: 1px solid #E3DFAE
+    // border-top: none
     color: #8a6d3b
 
   &.info
     background: #d9edf7
-    border: 1px solid #9FB7DA
+    // border: 1px solid #9FB7DA
+    // border-top: none
     color: #31708f
 
   &.active
-    display: block
-    transform: translateY(100%)
-    top: 0
+    transform: translateY(0)
+    top: 68px
     opacity: 1
     transition: all 0.3s ease-in-out
     z-index: 100
 
     p
       margin: 0
-      font-weight: 600
-      font-size: 14px
+      font-weight: 500
+      font-size: 16px
+      width: 48.5%
+      display: flex
+      align-items: center
+
+    span
+      position: relative
+      display: flex
+      align-items: center
+
+      img
+        position: relative 
+        height: 32px
 
   &.alert-modal
     position: relative

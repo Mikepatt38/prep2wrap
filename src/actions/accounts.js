@@ -14,8 +14,8 @@ export const setName = (id, firstName, lastName) => async dispatch => {
   })
   .then( () => {
     dispatch({
-      type: 'ON_MODAL_SUCCESS',
-      payload: [true, false]
+      type: 'SET_ALERT',
+      payload: [true, 'success', 'SUCCESS: Your basic account information was updated.']
     })
   })
   .catch( (error) => {
@@ -84,8 +84,8 @@ export const setUserProfile = (id, username, location, headline, skills, positio
   })
   .then( () => {
     dispatch({
-      type: 'ON_MODAL_SUCCESS',
-      payload: [true, false]
+      type: 'SET_ALERT',
+      payload: [true, 'success', 'SUCCESS: Your public profile information was updated.']
     })
   })
   .catch( (error) => {

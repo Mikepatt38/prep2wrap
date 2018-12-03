@@ -1,10 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import CloseIcon from '../img/icon-close.svg'
 
 export const Alert = ({ active, alertText, alertType, onSetAlert }) => {
   return (
     <div className={active ? 'alert active ' + `${alertType}` : 'alert'} onClick={ () => onSetAlert(false, '', '') }>
-      <p></p>
+      <p>Success! Your profile settings successfully updated!</p>
+      <span onClick={ () => onSetAlert(false, '', '')}><img src={CloseIcon} alt="Close Icon" /></span> 
     </div>
   )
 }
@@ -15,3 +17,4 @@ Alert.propTypes = {
   alertType: PropTypes.string.isRequired,
   onSetAlert: PropTypes.func
 }
+
