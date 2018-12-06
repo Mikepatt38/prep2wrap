@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import { FormTextInput } from './FormTextInput'
 import { FormButton } from './FormButton'
+import ProfileImageUpload from './ProfileImageUpload';
 
 class UserInfoForm extends Component {
   state = {
     firstName: this.props.currentUser.firstName,
     lastName: this.props.currentUser.lastName,
     email: this.props.currentUser.email,  
-    mobileNumber: this.props.currentUser.mobileNumber
+    mobileNumber: this.props.currentUser.mobileNumber,
+    fileName: ''
   }
 
   handleChange = e => {
@@ -16,15 +18,21 @@ class UserInfoForm extends Component {
     })
   }
 
+  updateFileName = (fileName) => {
+    this.setState({
+      fileName
+    })
+  }
+
   updateBasicInformation = (e) => {
     e.preventDefault()
     const { currentUser } = this.props
-    const { firstName, lastName, email, mobileNumber} = this.state
-    firstName !== currentUser.firstName || lastName !== currentUser.lastName 
-      ? this.props.setName(this.props.currentUser.id, firstName, lastName)
-      : email !== currentUser.email 
-        ? this.props.setEmail(this.props.currentUser.id, email)
-        : this.props.setMobileNumber(this.props.currentUser.id, mobileNumber)
+    const { firstName, lastName, email, mobileNumber, fileName} = this.state
+
+    firstName !== currentUser.firstName || lastName !== currentUser.lastName && this.props.setName(this.props.currentUser.id, firstName, lastName)
+    email !== currentUser.email && this.props.setEmail(this.props.currentUser.id, email)
+    mobileNumber !== currentUser.mobileNumber && this.props.setMobileNumber(this.props.currentUser.id, mobileNumber)
+    fileName !== '' && this.props.uploadProfileImage(currentUser.id, currentUser.avatar, fileName)
   }
 
   render() {
@@ -34,6 +42,10 @@ class UserInfoForm extends Component {
         method="form"
         className="card-form-userName"
       >
+        <ProfileImageUpload
+          currentUser={this.props.currentUser}
+          updateFileName={this.updateFileName}
+        />
         <FormTextInput
           label="First Name"
           name="firstName"
@@ -55,6 +67,7 @@ class UserInfoForm extends Component {
           name="email"
           type="email"
           onChange={this.handleChange}
+          className="form-group--half"
           value={email}
         />
         <FormTextInput

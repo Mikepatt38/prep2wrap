@@ -16,6 +16,7 @@ const AccountSettings = ({ currentUser, setUserProfile, setName, setEmail, setMo
           setName={setName}
           setEmail={setEmail}
           setMobileNumber={setMobileNumber}
+          uploadProfileImage={uploadProfileImage}
         />
       </div>
     </div>

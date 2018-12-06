@@ -97,7 +97,6 @@ export const setUserProfile = (id, username, location, skills, positions, fbLink
 
 export const uploadProfileImage = (id, avatar, filename) => async dispatch => {
   const ref = storage.ref()
-  console.log(ref)
   const file = filename
   const name = id
   const database = await db
@@ -107,12 +106,9 @@ export const uploadProfileImage = (id, avatar, filename) => async dispatch => {
 
   const deleted = new Promise( (resolve, reject) => {
     if(avatar) {
-      console.log(ref.child(name))
       ref.child(name).delete().then(function() {
-        console.log('deleted image')
         resolve(true)
       }).catch(function(error) {
-        console.log(error + ' could not delete image')
         reject(false)
       })
     }
@@ -130,10 +126,9 @@ export const uploadProfileImage = (id, avatar, filename) => async dispatch => {
         avatar: url
       })
       .then( () => {
-        console.log('success')
         dispatch({
-          type: 'ON_MODAL_SUCCESS',
-          payload: [true, false]
+          type: 'SET_ALERT',
+          payload: [true, 'success', 'SUCCESS: Your public avatar image has been updated.']
         })
       })
       .catch( (error) => {
