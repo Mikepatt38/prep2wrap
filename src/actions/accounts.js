@@ -64,13 +64,12 @@ export const setMobileNumber = (id, mobileNumber) => async dispatch => {
   })
 }
 
-export const setUserProfile = (id, username, location, headline, skills, positions, fbLink, imdbLink, availability, travel, union, bilingual, unions, languages, e) => async dispatch => {
+export const setUserProfile = (id, username, location, skills, positions, fbLink, imdbLink, availability, travel, union, bilingual, unions, languages, e) => async dispatch => {
   e.preventDefault()
   const database = await db
   database.collection("users").doc(id).update({
     username, 
     location,
-    headline,
     skills,
     positions,
     fbLink,
