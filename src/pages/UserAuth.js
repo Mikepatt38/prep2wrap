@@ -1,64 +1,44 @@
 import React, { Component } from 'react'
 import logo from '../img/calltime-logo.png'
 import { withRouter } from 'react-router-dom'
-import { Login, LoginText, ForgotPassword  } from '../components/Login'
-import { SignUp, SignUpText, MemberLink } from '../components/SignUp'
-import { PasswordReset , PasswordResetText} from '../components/PasswordReset'
+import { Login } from '../components/Login'
+import { SignUp } from '../components/SignUp'
+import { PasswordReset } from '../components/PasswordReset'
 
-class UserAuth extends Component {
-  state = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    passwordOne: '',
-    passwordTwo: '',
-    authStatus: '',
-    emailInputClass: '',
-    emailPasswordClass: '',
-    error: null
-  }
+const UserAuth = ({ history, signUserIn, signUpUser, resetPassword, location }) => {
+  switch(location.pathname) {
+    case '/login':
+      return (
+        <Login 
+          logo={logo}
+          signUserIn={signUserIn}
+          history={history}
+        />
+      )
+      break
+    
+    case '/signup':
+      return (
+        <SignUp 
+          logo={logo} 
+          signUpUser={signUpUser}
+          history={history} 
+        />
+      )
+      break
 
-  componentWillMount = () => {
-    this.props.location.pathname === '/login' ? this.setState({ authStatus: 'login'}) : this.props.location.pathname === '/signup' ? this.setState({ authStatus: 'signup'}) : ''
-  }
+    case '/password-reset':
+      return (
+        <PasswordReset
+          logo={logo}
+          resetPassword={resetPassword}
+          history={history}
+        />
+      )
+      break
 
-  componentWillReceiveProps = (nextProps) => {
-    this.setState({
-      authStatus: nextProps.location.pathname === '/login' ? 'login' : nextProps.location.pathname === '/login' ?  'signup' : 'password-reset'
-    })
-  }
-
-  handleChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    })
-  }
-
-  render() {
-    const { authStatus } = this.state
-    const { history, signUserIn, signUpUser, resetPassword} = this.props
-    return (
-      <div className="page-background">
-        <div className="modal" id="static">
-          <div className="modal-header">
-            <img src={logo} alt="Calltime Logo" />
-            { authStatus === 'login' && <LoginText /> }
-            { authStatus === 'signup' && <SignUpText /> }
-            { authStatus !== 'signup' && authStatus !== 'login' && <PasswordResetText /> }
-          </div>
-          <div className="modal-body">
-            { authStatus === 'login' && <Login state={this.state} handleChange={this.handleChange}  history={history} signUserIn={signUserIn} /> }
-            { authStatus === 'signup' && <SignUp state={this.state} handleChange={this.handleChange}  history={history} signUpUser={signUpUser} /> }
-            { authStatus !== 'signup' && authStatus !== 'login' && <PasswordReset state={this.state} email={this.state.email} error={this.state.error} handleChange={this.handleChange} resetPassword={resetPassword} /> }
-          </div>
-          <div className="modal-footer">
-            { authStatus === 'login' && <ForgotPassword /> }
-            { authStatus === 'signup' && <MemberLink /> }
-          </div>
-        </div>
-      </div>
-    )
+    default:
+      history.push("/login")
   }
 }
 
