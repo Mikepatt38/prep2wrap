@@ -3,7 +3,8 @@
   ================== */
 
 .page-background
-  background: rgba(99,234,211,.9)
+  // background: rgba(99,234,211,.9)
+  background: #fff
   width: 100%
   min-height: 100vh
   overflow: hidden
@@ -11,3 +12,130 @@
   position: relative
 
   
+.modal.authModal
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,.1)
+  margin: 8em auto 14em
+  max-width: 962px
+  position: relative
+  width: 100%
+  height: auto
+  display: flex
+  justify-content: flex-end
+
+  .modalIllustration
+    font-size: 16px
+    padding-bottom: 6.25em
+    width: calc(100% - 370px)
+    max-width: 675px
+
+    &::after
+      content: ''
+      border-left: 1px solid #F1F5F8
+      position: absolute
+      top: 0
+      bottom: 0
+      right: 40%
+
+    .illustration
+      text-align: center
+      margin: 0 auto
+      width: 408px
+
+      img
+        height: 16em
+        margin-top: 2.25em
+        position: relative
+
+    .illustration-text
+      margin: 0 auto
+      text-align: center
+
+      h3
+        font-size: 21px
+        font-weight: 700
+        line-height: 1.33333
+        margin: 1em auto
+        padding: 0
+        text-align: center
+        width: 18em
+        color: #404245
+      
+      p
+        font-size: 16px
+        line-height: 1.5
+        font-weight: 400
+        margin: 0 auto
+        color: #9fa4a6
+        max-width: 400px
+        position: relative
+
+  .modalForm
+    margin: 30px 0 0 0
+    max-width: 370px
+    text-align: center
+    width: 100%
+    padding: 0 20px 20px
+    background: #fff
+    border-radius: 2px
+    position: relative
+
+    .modal-header, .modal-body, .modal-footer
+      padding: 0
+
+    .modal-header > h2
+      font-size: 24px
+      font-weight: 600
+      color: #404245
+      line-height: 31px
+      text-align: left
+      margin-bottom: 5px
+
+    .modal-header > p
+      font-size: 16px
+      margin-bottom: 30px
+
+    .modal-body > form > .form-group 
+      text-align: left
+      margin-bottom: 25px
+
+      label
+        margin-bottom: 1px
+        opacity: 0.8
+
+    .modal-body > form > button.button-form
+      width: 100%
+      font-size: 14px
+      max-width: 100%
+      margin-top: 10px
+      margin-bottom: 20px
+      background-color: rgba(61, 119, 234, 1)
+      color: #fff
+
+    .modal-footer
+      flex-direction: column
+
+    .modal-footer > hr
+      height: 1px
+      border: none
+      display: block
+      background: #e6e6e6
+      width: 100%
+      margin: 0
+
+    .modal-footer > a
+      padding: 20px
+
+    .modal-footer > p.info
+      padding-bottom: 0
+      margin-bottom: .5em
+      line-height: 20px
+      font-size: 15px
+      margin: 0
+      padding: 20px 0 5px 0
+      color: #404245
+
+    .modal-footer > a.link
+      font-weight: 300
+      font-size: 13px
+      color: #0091ff
+      padding: 0
