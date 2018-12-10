@@ -34,6 +34,7 @@ export class SignUp extends Component {
               history={history}
               signUserUp={signUserUp}
               state={this.state}
+              handleChange={this.handleChange}
             />
           </div>
           <div className="modal-footer">
@@ -45,7 +46,7 @@ export class SignUp extends Component {
   }
 }
 
-const SignUpForm = ({ history, signUpUser, state}) => (
+const SignUpForm = ({ history, signUpUser, state, handleChange}) => (
   <form
     method="post"
     onSubmit={(e) => signUpUser(state.email, state.passwordOne, state.firstName, state.lastName, history, e)}
@@ -53,7 +54,7 @@ const SignUpForm = ({ history, signUpUser, state}) => (
     <FormTextInput
       label="First Name"
       name="firstName"
-      onChange={this.handleChange}
+      onChange={handleChange}
       errorMsg="A first name is required."
       className={state.firstNameInputClass}
       type="text"
@@ -61,7 +62,7 @@ const SignUpForm = ({ history, signUpUser, state}) => (
     <FormTextInput
       label="Last Name"
       name="lastName"
-      onChange={this.handleChange}
+      onChange={handleChange}
       errorMsg="A last name is required."
       className={state.lastNameInputClass}
       type="text"
@@ -69,7 +70,7 @@ const SignUpForm = ({ history, signUpUser, state}) => (
     <FormTextInput
       label="Email"
       name="email"
-      onChange={this.handleChange}
+      onChange={handleChange}
       errorMsg="Please enter your valid account email address"
       className={state.emailInputClass}
       type="email"
@@ -77,7 +78,7 @@ const SignUpForm = ({ history, signUpUser, state}) => (
     <FormTextInput
       label="Password"
       name="passwordOne"
-      onChange={this.handleChange}
+      onChange={handleChange}
       errorMsg="A valid password is required."
       className={state.passwordInputClass}
       type="password"
@@ -85,7 +86,7 @@ const SignUpForm = ({ history, signUpUser, state}) => (
     <FormTextInput
       label="Confirm Password"
       name="passwordTwo"
-      onChange={this.handleChange}
+      onChange={handleChange}
       type="password"
     />
     <FormButton
@@ -98,7 +99,7 @@ const SignUpForm = ({ history, signUpUser, state}) => (
 export const MemberLink = () => {
   return (
     <Link to="/login">
-      <a>Already a member?</a>
+      Already a member?
     </Link>
   )
 }

@@ -28,6 +28,7 @@ export  class PasswordReset extends Component {
               history={history}
               resetPassword={resetPassword}
               state={this.state}
+              handleChange={this.handleChange}
             />
           </div>
         </div>
@@ -37,12 +38,12 @@ export  class PasswordReset extends Component {
 
 }
 
-const PasswordResetForm =({ history, resetPassword, state }) => (
+const PasswordResetForm =({ history, resetPassword, state, handleChange }) => (
   <form onSubmit={(e) => resetPassword(state.email, e)}>
     <FormTextInput
       label="Email"
       name="email"
-      onChange={this.handleChange}
+      onChange={handleChange}
       errorMsg="Please enter your valid account email address"
       className={state.emailInputClass}
       type="text"

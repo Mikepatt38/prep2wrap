@@ -29,7 +29,7 @@ export class Login extends Component {
             </div>
             <div className="illustration-text">
               <h3>Grow your career and network.</h3>
-              <p>State governments could have money that's owed to you. Click your "Resources" tab to get started.</p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
             </div>
           </div>
           <div className="modalForm">
@@ -42,6 +42,7 @@ export class Login extends Component {
                 history={history}
                 signUserIn={signUserIn}
                 state={this.state}
+                handleChange={this.handleChange}
               />
             </div>
             <div className="modal-footer">
@@ -59,12 +60,12 @@ export class Login extends Component {
   }
 }
 
-const LoginForm = ({ history, signUserIn, state}) => (
+const LoginForm = ({ history, signUserIn, state, handleChange}) => (
   <form onSubmit={(e) => signUserIn(state.email, state.password, history, e)}> 
     <FormTextInput
       label="Email"
       name="email"
-      onChange={this.handleChange}
+      onChange={handleChange}
       errorMsg="Please enter your valid account email address"
       className={state.emailError}
       type="email"
@@ -72,7 +73,7 @@ const LoginForm = ({ history, signUserIn, state}) => (
     <FormTextInput
       label="password"
       name="password"
-      onChange={this.handleChange}
+      onChange={handleChange}
       errorMsg="Please enter your valid account password"
       className={state.passwordError}
       type="password"
@@ -87,7 +88,7 @@ const LoginForm = ({ history, signUserIn, state}) => (
 const ForgotPassword = () => {
   return (
     <Link to="/password-reset">
-      <a>Forgot your password?</a>
+      Forgot your password?
     </Link>
   )
 }
