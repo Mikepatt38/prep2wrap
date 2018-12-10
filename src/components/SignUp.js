@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { FormTextInput } from './FormTextInput'
 import { FormButton } from './FormButton'
+import { SignUpMultiStepForm } from './SignUpMultiStepForm';
 
 export class SignUp extends Component {
   state = {
@@ -20,27 +21,13 @@ export class SignUp extends Component {
   }
 
   render() {
-    const { history, signUserUp, logo } = this.props
+    const { history, signUserUp } = this.props
     return (
-      <div className="page-background">
-        <div className="modal" id="static">
-          <div className="modal-header">
-            <img src={logo} alt="Calltime Logo" />
-            <h2>Create An Account</h2>
-            <p>Create an account to get started.</p>
-          </div>
-          <div className="modal-body">
-            <SignUpForm
-              history={history}
-              signUserUp={signUserUp}
-              state={this.state}
-              handleChange={this.handleChange}
-            />
-          </div>
-          <div className="modal-footer">
-            <MemberLink />
-          </div>
-        </div>
+      <div className="signUpContainer">
+        <SignUpMultiStepForm
+          history={history}
+          signUpUser={signUserUp}
+        />
       </div>
     )
   }

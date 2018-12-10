@@ -11,7 +11,99 @@
   margin: 0 auto
   position: relative
 
-  
+// =========== SignUp Form Styles =========== //
+
+.signUpContainer
+  max-width: 960px
+  width: 100%
+  margin: 50px auto
+  background: #ffffff
+  position: relative
+
+h2.signUpFormTitle
+  font-size: 24px
+  font-weight: 600
+  color: #404245
+  line-height: 31px
+  text-align: left
+  margin-bottom: 30px
+  display: block
+  width: 100%
+
+form.signUpForm
+  .form-group
+    margin-bottom: 30px
+
+  .form-group > label
+    margin-bottom: 1px
+    opacity: 0.8
+
+  .button-right
+    display: flex
+    justify-content: row
+    justify-content: flex-end
+    width: 100%
+
+.signUpFormNav
+  width: 100%
+  margin: 0 0 50px 0
+  padding: 0
+  position: relative
+
+  .steps-nav-progress
+    background-color: #f1f5f8
+    border-radius: 2px
+    display: block
+    height: 9px
+    width: 100%
+    position: relative
+
+    &.step1::after
+      right: 67%
+    &.step2::after
+      right: 33%
+
+  .steps-nav-progress::after
+    background-color: $color__mainBlue
+    border-radius: 15px
+    content: ''
+    display: block
+    position: absolute
+    top: 0
+    bottom: 0
+    left: 0
+
+  ul.steps-nav
+    padding: 0
+    margin: 0
+    width: 100%
+    position: relative
+
+    li
+      box-sizing: border-box
+      color: #8d9194
+      display: inline-block
+      list-style: none
+      vertical-align: top
+      width: 33%
+
+      &.active
+        color: $color__mainBlue
+
+      p.stepTitle
+        font-weight: 700
+        text-transform: uppercase
+        letter-spacing: 0.05px
+
+      p.stepName
+        margin: 0 0 16px 0
+        font-size: 16px
+        font-weight: 300
+        display: block
+
+
+
+// =========== Login Form Styles =========== //
 .modal.authModal
   box-shadow: 0 8px 32px 0 rgba(0,0,0,.1)
   margin: 8em auto 14em
