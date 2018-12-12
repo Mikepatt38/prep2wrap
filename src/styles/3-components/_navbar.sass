@@ -78,6 +78,9 @@
   left: 0
   right: 0
 
+  &.auth
+    background-color: #16364b
+
   .header-section
     display: grid
 
@@ -127,6 +130,11 @@
         list-style: none
         display: flex
         align-content: center
+
+        &.nav--dark > li > span
+          span, a
+            color: #ffffff
+            opacity: 0.8
 
         li
           display: inline-flex

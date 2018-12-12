@@ -32,26 +32,28 @@ export class Login extends Component {
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
             </div>
           </div>
-          <div className="modalForm">
-            <div className="modal-header">
-              <h2>Hey, welcome back!</h2>
-              <p>Login and get started with your network.</p>
-            </div>
-            <div className="modal-body">
-              <LoginForm
-                history={history}
-                signUserIn={signUserIn}
-                state={this.state}
-                handleChange={this.handleChange}
-              />
-            </div>
-            <div className="modal-footer">
-              <ForgotPassword />
-              <hr />
-              <p className="info">Not a member yet?</p>
-              <Link to="/signup" className="link">
-                Sign up now to get started
-              </Link>
+          <div className="modalFormContainer">
+            <div className="modalForm">
+              <div className="modal-header">
+                <h2>Hey, welcome back!</h2>
+                <p>Login and get started with your network.</p>
+              </div>
+              <div className="modal-body">
+                <LoginForm
+                  history={history}
+                  signUserIn={signUserIn}
+                  state={this.state}
+                  handleChange={this.handleChange}
+                />
+              </div>
+              <div className="modal-footer">
+                <ForgotPassword />
+                <hr />
+                <p className="info">Not a member yet?</p>
+                <Link to="/signup" className="link">
+                  Sign up now to get started
+                </Link>
+              </div>
             </div>
           </div>
         </div>

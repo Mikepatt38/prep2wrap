@@ -156,6 +156,9 @@ section
 .containerMargin
   padding-top: 75px
   position: relative
+
+.fullHeight
+  min-height: 100vh
 // ========== Images ========== //
 
 img
@@ -164,12 +167,26 @@ img
 // ========== App Layout Styles ========== //
 .app-container
   background: rgb(239, 243, 245)
+  position: relative
 
 footer
   padding: 10px 50px
+  position: absolute
+  bottom: 0
+  left: 0
+  right: 0
+  width: 100%
+
+  &.footer--grey
+    background: #fff
+    padding: 25px 50px
+    p
+      color: #353639
+      opacity: 0.7
 
 footer > p
   font-size: 12px 
   font-weight: 500
   text-transform: uppercase
   letter-spacing: 1px
+

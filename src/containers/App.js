@@ -18,7 +18,7 @@ const App = ({ currentUser }) => {
     <Router>
       {currentUser === null || window.location.pathname === '/signup'
         ?
-          <div>
+          <div className="fullHeight">
             <AuthRoutes />
           </div>
         :
