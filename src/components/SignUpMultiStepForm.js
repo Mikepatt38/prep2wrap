@@ -127,6 +127,15 @@ export class SignUpMultiStepForm extends Component {
     })
   }
 
+  setUserProfileAndContinue = async (e) => {
+    const { userProfileInformation } = this.state
+    e.preventDefault()
+    this.props.setUserProfile(this.props.currentUser.id, userProfileInformation.username, userProfileInformation.location, userProfileInformation.skills, userProfileInformation.positions, userProfileInformation.fbLink, userProfileInformation.imdbLink, userProfileInformation.availability, userProfileInformation.travel, userProfileInformation.union, userProfileInformation.bilingual, userProfileInformation.unions, userProfileInformation.languages)
+    .then( result => {
+      result === 'success' ? this.saveAndContinue(e) : this.errorAndStop(e)
+    })
+  }
+
 
   renderView = (formStep) => {
     const { currentUser } = this.props
@@ -145,7 +154,7 @@ export class SignUpMultiStepForm extends Component {
       case 1:
         return (
           <SignUpFormStep2
-            saveAndContinue={this.saveAndContinue}
+            setUserProfileAndContinue={this.setUserProfileAndContinue}
             state={this.state}
             handleChange={this.handleUserChange}
             handleCheck={this.handleCheck}
@@ -271,7 +280,7 @@ const SignUpFormStep1 = ({ state, handleChange, handleCheck, signUpUserAndContin
 class SignUpFormStep2 extends Component {
 
   render() {
-    const { state, handleChange, handleCheck, handleSelect } = this.props
+    const { state, handleChange, handleCheck, handleSelect, setUserProfileAndContinue } = this.props
     return (
       <form className="signUpForm">
         <FormTextInput 
@@ -364,7 +373,7 @@ class SignUpFormStep2 extends Component {
         />
         <div className="button-right">
           <FormButton
-            onClick={this.props.saveAndContinue}
+            onClick={setUserProfileAndContinue}
             className="button-form"
             buttonText="Next"
           />

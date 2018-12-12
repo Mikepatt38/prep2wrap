@@ -4,7 +4,7 @@ import { Login } from '../components/Login'
 import { SignUp } from '../components/SignUp'
 import { PasswordReset } from '../components/PasswordReset'
 
-const UserAuth = ({ history, signUserIn, signUpUser, resetPassword, location }) => {
+const UserAuth = ({ history, signUserIn, signUpUser, resetPassword, location, currentUser, setUserProfile }) => {
   switch(location.pathname) {
     case '/login':
       return (
@@ -20,6 +20,8 @@ const UserAuth = ({ history, signUserIn, signUpUser, resetPassword, location }) 
         <SignUp 
           signUpUser={signUpUser}
           history={history} 
+          currentUser={currentUser}
+          setUserProfile={setUserProfile}
         />
       )
       break

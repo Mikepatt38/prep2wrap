@@ -21,12 +21,14 @@ export class SignUp extends Component {
   }
 
   render() {
-    const { history, signUpUser } = this.props
+    const { history, signUpUser, currentUser, setUserProfile } = this.props
     return (
       <div className="signUpContainer">
         <SignUpMultiStepForm
           history={history}
           signUpUser={signUpUser}
+          currentUser={currentUser}
+          setUserProfile={setUserProfile}
         />
       </div>
     )

@@ -64,35 +64,41 @@ export const setMobileNumber = (id, mobileNumber) => async dispatch => {
   })
 }
 
-export const setUserProfile = (id, username, location, skills, positions, fbLink, imdbLink, availability, travel, union, bilingual, unions, languages, e) => async dispatch => {
-  e.preventDefault()
+export const setUserProfile = (id, username, location, skills, positions, fbLink, imdbLink, availability, travel, union, bilingual, unions, languages) => async dispatch => {
   const database = await db
-  database.collection("users").doc(id).update({
-    username, 
-    location,
-    skills,
-    positions,
-    fbLink,
-    imdbLink,
-    availability,
-    travel,
-    union,
-    bilingual,
-    unions, 
-    languages
+  const updateUserProfileSuccess = new Promise( (resolve, reject) => {
+    try {
+      database.collection("users").doc(id).update({
+        username, 
+        location,
+        skills,
+        positions,
+        fbLink,
+        imdbLink,
+        availability,
+        travel,
+        union,
+        bilingual,
+        unions, 
+        languages
+      })
+      .then( () => {
+        dispatch({
+          type: 'SET_ALERT',
+          payload: [true, 'success', 'SUCCESS: Your public profile information was updated.']
+        })
+        resolve('success')
+      })
+    }
+    catch(error) {
+      reject('error')
+      dispatch({
+        type: 'SET_ALERT',
+        payload: [true, 'error', error]   
+      })
+    }
   })
-  .then( () => {
-    dispatch({
-      type: 'SET_ALERT',
-      payload: [true, 'success', 'SUCCESS: Your public profile information was updated.']
-    })
-  })
-  .catch( (error) => {
-    dispatch({
-      type: 'SET_ALERT',
-      payload: [true, 'error', error]   
-    })
-  })
+  return await updateUserProfileSuccess
 }
 
 export const uploadProfileImage = (id, avatar, filename) => async dispatch => {
