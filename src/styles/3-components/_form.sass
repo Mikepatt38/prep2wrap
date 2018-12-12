@@ -131,7 +131,17 @@ label.checkbox
   cursor: pointer
   transition: all 0.3s ease-in-out
 
-input[type="checkbox"]#unionMember:checked + label.checkbox, input[type="checkbox"]#travel:checked + label.checkbox, input[type="checkbox"]#availability:checked + label.checkbox, input[type="checkbox"]#bilingual:checked + label.checkbox, input[type="checkbox"]#union:checked + label.checkbox
+  &.xlarge
+    max-width: 325px
+    width: 100%
+    height: 50px
+    display: inline-flex
+    justify-content: center
+    align-items: center
+  &.spacing
+    margin-right: 25px
+
+input[type="checkbox"]#proMembership:checked + label.checkbox, input[type="checkbox"]#freeTrial:checked + label.checkbox, input[type="checkbox"]#unionMember:checked + label.checkbox, input[type="checkbox"]#travel:checked + label.checkbox, input[type="checkbox"]#availability:checked + label.checkbox, input[type="checkbox"]#bilingual:checked + label.checkbox, input[type="checkbox"]#union:checked + label.checkbox
   border: 2px solid $color__blue
   background: $color__blue
   color: white

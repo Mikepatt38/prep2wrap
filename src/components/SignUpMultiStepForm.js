@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import UserProfileForm from '../components/UserProfileForm'
 import { FormTextInput } from './FormTextInput'
 import { FormCheckboxInput } from './FormCheckboxInput'
+import { FormBillingCheckbox } from './FormBillingCheckbox'
 import FormSelectInput from './FormSelectInput'
 import { FormButton } from './FormButton'
 import { locationObj, skillsObj, positionsObj } from '../data/formOptions'
@@ -33,6 +34,8 @@ export class SignUpMultiStepForm extends Component {
       travel: '', 
       union: '', 
       unions: '',
+      freeTrial: false,
+      proMembership: false,
     }
   }
 
@@ -62,6 +65,8 @@ export class SignUpMultiStepForm extends Component {
     this.setState(prevState => ({
       userProfileInformation: {
           ...prevState.userProfileInformation,
+          freeTrial: false,
+          proMembership: false,
           [name]: newVal
       }
     }))
@@ -102,21 +107,37 @@ export class SignUpMultiStepForm extends Component {
     })
   }
 
+  errorAndStop = (e) => {
+    e.preventDefault()
+    this.setState({
+      formStep: 'error'
+    })
+  }
+
   saveAndContinue = (e) => {
     e.preventDefault()
     this.nextStep()
   }
 
+  signUpUserAndContinue = async (e) => {
+    e.preventDefault()
+    this.props.signUpUser(this.state.email, this.state.passwordOne, this.state.firstName, this.state.lastName)
+    .then( result => {
+      result === 'success' ? this.saveAndContinue(e) : this.errorAndStop(e)
+    })
+  }
+
+
   renderView = (formStep) => {
-    const { setUserProfile, currentUser } = this.props
+    const { currentUser } = this.props
     switch(formStep) {
       case 0:
         return (
           <SignUpFormStep1
             state={this.state}
             handleChange={this.handleChange}
-            nextStep={this.nextStep}
-            saveAndContinue={this.saveAndContinue}
+            handleCheck={this.handleCheck}
+            signUpUserAndContinue={this.signUpUserAndContinue}
           />
         )
         break
@@ -138,6 +159,10 @@ export class SignUpMultiStepForm extends Component {
         return (
           <p>Uhm..</p>
         )
+        break
+
+      case 'error':
+        return <p>Error....</p>
     }
   }
 
@@ -171,7 +196,7 @@ const SignUpFormNav = ({ formStep }) => (
       <li className={formStep === 2 ? 'active' : ''}>
         <div>
           <p className="stepTitle">Step 3</p>
-          <p className="stepName">Setup your billing</p>
+          <p className="stepName">Getting Started</p>
         </div>
       </li>
     </ul>
@@ -179,7 +204,7 @@ const SignUpFormNav = ({ formStep }) => (
   </nav>
 )
 
-const SignUpFormStep1 = ({ state, nextStep, handleChange, saveAndContinue }) => {
+const SignUpFormStep1 = ({ state, handleChange, handleCheck, signUpUserAndContinue }) => {
 
   return (
     <form className="signUpForm">
@@ -227,11 +252,16 @@ const SignUpFormStep1 = ({ state, nextStep, handleChange, saveAndContinue }) => 
         value={state.passwordTwo}
         type="password"
       />
+      <FormBillingCheckbox
+        onChange={handleCheck}
+        freeTrialValue={state.userProfileInformation.freeTrial}
+        proMembershipValue={state.userProfileInformation.proMembership}
+      />
       <div className="button-right">
         <FormButton
           className="button-form"
           buttonText="Next"
-          onClick={saveAndContinue}
+          onClick={signUpUserAndContinue}
         />            
       </div>
     </form>

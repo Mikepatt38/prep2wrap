@@ -30,11 +30,17 @@ const AccountSettings = ({ currentUser, setUserProfile, setName, setEmail, setMo
         <UserProfileForm 
           setUserProfile={setUserProfile} 
           currentUser={currentUser} 
+          onClick={this.handleClick}
         />
       </div>
     </div>
   </div>
 )
+
+const handleClick = async (e) => {
+  e.preventDefault()
+  this.props.setUserProfile(this.props.currentUser.id, this.state.username, this.state.location, this.state.skills, this.state.positions, this.state.fbLink, this.state.imdbLink, this.state.availability, this.state.travel, this.state.union, this.state.bilingual, this.state.unions, this.state.languages, e)
+}
 
 AccountSettings.propTypes = {
   currentUser: PropTypes.shape({

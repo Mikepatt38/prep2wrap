@@ -15,37 +15,31 @@ export const signUserIn = (email, password, history, e) => dispatch => {
     })
 }
 
-export const signUpUser = (email, password, firstName, lastName, history, e) => dispatch => {
-  e.preventDefault()
-  auth.doCreateUserWithEmailAndPassword(email, password)
-    .then( async (authUser) => {
-      const database = await db
-      database.collection("users").doc(authUser.user.uid.toString()).set({
-        id: authUser.user.uid.toString(),
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-      })
-      .then ( () => {
-        dispatch({
-          type: 'SET_ACCOUNT_VIEW',
-          payload: 'profile'  
+export const signUpUser = (email, password, firstName, lastName) => async dispatch => {
+  const signUpUserSuccess = new Promise( (resolve, reject) => {
+    try {
+      auth.doCreateUserWithEmailAndPassword(email, password)
+      .then( async (authUser) => {
+        const database = await db
+        database.collection("users").doc(authUser.user.uid.toString()).set({
+          id: authUser.user.uid.toString(),
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
         })
-        history.push("/account-settings")
+        resolve('success')
       })
-      .catch(error => {
-        dispatch({
-          type: 'SET_ALERT',
-          payload: [true, 'error', error]   
-        })
-      })
-    })
-    .catch(error => {
+    }
+    catch(error) {
+      reject('error')
       dispatch({
         type: 'SET_ALERT',
         payload: [true, 'error', error]   
       })
-    })
+    }
+  })
+  console.log(signUpUserSuccess)
+  return await signUpUserSuccess
 }
 
 export const resetPassword = (email, e) => async dispatch => {

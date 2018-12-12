@@ -16,5 +16,5 @@ export const FormButton = ( { className, onClick, buttonText } ) => {
 FormButton.propTypes = {
   className: PropTypes.string,
   buttonText: PropTypes.string,
-  onCick: PropTypes.func
+  onClick: PropTypes.func
 }

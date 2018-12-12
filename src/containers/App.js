@@ -16,7 +16,7 @@ import { DashboardFooter } from '../components/DashboardFooter'
 const App = ({ currentUser }) => {
   return (
     <Router>
-      {currentUser === null
+      {currentUser === null || window.location.pathname === '/signup'
         ?
           <div>
             <AuthRoutes />
@@ -36,22 +36,6 @@ const App = ({ currentUser }) => {
     </Router>
   )
 }
-
-// <div className="app-container">
-// <div className="app-container-sidebar">
-//   <Sidebar />
-// </div>
-// <div className="app-container-main">
-//   <Alert />
-//   <Modal />
-//   <UserProfileModal />
-//   <div className="app-container-main-body">
-//     <AuthRoutes />
-//   </div>
-// </div>
-// </div>
-
-
 
 const mapStateToProps = (state) => ({
   currentUser: state.userState.currentUser,
