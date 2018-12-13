@@ -20,6 +20,7 @@ export class SignUpMultiStepForm extends Component {
     firstNameError: false,
     lastNameError: false,
     formStep: 0,
+    loading: false,
     userProfileInformation: {
       username: '',
       location: '',
@@ -116,23 +117,43 @@ export class SignUpMultiStepForm extends Component {
 
   saveAndContinue = (e) => {
     e.preventDefault()
+    this.setState({
+      loading: false
+    })
     this.nextStep()
   }
 
   signUpUserAndContinue = async (e) => {
     e.preventDefault()
-    this.props.signUpUser(this.state.email, this.state.passwordOne, this.state.firstName, this.state.lastName)
-    .then( result => {
-      result === 'success' ? this.saveAndContinue(e) : this.errorAndStop(e)
+    this.setState({
+      loading: true
+    }, () => {
+      this.props.signUpUser(this.state.email, this.state.passwordOne, this.state.firstName, this.state.lastName)
+      .then( result => {
+        result === 'success' 
+        ? this.saveAndContinue(e)
+        : this.errorAndStop(e)
+      })
     })
   }
 
   setUserProfileAndContinue = async (e) => {
+    this.setState({
+      loading: true
+    })
     const { userProfileInformation } = this.state
     e.preventDefault()
     this.props.setUserProfile(this.props.currentUser.id, userProfileInformation.username, userProfileInformation.location, userProfileInformation.skills, userProfileInformation.positions, userProfileInformation.fbLink, userProfileInformation.imdbLink, userProfileInformation.availability, userProfileInformation.travel, userProfileInformation.union, userProfileInformation.bilingual, userProfileInformation.unions, userProfileInformation.languages)
     .then( result => {
-      result === 'success' ? this.saveAndContinue(e) : this.errorAndStop(e)
+      result === 'success' 
+      ?
+        this.setState({ 
+          loading: false
+        },
+        () => {
+          this.saveAndContinue(e) 
+        })
+      : this.errorAndStop(e)
     })
   }
 
@@ -146,6 +167,7 @@ export class SignUpMultiStepForm extends Component {
             state={this.state}
             handleChange={this.handleChange}
             handleCheck={this.handleCheck}
+            loading={this.state.loading}
             signUpUserAndContinue={this.signUpUserAndContinue}
           />
         )
@@ -180,6 +202,7 @@ export class SignUpMultiStepForm extends Component {
       <div>
         <SignUpFormNav
           formStep={this.state.formStep}
+          loading={this.state.loading}
         />
         {this.renderView(this.state.formStep)}
       </div>
@@ -187,7 +210,7 @@ export class SignUpMultiStepForm extends Component {
   }
 }
 
-const SignUpFormNav = ({ formStep }) => (
+const SignUpFormNav = ({ formStep, loading }) => (
   <nav className="signUpFormNav">
     <ul className="steps-nav">
       <li className={formStep === 0 ? 'active' : ''}>
@@ -209,71 +232,73 @@ const SignUpFormNav = ({ formStep }) => (
         </div>
       </li>
     </ul>
-    <div className={`steps-nav-progress step${formStep}`}></div>
-  </nav>
+    <fieldset className={`steps-nav-progress step${formStep}`} disabled={loading} aria-busy={loading}></fieldset>
+  </nav> 
 )
 
-const SignUpFormStep1 = ({ state, handleChange, handleCheck, signUpUserAndContinue }) => {
+const SignUpFormStep1 = ({ state, handleChange, handleCheck, signUpUserAndContinue, loading }) => {
 
   return (
-    <form className="signUpForm">
-      <h2 className="signUpFormTitle">Let's get you signed up.</h2>  
-      <FormTextInput
-        label="First Name"
-        name="firstName"
-        onChange={handleChange}
-        errorMsg="A first name is required."
-        className="form-group--half"
-        value={state.firstName}
-        type="text"
-      />
-      <FormTextInput
-        label="Last Name"
-        name="lastName"
-        onChange={handleChange}
-        errorMsg="A last name is required."
-        className="form-group--half"
-        vale={state.lastName}
-        type="text"
-      />
-      <FormTextInput
-        label="Email"
-        name="email"
-        onChange={handleChange}
-        errorMsg="Please enter your valid account email address"
-        value={state.email}
-        type="email"
-      />
-      <FormTextInput
-        label="Password"
-        name="passwordOne"
-        onChange={handleChange}
-        errorMsg="A valid password is required."
-        className="form-group--half"
-        value={state.passwordOne}
-        type="password"
-      />
-      <FormTextInput
-        label="Confirm Password"
-        name="passwordTwo"
-        onChange={handleChange}
-        className="form-group--half"
-        value={state.passwordTwo}
-        type="password"
-      />
-      <FormBillingCheckbox
-        onChange={handleCheck}
-        freeTrialValue={state.userProfileInformation.freeTrial}
-        proMembershipValue={state.userProfileInformation.proMembership}
-      />
-      <div className="button-right">
-        <FormButton
-          className="button-form"
-          buttonText="Next"
-          onClick={signUpUserAndContinue}
-        />            
-      </div>
-    </form>
+    <fieldset disabled={loading}>
+      <form className="signUpForm">
+        <h2 className="signUpFormTitle">Let's get you signed up.</h2>  
+        <FormTextInput
+          label="First Name"
+          name="firstName"
+          onChange={handleChange}
+          errorMsg="A first name is required."
+          className="form-group--half"
+          value={state.firstName}
+          type="text"
+        />
+        <FormTextInput
+          label="Last Name"
+          name="lastName"
+          onChange={handleChange}
+          errorMsg="A last name is required."
+          className="form-group--half"
+          vale={state.lastName}
+          type="text"
+        />
+        <FormTextInput
+          label="Email"
+          name="email"
+          onChange={handleChange}
+          errorMsg="Please enter your valid account email address"
+          value={state.email}
+          type="email"
+        />
+        <FormTextInput
+          label="Password"
+          name="passwordOne"
+          onChange={handleChange}
+          errorMsg="A valid password is required."
+          className="form-group--half"
+          value={state.passwordOne}
+          type="password"
+        />
+        <FormTextInput
+          label="Confirm Password"
+          name="passwordTwo"
+          onChange={handleChange}
+          className="form-group--half"
+          value={state.passwordTwo}
+          type="password"
+        />
+        <FormBillingCheckbox
+          onChange={handleCheck}
+          freeTrialValue={state.userProfileInformation.freeTrial}
+          proMembershipValue={state.userProfileInformation.proMembership}
+        />
+        <div className="button-right">
+          <FormButton
+            className="button-form"
+            buttonText="Next"
+            onClick={signUpUserAndContinue}
+          />            
+        </div>
+      </form>
+    </fieldset>
   )
 }
 

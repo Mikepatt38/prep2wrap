@@ -59,23 +59,16 @@ form.signUpForm
     width: 100%
     position: relative
 
-    &.step0::after
+    &.step0::before
       right: 67%
-    &.step1::after
+    &.step1::before
       right: 33%
-    &.step3::after
+    &.step3::before
       right: 0
+      margin-right: 0
 
   .steps-nav-progress::after
-    background-color: $color__mainBlue
-    border-radius: 15px
-    content: ''
-    display: block
-    position: absolute
-    top: 0
-    bottom: 0
-    left: 0
-    margin-right: 1%
+
 
   ul.steps-nav
     padding: 0
@@ -107,7 +100,39 @@ form.signUpForm
         font-weight: 300
         display: block
 
+@keyframes loading 
+  0%
+    background-position: 0 0
+  100%
+    background-position: 100% 100%
 
+fieldset
+  border: 0
+  padding: 0
+
+fieldset.steps-nav-progress
+  border: 0
+  padding: 0
+
+  &[disabled]
+    opacity: 0.5
+  &::before
+    background: $color__mainBlue
+    border-radius: 15px
+    content: ''
+    display: block
+    position: absolute
+    top: 0
+    bottom: 0
+    left: 0
+    margin-right: 1%
+    transition: all 0.4s ease-in-out
+  &[aria-busy='true']::before
+    background-image: linear-gradient(to right, $color__mainBlue 0%, $color__teal 50%, $color__mainBlue 100%)
+    background-size: 50% auto
+    right: 0
+    animation: loading 0.5s linear infinite   
+    transition: all 0.4s ease-in-out
 
 // =========== Login Form Styles =========== //
 .modal.authModal
