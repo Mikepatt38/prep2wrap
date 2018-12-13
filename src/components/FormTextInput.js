@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export const FormTextInput = ( {label, name, value, type, disabled, placeholder, onChange, className, errorMsg } ) => {
+export const FormTextInput = ( {label, name, value, type, disabled, placeholder, onChange, className, error, errorMsg } ) => {
   return (
-    <div className={'form-group' + ` ${className}`}>
+    <div className={error === true ? 'field-error form-group' + ` ${className}` : 'form-group' + ` ${className}` }>
       <label>{label}:</label>
       <input 
         name={name}

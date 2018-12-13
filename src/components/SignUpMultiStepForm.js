@@ -6,19 +6,10 @@ import { FormBillingCheckbox } from './FormBillingCheckbox'
 import FormSelectInput from './FormSelectInput'
 import { FormButton } from './FormButton'
 import { locationObj, skillsObj, positionsObj } from '../data/formOptions'
+import { SignUpMultiStepFormOne } from './SignUpMultiStepFormStepOne'
 
 export class SignUpMultiStepForm extends Component {
   state = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    passwordOne: '',
-    passwordTwo: '',
-    emailError: false,
-    passwordError: false,
-    firstNameError: false,
-    lastNameError: false,
     formStep: 0,
     loading: false,
     userProfileInformation: {
@@ -123,20 +114,6 @@ export class SignUpMultiStepForm extends Component {
     this.nextStep()
   }
 
-  signUpUserAndContinue = async (e) => {
-    e.preventDefault()
-    this.setState({
-      loading: true
-    }, () => {
-      this.props.signUpUser(this.state.email, this.state.passwordOne, this.state.firstName, this.state.lastName)
-      .then( result => {
-        result === 'success' 
-        ? this.saveAndContinue(e)
-        : this.errorAndStop(e)
-      })
-    })
-  }
-
   setUserProfileAndContinue = async (e) => {
     this.setState({
       loading: true
@@ -159,15 +136,14 @@ export class SignUpMultiStepForm extends Component {
 
 
   renderView = (formStep) => {
-    const { currentUser } = this.props
     switch(formStep) {
       case 0:
         return (
-          <SignUpFormStep1
-            state={this.state}
+          <SignUpMultiStepFormOne
             handleChange={this.handleChange}
             handleCheck={this.handleCheck}
-            loading={this.state.loading}
+            signUpUser={this.props.signUpUser}
+            saveAndContinue={this.saveAndContinue}
             signUpUserAndContinue={this.signUpUserAndContinue}
           />
         )
@@ -236,174 +212,110 @@ const SignUpFormNav = ({ formStep, loading }) => (
   </nav> 
 )
 
-const SignUpFormStep1 = ({ state, handleChange, handleCheck, signUpUserAndContinue, loading }) => {
-
-  return (
-    <fieldset disabled={loading}>
-      <form className="signUpForm">
-        <h2 className="signUpFormTitle">Let's get you signed up.</h2>  
-        <FormTextInput
-          label="First Name"
-          name="firstName"
-          onChange={handleChange}
-          errorMsg="A first name is required."
-          className="form-group--half"
-          value={state.firstName}
-          type="text"
-        />
-        <FormTextInput
-          label="Last Name"
-          name="lastName"
-          onChange={handleChange}
-          errorMsg="A last name is required."
-          className="form-group--half"
-          vale={state.lastName}
-          type="text"
-        />
-        <FormTextInput
-          label="Email"
-          name="email"
-          onChange={handleChange}
-          errorMsg="Please enter your valid account email address"
-          value={state.email}
-          type="email"
-        />
-        <FormTextInput
-          label="Password"
-          name="passwordOne"
-          onChange={handleChange}
-          errorMsg="A valid password is required."
-          className="form-group--half"
-          value={state.passwordOne}
-          type="password"
-        />
-        <FormTextInput
-          label="Confirm Password"
-          name="passwordTwo"
-          onChange={handleChange}
-          className="form-group--half"
-          value={state.passwordTwo}
-          type="password"
-        />
-        <FormBillingCheckbox
-          onChange={handleCheck}
-          freeTrialValue={state.userProfileInformation.freeTrial}
-          proMembershipValue={state.userProfileInformation.proMembership}
-        />
-        <div className="button-right">
-          <FormButton
-            className="button-form"
-            buttonText="Next"
-            onClick={signUpUserAndContinue}
-          />            
-        </div>
-      </form>
-    </fieldset>
-  )
-}
-
 class SignUpFormStep2 extends Component {
 
   render() {
     const { state, handleChange, handleCheck, handleSelect, setUserProfileAndContinue } = this.props
     return (
-      <form className="signUpForm">
-        <FormTextInput 
-          label="Username"
-          name="username"
-          type="text"
-          onChange={handleChange}
-          className="form-group--half"
-          value={state.userProfileInformation.username}
-        />
-        <FormSelectInput
-          label="Location"
-          name="location"
-          options={locationObj}
-          currentSkills={state.userProfileInformation.location}
-          placeholder="Select Cities You Work In"
-          isMultiSelect={true}
-          onSelect={handleSelect}
-          className="form-group--half"
-        />
-        <FormSelectInput
-          label="Skills"
-          name="skills"
-          options={skillsObj}
-          currentSkills={state.userProfileInformation.skills}
-          placeholder="Select Skills You're Qualified For"
-          isMultiSelect={true}
-          onSelect={handleSelect}
-        />
-        <FormSelectInput
-          label="Positions"
-          name="positions"
-          options={positionsObj}
-          currentSkills={state.userProfileInformation.positions}
-          placeholder="Select Positions For Jobs You're Seeking"
-          isMultiSelect={true}
-          onSelect={handleSelect}
-        />
-        <FormTextInput 
-          label="Facebook Profile Link"
-          name="fbLink"
-          type="text"
-          onChange={handleChange}
-          className="form-group--half"
-          value={state.userProfileInformation.fbLink}
-        />
-        <FormTextInput 
-          label="IMDb Profile Link"
-          name="imdbLink"
-          type="text"
-          onChange={handleChange}
-          className="form-group--half"
-          value={state.userProfileInformation.imdbLink}
-        />
-        <FormCheckboxInput
-          label="Willing To Travel"
-          checkboxId="travel"
-          onChange={handleCheck}
-          value={state.userProfileInformation.travel}
-          className="form-group--half"
-        />
-        <FormCheckboxInput
-          label="Daily Availability"
-          checkboxId="availability"
-          onChange={handleCheck}
-          value={state.userProfileInformation.availability}
-          className="form-group--half"
-        />
-        <FormCheckboxInput
-          label="Bilingual"
-          checkboxId="bilingual"
-          onChange={handleCheck}
-          value={state.userProfileInformation.bilingual}
-          inputName="languages"
-          inputLabel="List All Fluent Languages"
-          inputValue={state.userProfileInformation.languages === undefined ? '' : state.userProfileInformation.languages}
-          inputOnChange={handleChange}
-          className="form-group--half"
-        />
-        <FormCheckboxInput
-          label="Union"
-          checkboxId="union"
-          onChange={handleCheck}
-          value={state.userProfileInformation.union}
-          inputName="unions"
-          inputLabel="List Union Names"
-          inputValue={state.userProfileInformation.unions === undefined ? '' : state.userProfileInformation.unions}
-          inputOnChange={handleChange}
-          className="form-group--half"
-        />
-        <div className="button-right">
-          <FormButton
-            onClick={setUserProfileAndContinue}
-            className="button-form"
-            buttonText="Next"
+      <fieldset disabled={state.loading}>
+        <form className="signUpForm">
+          <FormTextInput 
+            label="Username"
+            name="username"
+            type="text"
+            onChange={handleChange}
+            className="form-group--half"
+            value={state.userProfileInformation.username}
           />
-        </div>
-      </form>  
+          <FormSelectInput
+            label="Location"
+            name="location"
+            options={locationObj}
+            currentSkills={state.userProfileInformation.location}
+            placeholder="Select Cities You Work In"
+            isMultiSelect={true}
+            onSelect={handleSelect}
+            className="form-group--half"
+          />
+          <FormSelectInput
+            label="Skills"
+            name="skills"
+            options={skillsObj}
+            currentSkills={state.userProfileInformation.skills}
+            placeholder="Select Skills You're Qualified For"
+            isMultiSelect={true}
+            onSelect={handleSelect}
+          />
+          <FormSelectInput
+            label="Positions"
+            name="positions"
+            options={positionsObj}
+            currentSkills={state.userProfileInformation.positions}
+            placeholder="Select Positions For Jobs You're Seeking"
+            isMultiSelect={true}
+            onSelect={handleSelect}
+          />
+          <FormTextInput 
+            label="Facebook Profile Link"
+            name="fbLink"
+            type="text"
+            onChange={handleChange}
+            className="form-group--half"
+            value={state.userProfileInformation.fbLink}
+          />
+          <FormTextInput 
+            label="IMDb Profile Link"
+            name="imdbLink"
+            type="text"
+            onChange={handleChange}
+            className="form-group--half"
+            value={state.userProfileInformation.imdbLink}
+          />
+          <FormCheckboxInput
+            label="Willing To Travel"
+            checkboxId="travel"
+            onChange={handleCheck}
+            value={state.userProfileInformation.travel}
+            className="form-group--half"
+          />
+          <FormCheckboxInput
+            label="Daily Availability"
+            checkboxId="availability"
+            onChange={handleCheck}
+            value={state.userProfileInformation.availability}
+            className="form-group--half"
+          />
+          <FormCheckboxInput
+            label="Bilingual"
+            checkboxId="bilingual"
+            onChange={handleCheck}
+            value={state.userProfileInformation.bilingual}
+            inputName="languages"
+            inputLabel="List All Fluent Languages"
+            inputValue={state.userProfileInformation.languages === undefined ? '' : state.userProfileInformation.languages}
+            inputOnChange={handleChange}
+            className="form-group--half"
+          />
+          <FormCheckboxInput
+            label="Union"
+            checkboxId="union"
+            onChange={handleCheck}
+            value={state.userProfileInformation.union}
+            inputName="unions"
+            inputLabel="List Union Names"
+            inputValue={state.userProfileInformation.unions === undefined ? '' : state.userProfileInformation.unions}
+            inputOnChange={handleChange}
+            className="form-group--half"
+          />
+          <div className="button-right">
+            <FormButton
+              onClick={setUserProfileAndContinue}
+              className="button-form"
+              buttonText="Next"
+            />
+          </div>
+        </form>  
+      </fieldset>
     )
   }
 }
