@@ -103,6 +103,7 @@ export class SignUpMultiStepFormStepTwo extends Component {
     return (
       <fieldset disabled={this.state.loading}>
         <form className="signUpForm">
+          <h2 className="signUpFormTitle">Set up your profile information.</h2>
           <FormTextInput 
             label="Username"
             type="text"
