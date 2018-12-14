@@ -1,17 +1,10 @@
 import React, { Component } from 'react'
-import UserProfileForm from '../components/UserProfileForm'
-import { FormTextInput } from './FormTextInput'
-import { FormCheckboxInput } from './FormCheckboxInput'
-import { FormBillingCheckbox } from './FormBillingCheckbox'
-import FormSelectInput from './FormSelectInput'
-import { FormButton } from './FormButton'
-import { locationObj, skillsObj, positionsObj } from '../data/formOptions'
 import { SignUpMultiStepFormOne } from './SignUpMultiStepFormStepOne'
 import { SignUpMultiStepFormStepTwo } from './SignUpMultiStepFormStepTwo'
 
 export class SignUpMultiStepForm extends Component {
   state = {
-    formStep: 0
+    formStep: 1
   }
 
   nextStep = () => {
@@ -70,6 +63,7 @@ export class SignUpMultiStepForm extends Component {
             setUserProfile={this.props.setUserProfile}
             saveAndContinue={this.saveAndContinue}
             errorAndStop={this.errorAndStop}
+            currentUser={this.props.currentUser}
           />
         )
         break

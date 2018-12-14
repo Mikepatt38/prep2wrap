@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Select from 'react-select' 
 
+
 class FormSelectInput extends Component {
   state = {
     selectedOption: this.props.currentSkills
@@ -13,9 +14,9 @@ class FormSelectInput extends Component {
   }
 
   render() {
-    const { options, className, label, placeholder, isMultiSelect } = this.props
+    const { options, className, label, placeholder, isMultiSelect, error, errorMsg } = this.props
     return (
-      <div className={'form-group' + ` ${className}`}>
+      <div className={error === true ? 'field-error form-group' + ` ${className}` : 'form-group' + ` ${className}` }>
         <label>{label}:</label>
         <Select
           closeMenuOnSelect={!isMultiSelect}
@@ -26,6 +27,7 @@ class FormSelectInput extends Component {
           options={options}
           placeholder={placeholder}
         />
+        <p className="error-msg">{errorMsg}</p>
       </div>
     )
   }

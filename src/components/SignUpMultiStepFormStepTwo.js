@@ -20,20 +20,32 @@ export class SignUpMultiStepFormStepTwo extends Component {
     travel: '', 
     union: '', 
     unions: '',
-    loading: false
+    loading: false,
+    validated: true
   }
 
   handleUserChange = e => {
     const newVal = e.target.value
     const name = e.target.name
     this.setState({
-      [name]: newVal
+      [name]: newVal,
+      [e.target.name+'Error']: false
     })
   }
 
   handleChange = e => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
+      [e.target.name+'Error']: false
+    })
+  }
+
+  handleCheck = e => {
+    const newVal = e.target.checked
+    const name = e.target.id
+    this.setState({
+      [name]: newVal,
+      [e.target.name+'Error']: false
     })
   }
 
@@ -44,26 +56,46 @@ export class SignUpMultiStepFormStepTwo extends Component {
       tempArr.push(value.value)
     })
     this.setState({
-      [name]: tempArr
+      [name]: tempArr,
+      [name+'Error']: false
     })
   }
 
+  validateForm = () => {
+    let validated = true
+    Object.keys(this.state).map( value => {
+      if (this.state[value].length === 0 ) {
+        validated = false
+        this.setState({
+          [value+'Error']: true
+        })
+      }
+    })
+    return validated
+  }
+
   setUserProfileAndContinue = async (e) => {
+    e.preventDefault()
     this.setState({
       loading: true
-    })
-    e.preventDefault()
-    this.props.setUserProfile(this.props.currentUser.id, this.state.username, this.state.location, this.state.skills, this.state.positions, this.state.fbLink, this.state.imdbLink, this.state.availability, this.state.travel, this.state.union, this.state.bilingual, this.state.unions, this.state.languages)
-    .then( result => {
-      result === 'success' 
-      ?
-        this.setState({ 
-          loading: false
-        },
-        () => {
-          this.props.saveAndContinue(e) 
+    }, () => {
+      if(this.validateForm()) {
+        this.props.setUserProfile(this.props.currentUser.id, this.state.username, this.state.location, this.state.skills, this.state.positions, this.state.fbLink, this.state.imdbLink, this.state.availability, this.state.travel, this.state.union, this.state.bilingual, this.state.unions, this.state.languages)
+        .then( result => {
+          result === 'success' 
+          ?
+            this.setState({ 
+              loading: false
+            },
+            () => {
+              this.props.saveAndContinue(e) 
+            })
+          : this.props.errorAndStop(e)
         })
-      : this.props.errorAndStop(e)
+      }
+      else {
+        this.setState({ loading: false })
+      }
     })
   }
 
@@ -73,55 +105,65 @@ export class SignUpMultiStepFormStepTwo extends Component {
         <form className="signUpForm">
           <FormTextInput 
             label="Username"
-            name="username"
             type="text"
-            onChange={this.handleChange}
+            name="username"
             className="form-group--half"
+            onChange={this.handleChange}
             value={this.state.username}
+            error={this.state.usernameError}
+            errorMsg="A username is required."
           />
           <FormSelectInput
             label="Location"
             name="location"
-            options={locationObj}
-            currentSkills={this.state.location}
+            className="form-group--half"
             placeholder="Select Cities You Work In"
             isMultiSelect={true}
+            options={locationObj}
+            currentSkills={this.state.location}
             onSelect={this.handleSelect}
-            className="form-group--half"
+            error={this.state.locationError}
+            errorMsg="Select at least one location."
           />
           <FormSelectInput
             label="Skills"
             name="skills"
-            options={skillsObj}
-            currentSkills={this.state.skills}
             placeholder="Select Skills You're Qualified For"
             isMultiSelect={true}
+            options={skillsObj}
+            currentSkills={this.state.skills}
             onSelect={this.handleSelect}
+            error={this.state.skillsError}
+            errorMsg="Select at least one skill."
           />
           <FormSelectInput
             label="Positions"
             name="positions"
-            options={positionsObj}
-            currentSkills={this.state.positions}
             placeholder="Select Positions For Jobs You're Seeking"
             isMultiSelect={true}
+            options={positionsObj}
+            currentSkills={this.state.positions}
             onSelect={this.handleSelect}
+            error={this.state.positionsError}
+            errorMsg="Select at least one position."
           />
           <FormTextInput 
             label="Facebook Profile Link"
             name="fbLink"
             type="text"
-            onChange={this.handleChange}
             className="form-group--half"
+            onChange={this.handleChange}
             value={this.state.fbLink}
           />
           <FormTextInput 
             label="IMDb Profile Link"
             name="imdbLink"
             type="text"
-            onChange={this.handleChange}
             className="form-group--half"
+            onChange={this.handleChange}
             value={this.state.imdbLink}
+            error={this.state.imdbLinkError}
+            errorMsg="Provide a valid profile link."
           />
           <FormCheckboxInput
             label="Willing To Travel"
