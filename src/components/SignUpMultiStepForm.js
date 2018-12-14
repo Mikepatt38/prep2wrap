@@ -4,7 +4,7 @@ import { SignUpMultiStepFormStepTwo } from './SignUpMultiStepFormStepTwo'
 
 export class SignUpMultiStepForm extends Component {
   state = {
-    formStep: 1
+    formStep: 0
   }
 
   nextStep = () => {
