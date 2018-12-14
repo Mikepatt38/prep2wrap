@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
+import { FormButton } from './FormButton'
 import { SignUpMultiStepFormOne } from './SignUpMultiStepFormStepOne'
 import { SignUpMultiStepFormStepTwo } from './SignUpMultiStepFormStepTwo'
+import CreateIllustration from '../img/illustration-create.svg'
+import SearchIllustration from '../img/illustration-search.svg'
+import SettingsIllustration from '../img/illustration-settings.svg'
 
 export class SignUpMultiStepForm extends Component {
   state = {
-    formStep: 2
+    formStep: 0
   }
 
   nextStep = () => {
@@ -69,9 +73,8 @@ export class SignUpMultiStepForm extends Component {
         break
       
       case 2:
-        console.log(this.state)
         return (
-          <p>Uhm..</p>
+        <QuickActions />
         )
         break
 
@@ -117,4 +120,40 @@ const SignUpFormNav = ({ formStep, loading }) => (
     </ul>
     <fieldset className={`steps-nav-progress step${formStep}`} disabled={loading} aria-busy={loading}></fieldset>
   </nav> 
+)
+
+const QuickActions = () => (
+  <div className="quickActionsContainer">
+    <h2 className="signUpFormTitle">Congrats! Get started using your account today.</h2>
+    <p className="signUpFormText">Get started using your account today by clicking one of the quick actions or going straight to your user dashboard.</p>
+    <div className="quickAction">
+      <div className="illustration">
+        <img src={CreateIllustration} alt="Create a job illustration" />
+      </div>
+      <div className="content">
+        <h3>Create your first job.</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+      </div>
+    </div>
+
+    <div className="quickAction">
+      <div className="illustration">
+        <img src={SearchIllustration} alt="Search users illustration" />
+      </div>
+      <div className="content">
+        <h3>Search for other users.</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+      </div>
+    </div>
+
+    <div className="quickAction">
+      <div className="illustration">
+        <img src={SettingsIllustration} alt="Account settings illustration" />
+      </div>
+      <div className="content">
+        <h3>Head to your user dashboard.</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+      </div>
+    </div>
+  </div>
 )
