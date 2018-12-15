@@ -11,6 +11,8 @@ export class SignUpMultiStepFormOne extends Component {
     password: '',
     passwordOne: '',
     passwordTwo: '',
+    mobileNumber: '',
+    mobileNumberError: false,
     emailError: false,
     passwordOneError: false,
     firstNameError: false,
@@ -38,7 +40,7 @@ export class SignUpMultiStepFormOne extends Component {
   }
 
   validateForm = () => {
-    const { firstName, lastName, email, passwordOne, passwordTwo } = this.state
+    const { firstName, lastName, email, passwordOne, passwordTwo, mobileNumber } = this.state
     let validated = true
     if ( firstName.length == 0 ) {
       this.setState({ firstNameError: true})
@@ -50,6 +52,10 @@ export class SignUpMultiStepFormOne extends Component {
     }
     if ( email.length == 0) {
       this.setState({ emailError: true })
+      validated = false
+    }
+    if ( mobileNumber.length == 0) {
+      this.setState({ mobileNumberError: true })
       validated = false
     }
     if( passwordOne.length == 0 || passwordTwo.length == 0 || passwordOne !== passwordTwo ) {
@@ -65,7 +71,7 @@ export class SignUpMultiStepFormOne extends Component {
       loading: true
     }, () => {
       if(this.validateForm()) {
-        this.props.signUpUser(this.state.email, this.state.passwordOne, this.state.firstName, this.state.lastName)
+        this.props.signUpUser(this.state.email, this.state.passwordOne, this.state.firstName, this.state.lastName, this.state.mobileNumber)
         .then( result => {
           result === 'success' 
           ? this.props.saveAndContinue(e)
@@ -109,8 +115,19 @@ export class SignUpMultiStepFormOne extends Component {
             name="email"
             value={this.state.email}
             onChange={this.handleChange}
+            className="form-group--half"
             error={this.state.emailError}
-            errorMsg="Please enter your valid account email address"
+            errorMsg="Please enter a valid email address"
+          />
+          <FormTextInput
+            label="Mobile Number"
+            type="tel"
+            name="mobileNumber"
+            value={this.state.mobileNumber}
+            onChange={this.handleChange}
+            className="form-group--half"
+            error={this.state.mobileNumberError}
+            errorMsg="Please enter a valid mobile number"
           />
           <FormTextInput
             label="Password"

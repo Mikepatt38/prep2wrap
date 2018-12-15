@@ -61,3 +61,8 @@ export const positionsObj = [
   { value: 'Ager/ Dryer', label: 'Ager/ Dryer' },
   { value: 'Illustrator/ Concept Artist', label: 'Illustrator/ Concept Artist' }
 ]
+
+export const contactObj = [
+  { value: 'Email', label: 'Email' },
+  { value: 'Phone', label: 'Phone' },
+]

@@ -15,7 +15,7 @@ export const signUserIn = (email, password, history, e) => dispatch => {
     })
 }
 
-export const signUpUser = (email, password, firstName, lastName) => async dispatch => {
+export const signUpUser = (email, password, firstName, lastName, mobileNumber) => async dispatch => {
   const signUpUserSuccess = new Promise( (resolve, reject) => {
     try {
       auth.doCreateUserWithEmailAndPassword(email, password)
@@ -26,6 +26,7 @@ export const signUpUser = (email, password, firstName, lastName) => async dispat
           firstName: firstName,
           lastName: lastName,
           email: email,
+          mobileNumber: mobileNumber
         })
         resolve('success')
       })

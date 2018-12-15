@@ -55,7 +55,7 @@ export class SignUpMultiStepFormStepTwo extends Component {
       tempArr.push(value.value)
     })
     this.setState({
-      [name]: tempArr,
+      [name]: val,
       [name+'Error']: false
     })
   }
