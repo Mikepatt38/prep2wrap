@@ -42,19 +42,15 @@ class UserProfileModal extends Component {
 
   handleAddFavorite = async (addUserToFavorite, user) => {
     const userAdded = await addUserToFavorite(this.props.currentUser.id.toString(), user)
-      .then(() => {
-        return true
-      })
-      .catch((error) => {
-        console.log("Error: " + error)
-      })
     this.setState({
       favoritesUpdated: userAdded ? true : false
+    }, () => {
+      this.props.closeModal(false)
     })
   }
 
   render() {
-    const { user, setUserModal, addUserToFavorite } = this.props
+    const { user, addUserToFavorite, closeModal } = this.props
 
     return (
       <div className={ this.props.userModalActive ? 'modalBg modal-open' : 'modalBg'}>
@@ -64,7 +60,7 @@ class UserProfileModal extends Component {
             <img src={CloseIcon} 
               alt="Close icon for modal" 
               role="button"
-              onClick={() => setUserModal(false, null)}
+              onClick={() => closeModal(false)}
             />
           </div>
           <div className="modal-body">

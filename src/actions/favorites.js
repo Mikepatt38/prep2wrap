@@ -50,4 +50,10 @@ export const addUserToFavorite = (currentUserId, userToBeAdded) => async dispatc
   const updateFavorites = database.collection("favorites").doc(currentUserId).set({ favoritedUsers: [...favorites, userToBeAddedObj] })
 
   updateFavorites 
+    .then(
+      dispatch({
+        type: 'SET_ALERT',
+        payload: [true, 'Success', 'The user was added to your favorites list']
+      })
+    )
 }

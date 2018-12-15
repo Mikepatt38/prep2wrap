@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import { PageHeader } from '../components/PageHeader'
 import { UserSearch } from '../components/UserSearch'
-import { Card } from '../components/Card'
 import UserSearchTable from '../components/UserSearchTable'
 import UserFavoritesTable from '../components/UserFavoritesTable'
 
@@ -23,7 +21,6 @@ class UsersPage extends Component {
 
   componentWillUnmount = () => {
     this.props.stopListeningForFavorites(this.props.currentUser.id.toString())
-    console.log('Stopped listening for favorites')
   }
 
   componentWillReceiveProps(nextProps) {
@@ -37,12 +34,6 @@ class UsersPage extends Component {
         loading: false
       })
     }, 1000)
-  }
-
-  componentWillUnmount() {
-    this.setState({
-      userData: []
-    })
   }
 
   render() {

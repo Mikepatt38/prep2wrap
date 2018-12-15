@@ -17,6 +17,10 @@ export class UserSearchForm extends Component {
   handleClick = (e) => {
     e.preventDefault()
     this.props.searchUsersByName(this.state.firstName, this.state.lastName)
+    this.setState({
+      firstName: '',
+      lastName: ''
+    })
   }
 
   render() {
