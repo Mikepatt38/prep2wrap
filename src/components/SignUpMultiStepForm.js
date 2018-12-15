@@ -39,8 +39,7 @@ export class SignUpMultiStepForm extends Component {
     })
   }
 
-  saveAndContinue = (e) => {
-    e.preventDefault()
+  saveAndContinue = () => {
     this.setState({
       loading: false
     })

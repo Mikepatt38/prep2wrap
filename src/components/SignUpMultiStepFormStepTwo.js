@@ -9,16 +9,15 @@ export class SignUpMultiStepFormStepTwo extends Component {
   state = {
     username: '',
     location: '',
-    headline: '',
     skills: '',
     positions: '',
     fbLink: '',
     imdbLink: '',
-    availability: '',
-    bilingual: '', 
+    availability: false,
+    bilingual: false, 
     languages: '',
-    travel: '', 
-    union: '', 
+    travel: false, 
+    union: false, 
     unions: '',
     loading: false,
     validated: true
@@ -63,8 +62,11 @@ export class SignUpMultiStepFormStepTwo extends Component {
 
   validateForm = () => {
     let validated = true
-    Object.keys(this.state).map( value => {
-      if (this.state[value].length === 0 ) {
+    const requiredFormFields = [this.state.username, this.state.location, this.state.skills, this.state.positions, this.state.imdbLink ]
+    requiredFormFields.map( value => {
+      if (value.length === 0 ) {
+        console.log(value)
+        console.log(this.state[value].length)
         validated = false
         this.setState({
           [value+'Error']: true
@@ -80,6 +82,7 @@ export class SignUpMultiStepFormStepTwo extends Component {
       loading: true
     }, () => {
       if(this.validateForm()) {
+        console.log("Form validated")
         this.props.setUserProfile(this.props.currentUser.id, this.state.username, this.state.location, this.state.skills, this.state.positions, this.state.fbLink, this.state.imdbLink, this.state.availability, this.state.travel, this.state.union, this.state.bilingual, this.state.unions, this.state.languages)
         .then( result => {
           result === 'success' 
@@ -88,16 +91,19 @@ export class SignUpMultiStepFormStepTwo extends Component {
               loading: false
             },
             () => {
+              console.log('Form submitted')
               this.props.saveAndContinue(e) 
             })
           : this.props.errorAndStop(e)
         })
       }
       else {
+        console.log('Form not validated')
         this.setState({ loading: false })
       }
     })
   }
+
 
   render() {
     return (

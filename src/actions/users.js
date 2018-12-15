@@ -38,7 +38,6 @@ export const signUpUser = (email, password, firstName, lastName) => async dispat
       })
     }
   })
-  console.log(signUpUserSuccess)
   return await signUpUserSuccess
 }
 
@@ -87,19 +86,33 @@ export const getCurrentUser = (id) => async dispatch => {
   // })
 }
 
-export const searchUsersByName = (searchTerm, e) => async dispatch => {
-  // e.preventDefault()
+export const searchUsersByName = (firstName, lastName) => async dispatch => {
   const database = await db
   let users = []
-  database.collection("users").get().then( (querySnapshot) => {
-    querySnapshot.forEach( (doc) => {
-      searchTerm.includes(doc.data().firstName) || searchTerm.includes(doc.data().lastName) ? users.push(doc.data()) : null
-    })
-    dispatch({
+  const returnUserSearchResults = new Promise( (resolve, reject) => {
+    try {
+      database.collection("users").get().then( (querySnapshot) => {
+        querySnapshot.forEach( (doc) => {
+          console.log('firstName: ' + doc.data().firstName + ' Given firstName: ' + firstName)
+          console.log('Do firstName match? ' + firstName.includes(doc.data().firstName))
+          firstName.includes(doc.data().firstName) || lastName.includes(doc.data().lastName) ? users.push(doc.data()) : null
+        })
+      })
+      .then( () => {
+        resolve(users)
+      })
+    }
+    catch(error) {
+      reject('error')
+      dispatch({
+        type: 'SET_ALERT',
+        payload: [true, 'error', error]   
+      })
+    }
+  }) 
+  const usersArr = await returnUserSearchResults
+  await dispatch({
       type: 'SEARCH_USER_BY_NAME_RESULTS',
-      payload: users
+      payload: usersArr
     })
-  }).catch(function(error) {
-    console.log("Error getting document:", error)
-  })
 }
