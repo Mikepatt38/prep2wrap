@@ -38,7 +38,7 @@ div#linktotop
       background-color: $color__blue
       border: 1px solid $color__blue
 
-// =========== General Modal Styles =========== //
+// =========== Auth Modal Styles =========== //
 
 .modal
   display: none
@@ -53,12 +53,6 @@ div#linktotop
   padding: 40px 0
   border-radius: 2px
 
-  &.modal-open
-    display: flex
-    opacity: 1
-    visibility: visible
-    animation: fade .5s ease-in-out
-    
   &#static
     display: block
 
@@ -113,3 +107,58 @@ div#linktotop
 
       &:hover
         color: rgba(99,234,211,.9)
+
+
+// =========== General Modal Styles =========== //
+
+.modalBg
+  display: none
+  align-items: center
+  justify-content: center
+  position: fixed
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  padding: 1rem
+  background-color: rgba(236,236,236, 0.9)
+  z-index: 9999
+  opacity: 0
+  visibility: hidden
+  overflow-x: hidden
+  overflow-y: auto
+  animation: fade .5s ease-in-out
+
+  &.modal-open
+    display: flex
+    opacity: 1
+    visibility: visible
+    animation: fade .5s ease-in-out
+
+  .modal
+    position: relative
+    display: block
+    padding: 0
+
+    .modal-header
+      display: grid
+      grid-template-columns: 1fr 40px
+      text-align: left
+      padding: 30px
+      align-items: center
+      border-bottom: 1px solid #E6E8EB
+
+      img
+        cursor: pointer
+
+      h2
+        color: #2c2c2c
+        font-size: 24px
+        font-weight: 500
+        margin: 0
+        text-transform: uppercase
+        letter-spacing: 1px
+
+    .modal-body
+      position: relative
+      padding: 30px
