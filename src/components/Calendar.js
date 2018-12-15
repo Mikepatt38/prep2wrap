@@ -46,7 +46,7 @@ class Calendar extends Component {
   }
 
   renderCells() {
-    const { currentMonth, selectedDate } = this.state
+    const { currentMonth } = this.state
     const monthStart = dateFns.startOfMonth(currentMonth)
     const monthEnd = dateFns.endOfMonth(monthStart)
     const startDate = dateFns.startOfWeek(monthStart)
@@ -57,7 +57,6 @@ class Calendar extends Component {
     let day = startDate
     let formattedDate = ""
     let compareDate = ""
-    let busyDate = []
 
     while (day <= endDate) {
       for (let i = 0; i < 7; i++) {

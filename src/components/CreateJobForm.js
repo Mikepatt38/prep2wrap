@@ -419,6 +419,7 @@ class CreateJobFormStep3 extends Component {
   }
   
   saveAndContinue = (e) => {
+    e.preventDefault()
     this.props.createJob(this.props.currentUser.id.toString(), this.props.state.jobObj)
       .then( result => {
         result === 'success' ? this.sendSMSWithTwilio() : this.props.errorStep()

@@ -46,6 +46,7 @@ export const addUserToFavorite = (currentUserId, userToBeAdded) => async dispatc
   }
 
   const favorites = await getUsersFavorites
+  console.log(favorites)
   const updateFavorites = database.collection("favorites").doc(currentUserId).set({ favoritedUsers: [...favorites, userToBeAddedObj] })
 
   updateFavorites 

@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import { Card } from '../components/Card'
-import { AvailabilityForm } from '../components/Availability'
+import { AvailabilityForm } from '../components/AvailabilityForm'
 import Calendar from '../components/Calendar'
-import { PageHeader } from '../components/PageHeader'
 import CloseIcon from '../img/icon-close.svg'
 
 const style = {
@@ -43,6 +41,7 @@ class Availability extends Component {
           currentUser={this.props.currentUser} 
           selectedDate={this.state.bookedDate}
           setAvailabilityDate={this.props.setAvailabilityDate} 
+          closeModal={this.props.closeModal}
         />
     ))
   }

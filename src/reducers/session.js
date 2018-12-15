@@ -26,7 +26,10 @@ function sessionReducer(state = INITIAL_STATE, action) {
     }
     case 'SET_MODAL': {
       return { ...state, modalActive: action.payload[0], modalTitle: action.payload[1], modalChildren: action.payload[2], modalSuccess: false }
-    }   
+    } 
+    case 'CLOSE_MODAL': {
+      return { ...state, modalActive: action.payload }
+    } 
     case 'ON_MODAL_SUCCESS': {
       return { ...state, modalSuccess: action.payload[0], modalError: action.payload[1] }
     }  

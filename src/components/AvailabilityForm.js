@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import moment from 'moment'
-import { FormDatePicker } from '../components/FormDatePicker'
+import dateFns from "date-fns"
+import { FormDatePicker } from './FormDatePicker'
 import { FormTextInput } from './FormTextInput'
 import { FormButton } from './FormButton'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -8,12 +9,13 @@ import 'react-datepicker/dist/react-datepicker.css'
 export class AvailabilityForm extends Component {
   state = {
     startDate: moment(),
-    formattedDate: moment(),
+    formattedDate: dateFns.format(this.props.selectedDate, 'MM/DD/YYYY'),
     reason: '',
     dates: []
   }
 
   handleChange = (date) => {
+    console.log('Changing...')
     this.setState({
       startDate: date,
       formattedDate: date.format('MM/DD/YYYY')
@@ -26,9 +28,15 @@ export class AvailabilityForm extends Component {
     })
   }
 
+  handleClick = (e) => {
+    e.preventDefault()
+    this.props.setAvailabilityDate(this.props.currentUser.id, this.state.formattedDate, this.state.reason)
+    this.props.closeModal(false)
+  }
+
+
   render() {
-    const { setAvailabilityDate, currentUser } = this.props
-    const { startDate, formattedDate, reason } = this.state
+    const { startDate, reason } = this.state
     return (
       <form 
         method="form"
@@ -51,7 +59,7 @@ export class AvailabilityForm extends Component {
         <FormButton
           className="button-primary"
           buttonText="Block Out Date"
-          onClick={(e) => setAvailabilityDate(currentUser.id, formattedDate, reason, e)}
+          onClick={(e) => this.handleClick(e)}
         />
       </form>
     )

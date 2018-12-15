@@ -24,14 +24,13 @@ export const stopListeningForDates = (id) => async dispatch => {
   database.collection("availability").doc(id).onSnapshot( () => {})
 }
 
-export const setAvailabilityDate = (id, date, reason, e) => async dispatch => {
-  e.preventDefault()
+export const setAvailabilityDate = (id, date, reason) => async dispatch => {
   const database = await db
   database.collection("availability").doc(id).get().then( results => {
     return results
   }).then ( (results) => {
     if (results.exists) {
-      const currentDates = results.data().date === undefined ? [] : results.data().date 
+      const currentDates = results.data().date === undefined ? [] : results.data().date
       currentDates.push({date: date, reason: reason})
       database.collection("availability").doc(id).set({
         date: currentDates
