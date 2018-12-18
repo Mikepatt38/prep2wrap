@@ -28,6 +28,9 @@ function userReducer(state = INITIAL_STATE, action) {
         userSearchByNameResults: action.payload
       })
     }
+    case 'CLEAR_SEARCH_USER_BY_NAME_RESULTS' : {
+      return { ...state, userSearchByNameResults: action.payload }
+    }
     default : return state
   }
 }

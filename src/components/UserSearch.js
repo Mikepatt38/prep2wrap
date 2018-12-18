@@ -9,6 +9,10 @@ export class UserSearch extends Component {
     loading: false,
   }
 
+  componentWillUnmount = () => {
+    this.props.clearSearchUserByNameResults()
+  }
+
   componentWillReceiveProps(nextProps) {
     this.setState({
       loading: true,

@@ -1,6 +1,8 @@
 import { db } from '../db/firebase'
 import { auth } from '../db'
 
+export const clearSearchUserByNameResults = () => ({type: 'CLEAR_SEARCH_USER_BY_NAME_RESULTS', payload: [] })
+
 export const signUserIn = (email, password, history, e) => dispatch => {
   e.preventDefault()
   auth.doSignInWithEmailAndPassword(email, password)
