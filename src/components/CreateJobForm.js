@@ -3,7 +3,8 @@ import moment from 'moment'
 import { CreateJobFormStepOne } from './CreateJobFormStepOne'
 import { CreateJobFormStepTwo } from './CreateJobFormStepTwo'
 import { CreateJobFormStepThree } from './CreateJobFormStepThree'
-
+import { SendSMSTwilio } from './SendSMSTwilio'
+   
 export class CreateJobForm extends Component {
   state = {
     jobObj: {
@@ -194,9 +195,13 @@ export class CreateJobForm extends Component {
                 createJob={this.props.createJob}
               />
       case 4: 
-        return <div>
-                <p>Success! Your job invites have been sent.</p>
-              </div>
+        return (
+          <SendSMSTwilio
+            users={this.state.usersAssigned}
+            nextStep={this.nextStep}
+            errorStep={this.errorStep}
+          />
+        )
       case 'error':
         return <div>
                 <p>Oops! Something went wrong, try recreating your job to fix the error!</p>

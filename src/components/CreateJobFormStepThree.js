@@ -1,39 +1,16 @@
 import React, { Component } from 'react'
-import 'whatwg-fetch'
 import { FormButton } from './FormButton'
 
 export class CreateJobFormStepThree extends Component {
 
-  sendSMSWithTwilio = () => {
-    const { state } = this.props
-    // let textBody = `
-    //   Job Name: ${state.jobObj.jobName} \n \n Job Creator: ${state.jobObj.jobCreator} \n\n Job Dates: ${state.jobObj.jobDates.map( date => {
-    //     return ' ' + date 
-    //   })} \n\n Job Location: ${state.jobObj.jobLocation} \n \n Preferred Contact: ${state.jobObj.jobContact}
-    // `
-
-    let textBody = "Hey! You just recieved a job invite on The Calltime! Click the link below to accept or deny the job, you have 1 hour to answer before it expires."
-    fetch('http://localhost:9000/sendsms', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/JSON',
-        'Content-Type': 'application/JSON',
-        'Access-Control-Allow-Origin': '*'
-      },
-      body: JSON.stringify({
-        message: textBody
-      })
-    })
-    .then(resp => {
-      resp.status === 200 ? this.props.nextStep() : this.props.errorStep()
-    })
-  }
   
   saveAndContinue = (e) => {
     e.preventDefault()
     this.props.createJob(this.props.currentUser.id.toString(), this.props.state.jobObj)
       .then( result => {
-        result === 'success' ? this.sendSMSWithTwilio() : this.props.errorStep()
+        result === 'success' 
+        ? this.props.nextStep()
+        : this.props.errorStep()
       })
   }
 

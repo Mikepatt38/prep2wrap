@@ -34,7 +34,7 @@ export const userResultsForJobCreation = (jobObj) => async () => {
     try {
       database.collection("users").get().then( (querySnapshot) => {
         querySnapshot.forEach( (doc) => {
-          if( doc.data().union === jobObj.unionMember && doc.data().availability ) {
+          if( doc.data().union === jobObj.unionMember ) {
             users.push(doc.data())
           }
         })

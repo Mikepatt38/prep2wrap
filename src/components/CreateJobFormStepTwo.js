@@ -30,7 +30,7 @@ export class CreateJobFormStepTwo extends Component {
     e.preventDefault()
     this.props.prevStep()
   }
-
+ 
   assignPosition = (usersAssignedArr) => {
     this.setState({
       usersAssigned: usersAssignedArr
