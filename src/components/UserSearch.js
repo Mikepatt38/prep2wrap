@@ -7,6 +7,7 @@ export class UserSearch extends Component {
     userData: [],
     userDataFilled: false,
     loading: false,
+    userSearchFormActive: false
   }
 
   componentWillUnmount = () => {
@@ -26,34 +27,41 @@ export class UserSearch extends Component {
     }, 1000)
   }
 
-  render() {
-    const { userData, userDataFilled, loading  } = this.state
-    const { searchUsersByName } = this.props
-    
-    return (
-      <React.Fragment>
-        <UserSearchForm 
-          searchUsersByName={searchUsersByName}
-        />
-        {
-          userDataFilled 
-          ?
-            <div className="card-item card-item-full">
-              <UserSearchTable 
-                headers={['Users Name', "Location", "Available Today"]}
-                value={userData}
-                setUserModal={this.props.setUserModal}
-              />
-            </div>
-            :
-              loading 
-              ?
-                <div className="card-item"><p>Loading...</p></div>
-              :
-              <div className="card-item centered"><p>No users to return.</p></div>
+  renderSearchForm = (active) => {
+    if(active) return (
+      <UserSearchForm 
+        searchUsersByName={this.props.searchUsersByName}
+      />
+    )
+    else {
+      return (
+        <React.Fragment>
+          <p className="centered">Search users by their first or last name to contact them, add them to your favorites, or check their profile.</p>
+          <button
+            className="button-form"
+            onClick={() => this.setState({ userSearchFormActive: true })}
+          >Search Users</button>
+        </React.Fragment>
+      )
+    }
+  }
 
+  render() {
+    const { userData, userDataFilled, loading, userSearchFormActive  } = this.state
+
+    return (
+      <div className="card-content centered">
+        { this.renderSearchForm(userSearchFormActive) }
+        { loading && <p className="card-item">Loading...</p> }
+        {
+          !loading && userDataFilled &&
+          <UserSearchTable 
+            headers={['Users Name', "Location", "Available Today"]}
+            value={userData}
+            setUserModal={this.props.setUserModal}
+          />
         }
-      </React.Fragment>
+      </div>
     )
   }
 }

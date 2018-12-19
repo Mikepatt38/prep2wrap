@@ -1,69 +1,18 @@
 /* ================
   Styles for Card component
   =============== */
-
-
-.cardd
-  position: relative
-  max-width: 1250px
-  margin: 0 auto
-  background: #ffffff
-  border: 1px solid #E6E8EB
-  border-radius: 3px
-  padding: 0
-  margin: 20px 0
-  visibility: visible
-  display: block
-  opacity: 1
-  
-  .card-header
-    position: relative
-    display: flex
-    align-items: flex-start
-    flex-direction: column
-    flex-wrap: wrap
-    justify-content: flex-start
-    border-bottom: 1px solid #E6E8EB
-    padding: 20px 30px
-
-    &.card-header-flex
-      flex-direction: row
-      justify-content: space-between
-
-      .card-header-flex-text
-        display: flex
-        flex-direction: column
-
-      .card-header-flex-component
-        justify-self: flex-end
-
-    h2
-      color: #2c2c2c
-      font-size: 16px
-      font-weight: 500
-      margin: 0
-      margin-bottom: 1px
-
-    p
-      color: #676767
-      font-size: 16px
-      font-weight: normal
-      margin: 0
-      max-width: 1050px
-
-
-
-
 .card-title
   max-width: 1060px
-  margin: 0 auto 20px
+  margin: 0 auto 10px
 
 .card-title > h3
   color: rgb(61, 85, 107)
-  font-size: 32px
+  font-size: 21px
+  text-transform: uppercase
+  letter-spacing: 1px
   font-weight: bold
   line-height: 1.125
-  margin-bottom: 4px
+  margin-bottom: 0
 
 .card-title > p
   font-size: 18px
@@ -85,12 +34,12 @@
     border-bottom: 1px solid #E6E8EB
 
   .card-header > h3
-    // text-transform: uppercase
-    font-size: 21px
+    text-transform: uppercase
+    font-size: 18px
     font-weight: 500
     padding: 0
     color: #444
-    // letter-spacing: 1px
+    letter-spacing: 0.50px
     margin: 0
 
   .card-header > button
@@ -98,11 +47,23 @@
 
   .card-body
     position: relative
-    padding: 30px
+    padding: 50px 30px
 
     hr.card-lineBreak
       margin: 45px 0
       border-top: 1px solid #d6e0f1
+
+    .card-content
+      position: relative
+      &.centered
+        text-align: center
+      p
+        font-size: 18px
+        margin: 0 auto 10px
+        max-width: 500px
+      button
+        margin: 0 auto
+        text-align: center
 
     .card-item
       position: relative
@@ -168,27 +129,3 @@
         &.card-item-info--large
           p
             margin-bottom: 10px
-
-  // .card-form
-  //   display: grid
-  //   grid-template-columns: 1fr 2fr
-  //   position: relative
-  //   padding: 0
-
-  //   .card-form--left
-
-  //     h4
-  //       color: rgb(61, 85, 107)
-  //       margin: 0
-  //       font-size: 16px
-  //       font-weight: bold
-  //       margin-bottom: 4px
-
-  //     p
-  //       font-size: 16px
-  //       font-weight: 400
-  //       line-height: 1.5
-  //       opacity: 0.7
-
-  //   .card-form--right
-  //     padding-left: 10%
