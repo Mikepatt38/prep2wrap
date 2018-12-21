@@ -32,17 +32,22 @@ export const userResultsForJobCreation = (jobObj) => async () => {
   let filteredUsers = []
   const availability = database.collection("availability").get()
   const getAllUsersBasedOnUnion = database.collection("users").where("union", "==", jobObj.unionMember).get()
+
+  let arrUnique = (arr) => {
+    return arr.filter( (item, index) => {
+      return arr.indexOf(item) > index || arr.indexOf(item) === 0
+    })
+  }
+
   const getJobMatches = new Promise( (resolve, reject) => {
     try {
 
       getAllUsersBasedOnUnion.then( querySnapshot => {
         querySnapshot.forEach( (user) => {
           user.data().positions.map( userPosition => {
-            // checking if the user has the position listed under their profile
             if(jobObj.jobPositions.includes(userPosition.value)) {
               console.log('These users passed the positions check: ' + user.data().firstName)
               user.data().location.map( userLocation => {
-                // checking if the user has that location as an available location to work at
                 if(jobObj.jobLocation.includes(userLocation.value)) {
                   console.log('These users passed the location check: ' + user.data().firstName)
                   availability.then ( querySnapshot => {
@@ -64,7 +69,9 @@ export const userResultsForJobCreation = (jobObj) => async () => {
             }
           })
         })
-        resolve(users)
+      })
+      .then( () => {
+        resolve(arrUnique(users))
       })
     }
     catch(error) {
