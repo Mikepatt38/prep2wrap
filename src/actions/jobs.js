@@ -33,12 +33,6 @@ export const userResultsForJobCreation = (jobObj) => async () => {
   const availability = database.collection("availability").get()
   const getAllUsersBasedOnUnionAndLocation = database.collection("users").where("union", "==", jobObj.unionMember).where("location", "array-contains", jobObj.jobLocation).get()
 
-  let arrUnique = (arr) => {
-    return arr.filter( (item, index) => {
-      return arr.indexOf(item) >= index-1
-    })
-  }
-
   const getJobMatches = new Promise( (resolve, reject) => {
     try {
       getAllUsersBasedOnUnionAndLocation.then( querySnapshot => {
