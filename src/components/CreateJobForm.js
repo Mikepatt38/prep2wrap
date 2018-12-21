@@ -101,6 +101,16 @@ export class CreateJobForm extends Component {
     }))
   }
 
+  handleLocationSelect = (name, val) => {
+    const newVal = val
+    this.setState(prevState => ({
+      jobObj: {
+          ...prevState.jobObj,
+          [name]: newVal
+      }
+    }))
+  }
+
   handleMultiSelect = (name, val) => {
     const newArr = val
     let tempArr = []
@@ -167,6 +177,7 @@ export class CreateJobForm extends Component {
             handleChange={this.handleChange}
             handleCheck={this.handleCheck}
             handleMultiSelect={this.handleMultiSelect}
+            handleLocationSelect={this.handleLocationSelect}
             handleSelect={this.handleSelect}
             handleDateChange={this.handleDateChange}
             setJobObjData={this.props.setJobObjData}

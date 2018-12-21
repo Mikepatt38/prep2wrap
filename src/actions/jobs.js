@@ -29,9 +29,9 @@ export const createJob = (id, jobObj) => async () => {
 export const userResultsForJobCreation = (jobObj) => async () => {
   const database = await db
   let users = []
-  let filteredUsers = []
+  let tempUsers = []
   const availability = database.collection("availability").get()
-  const getAllUsersBasedOnUnion = database.collection("users").where("union", "==", jobObj.unionMember).get()
+  const getAllUsersBasedOnUnionAndLocation = database.collection("users").where("union", "==", jobObj.unionMember).where("location", "array-contains", jobObj.jobLocation).get()
 
   let arrUnique = (arr) => {
     return arr.filter( (item, index) => {
@@ -41,35 +41,20 @@ export const userResultsForJobCreation = (jobObj) => async () => {
 
   const getJobMatches = new Promise( (resolve, reject) => {
     try {
-      getAllUsersBasedOnUnion.then( querySnapshot => {
+      getAllUsersBasedOnUnionAndLocation.then( querySnapshot => {
         for (let user of querySnapshot.docs) {
           for (let userPosition of user.data().positions) {
-            if(!jobObj.jobPositions.includes(userPosition.value)) {
-              console.log('User not added because of position: ' + user.data().firstName)
+            if(jobObj.jobPositions.includes(userPosition.value)) {
+              console.log('User was added because of position: ' + user.data().firstName)
+              tempUsers.push(user.data())
               break
             }
           }
-          for( let userLocation of user.data().location) {
-            if(!jobObj.jobLocation.includes(userLocation.value)) {
-              console.log('User not added because of location: ' + user.data().firstName)
-              break
-            }
-          }
-          availability.then( querySnapshot => {
-            for (let userAvail of querySnapshot.docs) {
-              for (let date of userAvail.data().date) {
-                if(jobObj.jobDates.includes(date)) {
-                  console.log('User not added because of availability: ' + user.data().firstName)
-                  break
-                }
-              }
-            }
-          })
-          users.push(user.data())
         }
+        users = tempUsers
       })
       .then( () => {
-        resolve(arrUnique(users))
+        resolve(users)
       })
     }
     catch(error) {
@@ -78,3 +63,32 @@ export const userResultsForJobCreation = (jobObj) => async () => {
   })
   return await getJobMatches
 }
+
+
+// getAllUsersBasedOnUnion.then( querySnapshot => {
+//   for (let user of querySnapshot.docs) {
+//     for (let userPosition of user.data().positions) {
+//       if(!jobObj.jobPositions.includes(userPosition.value)) {
+//         console.log('User not added because of position: ' + user.data().firstName)
+//         break
+//       }
+//     }
+//     for( let userLocation of user.data().location) {
+//       if(!jobObj.jobLocation.includes(userLocation.value)) {
+//         console.log('User not added because of location: ' + user.data().firstName)
+//         break
+//       }
+//     }
+//     availability.then( querySnapshot => {
+//       for (let userAvail of querySnapshot.docs) {
+//         for (let date of userAvail.data().date) {
+//           if(jobObj.jobDates.includes(date)) {
+//             console.log('User not added because of availability: ' + user.data().firstName)
+//             break
+//           }
+//         }
+//       }
+//     })
+//     users.push(user.data())
+//   }
+// })

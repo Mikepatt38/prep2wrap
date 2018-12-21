@@ -22,7 +22,7 @@ export class CreateJobFormStepOne extends Component {
 
   render() {
     const { state } = this.props
-    const { handleChange, handleCheck, handleMultiSelect, handleDateChange, handleSelect } = this.props
+    const { handleChange, handleCheck, handleLocationSelect, handleMultiSelect, handleDateChange, handleSelect } = this.props
     return (
       <div className="card">
         <div className="card-header">
@@ -81,7 +81,7 @@ export class CreateJobFormStepOne extends Component {
               options={locationObj}
               placeholder="Select Location for Job"
               isMultiSelect={false}
-              onSelect={handleSelect}
+              onSelect={handleLocationSelect}
               className="form-group--half"
             />
             <FormSelectInput
