@@ -11,7 +11,7 @@ export class CreateJobFormStepTwo extends Component {
     usersAssigned: [[]]
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.userResultsForJobCreation(this.props.state.jobObj)
       .then( (results) => {
         this.setState({
