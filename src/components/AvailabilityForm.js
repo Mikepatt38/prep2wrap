@@ -30,7 +30,7 @@ export class AvailabilityForm extends Component {
 
   handleClick = (e) => {
     e.preventDefault()
-    this.props.setAvailabilityDate(this.props.currentUser.id, this.state.formattedDate, this.state.reason)
+    this.props.setAvailabilityDate(this.props.currentUser, this.state.formattedDate, this.state.reason)
     this.props.closeModal(false)
   }
 

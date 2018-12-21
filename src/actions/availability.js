@@ -7,23 +7,18 @@ export const getAvailabilityDates = (user) => async dispatch => {
   })
 }
 
-// export const stopListeningForDates = (id) => async () => {
-//   const database = await db
-//   database.collection("users").doc(id).onSnapshot( () => {})
-// }
-
-export const setAvailabilityDate = (id, date, reason) => async dispatch => {
+export const setAvailabilityDate = (user, date, reason) => async dispatch => {
   const database = await db
-  database.collection("users").doc(id).get().then( results => {
+  database.collection("users").doc(user.id).get().then( results => {
     if(results.data().availabilityDates) {
       const currentDates = results.data().availabilityDates === undefined ? [] : results.data().availabilityDates
       currentDates.push({date: date, reason: reason})
-      database.collection("users").doc(id).update({
+      database.collection("users").doc(user.id).update({
         availabilityDates: currentDates
       })
     }
     else {
-      database.collection("users").doc(id).update({
+      database.collection("users").doc(user.id).update({
         availabilityDates: [{date: date, reason: reason}]
       })
     }
@@ -31,7 +26,7 @@ export const setAvailabilityDate = (id, date, reason) => async dispatch => {
   .then( () => {
     dispatch({
       type: 'SET_ALERT',
-      payload: [true, 'success', 'Date availability was set!']
+      payload: [true, 'success', 'Date availability was set! Refresh the page to see your updated calendar.']
     })
   })
   .catch( (error) => {
