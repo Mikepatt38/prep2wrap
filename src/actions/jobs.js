@@ -35,40 +35,38 @@ export const userResultsForJobCreation = (jobObj) => async () => {
 
   let arrUnique = (arr) => {
     return arr.filter( (item, index) => {
-      return arr.indexOf(item) > index || arr.indexOf(item) === 0
+      return arr.indexOf(item) >= index-1
     })
   }
 
   const getJobMatches = new Promise( (resolve, reject) => {
     try {
-
       getAllUsersBasedOnUnion.then( querySnapshot => {
-        querySnapshot.forEach( (user) => {
-          user.data().positions.map( userPosition => {
-            if(jobObj.jobPositions.includes(userPosition.value)) {
-              console.log('These users passed the positions check: ' + user.data().firstName)
-              user.data().location.map( userLocation => {
-                if(jobObj.jobLocation.includes(userLocation.value)) {
-                  console.log('These users passed the location check: ' + user.data().firstName)
-                  availability.then ( querySnapshot => {
-                    querySnapshot.exist 
-                    ?
-                      querySnapshot.forEach( ( userAvail) => {
-                        userAvail.data().map( date => {
-                          if(!jobObj.jobDates.includes(date)) {
-                            console.log('These users passed the positions check: ' + userAvail.data().firstName)
-                            users.push(user.data())
-                          }
-                        })
-                      })
-                    :
-                      users.push(user.data())
-                  })
+        for (let user of querySnapshot.docs) {
+          for (let userPosition of user.data().positions) {
+            if(!jobObj.jobPositions.includes(userPosition.value)) {
+              console.log('User not added because of position: ' + user.data().firstName)
+              break
+            }
+          }
+          for( let userLocation of user.data().location) {
+            if(!jobObj.jobLocation.includes(userLocation.value)) {
+              console.log('User not added because of location: ' + user.data().firstName)
+              break
+            }
+          }
+          availability.then( querySnapshot => {
+            for (let userAvail of querySnapshot.docs) {
+              for (let date of userAvail.data().date) {
+                if(jobObj.jobDates.includes(date)) {
+                  console.log('User not added because of availability: ' + user.data().firstName)
+                  break
                 }
-              })
+              }
             }
           })
-        })
+          users.push(user.data())
+        }
       })
       .then( () => {
         resolve(arrUnique(users))
@@ -80,27 +78,3 @@ export const userResultsForJobCreation = (jobObj) => async () => {
   })
   return await getJobMatches
 }
-
-// database.collection("users").get().then( (querySnapshot) => {
-//   querySnapshot.forEach( (doc) => {
-//     if( doc.data().union === jobObj.unionMember ) {
-//       console.log(doc.data().firstName)
-//       doc.data().positions.map ( position => {
-//         if(jobObj.jobPositions.includes(position.value)) {
-//           console.log(doc.data().firstName)
-//           availability.then( (querySnapshot) => {
-//             querySnapshot.forEach( (document) => {
-//               document.data().date.map( dates => {
-//                 if(!jobObj.jobDates.includes(dates.date)){
-//                   console.log(doc.data().firstName)
-//                   users.push(doc.data())
-//                 }
-//               })
-//             })
-//           })
-//         }
-//       })
-//     }
-//   })
-// })
-
