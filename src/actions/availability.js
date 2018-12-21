@@ -1,44 +1,30 @@
 import { db, auth } from '../db/firebase'
 
-export const getAvailabilityDates = (id) => async dispatch => {
-  const database = await db
-  database.collection("availability").doc(id).onSnapshot( (doc) => {
-    if (doc.exists) {
-      dispatch({
-        type: 'SET_USERS_DATES',
-        payload: doc.data().date === undefined ? [] : doc.data().date  
-      })
-    }
-    else {
-      console.log("There are no dates to show")
-      dispatch({
-        type: 'SET_ALERT',
-        payload: [true, 'error', 'ERROR: Something went wrong!']   
-      })
-    }
-  }) 
+export const getAvailabilityDates = (user) => async dispatch => {
+  dispatch({
+    type: 'SET_USERS_DATES',
+    payload: user.availabilityDates === undefined ? [] : user.availabilityDates  
+  })
 }
 
-export const stopListeningForDates = (id) => async dispatch => {
-  const database = await db
-  database.collection("availability").doc(id).onSnapshot( () => {})
-}
+// export const stopListeningForDates = (id) => async () => {
+//   const database = await db
+//   database.collection("users").doc(id).onSnapshot( () => {})
+// }
 
 export const setAvailabilityDate = (id, date, reason) => async dispatch => {
   const database = await db
-  database.collection("availability").doc(id).get().then( results => {
-    return results
-  }).then ( (results) => {
-    if (results.exists) {
-      const currentDates = results.data().date === undefined ? [] : results.data().date
+  database.collection("users").doc(id).get().then( results => {
+    if(results.data().availabilityDates) {
+      const currentDates = results.data().availabilityDates === undefined ? [] : results.data().availabilityDates
       currentDates.push({date: date, reason: reason})
-      database.collection("availability").doc(id).set({
-        date: currentDates
+      database.collection("users").doc(id).update({
+        availabilityDates: currentDates
       })
     }
     else {
-      database.collection("availability").doc(id).set({
-        date: [{date: date, reason: reason}]
+      database.collection("users").doc(id).update({
+        availabilityDates: [{date: date, reason: reason}]
       })
     }
   })

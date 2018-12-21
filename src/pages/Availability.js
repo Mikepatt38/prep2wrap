@@ -15,16 +15,11 @@ class Availability extends Component {
     dateType: null
   }
 
-  componentWillMount = () => {
-    this.props.getAvailabilityDates(this.props.currentUser.id)
+  componentDidMount = () => {
+    this.props.getAvailabilityDates(this.props.currentUser)
     console.log('Started listening')
   }
 
-  componentWillUnmount = () => {
-    this.props.stopListeningForDates(this.props.currentUser.id)
-    console.log('Stopped listening')
-  }
-  
   onSelectedDate = (selectedDate) => {
     this.setState({
       selectedDate

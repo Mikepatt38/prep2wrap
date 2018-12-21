@@ -81,12 +81,6 @@ export const getCurrentUser = (id) => async dispatch => {
       })
     }
   })
-  // .catch(function(error) {
-  //   dispatch({
-  //     type: 'SET_ALERT',
-  //     payload: [true, 'error', error]   
-  //   })
-  // })
 }
 
 export const searchUsersByName = (firstName, lastName) => async dispatch => {
