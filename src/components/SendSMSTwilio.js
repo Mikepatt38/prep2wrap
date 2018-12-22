@@ -14,8 +14,8 @@ export class SendSMSTwilio extends Component {
     const sendSMS = new Promise( (resolve, reject) => {
       try {
         users.map( user => {
-          console.log(user)
-          this.sendSMSWithTwilio(user[0].firstName, user[0].mobileNumber)
+          console.log('Sending invites to: ' + user[0].firstName + ' at ' + user[0].mobileNumber)
+          // this.sendSMSWithTwilio(user[0].firstName, user[0].mobileNumber)
         })
         resolve('success')
       }

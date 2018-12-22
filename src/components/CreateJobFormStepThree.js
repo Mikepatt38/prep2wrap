@@ -41,7 +41,7 @@ export class CreateJobFormStepThree extends Component {
                 return date
               })}</p>
               <label>Job Location: </label>
-              <p>{state.jobObj.jobLocation}</p>
+              <p>{state.jobObj.jobLocation.value}</p>
               <label>Preferred Contact: </label>
               <p>{state.jobObj.jobContact}</p>
               <label>Job Invitations: </label>
