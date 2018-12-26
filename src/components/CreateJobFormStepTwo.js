@@ -39,7 +39,7 @@ export class CreateJobFormStepTwo extends Component {
       this.props.assignedUsers(this.state.usersAssigned)
     })
   }
-
+ 
   render() {
     const { state } = this.props
     return (

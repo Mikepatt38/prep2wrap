@@ -5,7 +5,7 @@ class JobResultsTable extends Component {
 
   state = {
     usersAssigned: [],
-    openPositions: []
+    openPositions: this.props.positions
   }
 
   isUserAssigned = (user, position) => {
@@ -84,6 +84,12 @@ class JobResultsTable extends Component {
     let rows = []
     let cells = []
     this.props.results.map( (value, key) => {
+      const userPositions = value.positions.map( userPosition => {
+        if(this.state.openPositions.includes(userPosition.value)) {
+          return userPosition.value
+        }
+      })
+      console.log('Users available positions are ' + userPositions)
       cells.push(
         <React.Fragment key={key}>
           <div className="table-row-cell">{value.firstName + ' ' + value.lastName}</div>  
@@ -94,13 +100,14 @@ class JobResultsTable extends Component {
             <select
               onChange={(e) => { this.handleSelectPosition(value, e)} }
             >
-              { this.props.positions.map( position => {
+              <option default value="null">Assign a position</option>
+              { userPositions.map( position => {
                 return <option 
                   key={position}
                   value={position}
                   >
                     {position}
-                </option>
+                </option>               
               })}
             </select>
           </div>       

@@ -25,7 +25,6 @@ export const createJob = (id, jobObj) => async () => {
   return await createJobSendInvitesSuccessful
 }
 
-
 export const userResultsForJobCreation = (jobObj) => async () => {
   const database = await db
   let users = []
