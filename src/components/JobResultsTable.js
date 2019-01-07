@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import UserProfileModal from './UserProfileModal'
+import { mapPropsStreamWithConfig } from 'recompose';
 
 class JobResultsTable extends Component {
 
   state = {
     usersAssigned: [],
-    openPositions: this.props.positions
+    openPositions: this.props.positions,
+    assignedPositions: []
   }
 
   isUserAssigned = (user, position) => {
@@ -31,24 +33,33 @@ class JobResultsTable extends Component {
       usersAssigned: [
         ...prevState.usersAssigned,
         [user, position]
-      ]
+      ],
+      assignedPositions: [...this.state.assignedPositions, position]
     }),
     () => {
       this.props.assignPosition(this.state.usersAssigned)
     })
   }
 
-  removeUser = (user) => {
+  removeUser = (user, position) => {
     let tempArr = this.state.usersAssigned
+    const positions = this.state.assignedPositions
+    const positionIndex = positions.indexOf(position)
+    console.log(positions)
     return new Promise( (resolve, reject) => {
       try {
+        if(positionIndex !== -1) {
+          positions.splice(positionIndex)
+        }
         tempArr.map( (item, key) => {
           item[key].id === user.id ? tempArr.splice(key, 1) : null
         })
         this.setState({
-          usersAssigned: tempArr
+          usersAssigned: tempArr,
+          assignedPositions: positions
         },
         () => {
+          console.log(this.state.assignedPositions)
           this.props.assignPosition(this.state.usersAssigned)
         })
         resolve()
@@ -64,6 +75,7 @@ class JobResultsTable extends Component {
     
     this.isUserAssigned(user.id, position)
       .then( (result) => {
+        console.log(result)
         result 
           ? this.removeUser(user, position)
               .then( this.addUser(user, position) ) 
@@ -89,27 +101,31 @@ class JobResultsTable extends Component {
           return userPosition.value
         }
       })
-      console.log('Users available positions are ' + userPositions)
       cells.push(
         <React.Fragment key={key}>
           <div className="table-row-cell">{value.firstName + ' ' + value.lastName}</div>  
           <div className="table-row-cell cell-centered">
             <span onClick={() => {this.props.setUserModal(true, value)}}>View Profile</span>
           </div>
-          <div className="table-row-cell cell-right">
+          <div className="table-row-cell cell-centered">
             <select
               onChange={(e) => { this.handleSelectPosition(value, e)} }
             >
               <option default value="null">Assign a position</option>
               { userPositions.map( position => {
+                let positionFilled = this.state.assignedPositions.includes(position)
                 return <option 
                   key={position}
                   value={position}
+                  disabled={positionFilled}
                   >
                     {position}
                 </option>               
               })}
             </select>
+          </div>
+          <div className="table-row-cell cell-right">
+            
           </div>       
         </React.Fragment>
       )
@@ -121,19 +137,34 @@ class JobResultsTable extends Component {
       cells = []
     })
     return <div className="table-body">{rows}</div>
+  } 
+
+  renderAssignedUsers = () => {
+    return (
+      <div className="assignedUsers">
+        <h4>Assigned Users and Positions</h4>
+        <ul className="assignedUsers-list">
+          {
+            this.state.usersAssigned.map( (user, key) => {
+              return <li key={key}>{user[0].firstName + ' ' + user[0].lastName} assigned as {user[1]}</li>
+            })
+          }
+        </ul>
+      </div>
+    )
   }
 
   render() {
     return (
-      <div className="table">
-        <div className="table-header table-header-users">
-          {this.renderHeaders()}
+      <React.Fragment>
+        {this.renderAssignedUsers()}
+        <div className="table">
+          <div className="table-header table-header-users">
+            {this.renderHeaders()}
+          </div>
+            {this.renderRows()}
         </div>
-          {this.renderRows()}
-          {this.state.usersAssigned.map( (item, key) => {
-            return <p key={key}>{item[0].id} {item[1]}</p>
-          })}
-      </div>
+      </React.Fragment>
     )
   }
 }
