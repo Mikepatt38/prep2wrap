@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import UserProfileModal from './UserProfileModal'
-import { mapPropsStreamWithConfig } from 'recompose';
 
 class JobResultsTable extends Component {
 
@@ -10,23 +9,23 @@ class JobResultsTable extends Component {
     assignedPositions: []
   }
 
-  isUserAssigned = (user, position) => {
-    return new Promise( (resolve, reject) => {
-      try {
-        const userArr = [user, position]
+  // isUserAssigned = (user, position) => {
+  //   return new Promise( (resolve, reject) => {
+  //     try {
+  //       const userArr = [user, position]
 
-        const contains = this.state.usersAssigned.find( (item) => {
-          return item[0].id === userArr[0]
-        }) 
-          contains === undefined 
-            ? resolve(false)
-            : resolve(true)
-      }
-      catch(error) {
-        reject(error)
-      }
-    })
-  }
+  //       const contains = this.state.usersAssigned.find( (item) => {
+  //         return item[0].id === userArr[0]
+  //       }) 
+  //         contains === undefined 
+  //           ? resolve(false)
+  //           : resolve(true)
+  //     }
+  //     catch(error) {
+  //       reject(error)
+  //     }
+  //   })
+  // }
 
   addUser = (user, position) => {
     this.setState( prevState => ({
@@ -41,46 +40,55 @@ class JobResultsTable extends Component {
     })
   }
 
-  removeUser = (user, position) => {
+  // removeUser = (user, position) => {
+  //   let tempArr = this.state.usersAssigned
+  //   const positions = this.state.assignedPositions
+  //   const positionIndex = positions.indexOf(position)
+  //   console.log(positions)
+  //   return new Promise( (resolve, reject) => {
+  //     try {
+  //       if(positionIndex !== -1) {
+  //         positions.splice(positionIndex)
+  //       }
+  //       tempArr.map( (item, key) => {
+  //         item[key].id === user.id ? tempArr.splice(key, 1) : null
+  //       })
+  //       this.setState({
+  //         usersAssigned: tempArr,
+  //         assignedPositions: positions
+  //       },
+  //       () => {
+  //         console.log(this.state.assignedPositions)
+  //         this.props.assignPosition(this.state.usersAssigned)
+  //       })
+  //       resolve()
+  //     }
+  //     catch(error){
+  //       reject(error)
+  //     }
+  //   })
+  // }
+
+  removeAssignedUser = (user) => {
     let tempArr = this.state.usersAssigned
-    const positions = this.state.assignedPositions
-    const positionIndex = positions.indexOf(position)
-    console.log(positions)
-    return new Promise( (resolve, reject) => {
-      try {
-        if(positionIndex !== -1) {
-          positions.splice(positionIndex)
-        }
-        tempArr.map( (item, key) => {
-          item[key].id === user.id ? tempArr.splice(key, 1) : null
-        })
-        this.setState({
-          usersAssigned: tempArr,
-          assignedPositions: positions
-        },
-        () => {
-          console.log(this.state.assignedPositions)
-          this.props.assignPosition(this.state.usersAssigned)
-        })
-        resolve()
-      }
-      catch(error){
-        reject(error)
-      }
+    let tempPos = this.state.assignedPositions
+    tempArr.map( (item, key) => {
+      // console.log("User ID: " + user[0].id + " User position assigned is " + user[1] + " Current ID: " + item[0].id)
+      item[0].id === user[0].id ? tempArr.splice(key, 1) : null
+      item[1] === user[1] ? tempPos.splice(key, 1) : null
+    })
+    this.setState({
+      usersAssigned: tempArr,
     })
   }
 
-  handleSelectPosition(user, e) {
+  handleSelectPosition(user, key, e) {
     const position = e.target.value
-    
-    this.isUserAssigned(user.id, position)
-      .then( (result) => {
-        console.log(result)
-        result 
-          ? this.removeUser(user, position)
-              .then( this.addUser(user, position) ) 
-          : this.addUser(user, position)
-      })
+    let selectOptions = document.getElementById("select"+key).options[0].selected = true
+    // for(let i = 0; i < selectOptions.length; i++){
+    //   selectOptions[i].selected = false;
+    // }
+    this.addUser(user, position)
   }
 
   renderHeaders() {
@@ -101,17 +109,25 @@ class JobResultsTable extends Component {
           return userPosition.value
         }
       })
+      const userRowDisabled = this.state.usersAssigned.find( (item) => {
+        return item[0].id === value.id
+      })
       cells.push(
         <React.Fragment key={key}>
           <div className="table-row-cell">{value.firstName + ' ' + value.lastName}</div>  
           <div className="table-row-cell cell-centered">
-            <span onClick={() => {this.props.setUserModal(true, value)}}>View Profile</span>
+            <button
+              disabled={userRowDisabled === undefined ? false : true}
+              onClick={() => {this.props.setUserModal(true, value)}}>View Profile
+            </button>
           </div>
           <div className="table-row-cell cell-centered">
             <select
-              onChange={(e) => { this.handleSelectPosition(value, e)} }
+              onChange={(e) => { this.handleSelectPosition(value, key, e)} }
+              disabled={userRowDisabled === undefined ? false : true}
+              id={"select"+key}
             >
-              <option default value="null">Assign a position</option>
+              <option value="" disabled selected>Assign a position</option>
               { userPositions.map( position => {
                 let positionFilled = this.state.assignedPositions.includes(position)
                 return <option 
@@ -130,7 +146,7 @@ class JobResultsTable extends Component {
         </React.Fragment>
       )
       rows.push(
-        <div className="table-row table-row--jobResults" key={key}>
+        <div className={userRowDisabled === undefined ? 'table-row table-row--jobResults' : 'table-row table-row--jobResults assigned'} key={key}>
           {cells}
         </div>
       )
@@ -146,7 +162,7 @@ class JobResultsTable extends Component {
         <ul className="assignedUsers-list">
           {
             this.state.usersAssigned.map( (user, key) => {
-              return <li key={key}>{user[0].firstName + ' ' + user[0].lastName} assigned as {user[1]}</li>
+              return <li onClick={() => this.removeAssignedUser(user)} key={key}>{user[0].firstName + ' ' + user[0].lastName} assigned as {user[1]}</li>
             })
           }
         </ul>

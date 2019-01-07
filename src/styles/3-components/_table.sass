@@ -60,6 +60,10 @@
       &:last-child
         border: 0
 
+      &.assigned
+        filter: grayscale(100%)
+        opacity: 0.5
+
     .table-row-cell
       display: grid
       font-size: 16px
@@ -69,10 +73,19 @@
       &.cell-centered
         text-align: center
 
-      span
+      span, button
         color: $color__blue
         font-size: 16px
         cursor: pointer
+        background: transparent
+        padding: 0
+        border: none
+        outline: none
+        box-shadow: none
+        font-weight: 400
+
+        &[disabled="true"]
+          cursor: default
 
 
 // ========== Assigned Users List ========== //
