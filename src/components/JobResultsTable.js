@@ -8,7 +8,8 @@ class JobResultsTable extends Component {
     openPositions: this.props.positions,
     assignedPositions: [],
     usersReturned: this.props.results,
-    allUsers: this.props.results
+    allUsers: this.props.results,
+    searchByNameTerm: ''
   }
 
   addUser = (user, position) => {
@@ -159,6 +160,40 @@ class JobResultsTable extends Component {
     }
   }
 
+  filterTableByName = async (e) => {
+    e.preventDefault()
+    const userName = this.state.searchByNameTerm
+    let results = []
+
+    const getFilterResultsByName = new Promise( (resolve, reject) => {
+      try {
+        this.props.results.map( result => {
+          if(userName.toLowerCase().includes(result.firstName.toLowerCase()) || userName.toLowerCase().includes(result.lastName.toLowerCase())
+            || result.firstName.toLowerCase().includes(userName.toLowerCase()) || result.lastName.toLowerCase().includes(userName.toLowerCase())
+          ) {
+            results.push(result)
+          }
+        })
+        resolve(results)
+      }
+      catch(error) {
+        reject(error)
+      }
+    })
+    const users = await getFilterResultsByName
+    this.setState({
+      usersReturned: users,
+      searchByNameTerm: ''
+    })
+  }
+
+  handleSearchTermChange = e => {
+    const value = e.target.value
+    this.setState({
+      searchByNameTerm: value
+    })
+  }
+
 
 
   tableFilter = () => {
@@ -166,6 +201,20 @@ class JobResultsTable extends Component {
       <div className="table-filter">
         <div className="table-filter-cell">
           <p>Filter Results by:</p>
+        </div>
+        <div className="table-filter-cell">
+          <form className="table-filter-searchByName">
+            <input 
+              type="text"
+              value={this.state.searchByNameTerm}
+              onChange={this.handleSearchTermChange}
+            />
+            <button 
+              className="button-inline"
+              onClick={(e) => this.filterTableByName(e)}>
+              Search
+            </button>
+          </form>
         </div>
         <div className="table-filter-cell">
           <select
