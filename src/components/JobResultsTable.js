@@ -6,26 +6,10 @@ class JobResultsTable extends Component {
   state = {
     usersAssigned: [],
     openPositions: this.props.positions,
-    assignedPositions: []
+    assignedPositions: [],
+    usersReturned: this.props.results,
+    allUsers: this.props.results
   }
-
-  // isUserAssigned = (user, position) => {
-  //   return new Promise( (resolve, reject) => {
-  //     try {
-  //       const userArr = [user, position]
-
-  //       const contains = this.state.usersAssigned.find( (item) => {
-  //         return item[0].id === userArr[0]
-  //       }) 
-  //         contains === undefined 
-  //           ? resolve(false)
-  //           : resolve(true)
-  //     }
-  //     catch(error) {
-  //       reject(error)
-  //     }
-  //   })
-  // }
 
   addUser = (user, position) => {
     this.setState( prevState => ({
@@ -40,40 +24,10 @@ class JobResultsTable extends Component {
     })
   }
 
-  // removeUser = (user, position) => {
-  //   let tempArr = this.state.usersAssigned
-  //   const positions = this.state.assignedPositions
-  //   const positionIndex = positions.indexOf(position)
-  //   console.log(positions)
-  //   return new Promise( (resolve, reject) => {
-  //     try {
-  //       if(positionIndex !== -1) {
-  //         positions.splice(positionIndex)
-  //       }
-  //       tempArr.map( (item, key) => {
-  //         item[key].id === user.id ? tempArr.splice(key, 1) : null
-  //       })
-  //       this.setState({
-  //         usersAssigned: tempArr,
-  //         assignedPositions: positions
-  //       },
-  //       () => {
-  //         console.log(this.state.assignedPositions)
-  //         this.props.assignPosition(this.state.usersAssigned)
-  //       })
-  //       resolve()
-  //     }
-  //     catch(error){
-  //       reject(error)
-  //     }
-  //   })
-  // }
-
   removeAssignedUser = (user) => {
     let tempArr = this.state.usersAssigned
     let tempPos = this.state.assignedPositions
     tempArr.map( (item, key) => {
-      // console.log("User ID: " + user[0].id + " User position assigned is " + user[1] + " Current ID: " + item[0].id)
       item[0].id === user[0].id ? tempArr.splice(key, 1) : null
       item[1] === user[1] ? tempPos.splice(key, 1) : null
     })
@@ -85,9 +39,6 @@ class JobResultsTable extends Component {
   handleSelectPosition(user, key, e) {
     const position = e.target.value
     let selectOptions = document.getElementById("select"+key).options[0].selected = true
-    // for(let i = 0; i < selectOptions.length; i++){
-    //   selectOptions[i].selected = false;
-    // }
     this.addUser(user, position)
   }
 
@@ -103,7 +54,7 @@ class JobResultsTable extends Component {
   renderRows(){
     let rows = []
     let cells = []
-    this.props.results.map( (value, key) => {
+    this.state.usersReturned.map( (value, key) => {
       const userPositions = value.positions.map( userPosition => {
         if(this.state.openPositions.includes(userPosition.value)) {
           return userPosition.value
@@ -170,10 +121,76 @@ class JobResultsTable extends Component {
     )
   }
 
+  filterTableByPosition = (userPosition) => {
+    const position = userPosition
+    let results = []
+
+    const getFilterResults = new Promise( (resolve, reject) => {
+      try {
+        this.props.results.map( result => {
+          let isMatch = false
+          result.positions.map( resultPosition => {
+            if(resultPosition.value === position) {
+              isMatch = true
+            }
+          })
+          if(isMatch === true) {
+            results.push(result)
+          }
+          isMatch = false
+        })
+        resolve(results)
+      } catch(error) {
+        reject(results)
+      }
+    })
+    return getFilterResults
+  }
+
+  handleTableFilter = async (e, filterBy) => {
+    const position = e.target.value
+    switch(filterBy) {
+      case "position": 
+        const result = await this.filterTableByPosition(position)
+        this.setState({
+          usersReturned: result
+        })
+        break
+    }
+  }
+
+
+
+  tableFilter = () => {
+    return (
+      <div className="table-filter">
+        <div className="table-filter-cell">
+          <p>Filter Results by:</p>
+        </div>
+        <div className="table-filter-cell">
+          <select
+            onChange={(e) => { this.handleTableFilter(e, "position")} }
+          >
+            <option value="" disabled selected>Filter by Position</option>
+            { this.props.positions.map( position => {
+              return <option 
+                key={position}
+                value={position}
+                >
+                  {position}
+              </option>               
+            })}
+          </select>
+        </div>
+      </div>
+    )
+  }
+
   render() {
     return (
       <React.Fragment>
         {this.renderAssignedUsers()}
+        {this.tableFilter()}
         <div className="table">
           <div className="table-header table-header-users">
             {this.renderHeaders()}
