@@ -83,7 +83,7 @@ class JobResultsTable extends Component {
               { userPositions.map( position => {
                 let positionFilled = this.state.assignedPositions.includes(position)
                 return <option 
-                  key={position}
+                  key={position + key}
                   value={position}
                   disabled={positionFilled}
                   >

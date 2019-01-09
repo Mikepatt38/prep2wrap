@@ -2,28 +2,70 @@ import { db, auth } from '../db/firebase'
 
 export const createJob = (id, jobObj) => async () => {
   const database = await db
-  const createJobSendInvitesSuccessful = new Promise( (resolve, reject) => {
+  let emptyArr = []
+  const getUserCreatedJobs = new Promise( (resolve, reject) => {
     try {
-      database.collection("jobs").doc(id).set({
-        jobId: id,
-        jobName: jobObj.jobName,
-        jobCreator: jobObj.jobCreator,
-        unionMember: jobObj.unionMember,
-        jobDesc: jobObj.jobDesc,
-        jobDates: jobObj.jobDates,
-        jobPositions: jobObj.jobPositions,
-        jobLocation: jobObj.jobLocation,
-        jobContact: jobObj.jobContact,
-        jobStatus: 'pending'
+      database.collection("jobs").doc(id).get().then( results => {
+        results.exists ? resolve(results) : resolve(emptyArr)
       })
-      resolve('success')
     }
     catch(error) {
-      reject('error')
+      reject(error)
     }
   })
-  return await createJobSendInvitesSuccessful
+
+  const userCreatedJobs = await getUserCreatedJobs
+  const newUserCreatedJob = {
+    jobId: id,
+    jobName: jobObj.jobName,
+    jobCreator: jobObj.jobCreator,
+    unionMember: jobObj.unionMember,
+    jobDesc: jobObj.jobDesc,
+    jobDates: jobObj.jobDates,
+    jobPositions: jobObj.jobPositions,
+    jobLocation: jobObj.jobLocation,
+    jobContact: jobObj.jobContact,
+    jobStatus: 'pending'   
+  }
+
+  const updateUserCreatedJobs = new Promise( (resolve, reject) => {
+    try {
+      database.collection("jobs").doc(id).set({ createdJobs: [...userCreatedJobs, newUserCreatedJob ]})
+        .then( () => {
+          resolve('success')
+        })
+    }
+    catch(error) {
+      reject(error)
+    }
+  })
+  return await updateUserCreatedJobs
 }
+
+// export const createJob = (id, jobObj) => async () => {
+//   const database = await db
+//   const createJobSendInvitesSuccessful = new Promise( (resolve, reject) => {
+//     try {
+//       database.collection("jobs").doc(id).set({
+//         jobId: id,
+//         jobName: jobObj.jobName,
+//         jobCreator: jobObj.jobCreator,
+//         unionMember: jobObj.unionMember,
+//         jobDesc: jobObj.jobDesc,
+//         jobDates: jobObj.jobDates,
+//         jobPositions: jobObj.jobPositions,
+//         jobLocation: jobObj.jobLocation,
+//         jobContact: jobObj.jobContact,
+//         jobStatus: 'pending'
+//       })
+//       resolve('success')
+//     }
+//     catch(error) {
+//       reject('error')
+//     }
+//   })
+//   return await createJobSendInvitesSuccessful
+// }
 
 export const userResultsForJobCreation = (jobObj) => async () => {
   const database = await db
