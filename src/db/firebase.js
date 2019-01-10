@@ -34,5 +34,6 @@ var storage = firebase.storage()
 export {
   db,
   auth,
-  storage
+  storage,
+  firebase
 }

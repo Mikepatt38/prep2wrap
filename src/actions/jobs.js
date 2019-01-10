@@ -1,6 +1,6 @@
 import { db, auth } from '../db/firebase'
 
-export const createJob = (id, jobObj) => async () => {
+export const createJob = (id, jobID, jobObj) => async () => {
   const database = await db
   let emptyArr = []
   const getUserCreatedJobs = new Promise( (resolve, reject) => {
@@ -14,9 +14,9 @@ export const createJob = (id, jobObj) => async () => {
     }
   })
 
-  const userCreatedJobs = await getUserCreatedJobs
+  // const userCreatedJobs = await getUserCreatedJobs
   const newUserCreatedJob = {
-    jobId: id,
+    jobID: jobID,
     jobName: jobObj.jobName,
     jobCreator: jobObj.jobCreator,
     unionMember: jobObj.unionMember,
@@ -25,12 +25,12 @@ export const createJob = (id, jobObj) => async () => {
     jobPositions: jobObj.jobPositions,
     jobLocation: jobObj.jobLocation,
     jobContact: jobObj.jobContact,
-    jobStatus: 'pending'   
-  }
+    jobStatus: 'pending' 
+  }  
 
   const updateUserCreatedJobs = new Promise( (resolve, reject) => {
     try {
-      database.collection("jobs").doc(id).set({ createdJobs: [...userCreatedJobs, newUserCreatedJob ]})
+      database.collection("jobs").doc(id).collection("createdJobs").doc(jobID).set(newUserCreatedJob)
         .then( () => {
           resolve('success')
         })
@@ -41,31 +41,6 @@ export const createJob = (id, jobObj) => async () => {
   })
   return await updateUserCreatedJobs
 }
-
-// export const createJob = (id, jobObj) => async () => {
-//   const database = await db
-//   const createJobSendInvitesSuccessful = new Promise( (resolve, reject) => {
-//     try {
-//       database.collection("jobs").doc(id).set({
-//         jobId: id,
-//         jobName: jobObj.jobName,
-//         jobCreator: jobObj.jobCreator,
-//         unionMember: jobObj.unionMember,
-//         jobDesc: jobObj.jobDesc,
-//         jobDates: jobObj.jobDates,
-//         jobPositions: jobObj.jobPositions,
-//         jobLocation: jobObj.jobLocation,
-//         jobContact: jobObj.jobContact,
-//         jobStatus: 'pending'
-//       })
-//       resolve('success')
-//     }
-//     catch(error) {
-//       reject('error')
-//     }
-//   })
-//   return await createJobSendInvitesSuccessful
-// }
 
 export const userResultsForJobCreation = (jobObj) => async () => {
   const database = await db
@@ -98,32 +73,3 @@ export const userResultsForJobCreation = (jobObj) => async () => {
   })
   return await getJobMatches
 }
-
-
-// getAllUsersBasedOnUnion.then( querySnapshot => {
-//   for (let user of querySnapshot.docs) {
-//     for (let userPosition of user.data().positions) {
-//       if(!jobObj.jobPositions.includes(userPosition.value)) {
-//         console.log('User not added because of position: ' + user.data().firstName)
-//         break
-//       }
-//     }
-//     for( let userLocation of user.data().location) {
-//       if(!jobObj.jobLocation.includes(userLocation.value)) {
-//         console.log('User not added because of location: ' + user.data().firstName)
-//         break
-//       }
-//     }
-//     availability.then( querySnapshot => {
-//       for (let userAvail of querySnapshot.docs) {
-//         for (let date of userAvail.data().date) {
-//           if(jobObj.jobDates.includes(date)) {
-//             console.log('User not added because of availability: ' + user.data().firstName)
-//             break
-//           }
-//         }
-//       }
-//     })
-//     users.push(user.data())
-//   }
-// })

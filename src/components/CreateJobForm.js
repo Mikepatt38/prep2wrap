@@ -4,10 +4,12 @@ import { CreateJobFormStepOne } from './CreateJobFormStepOne'
 import { CreateJobFormStepTwo } from './CreateJobFormStepTwo'
 import { CreateJobFormStepThree } from './CreateJobFormStepThree'
 import { SendSMSTwilio } from './SendSMSTwilio'
+const uuidv4 = require('uuid/v4')
    
 export class CreateJobForm extends Component {
   state = {
     jobObj: {
+      jobID: uuidv4(),
       jobName: '',
       jobCreator: '',
       unionMember: false,
