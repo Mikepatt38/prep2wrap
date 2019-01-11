@@ -14,8 +14,8 @@ export class SendSMSTwilio extends Component {
     const sendSMS = new Promise( (resolve, reject) => {
       try {
         users.map( user => {
-          console.log('Sending invites to: ' + user[0].firstName + ' at ' + user[0].mobileNumber)
-          // this.sendSMSWithTwilio(user[0].firstName, user[0].mobileNumber)
+          // console.log('Sending invites to: ' + user[0].firstName + ' at ' + user[0].mobileNumber)
+          this.sendSMSWithTwilio(user[0].firstName, user[0].mobileNumber)
         })
         resolve('success')
       }
@@ -24,7 +24,13 @@ export class SendSMSTwilio extends Component {
         reject('error')
       }
     })
-    return await console.log(sendSMS)  
+    const isTwilioInviteSuccess = await sendSMS
+    isTwilioInviteSuccess === 'success' 
+      ?
+      this.props.nextStep()
+      :
+      this.props.errorStep()
+
   }
 
   sendSMSWithTwilio = (name, number) => {

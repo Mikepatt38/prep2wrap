@@ -17,8 +17,6 @@ export class CreateJobFormStepTwo extends Component {
         this.setState({
           usersMatchedResults: results,
           loading: false
-        }, () => {
-          console.log("Received new users: " + this.state.usersMatchedResults)
         })
       })
   }

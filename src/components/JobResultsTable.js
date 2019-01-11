@@ -194,8 +194,6 @@ class JobResultsTable extends Component {
     })
   }
 
-
-
   tableFilter = () => {
     return (
       <div className="table-filter">
