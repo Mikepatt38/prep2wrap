@@ -4,7 +4,6 @@ import { CreateJobFormStepOne } from './CreateJobFormStepOne'
 import { CreateJobFormStepTwo } from './CreateJobFormStepTwo'
 import { CreateJobFormStepThree } from './CreateJobFormStepThree'
 import { SendSMSTwilio } from './SendSMSTwilio'
-import JobOverviewPage from './JobOverviewPage';
 const uuidv4 = require('uuid/v4')
    
 export class CreateJobForm extends Component {
@@ -212,13 +211,8 @@ export class CreateJobForm extends Component {
         return (
           <SendSMSTwilio
             users={this.state.usersAssigned}
-            nextStep={this.nextStep}
-            errorStep={this.errorStep}
-          />
-        )
-      case 5:
-        return (
-          <JobOverviewPage
+            jobID={this.state.jobObj.jobID}
+            currentUser={this.props.currentUser}
             nextStep={this.nextStep}
             errorStep={this.errorStep}
           />
