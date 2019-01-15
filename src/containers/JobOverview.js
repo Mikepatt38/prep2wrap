@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
-import JobOverview from '../pages/JobOverview'
+import { JobOverview } from '../pages/JobOverview'
 import { createJob, getJobOverviewData } from '../actions/jobs'
 import withAuthorization from './withAuthorization'
 
