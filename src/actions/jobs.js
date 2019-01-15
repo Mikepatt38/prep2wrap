@@ -25,7 +25,8 @@ export const createJob = (id, jobID, jobObj) => async () => {
     jobPositions: jobObj.jobPositions,
     jobLocation: jobObj.jobLocation,
     jobContact: jobObj.jobContact,
-    jobStatus: 'pending' 
+    jobStatus: 'pending',
+    usersAssigned: jobObj.usersAssigned
   }  
 
   const updateUserCreatedJobs = new Promise( (resolve, reject) => {

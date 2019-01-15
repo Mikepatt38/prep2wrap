@@ -18,7 +18,8 @@ export class CreateJobForm extends Component {
       jobCreatedTime: moment(),
       jobPositions: [],
       jobLocation: [],
-      jobContact: []
+      jobContact: [],
+      usersAssigned: []
     },
     jobDescCount: 0,
     step: 0,
@@ -148,9 +149,13 @@ export class CreateJobForm extends Component {
   }
 
   assignedUsers = (assignedUsers) => {
-    this.setState({
+    this.setState(prevState => ({
+      jobObj: {
+        ...prevState.jobObj,
+        usersAssigned: assignedUsers
+      },
       usersAssigned: assignedUsers
-    })
+    }))
   }
 
   render(){

@@ -3,7 +3,6 @@ import { FormButton } from './FormButton'
 
 export class CreateJobFormStepThree extends Component {
 
-  
   saveAndContinue = (e) => {
     e.preventDefault()
     this.props.createJob(this.props.currentUser.id.toString(), this.props.state.jobObj.jobID.toString(), this.props.state.jobObj)
@@ -47,7 +46,7 @@ export class CreateJobFormStepThree extends Component {
               <label>Job Invitations: </label>
               <ul>
                 {state.usersAssigned.map( (user, key) => {
-                  return <li key={key}>{user[0].firstName}: {user[1]}</li>
+                  return <li key={key}>{user.name}: {user.position}</li>
                 })}
               </ul>
             </div>

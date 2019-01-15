@@ -56,6 +56,8 @@ class JobOverviewPage extends Component {
             <p>{jobOverviewData.jobContact}</p>
           </div>
         </div>
+        <div className="card-footer">
+        </div>
       </div>
     )
   }

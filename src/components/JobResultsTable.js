@@ -16,7 +16,12 @@ class JobResultsTable extends Component {
     this.setState( prevState => ({
       usersAssigned: [
         ...prevState.usersAssigned,
-        [user, position]
+        {
+          name: user.firstName + ' ' + user.lastName,
+          position: position,
+          id: user.id
+        }
+        // [user.firstName + ' ' + user.lastName, position, user.id]
       ],
       assignedPositions: [...this.state.assignedPositions, position]
     }),
@@ -29,8 +34,8 @@ class JobResultsTable extends Component {
     let tempArr = this.state.usersAssigned
     let tempPos = this.state.assignedPositions
     tempArr.map( (item, key) => {
-      item[0].id === user[0].id ? tempArr.splice(key, 1) : null
-      item[1] === user[1] ? tempPos.splice(key, 1) : null
+      item.id === user.id ? tempArr.splice(key, 1) : null
+      item.position === user.position ? tempPos.splice(key, 1) : null
     })
     this.setState({
       usersAssigned: tempArr,
@@ -62,7 +67,7 @@ class JobResultsTable extends Component {
         }
       })
       const userRowDisabled = this.state.usersAssigned.find( (item) => {
-        return item[0].id === value.id
+        return item.id === value.id
       })
       cells.push(
         <React.Fragment key={key}>
@@ -114,7 +119,7 @@ class JobResultsTable extends Component {
         <ul className="assignedUsers-list">
           {
             this.state.usersAssigned.map( (user, key) => {
-              return <li onClick={() => this.removeAssignedUser(user)} key={key}>{user[0].firstName + ' ' + user[0].lastName} assigned as {user[1]}</li>
+              return <li onClick={() => this.removeAssignedUser(user)} key={key}>{user.name} assigned as {user.position}</li>
             })
           }
         </ul>
