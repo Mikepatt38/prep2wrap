@@ -1,18 +1,29 @@
-import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { compose } from 'recompose'
+import { bindActionCreators } from 'redux'
+import JobOverview from '../pages/JobOverview'
+import { createJob, getJobOverviewData } from '../actions/jobs'
+import withAuthorization from './withAuthorization'
 
-class JobOverviewPage extends Component {
-  render() {
-    return (
-      <div className="card">
-        <div className="card-header">
-          <h3>This is the job overview page.</h3>
-          <p>This is the job overview page for the selected job.</p>  
-        </div>
-        <div className="card-body">
-        </div>
-      </div>
-    )
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.userState.currentUser,
   }
 }
 
-export default JobOverviewPage
+const actions = {
+  createJob,
+  getJobOverviewData
+}
+
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(actions, dispatch)
+}
+
+const authCondition = (authUser) => !!authUser
+
+export default compose(
+  withAuthorization(authCondition),
+  connect(mapStateToProps, mapDispatchToProps)
+)(JobOverview)

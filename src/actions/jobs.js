@@ -73,3 +73,20 @@ export const userResultsForJobCreation = (jobObj) => async () => {
   })
   return await getJobMatches
 }
+
+export const getJobOverviewData = (creatorID, jobID) => async () => {
+  const database = await db
+  const getJobOverview = database.collection("jobs").doc(creatorID).collection("createdJobs").doc(jobID).get()
+
+  const getJobData = new Promise( (resolve, reject) => {
+    try {
+      getJobOverview.then( (results) => {
+        results.exists ? resolve(results.data()) : resolve("error")
+      })
+    }
+    catch(error) {
+      reject(error)
+    }
+  })
+  return await getJobData
+}
