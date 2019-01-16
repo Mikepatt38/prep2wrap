@@ -18,7 +18,7 @@ export class SendSMSTwilio extends Component {
         this.createJobOverviewLink(this.props.currentUser.id.toString(), this.props.jobID)
         users.map( user => {
           // console.log('Sending invites to: ' + user[0].firstName + ' at ' + user[0].mobileNumber)
-          this.sendSMSWithTwilio(user[0].firstName, user[0].mobileNumber)
+          this.sendSMSWithTwilio(user.name, user.number)
         })
         resolve('success')
       }

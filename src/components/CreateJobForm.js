@@ -12,6 +12,7 @@ export class CreateJobForm extends Component {
       jobID: uuidv4(),
       jobName: '',
       jobCreator: '',
+      jobCreatorID: '',
       unionMember: false,
       jobDesc: '',
       jobDates: [],
@@ -34,7 +35,8 @@ export class CreateJobForm extends Component {
     this.setState(prevState => ({
       jobObj: {
         ...prevState.jobObj,
-        jobCreator: this.props.currentUser.firstName + ' ' + this.props.currentUser.lastName
+        jobCreator: this.props.currentUser.firstName + ' ' + this.props.currentUser.lastName,
+        jobCreatorID: this.props.currentUser.id.toString()
       }
     }))
   }
