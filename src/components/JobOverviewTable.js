@@ -28,6 +28,16 @@ class JobOverviewTable extends Component {
     })
     return isUserAssigned
   }
+  
+  testIfCurrentUserAccepted = (currentUserId) => {
+    let userAccepted = false
+    this.state.jobOverviewData.usersAssigned.map( user => {
+      if(user.id === currentUserId) {
+        userAccepted =  user.status === "pending" ? false : true
+      }
+    })
+    return userAccepted
+  }
 
   testIfCurrentUserIsCreator = (currentUserID) => {
     if(this.state.jobOverviewData.jobCreatorID === currentUserID) {
@@ -58,6 +68,7 @@ class JobOverviewTable extends Component {
     if(this.state.loading) return <h1>Loading</h1>
     const { jobOverviewData } = this.state
     const isCurrentUserAssigned = this.testIfCurrentUserIsAssigned(this.props.currentUser.id)
+    const hasUserAccepted = this.testIfCurrentUserAccepted(this.props.currentUser.id)
     const isCurrentUserJobCreator = this.testIfCurrentUserIsCreator(this.props.currentUser.id)
     return (
       <div className="card">
@@ -97,7 +108,7 @@ class JobOverviewTable extends Component {
         </div>
         <div className="card-footer">
         {
-          isCurrentUserAssigned &&
+          isCurrentUserAssigned && !hasUserAccepted &&
           <div className="card-footer-action">
             <button className="button-form" onClick={(e) => this.acceptJobInvite(e)}>Accept</button>
             &nbsp;
