@@ -1,8 +1,9 @@
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
+import { withRouter } from 'react-router-dom'
 import { JobOverview } from '../pages/JobOverview'
-import { createJob, getJobOverviewData, acceptJobInvitation } from '../actions/jobs'
+import { createJob, getJobOverviewData, acceptJobInvitation, denyJobInvitation } from '../actions/jobs'
 import withAuthorization from './withAuthorization'
 
 const mapStateToProps = (state) => {
@@ -14,7 +15,8 @@ const mapStateToProps = (state) => {
 const actions = {
   createJob,
   getJobOverviewData,
-  acceptJobInvitation
+  acceptJobInvitation,
+  denyJobInvitation
 }
 
 
@@ -26,5 +28,6 @@ const authCondition = (authUser) => !!authUser
 
 export default compose(
   withAuthorization(authCondition),
+  withRouter,
   connect(mapStateToProps, mapDispatchToProps)
 )(JobOverview)

@@ -1,4 +1,4 @@
-import { db, auth } from '../db/firebase'
+import { db, auth, firebase } from '../db/firebase'
 
 export const createJob = (id, jobID, jobObj) => async () => {
   const database = await db
@@ -101,7 +101,7 @@ export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, newAssigne
 
   const updateStatus = new Promise ( (resolve, reject) => {
     try {
-      updateStatus
+      updateUserStatus
       resolve("success")
     }
     catch(error) {
@@ -110,3 +110,19 @@ export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, newAssigne
   })
   return await updateStatus
 } 
+
+export const denyJobInvitation = (jobData, currentUser) => async (dispatch) => {
+  const database = await db
+  const updateUserStatus = database.collection("jobs").doc(jobData.jobCreatorID).collection("createdJobs").doc(jobData.jobID).set(jobData)
+
+  const updateStatus = new Promise ( (resolve, reject) => {
+    try {
+      updateUserStatus
+      resolve("success")
+    }
+    catch(error) {
+      reject("error")
+    }
+  })
+  return await updateStatus
+}

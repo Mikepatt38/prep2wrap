@@ -7,6 +7,8 @@ export const JobOverview = (props) => {
       currentUser={props.currentUser}
       getJobOverviewData={props.getJobOverviewData}
       acceptJobInvitation={props.acceptJobInvitation}
+      denyJobInvitation={props.denyJobInvitation}
+      history={props.history}
     />
   )
 }

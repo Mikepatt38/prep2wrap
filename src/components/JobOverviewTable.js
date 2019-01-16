@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { isEmpty } from '@firebase/util';
 
 class JobOverviewTable extends Component {
   state = {
@@ -64,6 +65,28 @@ class JobOverviewTable extends Component {
       })
   }
 
+  denyJobInvite = (e) => {
+    e.preventDefault()
+    const index = this.state.jobOverviewData.usersAssigned.map( (user, key) => {
+      if( user.id === this.props.currentUser.id) {
+        return key
+      }
+    })
+
+    const newUsers = this.state.jobOverviewData.usersAssigned.filter( user => user.id.toString() !== this.props.currentUser.id.toString())
+    this.setState(prevState => ({
+      jobOverviewData: {
+        ...prevState.jobOverviewData,
+        usersAssigned: newUsers
+      }
+    }), () => {
+      this.props.denyJobInvitation(this.state.jobOverviewData, this.props.currentUser)
+      .then( (result) => {
+        result === "success" ? this.props.history.push("/dashboard") : console.log("Error")
+      })
+    })
+  }
+
   render() {
     if(this.state.loading) return <h1>Loading</h1>
     const { jobOverviewData } = this.state
@@ -112,7 +135,7 @@ class JobOverviewTable extends Component {
           <div className="card-footer-action">
             <button className="button-form" onClick={(e) => this.acceptJobInvite(e)}>Accept</button>
             &nbsp;
-            <button className="button-form">Deny</button>
+            <button className="button-form" onClick={(e) => this.denyJobInvite(e)}>Deny</button>
           </div>
         }
         {
