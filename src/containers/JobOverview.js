@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
 import { JobOverview } from '../pages/JobOverview'
-import { createJob, getJobOverviewData } from '../actions/jobs'
+import { createJob, getJobOverviewData, acceptJobInvitation } from '../actions/jobs'
 import withAuthorization from './withAuthorization'
 
 const mapStateToProps = (state) => {
@@ -13,7 +13,8 @@ const mapStateToProps = (state) => {
 
 const actions = {
   createJob,
-  getJobOverviewData
+  getJobOverviewData,
+  acceptJobInvitation
 }
 
 

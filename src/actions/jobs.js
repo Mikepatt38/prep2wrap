@@ -26,7 +26,6 @@ export const createJob = (id, jobID, jobObj) => async () => {
     jobPositions: jobObj.jobPositions,
     jobLocation: jobObj.jobLocation,
     jobContact: jobObj.jobContact,
-    jobStatus: 'pending',
     usersAssigned: jobObj.usersAssigned
   }  
 
@@ -92,3 +91,22 @@ export const getJobOverviewData = (creatorID, jobID) => async () => {
   })
   return await getJobData
 }
+
+export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, newAssignedUsers) => async (dispatch) => {
+  const database = await db
+
+  const updateUserStatus = database.collection("jobs").doc(jobCreatorID).collection("createdJobs").doc(jobID).update({
+    usersAssigned: newAssignedUsers
+  })
+
+  const updateStatus = new Promise ( (resolve, reject) => {
+    try {
+      updateStatus
+      resolve("success")
+    }
+    catch(error) {
+      reject("error")
+    }
+  })
+  return await updateStatus
+} 

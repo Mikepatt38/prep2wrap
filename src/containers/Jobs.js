@@ -13,14 +13,16 @@ const mapStateToProps = (state) => {
   }
 }
 
+const actions = {
+  createJob,
+  setModal,
+  setUserModal,
+  userResultsForJobCreation,
+}
+
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    createJob: bindActionCreators(createJob, dispatch),
-    setModal: bindActionCreators(setModal, dispatch),
-    setUserModal: bindActionCreators(setUserModal, dispatch),
-    userResultsForJobCreation: bindActionCreators(userResultsForJobCreation, dispatch)
-  }
+  return bindActionCreators(actions, dispatch)
 }
 
 

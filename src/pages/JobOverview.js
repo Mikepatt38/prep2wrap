@@ -6,6 +6,7 @@ export const JobOverview = (props) => {
     <JobOverviewTable
       currentUser={props.currentUser}
       getJobOverviewData={props.getJobOverviewData}
+      acceptJobInvitation={props.acceptJobInvitation}
     />
   )
 }

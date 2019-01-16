@@ -10,11 +10,8 @@ class JobOverviewTable extends Component {
     const result = path.split("/")
     const creatorID = result[2]
     const jobID = result[3]
-    console.log(creatorID)
-    console.log(jobID)
     this.props.getJobOverviewData(creatorID, jobID)
       .then((result) => {
-        console.log(result)
         this.setState({
           jobOverviewData: result,
           loading: false
@@ -39,13 +36,29 @@ class JobOverviewTable extends Component {
     return false
   }
 
+  acceptJobInvite = (e) => {
+    e.preventDefault()
+    const index = this.state.jobOverviewData.usersAssigned.map( (user, key) => {
+      if( user.id === this.props.currentUser.id) {
+        return key
+      }
+    })
+    let newUsersAssignedObject = Object.assign({}, this.state.jobOverviewData)
+    newUsersAssignedObject.usersAssigned[index.toString()].status = "accepted"
+    this.setState({
+      jobOverviewData: newUsersAssignedObject
+    })
+    this.props.acceptJobInvitation(this.state.jobOverviewData.jobCreatorID, this.state.jobOverviewData.jobID, this.props.currentUser, this.state.jobOverviewData.usersAssigned)
+      .then( (result) => {
+        console.log(result)
+      })
+  }
+
   render() {
     if(this.state.loading) return <h1>Loading</h1>
     const { jobOverviewData } = this.state
     const isCurrentUserAssigned = this.testIfCurrentUserIsAssigned(this.props.currentUser.id)
     const isCurrentUserJobCreator = this.testIfCurrentUserIsCreator(this.props.currentUser.id)
-    console.log(isCurrentUserAssigned)
-    console.log(isCurrentUserJobCreator)
     return (
       <div className="card">
         <div className="card-header">
@@ -85,7 +98,11 @@ class JobOverviewTable extends Component {
         <div className="card-footer">
         {
           isCurrentUserAssigned &&
-          <p>User is assigned.</p>
+          <div className="card-footer-action">
+            <button className="button-form" onClick={(e) => this.acceptJobInvite(e)}>Accept</button>
+            &nbsp;
+            <button className="button-form">Deny</button>
+          </div>
         }
         {
           isCurrentUserJobCreator && 
