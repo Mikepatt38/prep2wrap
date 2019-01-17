@@ -2,6 +2,7 @@ import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 
 import { ProtectedRoute } from './components/ProtectedRoute'
+import Dashboard from './containers/Dashboard'
 import AccountSettings from './containers/AccountSettings'
 import UserAuth from './containers/UserAuth'
 import UsersPage from './pages/Users'
@@ -10,7 +11,7 @@ import Jobs from './containers/Jobs'
 import JobOverview from './containers/JobOverview'
 
 import Landing from './pages/Landing'
-import Dashboard from './pages/Dashboard'
+// import Dashboard from './pages/Dashboard'
 
 export const AuthRoutes = () => {
   return (

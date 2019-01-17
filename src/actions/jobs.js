@@ -93,7 +93,7 @@ export const getJobOverviewData = (creatorID, jobID) => async () => {
   return await getJobData
 }
 
-export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, newAssignedUsers) => async (dispatch) => {
+export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, newAssignedUsers, jobOverviewLink) => async (dispatch) => {
   const database = await db
 
   const updateUserStatus = database.collection("jobs").doc(jobCreatorID).collection("createdJobs").doc(jobID).update({
@@ -102,7 +102,8 @@ export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, newAssigne
 
   const updateStatus = new Promise ( (resolve, reject) => {
     const jobNotificationData = {
-      text: "A user just accepted your job invitation!"
+      text: "A user just accepted your job invitation!",
+      link: jobOverviewLink
     }
     try {
       updateUserStatus
@@ -152,4 +153,8 @@ export const createJobNotification = (userID,jobID, jobNotificationData) => asyn
     }
   })
   const createNotificationSuccess = await create
+}
+
+export const getUserJobNotifications = (userID) => async () => {
+  
 }

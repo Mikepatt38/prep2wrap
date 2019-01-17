@@ -49,6 +49,7 @@ class JobOverviewTable extends Component {
 
   acceptJobInvite = (e) => {
     e.preventDefault()
+    const jobOverviewLink = this.state.jobOverviewData.jobCreatorID + '/' + this.state.jobOverviewData.jobID
     const index = this.state.jobOverviewData.usersAssigned.map( (user, key) => {
       if( user.id === this.props.currentUser.id) {
         return key
@@ -59,7 +60,7 @@ class JobOverviewTable extends Component {
     this.setState({
       jobOverviewData: newUsersAssignedObject
     })
-    this.props.acceptJobInvitation(this.state.jobOverviewData.jobCreatorID, this.state.jobOverviewData.jobID, this.props.currentUser, this.state.jobOverviewData.usersAssigned)
+    this.props.acceptJobInvitation(this.state.jobOverviewData.jobCreatorID, this.state.jobOverviewData.jobID, this.props.currentUser, this.state.jobOverviewData.usersAssigned, jobOverviewLink)
       .then( (result) => {
         console.log(result)
       })
