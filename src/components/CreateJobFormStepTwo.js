@@ -42,6 +42,13 @@ export class CreateJobFormStepTwo extends Component {
  
   render() {
     const { state } = this.props
+    if(this.state.usersMatchedResults.length === 0){
+      return (
+        <NoResultsTable
+          saveAndGoBack={this.saveAndGoBack}
+        />
+      )
+    }
     return (
       !this.state.loading && this.state.usersMatchedResults.length > 0 &&  
       <div className="card">
@@ -74,3 +81,22 @@ export class CreateJobFormStepTwo extends Component {
     )
   }
 }
+
+const NoResultsTable = ({saveAndGoBack}) => (
+  <div className="card">
+    <div className="card-header">
+      <h3>Assign Positions to Potential Users</h3>
+      <p>Fill out the job details to find the best users for the job.</p>
+    </div>
+    <div className="card-body">
+      <p><b>Oh NO!</b> No users matched your search criteria. Try going back and trying new parameters!</p>  
+    </div>
+    <div className="card-footer">
+      <FormButton
+        className="button-form"
+        buttonText="Prev Step"
+        onClick={saveAndGoBack}
+      />
+    </div>
+  </div>  
+)
