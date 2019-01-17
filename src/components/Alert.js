@@ -5,7 +5,7 @@ import CloseIcon from '../img/icon-close.svg'
 export const Alert = ({ active, alertText, alertType, onSetAlert }) => {
   return (
     <div className={active ? 'alert active ' + `${alertType}` : 'alert'} onClick={ () => onSetAlert(false, '', '') }>
-      <p>{alertType}! {alertText}</p>
+      <p>{alertText}</p>
       <span onClick={ () => onSetAlert(false, '', '')}><img src={CloseIcon} alt="Close Icon" /></span> 
     </div>
   )

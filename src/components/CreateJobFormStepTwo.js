@@ -42,6 +42,7 @@ export class CreateJobFormStepTwo extends Component {
   }
  
   render() {
+    if(this.state.loading) return <h1>Loading...</h1>
     const { state } = this.props
     if(this.state.usersMatchedResults.length === 0){
       return (

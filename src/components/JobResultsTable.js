@@ -23,7 +23,6 @@ class JobResultsTable extends Component {
           number: user.mobileNumber,
           status: "pending"
         }
-        // [user.firstName + ' ' + user.lastName, position, user.id]
       ],
       assignedPositions: [...this.state.assignedPositions, position]
     }),

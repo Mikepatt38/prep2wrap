@@ -1,4 +1,5 @@
 import { db, auth, firebase } from '../db/firebase'
+import { setAlert } from './components'
 
 export const createJob = (id, jobID, jobObj) => async () => {
   const database = await db
@@ -118,6 +119,7 @@ export const denyJobInvitation = (jobData, currentUser) => async (dispatch) => {
   const updateStatus = new Promise ( (resolve, reject) => {
     try {
       updateUserStatus
+      dispatch(setAlert(true, "Info", "You declined the job and removed yourself from the job."))
       resolve("success")
     }
     catch(error) {
