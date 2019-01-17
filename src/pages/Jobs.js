@@ -23,6 +23,7 @@ class Jobs extends Component {
           userResultsForJobCreation={this.props.userResultsForJobCreation}
           userModalActive={this.props.userModalActive}
           setUserModal={this.props.setUserModal}
+          createJobNotification={this.props.createJobNotification}
         />
       </div>
     )

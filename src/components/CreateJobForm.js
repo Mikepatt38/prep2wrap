@@ -221,6 +221,7 @@ export class CreateJobForm extends Component {
             users={this.state.usersAssigned}
             jobID={this.state.jobObj.jobID}
             currentUser={this.props.currentUser}
+            createJobNotification={this.props.createJobNotification}
             nextStep={this.nextStep}
             errorStep={this.errorStep}
           />

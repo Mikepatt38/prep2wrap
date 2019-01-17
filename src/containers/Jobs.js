@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
 import Jobs from '../pages/Jobs'
-import { createJob, userResultsForJobCreation } from '../actions/jobs'
+import { createJob, userResultsForJobCreation, createJobNotification } from '../actions/jobs'
 import { setModal, setUserModal } from '../actions/components'
 import withAuthorization from './withAuthorization'
 
@@ -18,6 +18,7 @@ const actions = {
   setModal,
   setUserModal,
   userResultsForJobCreation,
+  createJobNotification
 }
 
 

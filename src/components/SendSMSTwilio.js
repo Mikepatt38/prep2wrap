@@ -19,6 +19,7 @@ export class SendSMSTwilio extends Component {
         const jobOverviewLink = window.location.href + '/' + this.props.currentUser.id.toString() + '/' + this.props.jobID
         users.map( user => {
           this.sendSMSWithTwilio(user.name, user.number, jobOverviewLink)
+          this.sendJobNotificationLink(user.id, this.props.jobID, jobOverviewLink)
         })
         resolve('success')
       }
@@ -45,6 +46,14 @@ export class SendSMSTwilio extends Component {
     })
   }
 
+  sendJobNotificationLink = (userID, jobID, jobOverviewLink) => {
+    const jobNotificationData = {
+      text: "You were invited to a job!",
+      link: jobOverviewLink
+    }
+    this.props.createJobNotification(userID, jobID, jobNotificationData)
+  }
+
   sendSMSWithTwilio = (name, number, jobOverviewLink) => {
     let textBody = `Hey ${name}! You just received a job invite on The Calltime!\n\nClick the link below to accept or deny the job, you have 1 hour to answer before it expires.\n\n ${jobOverviewLink}`
     fetch('http://localhost:9000/sendsms', {
@@ -60,7 +69,10 @@ export class SendSMSTwilio extends Component {
       })
     })
     .then(resp => {
-      resp.status === 200 ? console.log('Message sent!') : console.log('Message not sent!')
+      resp.status === 200 
+      ? 
+        console.log('Success, Twilio text sent')
+      : console.log('Message not sent!')
     })
   }
 

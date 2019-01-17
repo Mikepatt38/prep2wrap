@@ -56,7 +56,7 @@ class JobOverviewTable extends Component {
       }
     })
     let newUsersAssignedObject = Object.assign({}, this.state.jobOverviewData)
-    newUsersAssignedObject.usersAssigned[index.toString()].status = "accepted"
+    newUsersAssignedObject.usersAssigned[index.toString().split(",")[0]].status = "accepted"
     this.setState({
       jobOverviewData: newUsersAssignedObject
     })
