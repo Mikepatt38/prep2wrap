@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { FormButton } from './FormButton'
 import { SignUpMultiStepFormOne } from './SignUpMultiStepFormStepOne'
 import { SignUpMultiStepFormStepTwo } from './SignUpMultiStepFormStepTwo'
@@ -126,13 +127,15 @@ const QuickActions = () => (
     <h2 className="signUpFormTitle">Congrats! Get started using your account today.</h2>
     <p className="signUpFormText">Get started using your account today by clicking one of the quick actions or going straight to your user dashboard.</p>
     <div className="quickAction">
-      <div className="illustration">
-        <img src={CreateIllustration} alt="Create a job illustration" />
-      </div>
-      <div className="content">
-        <h3>Create your first job.</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-      </div>
+      <a href="http://localhost:3000/dashboard">
+        <div className="illustration">
+          <img src={CreateIllustration} alt="Create a job illustration" />
+        </div>
+        <div className="content">
+          <h3>Create your first job.</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+        </div>
+      </a>
     </div>
 
     <div className="quickAction">
