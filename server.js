@@ -48,7 +48,7 @@ app.post('/sendsms', bodyParser.json(), (req, res) => {
   var client = require('twilio')(SID, TOKEN)
   client.messages
   .create({
-    to: '+18179654467',
+    to:   '+1'+req.body.number,
     from: '+16822049551',
     body: req.body.message
    })
