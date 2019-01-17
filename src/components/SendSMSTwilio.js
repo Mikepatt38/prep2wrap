@@ -16,9 +16,9 @@ export class SendSMSTwilio extends Component {
     const sendSMS = new Promise( (resolve, reject) => {
       try {
         this.createJobOverviewLink(this.props.currentUser.id.toString(), this.props.jobID)
+        const jobOverviewLink = window.location.href + '/' + this.props.currentUser.id.toString() + '/' + this.props.jobID
         users.map( user => {
-          // console.log('Sending invites to: ' + user[0].firstName + ' at ' + user[0].mobileNumber)
-          this.sendSMSWithTwilio(user.name, user.number)
+          this.sendSMSWithTwilio(user.name, user.number, jobOverviewLink)
         })
         resolve('success')
       }
@@ -45,8 +45,8 @@ export class SendSMSTwilio extends Component {
     })
   }
 
-  sendSMSWithTwilio = (name, number) => {
-    let textBody = `Hey ${name}! You just received a job invite on The Calltime!\n\nClick the link below to accept or deny the job, you have 1 hour to answer before it expires.`
+  sendSMSWithTwilio = (name, number, jobOverviewLink) => {
+    let textBody = `Hey ${name}! You just received a job invite on The Calltime!\n\nClick the link below to accept or deny the job, you have 1 hour to answer before it expires.\n\n ${jobOverviewLink}`
     fetch('http://localhost:9000/sendsms', {
       method: 'POST',
       headers: {

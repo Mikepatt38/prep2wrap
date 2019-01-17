@@ -15,7 +15,6 @@ export const createJob = (id, jobID, jobObj) => async () => {
     }
   })
 
-  // const userCreatedJobs = await getUserCreatedJobs
   const newUserCreatedJob = {
     jobID: jobID,
     jobName: jobObj.jobName,
@@ -57,7 +56,6 @@ export const userResultsForJobCreation = (jobObj) => async () => {
         for (let user of querySnapshot.docs) {
           for (let userPosition of user.data().positions) {
             if(jobObj.jobPositions.includes(userPosition.value)) {
-              console.log('User was added because of position: ' + user.data().firstName)
               tempUsers.push(user.data())
               break
             }
