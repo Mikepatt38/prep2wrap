@@ -101,8 +101,12 @@ export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, newAssigne
   })
 
   const updateStatus = new Promise ( (resolve, reject) => {
+    const jobNotificationData = {
+      text: "A user just accepted your job invitation!"
+    }
     try {
       updateUserStatus
+      dispatch(createJobNotification(jobCreatorID, jobID, jobNotificationData))
       resolve("success")
     }
     catch(error) {
@@ -117,9 +121,13 @@ export const denyJobInvitation = (jobData, currentUser) => async (dispatch) => {
   const updateUserStatus = database.collection("jobs").doc(jobData.jobCreatorID).collection("createdJobs").doc(jobData.jobID).set(jobData)
 
   const updateStatus = new Promise ( (resolve, reject) => {
+    const jobNotificationData = {
+      text: "A user just denied your job invitation."
+    }
     try {
       updateUserStatus
       dispatch(setAlert(true, "Info", "You declined the job and removed yourself from the job."))
+      dispatch(createJobNotification(jobData.jobCreatorID, jobData.jobID, jobNotificationData))
       resolve("success")
     }
     catch(error) {
@@ -127,4 +135,21 @@ export const denyJobInvitation = (jobData, currentUser) => async (dispatch) => {
     }
   })
   return await updateStatus
+}
+
+export const createJobNotification = (userID,jobID, jobNotificationData) => async () => {
+  const database = await db
+
+  const createNotification = database.collection("jobs").doc(userID).collection("jobNotifications").doc(jobID).set(jobNotificationData)
+
+  const create = new Promise ( (resolve, reject) => {
+    try {
+      createNotification
+      resolve("success")
+    }
+    catch(error) {
+      reject("error")
+    }
+  })
+  const createNotificationSuccess = await create
 }
