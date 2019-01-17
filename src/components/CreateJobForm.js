@@ -203,6 +203,7 @@ export class CreateJobForm extends Component {
             setUserModal={this.props.setUserModal}
             userModalActive={this.props.userModalActive}
             assignedUsers={this.assignedUsers}
+            currentUserID={this.props.currentUser.id}
           />   
   
         )

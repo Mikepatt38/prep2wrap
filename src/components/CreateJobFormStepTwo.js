@@ -14,8 +14,9 @@ export class CreateJobFormStepTwo extends Component {
   componentDidMount() {
     this.props.userResultsForJobCreation(this.props.state.jobObj)
       .then( (results) => {
+        const filterResults = results.filter(user => user.id !== this.props.currentUserID) 
         this.setState({
-          usersMatchedResults: results,
+          usersMatchedResults: filterResults,
           loading: false
         })
       })
