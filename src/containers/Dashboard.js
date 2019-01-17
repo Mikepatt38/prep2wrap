@@ -1,8 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
-import { withRouter } from 'react-router-dom'
-import { Dashboard } from '../pages/Dashboard'
+import Dashboard from '../pages/Dashboard'
 import { getUserJobNotifications } from '../actions/jobs'
 import withAuthorization from './withAuthorization'
 
@@ -25,6 +24,5 @@ const authCondition = (authUser) => !!authUser
 
 export default compose(
   withAuthorization(authCondition),
-  withRouter,
   connect(mapStateToProps, mapDispatchToProps)
 )(Dashboard)

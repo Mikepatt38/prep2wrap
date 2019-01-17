@@ -154,5 +154,31 @@ export const createJobNotification = (userID,jobID, jobNotificationData) => asyn
 }
 
 export const getUserJobNotifications = (userID) => async () => {
-  
+  const database = await db
+
+  let notifications = []
+  const getUserNotifications = database.collection("jobs").doc(userID).collection("jobNotifications").get().then( (querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      notifications.push( {
+        text: doc.data().text,
+        link: doc.data().link.length > 1 ? doc.data().link : ''
+        })
+      })
+      return notifications
+  })
+
+  const getNotifications = new Promise ( (resolve, reject) => {
+    try {
+      getUserNotifications
+      .then ( (results) => {
+        resolve(results)
+      })
+    }
+    catch(error) {
+      reject("error")
+    }
+  })
+
+  const docData = await getNotifications
+  return docData
 }
