@@ -115,13 +115,14 @@ export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, newAssigne
   return await updateStatus
 } 
 
-export const denyJobInvitation = (jobData, currentUser) => async (dispatch) => {
+export const denyJobInvitation = (jobData, currentUser, jobOverviewLink) => async (dispatch) => {
   const database = await db
   const updateUserStatus = database.collection("jobs").doc(jobData.jobCreatorID).collection("createdJobs").doc(jobData.jobID).set(jobData)
 
   const updateStatus = new Promise ( (resolve, reject) => {
     const jobNotificationData = {
-      text: "A user just denied your job invitation."
+      text: "A user just denied your job invitation.",
+      link: jobOverviewLink
     }
     try {
       updateUserStatus
@@ -160,6 +161,7 @@ export const getUserJobNotifications = (userID) => async () => {
   const getUserNotifications = database.collection("jobs").doc(userID).collection("jobNotifications").get().then( (querySnapshot) => {
     querySnapshot.forEach((doc) => {
       notifications.push( {
+        id: doc.id,
         text: doc.data().text,
         link: doc.data().link.length > 1 ? doc.data().link : ''
         })
@@ -181,4 +183,11 @@ export const getUserJobNotifications = (userID) => async () => {
 
   const docData = await getNotifications
   return docData
+}
+
+export const removeUserJobNotification = (userID, notificationID ) => async (dispatch) => {
+  const database = await db
+  const updateNotifications = await database.collection("jobs").doc(userID).collection("jobNotifications").doc(notificationID).delete()
+
+  updateNotifications
 }

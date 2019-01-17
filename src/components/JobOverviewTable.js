@@ -49,14 +49,18 @@ class JobOverviewTable extends Component {
 
   acceptJobInvite = (e) => {
     e.preventDefault()
+    let index 
     const jobOverviewLink = this.state.jobOverviewData.jobCreatorID + '/' + this.state.jobOverviewData.jobID
-    const index = this.state.jobOverviewData.usersAssigned.map( (user, key) => {
+    this.state.jobOverviewData.usersAssigned.map( (user, key) => {
       if( user.id === this.props.currentUser.id) {
-        return key
+        index = key
+      }
+      else {
+        null
       }
     })
     let newUsersAssignedObject = Object.assign({}, this.state.jobOverviewData)
-    newUsersAssignedObject.usersAssigned[index.toString().split(",")[0]].status = "accepted"
+    newUsersAssignedObject.usersAssigned[index].status = "accepted"
     this.setState({
       jobOverviewData: newUsersAssignedObject
     })
@@ -68,6 +72,7 @@ class JobOverviewTable extends Component {
 
   denyJobInvite = (e) => {
     e.preventDefault()
+    const jobOverviewLink = this.state.jobOverviewData.jobCreatorID + '/' + this.state.jobOverviewData.jobID
     const index = this.state.jobOverviewData.usersAssigned.map( (user, key) => {
       if( user.id === this.props.currentUser.id) {
         return key
@@ -81,7 +86,7 @@ class JobOverviewTable extends Component {
         usersAssigned: newUsers
       }
     }), () => {
-      this.props.denyJobInvitation(this.state.jobOverviewData, this.props.currentUser)
+      this.props.denyJobInvitation(this.state.jobOverviewData, this.props.currentUser, jobOverviewLink)
       .then( (result) => {
         result === "success" ? this.props.history.push("/dashboard") : console.log("Error")
       })

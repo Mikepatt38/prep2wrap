@@ -11,6 +11,7 @@ class Dashboard extends Component {
         <DashboardNotifications
           currentUser={this.props.currentUser}
           getUserJobNotifications={this.props.getUserJobNotifications}
+          removeUserJobNotification={this.props.removeUserJobNotification}
         />
       </div>
     )
