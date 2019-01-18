@@ -93,19 +93,33 @@ export const getJobOverviewData = (creatorID, jobID) => async () => {
 
 export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, newAssignedUsers, jobOverviewLink) => async (dispatch) => {
   const database = await db
-
   const updateUserStatus = database.collection("jobs").doc(jobCreatorID).collection("createdJobs").doc(jobID).update({
     usersAssigned: newAssignedUsers
   })
+  const getUserNotificationsID = database.collection("jobs").doc(currentUser.id).collection("jobNotifications").get().then( (querySnapshot) => {
+    let idToReturn = null
+    querySnapshot.forEach(function(doc) {
+      const compareLink = doc.data().link.split("/")[4] + '/' + doc.data().link.split("/")[5]
+      if(compareLink === jobOverviewLink) {
+        idToReturn = doc.id
+      }
+    })
+    return idToReturn
+  })
+
+
+  const notificationID = await getUserNotificationsID
 
   const updateStatus = new Promise ( (resolve, reject) => {
     const jobNotificationData = {
       text: "A user just accepted your job invitation!",
       link: jobOverviewLink
     }
+
     try {
       updateUserStatus
       dispatch(createJobNotification(jobCreatorID, jobID, jobNotificationData))
+      dispatch(removeUserJobNotification(currentUser.id, notificationID ))
       resolve("success")
     }
     catch(error) {
@@ -118,15 +132,30 @@ export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, newAssigne
 export const denyJobInvitation = (jobData, currentUser, jobOverviewLink) => async (dispatch) => {
   const database = await db
   const updateUserStatus = database.collection("jobs").doc(jobData.jobCreatorID).collection("createdJobs").doc(jobData.jobID).set(jobData)
+  const getUserNotificationsID = database.collection("jobs").doc(currentUser.id).collection("jobNotifications").get().then( (querySnapshot) => {
+    let idToReturn = null
+    querySnapshot.forEach(function(doc) {
+      const compareLink = doc.data().link.split("/")[4] + '/' + doc.data().link.split("/")[5]
+      if(compareLink === jobOverviewLink) {
+        idToReturn = doc.id
+      }
+    })
+    return idToReturn
+  })
+
+
+  const notificationID = await getUserNotificationsID
 
   const updateStatus = new Promise ( (resolve, reject) => {
     const jobNotificationData = {
       text: "A user just denied your job invitation.",
       link: jobOverviewLink
     }
+
     try {
       updateUserStatus
       dispatch(setAlert(true, "Info", "You declined the job and removed yourself from the job."))
+      dispatch(removeUserJobNotification(currentUser.id, notificationID ))
       dispatch(createJobNotification(jobData.jobCreatorID, jobData.jobID, jobNotificationData))
       resolve("success")
     }

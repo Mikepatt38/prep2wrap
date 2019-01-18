@@ -149,13 +149,15 @@ const QuickActions = () => (
     </div>
 
     <div className="quickAction">
-      <div className="illustration">
-        <img src={SettingsIllustration} alt="Account settings illustration" />
-      </div>
-      <div className="content">
-        <h3>Head to your user dashboard.</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-      </div>
+      <a href="http://localhost:3000/dashboard">
+        <div className="illustration">
+          <img src={SettingsIllustration} alt="Account settings illustration" />
+        </div>
+        <div className="content">
+          <h3>Head to your user dashboard.</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+        </div>
+      </a>
     </div>
   </div>
 )

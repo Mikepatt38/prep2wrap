@@ -137,7 +137,7 @@ class JobOverviewTable extends Component {
         </div>
         <div className="card-footer">
         {
-          isCurrentUserAssigned && !hasUserAccepted &&
+          // isCurrentUserAssigned && !hasUserAccepted &&
           <div className="card-footer-action">
             <button className="button-form" onClick={(e) => this.acceptJobInvite(e)}>Accept</button>
             &nbsp;
