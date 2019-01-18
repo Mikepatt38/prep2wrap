@@ -134,10 +134,18 @@ class JobOverviewTable extends Component {
           <h4>Preferred Contact:</h4>
           <p>{jobOverviewData.jobContact}</p>
         </div>
+        <div className="job-item">
+          <h4>Assigned Positions:</h4>
+          {
+            jobOverviewData.usersAssigned.map( (user, key) => {
+              return <p key={key}>{user.position}: {user.name} with a status of {user.status}</p>
+            })
+          }
+        </div>
         </div>
         <div className="card-footer">
         {
-          // isCurrentUserAssigned && !hasUserAccepted &&
+          isCurrentUserAssigned && !hasUserAccepted &&
           <div className="card-footer-action">
             <button className="button-form" onClick={(e) => this.acceptJobInvite(e)}>Accept</button>
             &nbsp;
