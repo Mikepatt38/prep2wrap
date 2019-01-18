@@ -3,7 +3,7 @@ import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
 import { withRouter } from 'react-router-dom'
 import { JobOverview } from '../pages/JobOverview'
-import { createJob, getJobOverviewData, acceptJobInvitation, denyJobInvitation } from '../actions/jobs'
+import { createJob, getJobOverviewData, acceptJobInvitation, denyJobInvitation, createUserAcceptedJob } from '../actions/jobs'
 import withAuthorization from './withAuthorization'
 
 const mapStateToProps = (state) => {
@@ -16,7 +16,8 @@ const actions = {
   createJob,
   getJobOverviewData,
   acceptJobInvitation,
-  denyJobInvitation
+  denyJobInvitation,
+  createUserAcceptedJob
 }
 
 

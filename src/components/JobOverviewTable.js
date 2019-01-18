@@ -61,12 +61,13 @@ class JobOverviewTable extends Component {
     })
     let newUsersAssignedObject = Object.assign({}, this.state.jobOverviewData)
     newUsersAssignedObject.usersAssigned[index].status = "accepted"
+    const userWithAcceptedJob = newUsersAssignedObject.usersAssigned[index]
     this.setState({
       jobOverviewData: newUsersAssignedObject
     })
     this.props.acceptJobInvitation(this.state.jobOverviewData.jobCreatorID, this.state.jobOverviewData.jobID, this.props.currentUser, this.state.jobOverviewData.usersAssigned, jobOverviewLink)
       .then( (result) => {
-        console.log(result)
+        this.props.createUserAcceptedJob(this.props.currentUser.id, this.state.jobOverviewData.jobID, userWithAcceptedJob )
       })
   }
 

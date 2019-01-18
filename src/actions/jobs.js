@@ -166,6 +166,14 @@ export const denyJobInvitation = (jobData, currentUser, jobOverviewLink) => asyn
   return await updateStatus
 }
 
+export const createUserAcceptedJob = (userID, jobID, userJobData) => async () => {
+  const database = await db
+
+  const createUserAcceptedJobEntry = await database.collection("jobs").doc(userID).collection("acceptedJobs").doc(jobID).set(userJobData)
+
+  createUserAcceptedJobEntry
+}
+
 export const createJobNotification = (userID,jobID, jobNotificationData) => async () => {
   const database = await db
 
