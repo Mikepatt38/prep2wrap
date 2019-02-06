@@ -22,7 +22,7 @@ export class CreateJobFormStepOne extends Component {
 
   render() {
     const { state } = this.props
-    const { handleChange, handleCheck, handleLocationSelect, handleMultiSelect, handleDateChange, handleSelect } = this.props
+    const { handleChange, handleCheck, handleLocationSelect, handleMultiSelect, handleDateChange, handleSelect, handleJobDescChange } = this.props
     return (
       <div className="card">
         <div className="card-header">
@@ -61,7 +61,7 @@ export class CreateJobFormStepOne extends Component {
               name="jobDesc"
               type="text"
               value={state.jobObj.jobDesc}
-              onChange={handleChange}
+              onChange={handleJobDescChange}
             />
             <FormDatePicker
               label="Select Job Dates"

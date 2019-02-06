@@ -22,25 +22,6 @@ class UserProfileForm extends Component {
     unions: this.props.currentUser.unions,
   }
 
-  buildMultiSelectState = async (valueArr) => {
-    let tempArr = []
-    const values = new Promise((resolve, reject) => {
-      try {
-        valueArr.map( value => {
-          tempArr.push({
-            label: value,
-            value: value
-          })
-        })
-        console.log('Resolving...')
-        resolve(tempArr)
-      }
-      catch(error) {
-        reject(error)
-      }
-    })
-  }
-
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
@@ -70,7 +51,6 @@ class UserProfileForm extends Component {
   }
 
   render() {
-    const { currentUser } = this.props
     const { username, location, skills, positions, fbLink, imdbLink, availability, bilingual, travel, union } = this.state
     return (
       <form className="card-form-profile">

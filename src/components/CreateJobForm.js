@@ -63,24 +63,33 @@ export class CreateJobForm extends Component {
     })
   }
 
+  handleJobDescChange = e => {
+    const newVal = e.target.value
+    const name = e.target.name
+    
+    this.setState({
+      jobDescCount: newVal.length <= 140 ? newVal.length : 140
+    }, () => {
+      this.setState(prevState => ({
+        jobObj: {
+          ...prevState.jobObj,
+          [name]: this.state.jobDescCount < 140 ? newVal : this.state.jobObj.jobDesc
+        }
+      }))
+    })
+  }
+
 
   handleChange = e => {
     const newVal = e.target.value
     const name = e.target.name
+
     this.setState(prevState => ({
       jobObj: {
           ...prevState.jobObj,
           [name]: newVal
       }
-    }), () => {
-      name === 'jobDesc' 
-      ? 
-        this.setState({
-          jobDescCount: this.state.jobObj.jobDesc.length 
-        })
-      : null
-    })
-
+    }))
   }
 
   handleCheck = e => {
@@ -184,6 +193,7 @@ export class CreateJobForm extends Component {
             nextStep={this.nextStep}
             prevStep={this.prevStep}
             handleChange={this.handleChange}
+            handleJobDescChange={this.handleJobDescChange}
             handleCheck={this.handleCheck}
             handleMultiSelect={this.handleMultiSelect}
             handleLocationSelect={this.handleLocationSelect}
