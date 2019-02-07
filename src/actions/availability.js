@@ -3,36 +3,48 @@ import { db, auth } from '../db/firebase'
 export const getAvailabilityDates = (user) => async dispatch => {
   dispatch({
     type: 'SET_USERS_DATES',
-    payload: user.availabilityDates === undefined ? [] : user.availabilityDates  
+    payload: user.availability ? user.availability.dates : []  
   })
 }
 
 export const setAvailabilityDate = (user, date, reason) => async dispatch => {
   const database = await db
+  let currentDates = []
+
   database.collection("users").doc(user.id).get().then( results => {
-    if(results.data().availabilityDates) {
-      const currentDates = results.data().availabilityDates === undefined ? [] : results.data().availabilityDates
+    if(results.data().availability) {
+      currentDates = results.data().availability.dates === undefined ? [] : results.data().availability.dates
       currentDates.push({date: date, reason: reason})
       database.collection("users").doc(user.id).update({
-        availabilityDates: currentDates
+        availability: {
+          dates: currentDates
+        }
       })
     }
     else {
       database.collection("users").doc(user.id).update({
-        availabilityDates: [{date: date, reason: reason}]
+        availability: {
+          dates: [{date: date, reason: reason}]
+        }
       })
     }
   })
   .then( () => {
     dispatch({
+      type: 'SET_USERS_DATES',
+      payload: currentDates.length > 0 ? currentDates : [{date: date, reason: reason}]
+    })
+  })
+  .then( () => {
+    dispatch({
       type: 'SET_ALERT',
-      payload: [true, 'success', 'Date availability was set! Refresh the page to see your updated calendar.']
+      payload: [true, 'Success', 'Date availability was set!']
     })
   })
   .catch( (error) => {
     dispatch({
       type: 'SET_ALERT',
-      payload: [true, 'error', 'ERROR: ' + error]   
+      payload: [true, 'Error', 'ERROR: ' + error]   
     })
   })
 }
