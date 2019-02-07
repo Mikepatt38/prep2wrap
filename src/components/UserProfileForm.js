@@ -7,19 +7,19 @@ import { locationObj, skillsObj, positionsObj } from '../data/formOptions'
 
 class UserProfileForm extends Component {
   state = {
-    username: this.props.currentUser.username,
-    location: this.props.currentUser.location,
-    headline: this.props.currentUser.headline,
-    skills: this.props.currentUser.skills,
-    positions: this.props.currentUser.positions,
-    fbLink: this.props.currentUser.fbLink,
-    imdbLink: this.props.currentUser.imdbLink,
-    availability: this.props.currentUser.availability,
-    bilingual: this.props.currentUser.bilingual, 
-    languages: this.props.currentUser.languages,
-    travel: this.props.currentUser.travel, 
-    union: this.props.currentUser.union, 
-    unions: this.props.currentUser.unions,
+    username: this.props.currentUser.profileInformation.username,
+    location: this.props.currentUser.profileInformation.location,
+    headline: this.props.currentUser.profileInformation.headline,
+    skills: this.props.currentUser.profileInformation.skills,
+    positions: this.props.currentUser.profileInformation.positions,
+    fbLink: this.props.currentUser.profileInformation.fbLink,
+    imdbLink: this.props.currentUser.profileInformation.imdbLink,
+    availability: this.props.currentUser.profileInformation.availability,
+    bilingual: this.props.currentUser.profileInformation.bilingual, 
+    languages: this.props.currentUser.profileInformation.languages,
+    travel: this.props.currentUser.profileInformation.travel, 
+    union: this.props.currentUser.profileInformation.union, 
+    unions: this.props.currentUser.profileInformation.unions,
   }
 
   handleChange = e => {

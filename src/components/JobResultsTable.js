@@ -80,6 +80,9 @@ class JobResultsTable extends Component {
             </button>
           </div>
           <div className="table-row-cell cell-centered">
+
+          </div>
+          <div className="table-row-cell cell-right">
             <select
               onChange={(e) => { this.handleSelectPosition(value, key, e)} }
               disabled={userRowDisabled === undefined ? false : true}
@@ -97,9 +100,6 @@ class JobResultsTable extends Component {
                 </option>               
               })}
             </select>
-          </div>
-          <div className="table-row-cell cell-right">
-            
           </div>       
         </React.Fragment>
       )

@@ -9,8 +9,10 @@ export const setAccountView = (view) => ({
 export const setName = (id, firstName, lastName) => async dispatch => {
   const database = await db
   database.collection("users").doc(id).update({
-    firstName,
-    lastName
+    profileInformation: {
+      firstName,
+      lastName
+    }
   })
   .then( () => {
     dispatch({
@@ -29,7 +31,9 @@ export const setName = (id, firstName, lastName) => async dispatch => {
 export const setEmail = (id, email) => async dispatch => {
   const database = await db
   database.collection("users").doc(id).update({
-    email,
+    profileInformation: {
+      email
+    }
   })
   .then( () => {
     dispatch({
@@ -48,7 +52,9 @@ export const setEmail = (id, email) => async dispatch => {
 export const setMobileNumber = (id, mobileNumber) => async dispatch => {
   const database = await db
   database.collection("users").doc(id).update({
-    mobileNumber
+    profileInformation: {
+      mobileNumber
+    }
   })
   .then( () => {
     dispatch({
@@ -69,18 +75,20 @@ export const setUserProfile = (id, username, location, skills, positions, fbLink
   const updateUserProfileSuccess = new Promise( (resolve, reject) => {
     try {
       database.collection("users").doc(id).update({
-        username, 
-        location,
-        skills,
-        positions,
-        fbLink,
-        imdbLink,
-        availability,
-        travel,
-        union,
-        bilingual,
-        unions, 
-        languages
+        profileInformation: {
+          username, 
+          location,
+          skills,
+          positions,
+          fbLink,
+          imdbLink,
+          availability,
+          travel,
+          union,
+          bilingual,
+          unions, 
+          languages
+        }
       })
       .then( () => {
         dispatch({
@@ -129,7 +137,9 @@ export const uploadProfileImage = (id, avatar, filename) => async dispatch => {
     .then( (snapshot) => snapshot.ref.getDownloadURL() )
     .then( (url) => {
       database.collection("users").doc(id).update({
-        avatar: url
+        profileInformation: {
+          avatar: url
+        }
       })
       .then( () => {
         dispatch({
