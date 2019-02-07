@@ -7,38 +7,25 @@ export const getAvailabilityDates = (user) => async dispatch => {
   })
 }
 
-export const setAvailabilityDate = (user, date, reason) => async dispatch => {
+export const updateUserDates = (user, dates) => async dispatch => {
   const database = await db
-  let currentDates = []
 
-  database.collection("users").doc(user.id).get().then( results => {
-    if(results.data().availability) {
-      currentDates = results.data().availability.dates === undefined ? [] : results.data().availability.dates
-      currentDates.push({date: date, reason: reason})
-      database.collection("users").doc(user.id).update({
-        availability: {
-          dates: currentDates
-        }
-      })
-    }
-    else {
-      database.collection("users").doc(user.id).update({
-        availability: {
-          dates: [{date: date, reason: reason}]
-        }
-      })
+  database.collection("users").doc(user.id).update({
+    availability: {
+      dates: dates
     }
   })
   .then( () => {
+    console.log(dates)
     dispatch({
       type: 'SET_USERS_DATES',
-      payload: currentDates.length > 0 ? currentDates : [{date: date, reason: reason}]
+      payload: dates
     })
   })
   .then( () => {
     dispatch({
       type: 'SET_ALERT',
-      payload: [true, 'Success', 'Date availability was set!']
+      payload: [true, 'Success', 'Your calendar was updated!']
     })
   })
   .catch( (error) => {
@@ -46,5 +33,45 @@ export const setAvailabilityDate = (user, date, reason) => async dispatch => {
       type: 'SET_ALERT',
       payload: [true, 'Error', 'ERROR: ' + error]   
     })
+  })
+}
+
+export const removeAvailabilityDate = (user, date) => async dispatch => {
+  const database = await db
+  let currentDates = []
+
+  database.collection("users").doc(user.id).get().then( results => {
+    if(results.data().availability) {
+      currentDates = results.data().availability.dates.filter( currentDate => currentDate.date !== date)
+    }
+    else {
+      dispatch({
+        type: 'SET_ALERT',
+        payload: [true, 'Info', 'The selected date does not exist and cannot be deleted.']
+      })
+    }
+  })
+  .then( () => {
+    dispatch(updateUserDates(user, currentDates))
+  })
+}
+
+export const setAvailabilityDate = (user, date, reason) => async dispatch => {
+  const database = await db
+  let currentDates = []
+
+  console.log(date)
+
+  database.collection("users").doc(user.id).get().then( results => {
+    if(results.data().availability) {
+      currentDates = results.data().availability.dates === undefined ? [] : results.data().availability.dates
+      currentDates.push({date: date, reason: reason})
+    }
+    else {
+      currentDates = [{date: date, reason: reason}]
+    }
+  })
+  .then( () => {
+    dispatch(updateUserDates(user, currentDates))
   })
 }

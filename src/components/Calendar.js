@@ -9,6 +9,12 @@ class Calendar extends Component {
     bookedDates: []
   }
 
+  componentWillReceiveProps = () => {
+    this.setState({
+      bookedDates: []
+    })
+  }
+
   renderHeader() {
     const dateFormat = "MMMM YYYY";
     return (

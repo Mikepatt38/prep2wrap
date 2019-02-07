@@ -15,7 +15,6 @@ export class AvailabilityForm extends Component {
   }
 
   handleChange = (date) => {
-    console.log('Changing...')
     this.setState({
       startDate: date,
       formattedDate: date.format('MM/DD/YYYY')
@@ -30,7 +29,7 @@ export class AvailabilityForm extends Component {
 
   handleClick = (e) => {
     e.preventDefault()
-    this.props.setAvailabilityDate(this.props.currentUser, this.state.formattedDate, this.state.reason)
+    this.props.setAvailabilityDate(this.props.currentUser, dateFns.format(this.props.selectedDate, 'MM/DD/YYYY'), this.state.reason)
     this.props.closeModal(false)
   }
 
