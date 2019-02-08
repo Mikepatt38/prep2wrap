@@ -43,7 +43,6 @@ class UserFavorites extends Component {
           />
           :
           <React.Fragment>
-            <img src={FavoritesIllustration} alt="Illustration for user favorites" />
             <p className="centered">You currently do not have any favorite friends. To add a favorite, search the user and visit their profile.</p>
           </React.Fragment>
         }

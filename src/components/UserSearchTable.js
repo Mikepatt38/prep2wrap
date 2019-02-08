@@ -17,22 +17,22 @@ class Table extends Component {
     let locations = []
     let available = ''
     this.props.value.map( (value, key) => {
-      if( typeof value.location === 'undefined' && typeof value.availability === 'undefined') {
+      if( typeof value.profileInformation.location === 'undefined') {
         locations = ['Unknown']
-        available = 'Unknown'
+        // available = 'Unknown'
       }
       else {
-        locations = value.location.map ( (loc) => {
+        locations = value.profileInformation.location.map ( (loc) => {
           return loc.label
         })
-        available = value.available ? 'Available' : 'Busy'
+        // available = value.available ? 'Available' : 'Busy'
       }
 
       cells.push(
         <React.Fragment key={key}>
           <div className="table-row-cell">{value.firstName + ' ' + value.lastName}</div>
           <div className="table-row-cell">{locations.map( (location) => {return location})}</div>
-          <div className="table-row-cell">{available}</div>  
+          <div className="table-row-cell"></div>  
           <div className="table-row-cell">
             <span onClick={() => {this.props.setUserModal(true, value)}}>View Profile</span>
           </div>       

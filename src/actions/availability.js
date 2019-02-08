@@ -60,8 +60,6 @@ export const setAvailabilityDate = (user, date, reason) => async dispatch => {
   const database = await db
   let currentDates = []
 
-  console.log(date)
-
   database.collection("users").doc(user.id).get().then( results => {
     if(results.data().availability) {
       currentDates = results.data().availability.dates === undefined ? [] : results.data().availability.dates

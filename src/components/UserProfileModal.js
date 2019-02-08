@@ -21,9 +21,9 @@ class UserProfileModal extends Component {
 
   setupUserOverview = (user) => {
     this.setState({
-      positions: this.setUserAttribute(user.positions),
-      skills: this.setUserAttribute(user.skills),
-      locations: this.setUserAttribute(user.location)
+      positions: this.setUserAttribute(user.profileInformation.positions),
+      skills: this.setUserAttribute(user.profileInformation.skills),
+      locations: this.setUserAttribute(user.profileInformation.location)
     },
     () => {
       this.setState({
@@ -40,8 +40,8 @@ class UserProfileModal extends Component {
     return arr
   }
 
-  handleAddFavorite = async (addUserToFavorite, user) => {
-    const userAdded = await addUserToFavorite(this.props.currentUser.id.toString(), user)
+  handleAddFavorite = async (addToUsersFavorites, user) => {
+    const userAdded = await addToUsersFavorites(this.props.currentUser.id.toString(), user)
     this.setState({
       favoritesUpdated: userAdded ? true : false
     }, () => {
@@ -50,7 +50,7 @@ class UserProfileModal extends Component {
   }
 
   render() {
-    const { user, addUserToFavorite, closeModal } = this.props
+    const { user, addToUsersFavorites, closeModal } = this.props
 
     return (
       <div className={ this.props.userModalActive ? 'modalBg modal-open' : 'modalBg'}>
@@ -92,26 +92,22 @@ class UserProfileModal extends Component {
                     }</p>
                   </div>
                   <div className="user-overview-item">
-                    <label>Available Today:</label>
-                    <p>{ user.availability ? 'Available' : 'Unavailable'}</p>
-                  </div>
-                  <div className="user-overview-item">
                     <label>Other Languages Spoken:</label>
-                    <p>{user.languages.length > 0 ? user.languages : 'No Other Languages Spoken'}</p>
+                    <p>{user.profileInformation.languages.length > 0 ? user.languages : 'No Other Languages Spoken'}</p>
                   </div>
                   <div className="user-overview-item">
                     <label>Union Members:</label>
-                    <p>{user.unions.length > 0 ? user.unions : 'None'}</p>
+                    <p>{user.profileInformation.unions.length > 0 ? user.unions : 'None'}</p>
                   </div>
                   <div className="user-overview-item">
                     <label>Willing to Travel:</label>
-                    <p>{user.travel ? 'Yes' : 'No' }</p>
+                    <p>{user.profileInformation.travel ? 'Yes' : 'No' }</p>
                   </div>
                   <div className='user-overview-item'>
-                    <a href={user.fbLink}>Visit {user.firstName} Facebook</a>
+                    <a href={user.profileInformation.fbLink}>Visit {user.firstName} Facebook</a>
                   </div>
                   <div className='user-overview-item'>
-                    <a href={user.imdbLink}>Visit {user.firstName} IMDb</a>
+                    <a href={user.profileInformation.imdbLink}>Visit {user.firstName} IMDb</a>
                   </div>
                   <div className='user-overview-item'>
                     <a href="/">Email {user.firstName}</a>
@@ -119,7 +115,7 @@ class UserProfileModal extends Component {
                   <div className='user-overview-item'>
                     <button 
                       className="btn-user-overview"
-                      onClick={() => this.handleAddFavorite(addUserToFavorite, user)}
+                      onClick={() => this.handleAddFavorite(addToUsersFavorites, user)}
                     >
                       Add User To Favorites
                     </button>

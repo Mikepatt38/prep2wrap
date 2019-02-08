@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
 import { setUserModal, closeModal } from '../actions/components'
-import { addUserToFavorite } from '../actions/favorites'
+import { addToUsersFavorites } from '../actions/favorites'
 import withAuthorization from './withAuthorization'
 import UserProfileModal from '../components/UserProfileModal'
 
@@ -14,12 +14,14 @@ const mapStateToProps = (state) => {
   }
 }
 
+const actions = {
+  setUserModal,
+  closeModal,
+  addToUsersFavorites
+}
+
 const mapDispatchToProps = (dispatch) => {
-  return {
-    setUserModal: bindActionCreators(setUserModal, dispatch),
-    closeModal: bindActionCreators(closeModal, dispatch),
-    addUserToFavorite: bindActionCreators(addUserToFavorite, dispatch)
-  }
+  return bindActionCreators(actions, dispatch)
 }
 
 const authCondition = (authUser) => !!authUser
