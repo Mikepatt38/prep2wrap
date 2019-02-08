@@ -7,7 +7,6 @@ import FormSelectInput from './FormSelectInput'
 import { locationObj, positionsObj, contactObj } from '../data/formOptions'
 
 export class CreateJobFormStepOne extends Component {
-
   saveAndContinue = (e) => {
     e.preventDefault()
     this.props.nextStep()
@@ -17,8 +16,6 @@ export class CreateJobFormStepOne extends Component {
     e.preventDefault()
     this.props.prevStep()
   }
-
-  
 
   render() {
     const { state } = this.props
