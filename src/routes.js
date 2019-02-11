@@ -11,6 +11,7 @@ import Jobs from './containers/Jobs'
 import JobOverview from './containers/JobOverview'
 
 import Landing from './pages/Landing'
+import { CreateJobFormStepOne } from './components/CreateJobFormStepOne'
 // import Dashboard from './pages/Dashboard'
 
 export const AuthRoutes = () => {
@@ -23,6 +24,7 @@ export const AuthRoutes = () => {
       {/* <Route exact path='/password-change' component={PasswordChange} /> */}
       <ProtectedRoute exact path="/dashboard" component={Dashboard} />
       <ProtectedRoute exact path='/jobs' component={Jobs} />
+      <ProtectedRoute exact path='/jobs/:jobID/job-information' component={CreateJobFormStepOne} />
       <ProtectedRoute exact path='/jobs/:userID/:jobID' component={JobOverview} />
       <ProtectedRoute exact path='/users' component={UsersPage} />
       <ProtectedRoute exact path='/availability' component={Availability} />

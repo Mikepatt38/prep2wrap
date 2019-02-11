@@ -1,22 +1,10 @@
 import { db, auth } from '../db/firebase'
 
-export const getUserFavorites = (userId) => async dispatch => {
-  const database = await db
-  database.collection("favorites").doc(userId).onSnapshot( (doc) => {
-    if (doc.exists) {
-      return doc.data().favoritedUsers,
-      dispatch({
-        type: 'GET_USER_FAVORITES',
-        payload: doc.data().favoritedUsers 
-      })
-    }
-    else {
-      dispatch({
-        type: 'GET_USER_FAVORITES',
-        payload: []  
-      })
-    }
-  }) 
+export const getUserFavorites = (user) => async dispatch => {
+  dispatch({
+    type: 'GET_USER_FAVORITES',
+    payload: user.favorites 
+  })
 }
 
 export const stopListeningForFavorites = (userId) => async () => {
@@ -61,8 +49,10 @@ export const addToUsersFavorites = (currentUserId, userToBeAdded) => async dispa
         currentFavorites = typeof results.data().favorites === undefined ? results.data().favorites : []
       })
       .then ( () => {
-        currentFavorites.push(newFavorite)
-        resolve(currentFavorites)
+        if(currentFavorites.length < 8) {
+          currentFavorites.push(newFavorite)
+          resolve(currentFavorites)
+        }
       })
     }
     catch (error) {
@@ -72,43 +62,14 @@ export const addToUsersFavorites = (currentUserId, userToBeAdded) => async dispa
 
   const currentUserFavorites = await getCurrentUsersFavorites
 
-  dispatch(updateUserFavorites(currentUserId, currentUserFavorites))
-  dispatch({
-    type: 'SET_ALERT',
-    payload: [true, 'Success', 'The user was added to your favorites list']
-  })
+  if(currentFavorites.length > 8) {
+    dispatch(updateUserFavorites(currentUserId, currentUserFavorites))
+  }
+  else {
+    dispatch({
+      type: 'SET_ALERT',
+      payload: [true, 'Warning', 'You are allowed a max of 8 favorite users at once.']
+    })
+  }
 
 }
-
-// export const addUserToFavorite = (currentUserId, userToBeAdded) => async dispatch => {
-//   const database = await db
-//   let emptyArr = []
-//   const getUsersFavorites = new Promise( (resolve, reject) => {
-//     try {
-//       database.collection("favorites").doc(currentUserId).get().then( (results) => {
-//         results.exists ? resolve(results) : resolve(emptyArr)
-//       })
-//     }
-//     catch(error) {
-//       reject(error)
-//     }
-//   })
-
-//   const userToBeAddedObj = {
-//     id: userToBeAdded.id,
-//     Name: userToBeAdded.firstName + ' ' + userToBeAdded.lastName,
-//     Email: userToBeAdded.email
-//   }
-
-//   const favorites = await getUsersFavorites
-//   console.log(favorites)
-//   const updateFavorites = database.collection("favorites").doc(currentUserId).set({ favoritedUsers: [...favorites, userToBeAddedObj] })
-
-//   updateFavorites 
-//     .then(
-//       dispatch({
-//         type: 'SET_ALERT',
-//         payload: [true, 'Success', 'The user was added to your favorites list']
-//       })
-//     )
-// }

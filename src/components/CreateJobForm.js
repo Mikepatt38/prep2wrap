@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import moment from 'moment'
 import { CreateJobFormStepOne } from './CreateJobFormStepOne'
 import { CreateJobFormStepTwo } from './CreateJobFormStepTwo'
@@ -8,6 +9,7 @@ const uuidv4 = require('uuid/v4')
    
 export class CreateJobForm extends Component {
   state = {
+    jobID: uuidv4(),
     jobObj: {
       jobID: uuidv4(),
       jobName: '',
@@ -177,12 +179,10 @@ export class CreateJobForm extends Component {
             <div className="card-header">
               <h3>Create A Job</h3>
               <p>Create a job to hire other local professionals to your project.</p>
-              <button 
-                className="button-form"
-                onClick={this.nextStep}
-              >
-                Create A New Job
-              </button>   
+              <Link to={{
+                pathname: `/jobs/${this.state.jobID}/job-information`,
+                query: `${this.state.jobID}`
+              }}>Create a job</Link>  
             </div>
           </div>   
         )
