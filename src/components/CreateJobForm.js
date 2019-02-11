@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
-import { CreateJobFormStepOne } from './CreateJobFormStepOne'
+// import { CreateJobFormStepOne } from './CreateJobFormStepOne'
 import { CreateJobFormStepTwo } from './CreateJobFormStepTwo'
 import { CreateJobFormStepThree } from './CreateJobFormStepThree'
 import { SendSMSTwilio } from './SendSMSTwilio'
@@ -186,23 +186,23 @@ export class CreateJobForm extends Component {
             </div>
           </div>   
         )
-      case 1:
-        return (
-          <CreateJobFormStepOne
-            state={this.state}
-            nextStep={this.nextStep}
-            prevStep={this.prevStep}
-            handleChange={this.handleChange}
-            handleJobDescChange={this.handleJobDescChange}
-            handleCheck={this.handleCheck}
-            handleMultiSelect={this.handleMultiSelect}
-            handleLocationSelect={this.handleLocationSelect}
-            handleSelect={this.handleSelect}
-            handleDateChange={this.handleDateChange}
-            setJobObjData={this.props.setJobObjData}
-            removeDate={this.removeDate}
-          />   
-        )
+      // case 1:
+      //   return (
+      //     <CreateJobFormStepOne
+      //       state={this.state}
+      //       nextStep={this.nextStep}
+      //       prevStep={this.prevStep}
+      //       handleChange={this.handleChange}
+      //       handleJobDescChange={this.handleJobDescChange}
+      //       handleCheck={this.handleCheck}
+      //       handleMultiSelect={this.handleMultiSelect}
+      //       handleLocationSelect={this.handleLocationSelect}
+      //       handleSelect={this.handleSelect}
+      //       handleDateChange={this.handleDateChange}
+      //       setJobObjData={this.props.setJobObjData}
+      //       removeDate={this.removeDate}
+      //     />   
+      //   )
       case 2:
         return (
           <CreateJobFormStepTwo

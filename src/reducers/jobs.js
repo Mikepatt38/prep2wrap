@@ -1,6 +1,7 @@
 const INITIAL_STATE = {
   jobs: [],
   userResults: [],
+  currentJob: {}
 }
 
 function jobsReducer(state = INITIAL_STATE, action) {
@@ -10,6 +11,9 @@ function jobsReducer(state = INITIAL_STATE, action) {
     }
     case 'CREATE_JOB_SEARCH_RESULTS': {
       return { ...state, userResults: action.payload }
+    }
+    case 'CREATE_UPDATE_JOB' : {
+      return { ...state, currentJob: action.payload } 
     }
     default : return state
   }

@@ -228,3 +228,10 @@ export const removeUserJobNotification = (userID, notificationID ) => async (dis
 
   updateNotifications
 }
+
+export const createReduxJob = (jobState) => async dispatch => {
+  dispatch({
+    type: 'CREATE_UPDATE_JOB',
+    payload: jobState
+  })
+}
