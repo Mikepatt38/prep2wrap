@@ -16,7 +16,7 @@ class SendSMSTwilio extends Component {
     const sendSMS = new Promise( (resolve, reject) => {
       try {
         this.createJobOverviewLink(this.props.currentUser.id.toString(), this.props.currentJob.jobObj.jobID)
-        const jobOverviewLink = window.location.href + '/' + this.props.currentUser.id.toString() + '/' + this.props.currentJob.jobObj.jobID
+        const jobOverviewLink = '/job-overview/' + this.props.currentUser.id.toString() + '/' + this.props.currentJob.jobObj.jobID
         users.map( user => {
           this.sendSMSWithTwilio(user.name, user.number)
           this.sendJobNotificationLink(user.id, this.props.currentJob.jobObj.jobID, jobOverviewLink)
@@ -24,14 +24,12 @@ class SendSMSTwilio extends Component {
         resolve('success')
       }
       catch(error) {
-        console.log('Error: ' + error)
         reject('error')
       }
     })
     const isTwilioInviteSuccess = await sendSMS
     isTwilioInviteSuccess === 'success' 
       ?
-      // this.props.nextStep()
       console.log(isTwilioInviteSuccess)
       :
       this.props.errorStep()
@@ -39,7 +37,7 @@ class SendSMSTwilio extends Component {
   }
 
   createJobOverviewLink = (userID, jobID) => {
-    const jobOverviewLink = '/jobs/' + userID + '/' + jobID
+    const jobOverviewLink = '/job-overview/' + userID + '/' + jobID
     this.setState({
       loading: false,
       jobOverviewLink: jobOverviewLink
