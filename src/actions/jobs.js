@@ -3,18 +3,6 @@ import { setAlert } from './components'
 
 export const createJob = (id, jobID, jobObj) => async () => {
   const database = await db
-  let emptyArr = []
-  const getUserCreatedJobs = new Promise( (resolve, reject) => {
-    try {
-      database.collection("jobs").doc(id).get().then( results => {
-        results.exists ? resolve(results) : resolve(emptyArr)
-      })
-    }
-    catch(error) {
-      reject(error)
-    }
-  })
-
   const newUserCreatedJob = {
     jobID: jobID,
     jobName: jobObj.jobName,
@@ -174,7 +162,7 @@ export const createUserAcceptedJob = (userID, jobID, userJobData) => async () =>
   createUserAcceptedJobEntry
 }
 
-export const createJobNotification = (userID,jobID, jobNotificationData) => async () => {
+export const createJobNotification = (userID, jobID, jobNotificationData) => async () => {
   const database = await db
 
   const createNotification = database.collection("jobs").doc(userID).collection("jobNotifications").doc(jobID).set(jobNotificationData)

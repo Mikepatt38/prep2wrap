@@ -19,7 +19,7 @@ class SendSMSTwilio extends Component {
         const jobOverviewLink = window.location.href + '/' + this.props.currentUser.id.toString() + '/' + this.props.currentJob.jobObj.jobID
         users.map( user => {
           this.sendSMSWithTwilio(user.name, user.number)
-          this.sendJobNotificationLink(user.id, this.props.currentUser.jobObj.jobID, jobOverviewLink)
+          this.sendJobNotificationLink(user.id, this.props.currentJob.jobObj.jobID, jobOverviewLink)
         })
         resolve('success')
       }
@@ -51,6 +51,7 @@ class SendSMSTwilio extends Component {
       text: "You were invited to a job!",
       link: jobOverviewLink
     }
+    console.log('Sending notification to userID: ' + userID + ' For the jobID of: ' + jobID)
     this.props.createJobNotification(userID, jobID, jobNotificationData)
   }
 

@@ -14,7 +14,7 @@ import withAuthorization from './withAuthorization'
 import CreateJobFormStepOne from '../components/Jobs/CreateJobFormStepOne';
 import CreateJobFormStepTwo from '../components/Jobs/CreateJobFormStepTwo';
 import CreateJobFormStepThree from '../components/Jobs/CreateJobFormStepThree';
-import SendSMSTwilio from '../components/SendSMSTwilio';
+import SendSMSTwilio from '../components/Jobs/SendSMSTwilio';
 
 
 const mapStateToProps = (state) => {
