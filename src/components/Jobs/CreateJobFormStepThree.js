@@ -8,7 +8,7 @@ class CreateJobFormStepThree extends Component {
 
   saveAndContinue = (e) => {
     e.preventDefault()
-    this.props.createJob(this.props.currentUser.id.toString(), this.props.currentJob.jobObj.jobID.toString(), this.props.currentJob.jobObj)
+    this.props.createJob(this.props.currentUser.id.toString(), this.props.currentJob.jobObj.jobID.toString(), this.props.currentJob.jobObj, this.props.currentJob.assignedUsers)
       .then( result => {
         result === 'success' 
         ? this.props.history.push(`/jobs/${this.state.jobID}/send-job-invites`)

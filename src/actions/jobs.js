@@ -1,7 +1,7 @@
 import { db, auth, firebase } from '../db/firebase'
 import { setAlert } from './components'
 
-export const createJob = (id, jobID, jobObj) => async () => {
+export const createJob = (id, jobID, jobObj, assignedUsers) => async () => {
   const database = await db
   const newUserCreatedJob = {
     jobID: jobID,
@@ -14,8 +14,9 @@ export const createJob = (id, jobID, jobObj) => async () => {
     jobPositions: jobObj.jobPositions,
     jobLocation: jobObj.jobLocation,
     jobContact: jobObj.jobContact,
-    usersAssigned: jobObj.usersAssigned
+    usersAssigned: assignedUsers
   }  
+
 
   const updateUserCreatedJobs = new Promise( (resolve, reject) => {
     try {
