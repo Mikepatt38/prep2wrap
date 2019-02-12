@@ -61,11 +61,10 @@ class JobResultsTable extends Component {
   renderRows(){
     let rows = []
     let cells = []
+    let userPositions = []
     this.state.usersReturned.map( (value, key) => {
-      const userPositions = value.profileInformation.positions.map( userPosition => {
-        if(this.state.openPositions.includes(userPosition.value)) {
-          return userPosition.value
-        }
+      value.profileInformation.positions.forEach( position => {
+        this.state.openPositions.includes(position.value) ? userPositions.push(position.value) : null
       })
       const userRowDisabled = this.state.usersAssigned.find( (item) => {
         return item.id === value.id
@@ -87,6 +86,7 @@ class JobResultsTable extends Component {
               onChange={(e) => { this.handleSelectPosition(value, key, e)} }
               disabled={userRowDisabled === undefined ? false : true}
               id={"select"+key}
+              key={"select"+key}
             >
               <option value="" disabled selected>Assign a position</option>
               { userPositions.map( position => {
