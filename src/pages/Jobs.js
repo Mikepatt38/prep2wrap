@@ -1,31 +1,18 @@
 import React, { Component } from 'react'
-import { PageHeader } from '../components/PageHeader'
-import { CreateJobForm } from '../components/CreateJobForm'
+import { Link } from 'react-router-dom'
+const uuidv4 = require('uuid/v4')
 
 class Jobs extends Component {
-
-  handleClick = (e) => {
-    e.preventDefault()
-    console.log('clicked')
-    this.props.setModal(true, "Create A Job Request", 
-      <CreateJobForm 
-        currentUser={this.props.currentUser} 
-        createJob={this.props.createJob}
-      />)
+  state = {
+    jobID: uuidv4()
   }
 
   render() {
     return (
-      <div className="container containerMargin">
-        <CreateJobForm 
-          currentUser={this.props.currentUser} 
-          createJob={this.props.createJob}
-          userResultsForJobCreation={this.props.userResultsForJobCreation}
-          userModalActive={this.props.userModalActive}
-          setUserModal={this.props.setUserModal}
-          createJobNotification={this.props.createJobNotification}
-        />
-      </div>
+      <Link to={{
+        pathname: `/jobs/${this.state.jobID}/job-information`,
+        query: `${this.state.jobID}`
+      }}>Create a job</Link>  
     )
   }
 }

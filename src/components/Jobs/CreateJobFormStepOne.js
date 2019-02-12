@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import moment from 'moment'
-import { FormTextInput } from './FormTextInput'
-import { FormButton } from './FormButton'
-import { FormCheckboxInput } from './FormCheckboxInput'
-import { FormDatePicker } from './FormDatePicker'
-import FormSelectInput from './FormSelectInput'
-import { locationObj, positionsObj, contactObj } from '../data/formOptions'
+import { FormTextInput } from '../FormTextInput'
+import { FormButton } from '../FormButton'
+import { FormCheckboxInput } from '../FormCheckboxInput'
+import { FormDatePicker } from '../FormDatePicker'
+import FormSelectInput from '../FormSelectInput'
+import { locationObj, positionsObj, contactObj } from '../../data/formOptions'
 
 class CreateJobFormStepOne extends Component {
   state = {

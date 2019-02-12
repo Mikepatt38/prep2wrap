@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { isEmpty } from '@firebase/util';
 
 class JobOverviewTable extends Component {
   state = {

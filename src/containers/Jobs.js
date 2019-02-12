@@ -11,9 +11,9 @@ import { createJob,
         } from '../actions/jobs'
 import { setModal, setUserModal } from '../actions/components'
 import withAuthorization from './withAuthorization'
-import CreateJobFormStepOne from '../components/CreateJobFormStepOne';
-import CreateJobFormStepTwo from '../components/CreateJobFormStepTwo';
-import CreateJobFormStepThree from '../components/CreateJobFormStepThree';
+import CreateJobFormStepOne from '../components/Jobs/CreateJobFormStepOne';
+import CreateJobFormStepTwo from '../components/Jobs/CreateJobFormStepTwo';
+import CreateJobFormStepThree from '../components/Jobs/CreateJobFormStepThree';
 import SendSMSTwilio from '../components/SendSMSTwilio';
 
 

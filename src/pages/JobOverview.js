@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import JobOverviewTable from '../components/JobOverviewTable'
+import JobOverviewTable from '../components/Jobs/JobOverviewTable'
 
 export const JobOverview = (props) => {
   return (
