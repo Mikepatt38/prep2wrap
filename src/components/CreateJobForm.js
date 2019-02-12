@@ -1,26 +1,11 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import moment from 'moment'
-// import { CreateJobFormStepOne } from './CreateJobFormStepOne'
-import { CreateJobFormStepTwo } from './CreateJobFormStepTwo'
-import { CreateJobFormStepThree } from './CreateJobFormStepThree'
-import { SendSMSTwilio } from './SendSMSTwilio'
 const uuidv4 = require('uuid/v4')
    
 export class CreateJobForm extends Component {
   state= {
     jobID: uuidv4(),
     step: 0
-  }
-
-  assignedUsers = (assignedUsers) => {
-    this.setState(prevState => ({
-      jobObj: {
-        ...prevState.jobObj,
-        usersAssigned: assignedUsers
-      },
-      usersAssigned: assignedUsers
-    }))
   }
 
   render(){
@@ -37,25 +22,6 @@ export class CreateJobForm extends Component {
               }}>Create a job</Link>  
             </div>
           </div>   
-        )
-      case 3:
-        return <CreateJobFormStepThree
-                state={this.state}
-                nextStep={this.nextStep}
-                prevStep={this.prevStep}
-                currentUser={this.props.currentUser}
-                createJob={this.props.createJob}
-              />
-      case 4: 
-        return (
-          <SendSMSTwilio
-            users={this.state.usersAssigned}
-            jobID={this.state.jobObj.jobID}
-            currentUser={this.props.currentUser}
-            createJobNotification={this.props.createJobNotification}
-            nextStep={this.nextStep}
-            errorStep={this.errorStep}
-          />
         )
       case 'error':
         return <div>

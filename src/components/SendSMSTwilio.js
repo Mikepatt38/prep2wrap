@@ -2,24 +2,24 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import 'whatwg-fetch'
 
-export class SendSMSTwilio extends Component {
+class SendSMSTwilio extends Component {
   state = {
     loading: true,
     jobOverviewLink: ''
   }
 
   componentDidMount = () => {
-    this.sendSMSInvites(this.props.users)
+    this.sendSMSInvites(this.props.currentJob.assignedUsers)
   }
 
   sendSMSInvites = async (users) => {
     const sendSMS = new Promise( (resolve, reject) => {
       try {
-        this.createJobOverviewLink(this.props.currentUser.id.toString(), this.props.jobID)
-        const jobOverviewLink = window.location.href + '/' + this.props.currentUser.id.toString() + '/' + this.props.jobID
+        this.createJobOverviewLink(this.props.currentUser.id.toString(), this.props.currentJob.jobObj.jobID)
+        const jobOverviewLink = window.location.href + '/' + this.props.currentUser.id.toString() + '/' + this.props.currentJob.jobObj.jobID
         users.map( user => {
-          this.sendSMSWithTwilio(user.name, user.number, jobOverviewLink)
-          this.sendJobNotificationLink(user.id, this.props.jobID, jobOverviewLink)
+          this.sendSMSWithTwilio(user.name, user.number)
+          this.sendJobNotificationLink(user.id, this.props.currentUser.jobObj.jobID, jobOverviewLink)
         })
         resolve('success')
       }
@@ -54,8 +54,8 @@ export class SendSMSTwilio extends Component {
     this.props.createJobNotification(userID, jobID, jobNotificationData)
   }
 
-  sendSMSWithTwilio = (name, number, jobOverviewLink) => {
-    let textBody = `Hey ${name}! You just received a job invite on The Calltime!\n\nClick the link below to accept or deny the job, you have 1 hour to answer before it expires.\n\n ${jobOverviewLink}`
+  sendSMSWithTwilio = (name, number) => {
+    let textBody = `Hey ${name}! You just received a job invite on The Calltime!`
     fetch('http://localhost:9000/sendsms', {
       method: 'POST',
       headers: {
@@ -89,3 +89,5 @@ export class SendSMSTwilio extends Component {
     )
   }
 }
+
+export default SendSMSTwilio

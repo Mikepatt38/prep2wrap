@@ -13,6 +13,8 @@ import { setModal, setUserModal } from '../actions/components'
 import withAuthorization from './withAuthorization'
 import CreateJobFormStepOne from '../components/CreateJobFormStepOne';
 import CreateJobFormStepTwo from '../components/CreateJobFormStepTwo';
+import CreateJobFormStepThree from '../components/CreateJobFormStepThree';
+import SendSMSTwilio from '../components/SendSMSTwilio';
 
 
 const mapStateToProps = (state) => {
@@ -56,5 +58,15 @@ export const CreateJobFormStep2 = compose(
   withAuthorization(authCondition),
   jobContainerCreator
 )(CreateJobFormStepTwo)
+
+export const CreateJobFormStep3 = compose(
+  withAuthorization(authCondition),
+  jobContainerCreator
+)(CreateJobFormStepThree)
+
+export const SendJobInvites = compose(
+  withAuthorization(authCondition),
+  jobContainerCreator
+)(SendSMSTwilio)
 
 

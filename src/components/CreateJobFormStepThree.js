@@ -1,25 +1,23 @@
 import React, { Component } from 'react'
 import { FormButton } from './FormButton'
 
-export class CreateJobFormStepThree extends Component {
+class CreateJobFormStepThree extends Component {
+  state = {
+    jobID: this.props.match.params.jobID
+  }
 
   saveAndContinue = (e) => {
     e.preventDefault()
-    this.props.createJob(this.props.currentUser.id.toString(), this.props.state.jobObj.jobID.toString(), this.props.state.jobObj)
+    this.props.createJob(this.props.currentUser.id.toString(), this.props.currentJob.jobObj.jobID.toString(), this.props.currentJob.jobObj)
       .then( result => {
         result === 'success' 
-        ? this.props.nextStep()
+        ? this.props.history.push(`/jobs/${this.state.jobID}/send-job-invites`)
         : this.props.errorStep()
       })
   }
 
-  saveAndGoBack = (e) => {
-    e.preventDefault()
-    this.props.prevStep()
-  }
-
   render() {
-    const { state } = this.props
+    const { jobObj, assignedUsers } = this.props.currentJob
     return (
       <div className="card">
         <div className="card-header">
@@ -30,41 +28,38 @@ export class CreateJobFormStepThree extends Component {
           <div className="card-item">
             <div className="card-item-info">
               <label>Job Creator: </label>
-              <p>{state.jobObj.jobCreator}</p>
+              <p>{jobObj.jobCreator}</p>
               <label>Job Name: </label>
-              <p>{state.jobObj.jobName}</p>
+              <p>{jobObj.jobName}</p>
               <label>Job Description: </label>
-              <p>{state.jobObj.jobDesc}</p>
+              <p>{jobObj.jobDesc}</p>
               <label>Job Dates: </label>
-              <p>{state.jobObj.jobDates.map( date => {
+              <p>{jobObj.jobDates.map( date => {
                 return date
               })}</p>
               <label>Job Location: </label>
-              <p>{state.jobObj.jobLocation.value}</p>
+              <p>{jobObj.jobLocation.value}</p>
               <label>Preferred Contact: </label>
-              <p>{state.jobObj.jobContact}</p>
+              <p>{jobObj.jobContact}</p>
               <label>Job Invitations: </label>
               <ul>
-                {state.usersAssigned.map( (user, key) => {
+                {assignedUsers.map( (user, key) => {
                   return <li key={key}>{user.name}: {user.position}</li>
                 })}
               </ul>
             </div>
           </div>
-          <form className="card-form-general">
+          <div className="card-footer">
             <FormButton
               className="button-form"
-              buttonText="Prev Step"
-              onClick={this.saveAndGoBack}
-            />
-            <FormButton
-              className="button-form"
-              buttonText="Create Job"
+              buttonText="Create Job and Send Invites"
               onClick={this.saveAndContinue}
             />
-          </form> 
+          </div> 
         </div>
       </div>
     )
   }
 }
+
+export default CreateJobFormStepThree

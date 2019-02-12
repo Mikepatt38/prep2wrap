@@ -5,6 +5,7 @@ import JobResultsTable from './JobResultsTable'
 class CreateJobFormStepTwo extends Component {
 
   state = {
+    jobID: this.props.match.params.jobID,
     currentPositionsInvited: [],
     usersMatchedResults: [],
     loading: true,
@@ -32,6 +33,7 @@ class CreateJobFormStepTwo extends Component {
 
   saveAndContinue = () => {
     this.props.updateReduxJobAssignedUsers(this.state.usersAssigned)
+    this.props.history.push(`/jobs/${this.state.jobID}/job-overview`)
   }
  
   render() {
