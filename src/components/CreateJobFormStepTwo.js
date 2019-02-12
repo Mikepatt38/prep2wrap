@@ -29,14 +29,18 @@ class CreateJobFormStepTwo extends Component {
       usersAssigned: usersAssignedArr
     })
   }
+
+  saveAndContinue = () => {
+    this.props.updateReduxJobAssignedUsers(this.state.usersAssigned)
+  }
  
   render() {
     if(this.state.loading) return <h1>Loading...</h1>
-    // if(this.state.usersMatchedResults.length === 0){
-    //   return (
-    //     <NoResultsTable />
-    //   )
-    // }
+    if(this.state.usersMatchedResults.length === 0){
+      return (
+        <NoResultsTable />
+      )
+    }
     return (
       !this.state.loading && this.state.usersMatchedResults.length > 0 &&  
       <div className="card">
@@ -51,6 +55,13 @@ class CreateJobFormStepTwo extends Component {
             userModalActive={this.props.userModalActive}
             positions={this.props.currentJob.jobObj.jobPositions}
             assignPosition={this.assignPosition}
+          />
+        </div>
+        <div className="card-footer">
+          <FormButton
+            className="button-form"
+            buttonText="Next Step"
+            onClick={this.saveAndContinue}
           />
         </div>
       </div>

@@ -235,3 +235,10 @@ export const createReduxJob = (jobState) => async dispatch => {
     payload: jobState
   })
 }
+
+export const updateReduxJobAssignedUsers = (usersAssigned) => async dispatch => {
+  dispatch({
+    type: 'UPDATE_ASSIGNED_USERS',
+    payload: usersAssigned
+  })
+}

@@ -3,7 +3,12 @@ import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
 import Jobs from '../pages/Jobs'
-import { createJob, userResultsForJobCreation, createJobNotification, createReduxJob } from '../actions/jobs'
+import { createJob, 
+         userResultsForJobCreation, 
+         createJobNotification, 
+         createReduxJob,
+         updateReduxJobAssignedUsers
+        } from '../actions/jobs'
 import { setModal, setUserModal } from '../actions/components'
 import withAuthorization from './withAuthorization'
 import CreateJobFormStepOne from '../components/CreateJobFormStepOne';
@@ -24,7 +29,8 @@ const actions = {
   setUserModal,
   userResultsForJobCreation,
   createJobNotification,
-  createReduxJob
+  createReduxJob,
+  updateReduxJobAssignedUsers
 }
 
 
