@@ -62,7 +62,7 @@ class JobResultsTable extends Component {
     let rows = []
     let cells = []
     this.state.usersReturned.map( (value, key) => {
-      const userPositions = value.positions.map( userPosition => {
+      const userPositions = value.profileInformation.positions.map( userPosition => {
         if(this.state.openPositions.includes(userPosition.value)) {
           return userPosition.value
         }

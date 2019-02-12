@@ -3,16 +3,18 @@ import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
 import Jobs from '../pages/Jobs'
-import { createJob, userResultsForJobCreation, createJobNotification } from '../actions/jobs'
+import { createJob, userResultsForJobCreation, createJobNotification, createReduxJob } from '../actions/jobs'
 import { setModal, setUserModal } from '../actions/components'
 import withAuthorization from './withAuthorization'
 import CreateJobFormStepOne from '../components/CreateJobFormStepOne';
+import CreateJobFormStepTwo from '../components/CreateJobFormStepTwo';
 
 
 const mapStateToProps = (state) => {
   return {
     currentUser: state.userState.currentUser,
     userModalActive: state.sessionState.userModalActive,
+    currentJob: state.jobsState.currentJob
   }
 }
 
@@ -21,7 +23,8 @@ const actions = {
   setModal,
   setUserModal,
   userResultsForJobCreation,
-  createJobNotification
+  createJobNotification,
+  createReduxJob
 }
 
 
@@ -42,5 +45,10 @@ export const CreateJobFormStep1 = compose(
   withAuthorization(authCondition),
   jobContainerCreator
 )(CreateJobFormStepOne)
+
+export const CreateJobFormStep2 = compose(
+  withAuthorization(authCondition),
+  jobContainerCreator
+)(CreateJobFormStepTwo)
 
 

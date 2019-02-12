@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import moment from 'moment'
 import { FormTextInput } from './FormTextInput'
 import { FormButton } from './FormButton'
@@ -29,6 +30,16 @@ class CreateJobFormStepOne extends Component {
     selectedDates: [],
   }
 
+  componentWillMount() {
+    this.setState(prevState => ({
+      jobObj: {
+        ...prevState.jobObj,
+        jobCreator: this.props.currentUser.firstName + ' ' + this.props.currentUser.lastName,
+        jobCreatorID: this.props.currentUser.id.toString()
+      }
+    }))
+  }
+
   handleJobDescChange = e => {
     const newVal = e.target.value
     const name = e.target.name
@@ -44,7 +55,6 @@ class CreateJobFormStepOne extends Component {
       }))
     })
   }
-
 
   handleChange = e => {
     const newVal = e.target.value
@@ -123,6 +133,11 @@ class CreateJobFormStepOne extends Component {
       temp.splice(index, 1);
       this.setState({selectedDates: temp}, () => { console.log('Removed Date: ' + dateClicked)})
     }
+  }
+
+  saveAndContinue = () => {
+    this.props.createReduxJob(this.state)
+    this.props.history.push(`/jobs/${this.state.jobObj.jobID}/assign-users`)
   }
  
   render() {
@@ -207,6 +222,13 @@ class CreateJobFormStepOne extends Component {
               onSelect={this.handleMultiSelect}
             />
           </form>
+        </div>
+        <div className="card-footer">
+          <FormButton
+            className="button-form"
+            buttonText="Next Step"
+            onClick={this.saveAndContinue}
+          />
         </div>
       </div>
     )

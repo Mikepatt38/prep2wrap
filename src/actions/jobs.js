@@ -43,19 +43,19 @@ export const createJob = (id, jobID, jobObj) => async () => {
   return await updateUserCreatedJobs
 }
 
-export const userResultsForJobCreation = (jobObj) => async () => {
+export const userResultsForJobCreation = (currentUserId, jobObj) => async () => {
   const database = await db
   let users = []
   let tempUsers = []
   const availability = database.collection("availability").get()
-  const getAllUsersBasedOnUnionAndLocation = database.collection("users").where("union", "==", jobObj.unionMember).where("location", "array-contains", jobObj.jobLocation).get()
+  const getAllUsersBasedOnUnionAndLocation = database.collection("users").where("profileInformation.union", "==", jobObj.unionMember).where("profileInformation.location", "array-contains", jobObj.jobLocation).get()
 
   const getJobMatches = new Promise( (resolve, reject) => {
     try {
       getAllUsersBasedOnUnionAndLocation.then( querySnapshot => {
         for (let user of querySnapshot.docs) {
-          for (let userPosition of user.data().positions) {
-            if(jobObj.jobPositions.includes(userPosition.value)) {
+          for (let userPosition of user.data().profileInformation.positions) {
+            if(jobObj.jobPositions.includes(userPosition.value) && user.data().id !== currentUserId) {
               tempUsers.push(user.data())
               break
             }
