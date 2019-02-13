@@ -231,3 +231,7 @@ export const updateReduxJobAssignedUsers = (usersAssigned) => async dispatch => 
     payload: usersAssigned
   })
 }
+
+export const getUserJobs = (currentUserID) => async dispatch => {
+  
+}

@@ -47,7 +47,7 @@ export default class DashboardNavbar extends Component {
                 <span><img src={DashboardIcon} /><Link to="/dashboard">Dashboard</Link></span>
               </li>
               <li>
-                <span><img src={JobsIcon} /><Link to="/jobs">Hire</Link></span>
+                <span><img src={JobsIcon} /><Link to="/jobs">Jobs</Link></span>
               </li>
               <li>
                 <span><img src={UsersIcon} /><Link to="/users">Users</Link></span>
