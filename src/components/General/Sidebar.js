@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import SignOutButton from '../containers/SignOut'
-import logo from '../img/calltime-logo.png'
-import DashboardIcon from '../img/icon-dashboard.svg'
-import JobsIcon from '../img/icon-jobs.svg'
-import UsersIcon from '../img/icon-users.svg'
-import AvailabilityIcon from '../img/icon-availability.svg'
-import AccountIcon from '../img/icon-settings.svg'
-import LogoutIcon from '../img/icon-logout.svg'
+import SignOutButton from '../../containers/SignOut'
+import DashboardIcon from '../../img/icon-dashboard.svg'
+import JobsIcon from '../../img/icon-jobs.svg'
+import UsersIcon from '../../img/icon-users.svg'
+import AvailabilityIcon from '../../img/icon-availability.svg'
+import AccountIcon from '../../img/icon-settings.svg'
+import LogoutIcon from '../../img/icon-logout.svg'
 
 class Sidebar extends Component {
   render() {

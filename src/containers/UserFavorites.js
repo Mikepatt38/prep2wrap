@@ -3,7 +3,7 @@ import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
 import { setUserModal } from '../actions/components'
 import { addToUsersFavorites, getUserFavorites, stopListeningForFavorites } from '../actions/favorites'
-import UserFavorites from '../components/UserFavorites'
+import UserFavorites from '../components/Users/UserFavorites'
 import withAuthorization from './withAuthorization'
 
 const mapStateToProps = (state) => {

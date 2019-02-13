@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { FormTextInput } from './FormTextInput'
-import { FormBillingCheckbox } from './FormBillingCheckbox'
-import { FormButton } from './FormButton'
+import { FormTextInput } from '../Forms/FormTextInput'
+import { FormBillingCheckbox } from '../Forms/FormBillingCheckbox'
+import { FormButton } from '../Forms/FormButton'
 
 export class SignUpMultiStepFormOne extends Component {
   state = {

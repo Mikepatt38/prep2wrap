@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { setUserModal, closeModal } from '../actions/components'
 import { addToUsersFavorites } from '../actions/favorites'
 import withAuthorization from './withAuthorization'
-import UserProfileModal from '../components/UserProfileModal'
+import UserProfileModal from '../components/Users/UserProfileModal'
 
 const mapStateToProps = (state) => {
   return {

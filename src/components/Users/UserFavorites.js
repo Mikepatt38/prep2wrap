@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import FavoritesIllustration from '../img/illustration-favorites.svg'
-import UserFavoritesTable from '../components/UserFavoritesTable'
+import FavoritesIllustration from '../../img/illustration-favorites.svg'
+import UserFavoritesTable from './UserFavoritesTable'
 
 class UserFavorites extends Component {
   componentDidlMount = () => {

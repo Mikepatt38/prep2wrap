@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import CloseIcon from '../img/icon-close.svg'
+import CloseIcon from '../../img/icon-close.svg'
 
 class UserProfileModal extends Component {
   state = {

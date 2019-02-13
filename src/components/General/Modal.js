@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import CloseIcon from '../img/icon-close.svg'
+import CloseIcon from '../../img/icon-close.svg'
  
 class Modal extends Component {
   state = {

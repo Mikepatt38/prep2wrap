@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { FormTextInput } from './FormTextInput'
-import { FormButton } from './FormButton'
-import LoginIllustration from '../img/illustration-login.svg'
+import { FormTextInput } from '../Forms/FormTextInput'
+import { FormButton } from '../Forms/FormButton'
+import LoginIllustration from '../../img/illustration-login.svg'
 
 export class Login extends Component {
   state = {

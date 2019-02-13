@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { FormTextInput } from './FormTextInput'
-import { FormButton } from './FormButton'
+import { FormTextInput } from '../Forms/FormTextInput'
+import { FormButton } from '../Forms/FormButton'
 import { SignUpMultiStepForm } from './SignUpMultiStepForm'
 
 export class SignUp extends Component {

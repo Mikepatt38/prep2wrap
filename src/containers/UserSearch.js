@@ -3,7 +3,7 @@ import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
 import { searchUsersByName, clearSearchUserByNameResults } from '../actions/users'
 import { setUserModal } from '../actions/components'
-import { UserSearch } from '../components/UserSearch'
+import { UserSearch } from '../components/Users/UserSearch'
 import withAuthorization from './withAuthorization'
 
 const mapStateToProps = (state) => {

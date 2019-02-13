@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { FormButton } from '../FormButton'
+import { FormButton } from '../Forms/FormButton'
 import JobResultsTable from './JobResultsTable'
 
 class CreateJobFormStepTwo extends Component {

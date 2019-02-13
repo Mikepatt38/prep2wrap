@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import UserProfileModal from '../UserProfileModal'
 
 class JobResultsTable extends Component {
 

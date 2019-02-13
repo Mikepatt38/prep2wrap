@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import dateFns from "date-fns"
 import logo from '../img/calltime-logo.png'
-import { Login } from '../components/Login'
-import { SignUp } from '../components/SignUp'
-import { PasswordReset } from '../components/PasswordReset'
+import { Login } from '../components/Auth/Login'
+import { SignUp } from '../components/Auth/SignUp'
+import { PasswordReset } from '../components/Auth/PasswordReset'
 
 const AuthNav = ({ currentUser }) => (
   <div className="header auth" id="dashboard">

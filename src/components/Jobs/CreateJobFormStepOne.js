@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import moment from 'moment'
-import { FormTextInput } from '../FormTextInput'
-import { FormButton } from '../FormButton'
-import { FormCheckboxInput } from '../FormCheckboxInput'
-import { FormDatePicker } from '../FormDatePicker'
-import FormSelectInput from '../FormSelectInput'
+import { FormTextInput } from '../Forms/FormTextInput'
+import { FormButton } from '../Forms/FormButton'
+import { FormCheckboxInput } from '../Forms/FormCheckboxInput'
+import { FormDatePicker } from '../Forms/FormDatePicker'
+import FormSelectInput from '../Forms/FormSelectInput'
 import { locationObj, positionsObj, contactObj } from '../../data/formOptions'
 
 class CreateJobFormStepOne extends Component {

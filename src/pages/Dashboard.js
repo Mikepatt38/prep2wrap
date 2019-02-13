@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import withAuthorization from '../containers/withAuthorization'
-import DashboardNotifications from '../components/DashboardNotifications';
+import DashboardNotifications from '../components/General/DashboardNotifications';
 
 class Dashboard extends Component {
   render() {

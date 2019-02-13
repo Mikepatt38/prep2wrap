@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { FormButton } from './FormButton'
+import { FormButton } from '../Forms/FormButton'
 import { SignUpMultiStepFormOne } from './SignUpMultiStepFormStepOne'
 import { SignUpMultiStepFormStepTwo } from './SignUpMultiStepFormStepTwo'
-import CreateIllustration from '../img/illustration-create.svg'
-import SearchIllustration from '../img/illustration-search.svg'
-import SettingsIllustration from '../img/illustration-settings.svg'
+import CreateIllustration from '../../img/illustration-create.svg'
+import SearchIllustration from '../../img/illustration-search.svg'
+import SettingsIllustration from '../../img/illustration-settings.svg'
 
 export class SignUpMultiStepForm extends Component {
   state = {

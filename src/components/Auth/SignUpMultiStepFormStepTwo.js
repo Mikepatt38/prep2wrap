@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { FormTextInput } from './FormTextInput'
-import { FormCheckboxInput } from './FormCheckboxInput'
-import FormSelectInput from './FormSelectInput'
-import { FormButton } from './FormButton'
-import { locationObj, skillsObj, positionsObj } from '../data/formOptions'
+import { FormTextInput } from '../Forms/FormTextInput'
+import { FormCheckboxInput } from '../Forms/FormCheckboxInput'
+import FormSelectInput from '../Forms/FormSelectInput'
+import { FormButton } from '../Forms/FormButton'
+import { locationObj, skillsObj, positionsObj } from '../../data/formOptions'
 
 export class SignUpMultiStepFormStepTwo extends Component {
   state = {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { FormTextInput } from './FormTextInput'
-import { FormButton } from './FormButton'
+import { FormTextInput } from '../Forms/FormTextInput'
+import { FormButton } from '../Forms/FormButton'
 
 export class UserSearchForm extends Component {
   state = {

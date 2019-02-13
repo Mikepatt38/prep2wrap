@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { FormTextInput } from './FormTextInput'
-import { FormButton } from './FormButton'
-import ProfileImageUpload from './ProfileImageUpload';
+import { FormTextInput } from '../Forms/FormTextInput'
+import { FormButton } from '../Forms/FormButton'
+import ProfileImageUpload from '../Settings/ProfileImageUpload';
 
 class UserInfoForm extends Component {
   state = {

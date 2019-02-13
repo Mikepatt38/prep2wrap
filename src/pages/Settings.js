@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import UserProfileForm from '../components/UserProfileForm'
-import UserInfoForm from '../components/UserInfoForm'
+import UserProfileForm from '../components/Settings/UserProfileForm'
+import UserInfoForm from '../components/Settings/UserInfoForm'
 
 const AccountSettings = ({ currentUser, setUserProfile, setName, setEmail, setMobileNumber, uploadProfileImage }) => (
   <div className="container containerMargin">

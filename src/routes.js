@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 
-import { ProtectedRoute } from './components/ProtectedRoute'
+import { ProtectedRoute } from './components/Auth/ProtectedRoute'
 import Dashboard from './containers/Dashboard'
 import AccountSettings from './containers/AccountSettings'
 import UserAuth from './containers/UserAuth'

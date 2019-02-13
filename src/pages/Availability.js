@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { AvailabilityForm } from '../components/AvailabilityForm'
-import Calendar from '../components/Calendar'
+import { AvailabilityForm } from '../components/Users/AvailabilityForm'
+import Calendar from '../components/Users/Calendar'
 import CloseIcon from '../img/icon-close.svg'
 
 const style = {

@@ -4,14 +4,14 @@ import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { AuthRoutes, NonAuthRoutes } from '../routes'
 
-import Sidebar from '../components/Sidebar'
+import Sidebar from '../components/General/Sidebar'
 
 import withAuthentication from './withAuthentication'
 import Navbar from './Navigation'
 import Alert from './Alert'
 import Modal from './Modal'
 import UserProfileModal from './UserProfileModal'
-import { DashboardFooter } from '../components/DashboardFooter'
+import { DashboardFooter } from '../components/General/DashboardFooter'
 
 const App = ({ currentUser }) => {
   return (

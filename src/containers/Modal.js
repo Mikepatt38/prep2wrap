@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { setModal } from '../actions/components'
-import Modal from '../components/Modal'
+import Modal from '../components/General/Modal'
 
 const mapStateToProps = (state) => ({
   active: state.sessionState.modalActive,

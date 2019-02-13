@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { setAlert } from '../actions/components'
-import { Alert } from '../components/Alert'
+import { Alert } from '../components/General/Alert'
 
 const mapStateToProps = (state) => ({
   active: state.sessionState.alertActive,

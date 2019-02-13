@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { UserSearchForm } from '../components/UserSearchForm'
-import UserSearchTable from '../components/UserSearchTable'
+import { UserSearchForm } from './UserSearchForm'
+import UserSearchTable from './UserSearchTable'
 
 export class UserSearch extends Component {
   state = {

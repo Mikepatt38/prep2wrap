@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import dateFns from "date-fns"
-import { FormDatePicker } from './FormDatePicker'
-import { FormTextInput } from './FormTextInput'
-import { FormButton } from './FormButton'
+import { FormDatePicker } from '../Forms/FormDatePicker'
+import { FormTextInput } from '../Forms/FormTextInput'
+import { FormButton } from '../Forms/FormButton'
 import 'react-datepicker/dist/react-datepicker.css'
 
 export class AvailabilityForm extends Component {

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import CloseIcon from '../img/icon-close.svg'
+import CloseIcon from '../../img/icon-close.svg'
 
 export const Alert = ({ active, alertText, alertType, onSetAlert }) => {
   return (
