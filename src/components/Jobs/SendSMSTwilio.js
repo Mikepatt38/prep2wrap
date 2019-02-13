@@ -49,7 +49,6 @@ class SendSMSTwilio extends Component {
       text: "You were invited to a job!",
       link: jobOverviewLink
     }
-    console.log('Sending notification to userID: ' + userID + ' For the jobID of: ' + jobID)
     this.props.createJobNotification(userID, jobID, jobNotificationData)
   }
 

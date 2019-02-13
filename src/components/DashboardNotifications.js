@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 class DashboardNotifications extends Component {
   state = {
@@ -36,7 +37,7 @@ class DashboardNotifications extends Component {
             this.state.jobNotifications.map( (notification, key) => {
               return <li key={key}>
                   {notification.text} 
-                  <a href={notification.link}>View Job</a>
+                  <Link to={notification.link}>View Job</Link>
                   <span onClick={(e) => this.handleRemoveNotification(e, notification.id)}>Clear</span> 
                 </li>
             })

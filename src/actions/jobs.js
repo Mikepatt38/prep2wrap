@@ -88,7 +88,7 @@ export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, newAssigne
   const getUserNotificationsID = database.collection("jobs").doc(currentUser.id).collection("jobNotifications").get().then( (querySnapshot) => {
     let idToReturn = null
     querySnapshot.forEach(function(doc) {
-      const compareLink = doc.data().link.split("/")[4] + '/' + doc.data().link.split("/")[5]
+      const compareLink = doc.data().link.split("/")[2] + '/' + doc.data().link.split("/")[3]
       if(compareLink === jobOverviewLink) {
         idToReturn = doc.id
       }
