@@ -19,15 +19,14 @@ class UserFavoritesTable extends Component {
     let rows = []
     let cells = []
     this.props.favorites.map( (value, key) => {
-
       cells.push(
         <React.Fragment key={key}>
-          <div className="table-row-cell">{value.Name}</div>
+          <div className="table-row-cell">{value.name}</div>
           <div className="table-row-cell">
             <button className="button-table button-table-primary">Contact</button>
           </div>        
           <div className="table-row-cell">
-            <button className="button-table button-table-danger">Remove</button>
+            <button className="button-table button-table-danger" onClick={() => this.props.removeUserFromUserFavorites(this.props.currentUser.id, value.id)}>Remove</button>
           </div>
         </React.Fragment>
       )

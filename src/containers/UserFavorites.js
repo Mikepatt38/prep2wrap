@@ -2,7 +2,10 @@ import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
 import { setUserModal } from '../actions/components'
-import { addToUsersFavorites, getUserFavorites, stopListeningForFavorites } from '../actions/favorites'
+import { addToUsersFavorites,
+         getUserFavorites,
+         stopListeningForFavorites,
+         removeUserFromUserFavorites } from '../actions/favorites'
 import UserFavorites from '../components/Users/UserFavorites'
 import withAuthorization from './withAuthorization'
 
@@ -18,7 +21,8 @@ const actions = {
   setUserModal,
   addToUsersFavorites,
   getUserFavorites,
-  stopListeningForFavorites
+  stopListeningForFavorites,
+  removeUserFromUserFavorites
 }
 
 const mapDispatchToProps = (dispatch) => {

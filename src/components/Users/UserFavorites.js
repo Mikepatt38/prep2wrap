@@ -3,7 +3,7 @@ import FavoritesIllustration from '../../img/illustration-favorites.svg'
 import UserFavoritesTable from './UserFavoritesTable'
 
 class UserFavorites extends Component {
-  componentDidlMount = () => {
+  componentDidMount = () => {
     this.props.getUserFavorites(this.props.currentUser)
   }
 
@@ -13,6 +13,7 @@ class UserFavorites extends Component {
         <UserFavoritesTable
           currentUser={this.props.currentUser}
           favorites={this.props.favorites}
+          removeUserFromUserFavorites={this.props.removeUserFromUserFavorites}
         />
       </div>
     )

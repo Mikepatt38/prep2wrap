@@ -23,12 +23,33 @@ export const updateUserFavorites = (userID, usersFavorites) => async dispatch =>
       type: 'SET_ALERT',
       payload: [true, 'Success', 'Your user favorites have been updated!']
     })
+    dispatch({
+      type: 'GET_USER_FAVORITES',
+      payload: usersFavorites
+    })
   })
   .catch( (error) => {
     dispatch({
       type: 'SET_ALERT',
       payload: [true, 'Error', 'ERROR: ' + error]   
     })
+  })
+}
+
+export const getCurrentFavorites  = async (currentUserId) => {
+  const database = await db
+  let currentFavorites = []
+  
+  return new Promise( (resolve, reject) => {
+    try {
+      database.collection("users").doc(currentUserId).get().then( results => {
+        currentFavorites = typeof results.data().favorites === undefined ? results.data().favorites : []
+      })
+      resolve(currentFavorites)
+    }
+    catch (error) {
+      reject(error)
+    }
   })
 }
 
@@ -43,26 +64,9 @@ export const addToUsersFavorites = (currentUserId, userToBeAdded) => async dispa
     avatar: userToBeAdded.avatar ? userToBeAdded.avatar : ""
   }
 
-  const getCurrentUsersFavorites = new Promise( (resolve, reject) => {
-    try {
-      database.collection("users").doc(currentUserId).get().then( results => {
-        currentFavorites = typeof results.data().favorites === undefined ? results.data().favorites : []
-      })
-      .then ( () => {
-        if(currentFavorites.length < 8) {
-          currentFavorites.push(newFavorite)
-          resolve(currentFavorites)
-        }
-      })
-    }
-    catch (error) {
-      reject(error)
-    }
-  })
-
-  const currentUserFavorites = await getCurrentUsersFavorites
-
-  if(currentFavorites.length > 8) {
+  const currentUserFavorites = await getCurrentFavorites(currentUserId)
+  if(currentUserFavorites.length < 8) {
+    currentUserFavorites.push(newFavorite)
     dispatch(updateUserFavorites(currentUserId, currentUserFavorites))
   }
   else {
@@ -71,5 +75,13 @@ export const addToUsersFavorites = (currentUserId, userToBeAdded) => async dispa
       payload: [true, 'Warning', 'You are allowed a max of 8 favorite users at once.']
     })
   }
+}
 
+export const removeUserFromUserFavorites = (currentUserId, userToBeDeletedId) => async dispatch => {
+  const database = await db
+  let currentFavorites = [] 
+
+  const currentUserFavorites = await getCurrentFavorites(currentUserId)
+  currentUserFavorites.filter(user => user.id === userToBeDeletedId)
+  dispatch(updateUserFavorites(currentUserId, currentUserFavorites))
 }
