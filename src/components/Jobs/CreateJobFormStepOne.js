@@ -136,7 +136,8 @@ class CreateJobFormStepOne extends Component {
     this.setState(prevState => ({
       jobObj: {
           ...prevState.jobObj,
-          jobDatesRange: tempArr
+          jobDatesRange: tempArr,
+          jobDates: tempArr
       },
       selectedStartDate: date,
     })) 
@@ -148,7 +149,8 @@ class CreateJobFormStepOne extends Component {
     this.setState(prevState => ({
       jobObj: {
           ...prevState.jobObj,
-          jobDatesRange: tempArr
+          jobDatesRange: tempArr,
+          jobDates: tempArr
       },
       selectedEndDate: date,
     })) 

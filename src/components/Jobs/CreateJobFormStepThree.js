@@ -34,9 +34,12 @@ class CreateJobFormStepThree extends Component {
               <label>Job Description: </label>
               <p>{jobObj.jobDesc}</p>
               <label>Job Dates: </label>
-              <p>{jobObj.jobDates.map( date => {
-                return date
-              })}</p>
+              { this.props.currentJob.dateSelectorRangeActive 
+                ?
+                  <p>{jobObj.jobDates[0]} - {jobObj.jobDates[1]}</p>
+                :
+                jobObj.jobDates.map( (date, key) => { return <p key={key}>{date}</p>})
+              }
               <label>Job Location: </label>
               <p>{jobObj.jobLocation.value}</p>
               <label>Preferred Contact: </label>

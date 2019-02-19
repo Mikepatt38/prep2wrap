@@ -116,7 +116,12 @@ class JobOverviewTable extends Component {
         </div>
         <div className="job-item">
           <h4>Job Dates:</h4>
-          {jobOverviewData.jobDates.map( (date, key) => { return <p key={key}>{date}</p>})}
+          { this.props.currentJob.dateSelectorRangeActive 
+            ?
+              <p>{jobOverviewData.jobDates[0]} - {jobOverviewData.jobDates[1]}</p>
+            :
+              jobOverviewData.jobDates.map( (date, key) => { return <p key={key}>{date}</p>})
+          }
         </div>
         <div className="job-item">
           <h4>Job Description:</h4>
