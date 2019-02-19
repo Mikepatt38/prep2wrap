@@ -13,6 +13,29 @@ export const FormDatePicker = ( {label, startDate, handleChange, className, sele
       />
     </div>
   )
+} 
+
+export const FormDateRangePicker = ( {label, handleDateChangeStart, handleDateChangeEnd, className, selectedStartDate, selectedEndDate} ) => {
+  return (
+    <div className={'form-group' + ` ${className}`}>
+      <label className="date-picker-label">{label}</label>
+      <DatePicker
+        selected={moment(selectedStartDate.toISOString())}
+        selectsStart
+        startDate={selectedStartDate}
+        endDate={selectedEndDate}
+        onChange={handleDateChangeStart}
+      />
+      
+      <DatePicker
+        selected={moment(selectedEndDate.toISOString())}
+        selectsEnd
+        startDate={selectedStartDate}
+        endDate={selectedEndDate}
+        onChange={handleDateChangeEnd}
+      />
+    </div>
+  )
 }
 
 FormDatePicker.propTypes = {

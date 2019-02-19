@@ -3,7 +3,7 @@ import moment from 'moment'
 import { FormTextInput } from '../Forms/FormTextInput'
 import { FormButton } from '../Forms/FormButton'
 import { FormCheckboxInput } from '../Forms/FormCheckboxInput'
-import { FormDatePicker } from '../Forms/FormDatePicker'
+import { FormDatePicker, FormDateRangePicker } from '../Forms/FormDatePicker'
 import FormSelectInput from '../Forms/FormSelectInput'
 import { locationObj, positionsObj, contactObj } from '../../data/formOptions'
 
@@ -17,6 +17,7 @@ class CreateJobFormStepOne extends Component {
       unionMember: false,
       jobDesc: '',
       jobDates: [],
+      jobDatesRange: [],
       jobCreatedTime: moment(),
       jobPositions: [],
       jobLocation: [],
@@ -26,7 +27,10 @@ class CreateJobFormStepOne extends Component {
     jobDescCount: 0,
     startDate: moment(),
     selectedDate: moment(),
+    selectedStartDate: moment(),
+    selectedEndDate: moment(),
     selectedDates: [],
+    dateSelectorRangeActive: false 
   }
 
   componentWillMount() {
@@ -125,6 +129,37 @@ class CreateJobFormStepOne extends Component {
     }))
   }
 
+  handleDateChangeStart = (date) => {
+    console.log('Changing the start date')
+    let tempArr = this.state.jobObj.jobDatesRange
+    tempArr[0] = date.format('MM/DD/YYYY')
+    this.setState(prevState => ({
+      jobObj: {
+          ...prevState.jobObj,
+          jobDatesRange: tempArr
+      },
+      selectedStartDate: date,
+    })) 
+  }
+
+  handleDateChangeEnd = (date) => {
+    let tempArr = this.state.jobObj.jobDatesRange
+    tempArr[1] = date.format('MM/DD/YYYY')
+    this.setState(prevState => ({
+      jobObj: {
+          ...prevState.jobObj,
+          jobDatesRange: tempArr
+      },
+      selectedEndDate: date,
+    })) 
+  }
+
+  handleDateSelectorChange = (selectorType) => {
+    this.setState({
+      dateSelectorRangeActive: selectorType === 'range' ? true : false
+    })
+  }
+
   removeDate = (dateClicked) => {
     let temp = [...this.state.selectedDates]
     let index = temp.indexOf(dateClicked)
@@ -140,8 +175,7 @@ class CreateJobFormStepOne extends Component {
   }
  
   render() {
-    const { jobObj, jobDescCount, startDate, selectedDate, selectedDates } = this.state
-    const { handleChange, handleCheck, handleLocationSelect, handleMultiSelect, handleDateChange, handleSelect, handleJobDescChange } = this.props
+    const { jobObj, jobDescCount, startDate, selectedDate, selectedStartDate, selectedEndDate, selectedDates } = this.state
     return (
       <div className="card">
         <div className="card-header">
@@ -182,18 +216,42 @@ class CreateJobFormStepOne extends Component {
               value={jobObj.jobDesc}
               onChange={this.handleJobDescChange}
             />
-            <FormDatePicker
-              label="Select Job Dates"
-              startDate={startDate}
-              selectedDate={selectedDate}
-              className="date-picker-form-group"
-              handleChange={this.handleDateChange}
-            />
-            { selectedDates.length > 0 && <ul className="datesPickerList">
-              {selectedDates.map( (date, key) => {
-                return <li key={key} onClick={() => { this.removeDate(date) }}>{date}</li>
-              })}
-            </ul>}
+            <div className="date-selector-type">
+              <p onClick={() => this.handleDateSelectorChange('select')}>Date Selector</p>
+              <p onClick={() => this.handleDateSelectorChange('range')}>Date Range Selector</p>
+            </div>
+            {
+              this.state.dateSelectorRangeActive 
+              ?
+                <div className="date-picker--range">
+                  <FormDateRangePicker
+                    label="Select Job Dates Range"
+                    startDate={startDate}
+                    selectedStartDate={selectedStartDate}
+                    selectedEndDate={selectedEndDate}
+                    className="date-picker-form-group"
+                    handleDateChangeStart={this.handleDateChangeStart}
+                    handleDateChangeEnd={this.handleDateChangeEnd}
+                  />
+                  <p>Start Date: {this.state.selectedStartDate.format('MM/DD/YYYY')}</p>
+                  <p>End Date: {this.state.selectedEndDate.format('MM/DD/YYYY')}</p>
+                </div> 
+              :
+                <div className="date-picker">
+                  <FormDatePicker
+                    label="Select Job Dates"
+                    startDate={startDate}
+                    selectedDate={selectedDate}
+                    className="date-picker-form-group"
+                    handleChange={this.handleDateChange}
+                  />
+                  { selectedDates.length > 0 && <ul className="datesPickerList">
+                    {selectedDates.map( (date, key) => {
+                      return <li key={key} onClick={() => { this.removeDate(date) }}>{date}</li>
+                    })}
+                  </ul>}
+                </div> 
+            }
             <FormSelectInput
               label="Select the Job Location"
               name="jobLocation"
