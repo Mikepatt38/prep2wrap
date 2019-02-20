@@ -19,13 +19,11 @@ class Table extends Component {
     this.props.value.map( (value, key) => {
       if( typeof value.profileInformation.location === 'undefined') {
         locations = ['Unknown']
-        // available = 'Unknown'
       }
       else {
         locations = value.profileInformation.location.map ( (loc) => {
           return loc.label
         })
-        // available = value.available ? 'Available' : 'Busy'
       }
 
       cells.push(
