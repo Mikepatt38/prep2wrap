@@ -26,7 +26,7 @@ class UserFavoritesTable extends Component {
             <button className="button-table button-table-primary">Contact</button>
           </div>        
           <div className="table-row-cell">
-            <button className="button-table button-table-danger" onClick={() => this.props.removeUserFromUserFavorites(this.props.currentUser.id, value.id)}>Remove</button>
+            <button className="button-table button-table-danger" onClick={() => this.props.removeUserFromUserFavorites(this.props.currentUser.id, value)}>Remove</button>
           </div>
         </React.Fragment>
       )
@@ -40,7 +40,17 @@ class UserFavoritesTable extends Component {
     return <div className="table-body">{rows}</div>
   }
 
+  renderEmptyTable() {
+    return (
+      <React.Fragment>
+        <p>You haven't favorited any users.</p>
+        <p>Search for users to add them to your favorites so you can hire, find and connect with them easier.</p>
+      </React.Fragment>
+    )
+  }
+
   render() {
+    if(!this.props.favorites) return this.renderEmptyTable()
     return (
       <div className="table">
         <div className="table-header table-header-users">

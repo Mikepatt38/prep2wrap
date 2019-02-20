@@ -28,7 +28,8 @@ export const signUpUser = (email, password, firstName, lastName, mobileNumber) =
           firstName: firstName,
           lastName: lastName,
           email: email,
-          mobileNumber: mobileNumber
+          mobileNumber: mobileNumber,
+          numberOfTimesFavorite: 0
         })
         resolve('success')
       })

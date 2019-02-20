@@ -54,20 +54,19 @@ export const getCurrentFavorites  = async (currentUserId) => {
 }
 
 export const addToUsersFavorites = (currentUserId, userToBeAdded) => async dispatch => {
-  const database = await db
-  let currentFavorites = []
-
   const newFavorite = {
     id: userToBeAdded.id,
     name: userToBeAdded.firstName + ' ' + userToBeAdded.lastName,
     email: userToBeAdded.email,
-    avatar: userToBeAdded.avatar ? userToBeAdded.avatar : ""
+    avatar: userToBeAdded.avatar ? userToBeAdded.avatar : "",
+    numberOfTimesFavorite: userToBeAdded.numberOfTimesFavorite + 1
   }
 
   const currentUserFavorites = await getCurrentFavorites(currentUserId)
   if(currentUserFavorites.length < 8) {
     currentUserFavorites.push(newFavorite)
     dispatch(updateUserFavorites(currentUserId, currentUserFavorites))
+    dispatch(updateTimesUserHasBeenFavorited(userToBeAdded.id, userToBeAdded.numberOfTimesFavorite, 'add'))
   }
   else {
     dispatch({
@@ -77,11 +76,19 @@ export const addToUsersFavorites = (currentUserId, userToBeAdded) => async dispa
   }
 }
 
-export const removeUserFromUserFavorites = (currentUserId, userToBeDeletedId) => async dispatch => {
-  const database = await db
-  let currentFavorites = [] 
+export const updateTimesUserHasBeenFavorited = (userId, userNumberOfTimesFavorite, updateType) => async dispatch => {
+  const database = await db 
+  let newNumberOfTimesUserFavorite = updateType === 'add' ? userNumberOfTimesFavorite + 1 : userNumberOfTimesFavorite - 1 
 
+  database.collection("users").doc(userId).update({
+    numberOfTimesFavorite: newNumberOfTimesUserFavorite
+  })
+}
+
+export const removeUserFromUserFavorites = (currentUserId, userToBeDeleted) => async dispatch => {
   const currentUserFavorites = await getCurrentFavorites(currentUserId)
-  currentUserFavorites.filter(user => user.id === userToBeDeletedId)
+  currentUserFavorites.filter(user => user.id === userToBeDeleted.id)
   dispatch(updateUserFavorites(currentUserId, currentUserFavorites))
+  console.log(userToBeDeleted)
+  dispatch(updateTimesUserHasBeenFavorited(userToBeDeleted.id, userToBeDeleted.numberOfTimesFavorite, 'remove'))
 }
