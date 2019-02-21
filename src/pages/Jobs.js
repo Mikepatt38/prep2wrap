@@ -18,7 +18,10 @@ class Jobs extends Component {
 
         <div className="container">
           <div className="jobs-list">
-            <JobsList />
+            <JobsList
+              getUserJobs={this.props.getUserJobs}
+              currentUser={this.props.currentUser}
+            />
           </div>
         </div>
       </div> 

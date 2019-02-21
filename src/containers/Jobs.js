@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
 import Jobs from '../pages/Jobs'
-import { createJob, 
+import { createJob,
+         getUserJobs,
          userResultsForJobCreation, 
          createJobNotification, 
          createReduxJob,
@@ -27,6 +28,7 @@ const mapStateToProps = (state) => {
 
 const actions = {
   createJob,
+  getUserJobs,
   setModal,
   setUserModal,
   userResultsForJobCreation,

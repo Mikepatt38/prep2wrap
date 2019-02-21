@@ -14,9 +14,10 @@ export const createJob = (id, jobID, jobObj, assignedUsers) => async () => {
     jobPositions: jobObj.jobPositions,
     jobLocation: jobObj.jobLocation,
     jobContact: jobObj.jobContact,
-    usersAssigned: assignedUsers
+    dateSelectorRangeActive: jobObj.dateSelectorRangeActive,
+    jobType: jobObj.jobType,
+    usersAssigned: assignedUsers,
   }  
-
 
   const updateUserCreatedJobs = new Promise( (resolve, reject) => {
     try {
@@ -233,5 +234,32 @@ export const updateReduxJobAssignedUsers = (usersAssigned) => async dispatch => 
 }
 
 export const getUserJobs = (currentUserID) => async dispatch => {
-  
+  const database = await db
+
+  const getAllUserJobs = new Promise( (resolve, reject) => {
+    let createdJobs = []
+    let acceptedJobs = []
+    try {
+      database.collection("jobs").doc(currentUserID).collection("createdJobs").get().then( querySnapshot => {
+        querySnapshot.forEach((doc) => {
+          createdJobs.push(doc.data())
+        })
+      })
+      .then ( () => {
+        database.collection("jobs").doc(currentUserID).collection("acceptedJobs").get().then( querySnapshot => {
+          querySnapshot.forEach((doc) => {
+            acceptedJobs.push(doc.data())
+          })
+        })
+      })
+      .then( () => {
+        resolve(createdJobs.concat(acceptedJobs))
+      })
+    }
+    catch(error) {
+      reject(error)
+    }
+  })
+
+  return getAllUserJobs
 }

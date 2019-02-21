@@ -60,6 +60,7 @@ class JobOverviewTable extends Component {
     })
     let newUsersAssignedObject = Object.assign({}, this.state.jobOverviewData)
     newUsersAssignedObject.usersAssigned[index].status = "accepted"
+    newUsersAssignedObject.usersAssigned[index].jobType = "accepted"
     const userWithAcceptedJob = newUsersAssignedObject.usersAssigned[index]
     this.setState({
       jobOverviewData: newUsersAssignedObject
@@ -116,7 +117,7 @@ class JobOverviewTable extends Component {
         </div>
         <div className="job-item">
           <h4>Job Dates:</h4>
-          { this.props.currentJob.dateSelectorRangeActive 
+          { jobOverviewData.dateSelectorRangeActive 
             ?
               <p>{jobOverviewData.jobDates[0]} - {jobOverviewData.jobDates[1]}</p>
             :

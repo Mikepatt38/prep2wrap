@@ -20,7 +20,8 @@ class JobResultsTable extends Component {
           position: position,
           id: user.id,
           number: user.mobileNumber,
-          status: "pending"
+          status: "pending",
+          jobType: "invited"
         }
       ],
       assignedPositions: [...this.state.assignedPositions, position]

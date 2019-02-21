@@ -22,15 +22,16 @@ class CreateJobFormStepOne extends Component {
       jobPositions: [],
       jobLocation: [],
       jobContact: [],
-      usersAssigned: []
+      usersAssigned: [],
+      dateSelectorRangeActive: false,
+      jobType: 'created'
     },
     jobDescCount: 0,
     startDate: moment(),
     selectedDate: moment(),
     selectedStartDate: moment(),
     selectedEndDate: moment(),
-    selectedDates: [],
-    dateSelectorRangeActive: false 
+    selectedDates: [], 
   }
 
   componentWillMount() {
@@ -157,9 +158,12 @@ class CreateJobFormStepOne extends Component {
   }
 
   handleDateSelectorChange = (selectorType) => {
-    this.setState({
-      dateSelectorRangeActive: selectorType === 'range' ? true : false
-    })
+    this.setState(prevState => ({
+      jobObj: {
+          ...prevState.jobObj,
+          dateSelectorRangeActive: selectorType === 'range' ? true : false
+      },
+    })) 
   }
 
   removeDate = (dateClicked) => {
@@ -223,7 +227,7 @@ class CreateJobFormStepOne extends Component {
               <p onClick={() => this.handleDateSelectorChange('range')}>Date Range Selector</p>
             </div>
             {
-              this.state.dateSelectorRangeActive 
+              jobObj.dateSelectorRangeActive 
               ?
                 <div className="date-picker--range">
                   <FormDateRangePicker
