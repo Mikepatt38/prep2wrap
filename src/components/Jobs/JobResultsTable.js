@@ -21,7 +21,9 @@ class JobResultsTable extends Component {
           id: user.id,
           number: user.mobileNumber,
           status: "pending",
-          jobType: "invited"
+          jobType: "invited",
+          jobID: this.props.jobID,
+          jobName: this.props.jobName
         }
       ],
       assignedPositions: [...this.state.assignedPositions, position]

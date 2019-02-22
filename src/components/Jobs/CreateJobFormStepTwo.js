@@ -55,6 +55,8 @@ class CreateJobFormStepTwo extends Component {
             userModalActive={this.props.userModalActive}
             positions={this.props.currentJob.jobObj.jobPositions}
             assignPosition={this.assignPosition}
+            jobID={this.props.match.params.jobID}
+            jobName={this.props.currentJob.jobObj.jobName}
           />
         </div>
         <div className="card-footer">

@@ -1,38 +1,6 @@
 import { db, auth, firebase } from '../db/firebase'
 import { setAlert } from './components'
 
-export const createJob = (id, jobID, jobObj, assignedUsers) => async () => {
-  const database = await db
-  const newUserCreatedJob = {
-    jobID: jobID,
-    jobName: jobObj.jobName,
-    jobCreator: jobObj.jobCreator,
-    jobCreatorID: jobObj.jobCreatorID,
-    unionMember: jobObj.unionMember,
-    jobDesc: jobObj.jobDesc,
-    jobDates: jobObj.jobDates,
-    jobPositions: jobObj.jobPositions,
-    jobLocation: jobObj.jobLocation,
-    jobContact: jobObj.jobContact,
-    dateSelectorRangeActive: jobObj.dateSelectorRangeActive,
-    jobType: jobObj.jobType,
-    usersAssigned: assignedUsers,
-  }  
-
-  const updateUserCreatedJobs = new Promise( (resolve, reject) => {
-    try {
-      database.collection("jobs").doc(id).collection("createdJobs").doc(jobID).set(newUserCreatedJob)
-        .then( () => {
-          resolve('success')
-        })
-    }
-    catch(error) {
-      reject(error)
-    }
-  })
-  return await updateUserCreatedJobs
-}
-
 export const userResultsForJobCreation = (currentUserId, jobObj) => async () => {
   const database = await db
   let users = []
@@ -233,33 +201,71 @@ export const updateReduxJobAssignedUsers = (usersAssigned) => async dispatch => 
   })
 }
 
-export const getUserJobs = (currentUserID) => async dispatch => {
+// All async functions to work with the database API
+export async function createUserJob(userID, jobID, newUserCreatedJob, database){ 
+  let createdJobRef = database.collection("jobs").doc(userID)
+  let setCreatedJobRef = await createdJobRef.collection("createdJobs").doc(jobID).set(newUserCreatedJob)
+}
+
+export async function getUserCreatedJobs(database, currentUserID){
+  let createdJobs = []
+
+  let userJobRef = database.collection("jobs").doc(currentUserID)
+  let createdJobsRef = await userJobRef.collection("createdJobs").get()  
+  for(let createdJob of createdJobsRef.docs) {
+    createdJobs.push(createdJob.data())
+  }
+  return createdJobs
+} 
+
+export async function getUserAcceptedJobs(database, currentUserID){
+  let acceptedJobs = []
+
+  let userJobRef = database.collection("jobs").doc(currentUserID)
+  let acceptedJobsRef = await userJobRef.collection("acceptedJobs").get()  
+  for(let acceptedJob of acceptedJobsRef.docs) {
+    acceptedJobs.push(acceptedJob.data())
+  }
+  return acceptedJobs
+} 
+
+// Functions to send data from the API from the database back to the frontend client
+export const createJob = (userID, jobID, jobObj, assignedUsers) => async () => {
   const database = await db
+  const newUserCreatedJob = {
+    jobID: jobID,
+    jobName: jobObj.jobName,
+    jobCreator: jobObj.jobCreator,
+    jobCreatorID: jobObj.jobCreatorID,
+    unionMember: jobObj.unionMember,
+    jobDesc: jobObj.jobDesc,
+    jobDates: jobObj.jobDates,
+    jobPositions: jobObj.jobPositions,
+    jobLocation: jobObj.jobLocation,
+    jobContact: jobObj.jobContact,
+    dateSelectorRangeActive: jobObj.dateSelectorRangeActive,
+    jobType: jobObj.jobType,
+    usersAssigned: assignedUsers,
+  }  
 
-  const getAllUserJobs = new Promise( (resolve, reject) => {
-    let createdJobs = []
-    let acceptedJobs = []
-    try {
-      database.collection("jobs").doc(currentUserID).collection("createdJobs").get().then( querySnapshot => {
-        querySnapshot.forEach((doc) => {
-          createdJobs.push(doc.data())
-        })
-      })
-      .then ( () => {
-        database.collection("jobs").doc(currentUserID).collection("acceptedJobs").get().then( querySnapshot => {
-          querySnapshot.forEach((doc) => {
-            acceptedJobs.push(doc.data())
-          })
-        })
-      })
-      .then( () => {
-        resolve(createdJobs.concat(acceptedJobs))
-      })
-    }
-    catch(error) {
-      reject(error)
-    }
-  })
+  try {
+    createUserJob(userID, jobID, newUserCreatedJob, database)
+    return 'success'
+  }
+  catch(error) {
+    return('error')
+  }
+}
 
-  return getAllUserJobs
+export const getUserJobs = (currentUserID) => async () => {
+  const database = await db
+  const createdJobs = await getUserCreatedJobs(database, currentUserID)
+  const acceptedJobs = await getUserAcceptedJobs(database, currentUserID)
+
+  try {
+    return createdJobs.concat(acceptedJobs)
+  }
+  catch(error) {
+    console.log(error)
+  }
 }
