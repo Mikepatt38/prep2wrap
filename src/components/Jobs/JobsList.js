@@ -22,7 +22,7 @@ class JobsList extends Component {
       <ul>
         {
           this.state.userJobs.map( (job, key) => {
-            return <li key={key}>{job.jobType}: {job.jobName}</li>
+            return <li key={key}>{job.jobType}: {job.jobName} <a href={`/job-overview/${job.jobCreatorID}/${job.jobID}`}>View Job</a></li>
           })
         }
       </ul>
