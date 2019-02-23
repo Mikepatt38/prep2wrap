@@ -49,7 +49,7 @@ class JobOverviewTable extends Component {
   acceptJobInvite = (e) => {
     e.preventDefault()
     let index 
-    const jobOverviewLink = this.state.jobOverviewData.jobCreatorID + '/' + this.state.jobOverviewData.jobID
+    const jobOverviewLink = "/job-overview/" + this.state.jobOverviewData.jobCreatorID + '/' + this.state.jobOverviewData.jobID
     this.state.jobOverviewData.usersAssigned.map( (user, key) => {
       if( user.id === this.props.currentUser.id) {
         index = key
@@ -92,6 +92,11 @@ class JobOverviewTable extends Component {
         result === "success" ? this.props.history.push("/dashboard") : console.log("Error")
       })
     })
+  }
+
+  deleteCreatedJob = (e) => {
+    e.preventDefault()
+    this.props.deletedCreatedJob(this.props.currentUser.id, this.state.jobOverviewData.jobID, this.state.jobOverviewData.usersAssigned)
   }
 
   render() {
@@ -160,7 +165,12 @@ class JobOverviewTable extends Component {
         }
         {
           isCurrentUserJobCreator && 
-          <p>User is creator.</p>
+          <div className="job-creator-controls">
+            <div className="button-wrapper">
+            <button className="button-form">Edit Job</button>
+            <button className="button-form" onClick={(e) => this.deleteCreatedJob(e)}>Delete Job</button>
+            </div>
+          </div>
         }
         </div>
       </div>

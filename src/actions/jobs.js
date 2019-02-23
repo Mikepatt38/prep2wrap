@@ -229,6 +229,17 @@ export async function getUserAcceptedJobs(database, currentUserID){
   return acceptedJobs
 } 
 
+export async function deleteUserCreatedJob(database, currentUserID, jobID){
+  let createdJobRef = database.collection("jobs").doc(currentUserID)
+  let jobToBeDeletedRef = await createdJobRef.collection("createdJobs").doc(jobID).delete()
+}
+
+export async function deleteAcceptedJob(database, usersAssigned, jobID){
+  usersAssigned.map( user => {
+    database.collection("jobs").doc(user.id).collection("acceptedJobs").doc(jobID).delete()
+  })
+}
+
 // Functions to send data from the API from the database back to the frontend client
 export const createJob = (userID, jobID, jobObj, assignedUsers) => async () => {
   const database = await db
@@ -267,5 +278,19 @@ export const getUserJobs = (currentUserID) => async () => {
   }
   catch(error) {
     console.log(error)
+  }
+}
+
+export const deletedCreatedJob = (currentUserID, jobID, usersAssigned) => async dispatch => {
+  const database = await db
+
+  try {
+    console.log('Job was deleted')
+    let deleteJob = await deleteUserCreatedJob(database, currentUserID, jobID)
+    let deletedAcceptedJobs = await deleteAcceptedJob(database, usersAssigned, jobID)
+    dispatch(setAlert(true, "Success", "The job was successfully deleted."))
+  }
+  catch(error) {
+    dispatch(setAlert(true, "Error", "We could not deleted the selected job.."))
   }
 }

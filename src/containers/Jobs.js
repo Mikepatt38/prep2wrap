@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import Jobs from '../pages/Jobs'
 import { createJob,
          getUserJobs,
+         deletedCreatedJob,
          userResultsForJobCreation, 
          createJobNotification, 
          createReduxJob,
@@ -34,7 +35,8 @@ const actions = {
   userResultsForJobCreation,
   createJobNotification,
   createReduxJob,
-  updateReduxJobAssignedUsers
+  updateReduxJobAssignedUsers,
+  deletedCreatedJob
 }
 
 
