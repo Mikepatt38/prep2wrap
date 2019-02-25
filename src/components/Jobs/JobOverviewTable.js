@@ -99,6 +99,11 @@ class JobOverviewTable extends Component {
     this.props.deletedCreatedJob(this.props.currentUser.id, this.state.jobOverviewData.jobID, this.state.jobOverviewData.usersAssigned)
   }
 
+  editCreatedJob = () => {
+    this.props.createReduxJob(this.state.jobOverviewData)
+    this.props.history.push(`/jobs/${this.state.jobOverviewData.jobID}/job-information`)
+  }
+
   render() {
     if(this.state.loading) return <h1>Loading</h1>
     const { jobOverviewData } = this.state
@@ -164,10 +169,16 @@ class JobOverviewTable extends Component {
           </div>
         }
         {
+          isCurrentUserAssigned && hasUserAccepted &&
+          <div className="card-footer-action">
+            <a href={`mailto:${this.state.jobOverviewData.jobContactEmail}`} className="button button-form">Contact Job Creator</a>
+          </div>
+        }
+        {
           isCurrentUserJobCreator && 
           <div className="job-creator-controls">
             <div className="button-wrapper">
-            <button className="button-form">Edit Job</button>
+            <button className="button-form" onClick={() => this.editCreatedJob()}>Edit Job</button>
             <button className="button-form" onClick={(e) => this.deleteCreatedJob(e)}>Delete Job</button>
             </div>
           </div>

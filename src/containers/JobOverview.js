@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { withRouter } from 'react-router-dom'
 import { JobOverview } from '../pages/JobOverview'
 import { createJob,
+         createReduxJob,
          getJobOverviewData,
          acceptJobInvitation, 
          denyJobInvitation,
@@ -23,7 +24,8 @@ const actions = {
   acceptJobInvitation,
   denyJobInvitation,
   createUserAcceptedJob,
-  deletedCreatedJob
+  deletedCreatedJob,
+  createReduxJob
 }
 
 

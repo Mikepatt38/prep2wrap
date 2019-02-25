@@ -10,6 +10,7 @@ export const JobOverview = (props) => {
       denyJobInvitation={props.denyJobInvitation}
       createUserAcceptedJob={props.createUserAcceptedJob}
       deletedCreatedJob={props.deletedCreatedJob}
+      createReduxJob={props.createReduxJob}
       history={props.history}
     />
   )

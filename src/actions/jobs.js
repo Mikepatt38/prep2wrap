@@ -248,6 +248,7 @@ export const createJob = (userID, jobID, jobObj, assignedUsers) => async () => {
     jobName: jobObj.jobName,
     jobCreator: jobObj.jobCreator,
     jobCreatorID: jobObj.jobCreatorID,
+    jobContactEmail: jobObj.jobContactEmail,
     unionMember: jobObj.unionMember,
     jobDesc: jobObj.jobDesc,
     jobDates: jobObj.jobDates,

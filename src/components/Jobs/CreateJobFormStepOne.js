@@ -14,6 +14,7 @@ class CreateJobFormStepOne extends Component {
       jobName: '',
       jobCreator: '',
       jobCreatorID: '',
+      jobContactEmail: '',
       unionMember: false,
       jobDesc: '',
       jobDates: [],
@@ -39,7 +40,8 @@ class CreateJobFormStepOne extends Component {
       jobObj: {
         ...prevState.jobObj,
         jobCreator: this.props.currentUser.firstName + ' ' + this.props.currentUser.lastName,
-        jobCreatorID: this.props.currentUser.id.toString()
+        jobCreatorID: this.props.currentUser.id.toString(),
+        jobContactEmail: this.props.currentUser.email
       }
     }))
   }
