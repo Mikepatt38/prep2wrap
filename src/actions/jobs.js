@@ -184,27 +184,6 @@ export const getUserJobNotifications = (userID) => async () => {
   return docData
 }
 
-export const removeUserJobNotification = (userID, notificationID ) => async (dispatch) => {
-  const database = await db
-  const updateNotifications = await database.collection("jobs").doc(userID).collection("jobNotifications").doc(notificationID).delete()
-
-  return updateNotifications
-}
-
-export const createReduxJob = (jobState) => async dispatch => {
-  dispatch({
-    type: 'CREATE_UPDATE_JOB',
-    payload: jobState
-  })
-}
-
-export const updateReduxJobAssignedUsers = (usersAssigned) => async dispatch => {
-  dispatch({
-    type: 'UPDATE_ASSIGNED_USERS',
-    payload: usersAssigned
-  })
-}
-
 // All async functions to work with the database API
 export async function createUserJob(userID, jobID, newUserCreatedJob, database){ 
   let createdJobRef = database.collection("jobs").doc(userID)
@@ -234,14 +213,20 @@ export async function getUserAcceptedJobs(database, currentUserID){
 } 
 
 export async function deleteUserCreatedJob(database, currentUserID, jobID){
-  let createdJobRef = database.collection("jobs").doc(currentUserID)
-  let jobToBeDeletedRef = await createdJobRef.collection("createdJobs").doc(jobID).delete()
+  database.collection("jobs").doc(currentUserID).collection("createdJobs").doc(jobID).delete()
 }
 
 export async function deleteAcceptedJob(database, usersAssigned, jobID){
   usersAssigned.map( user => {
     database.collection("jobs").doc(user.id).collection("acceptedJobs").doc(jobID).delete()
   })
+}
+
+export const removeUserJobNotification = (userID, notificationID ) => async (dispatch) => {
+  const database = await db
+  const updateNotifications = await database.collection("jobs").doc(userID).collection("jobNotifications").doc(notificationID).delete()
+
+  return updateNotifications
 }
 
 // Functions to send data from the API from the database back to the frontend client
@@ -290,12 +275,26 @@ export const deletedCreatedJob = (currentUserID, jobID, usersAssigned) => async 
   const database = await db
 
   try {
-    console.log('Job was deleted')
-    let deleteJob = await deleteUserCreatedJob(database, currentUserID, jobID)
-    let deletedAcceptedJobs = await deleteAcceptedJob(database, usersAssigned, jobID)
+    deleteUserCreatedJob(database, currentUserID, jobID)
+    deleteAcceptedJob(database, usersAssigned, jobID)
     dispatch(setAlert(true, "Success", "The job was successfully deleted."))
+    return 'success'
   }
   catch(error) {
     dispatch(setAlert(true, "Error", "We could not deleted the selected job.."))
   }
+}
+
+export const createReduxJob = (jobState) => async dispatch => {
+  dispatch({
+    type: 'CREATE_UPDATE_JOB',
+    payload: jobState
+  })
+}
+
+export const updateReduxJobAssignedUsers = (usersAssigned) => async dispatch => {
+  dispatch({
+    type: 'UPDATE_ASSIGNED_USERS',
+    payload: usersAssigned
+  })
 }

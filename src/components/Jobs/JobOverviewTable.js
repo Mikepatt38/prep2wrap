@@ -98,6 +98,10 @@ class JobOverviewTable extends Component {
   deleteCreatedJob = (e) => {
     e.preventDefault()
     this.props.deletedCreatedJob(this.props.currentUser.id, this.state.jobOverviewData.jobID, this.state.jobOverviewData.usersAssigned)
+    .then( (result) => {
+      console.log(result)
+      if( result === 'success') { this.props.history.push("/jobs") }
+    })
   }
 
   editCreatedJob = () => {
