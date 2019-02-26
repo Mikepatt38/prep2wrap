@@ -57,7 +57,7 @@ class Availability extends Component {
                   <div className="calendar-alert-text">
                     <h6>{this.state.selectedDate}</h6>
                     <p>This date is currently booked, to change it to open to receive job request, click the button below.</p>
-                    <p onClick={() => this.props.removeAvailabilityDate(this.props.currentUser, this.state.selectedDate)}>Remove date.</p>
+                    <p onClick={() => this.props.removeAvailabilityDate(this.props.currentUser.id.toString(), this.state.selectedDate)}>Remove date.</p>
                   </div>
                   <div className="calendar-alert-action">
                     <img onClick={() => this.setState({ selectedDate: null })} src={CloseIcon} alt="Close Icon" />
