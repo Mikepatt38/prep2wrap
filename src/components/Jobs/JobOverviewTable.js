@@ -56,7 +56,7 @@ class JobOverviewTable extends Component {
         index = key
       }
       else {
-        null
+        return null
       }
     })
     let newUsersAssignedObject = Object.assign({}, this.state.jobOverviewData)

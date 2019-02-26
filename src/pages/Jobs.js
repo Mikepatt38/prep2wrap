@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import JobsList from '../components/Jobs/JobsList'
-const uuidv4 = require('uuid/v4')
+const shortid = require('shortid')
+// Replacing the - and _ with $ and @ to have better looking URL facing unique id's
+shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@')
 
 class Jobs extends Component {
   state = {
-    jobID: uuidv4()
+    jobID: shortid.generate()
   }
 
   render() {

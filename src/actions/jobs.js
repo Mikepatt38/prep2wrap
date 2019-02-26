@@ -75,10 +75,12 @@ export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, newAssigne
     }
 
     try {
-      updateUserStatus
-      dispatch(createJobNotification(jobCreatorID, jobID, jobNotificationData))
-      dispatch(removeUserJobNotification(currentUser.id, notificationID ))
-      resolve("success")
+      return updateUserStatus
+      .then( () => {
+        dispatch(createJobNotification(jobCreatorID, jobID, jobNotificationData))
+        dispatch(removeUserJobNotification(currentUser.id, notificationID ))
+        resolve("success")
+      })
     }
     catch(error) {
       reject("error")
@@ -111,11 +113,13 @@ export const denyJobInvitation = (jobData, currentUser, jobOverviewLink) => asyn
     }
 
     try {
-      updateUserStatus
-      dispatch(setAlert(true, "Info", "You declined the job and removed yourself from the job."))
-      dispatch(removeUserJobNotification(currentUser.id, notificationID ))
-      dispatch(createJobNotification(jobData.jobCreatorID, jobData.jobID, jobNotificationData))
-      resolve("success")
+      return updateUserStatus
+      .then ( () => {
+        dispatch(setAlert(true, "Info", "You declined the job and removed yourself from the job."))
+        dispatch(removeUserJobNotification(currentUser.id, notificationID ))
+        dispatch(createJobNotification(jobData.jobCreatorID, jobData.jobID, jobNotificationData))
+        resolve("success")
+      })
     }
     catch(error) {
       reject("error")
@@ -129,7 +133,7 @@ export const createUserAcceptedJob = (userID, jobID, userJobData) => async () =>
 
   const createUserAcceptedJobEntry = await database.collection("jobs").doc(userID).collection("acceptedJobs").doc(jobID).set(userJobData)
 
-  createUserAcceptedJobEntry
+  return createUserAcceptedJobEntry
 }
 
 export const createJobNotification = (userID, jobID, jobNotificationData) => async () => {
@@ -139,8 +143,8 @@ export const createJobNotification = (userID, jobID, jobNotificationData) => asy
 
   const create = new Promise ( (resolve, reject) => {
     try {
-      createNotification
-      resolve("success")
+      return createNotification
+      .then( () => { resolve("success") })
     }
     catch(error) {
       reject("error")
@@ -184,7 +188,7 @@ export const removeUserJobNotification = (userID, notificationID ) => async (dis
   const database = await db
   const updateNotifications = await database.collection("jobs").doc(userID).collection("jobNotifications").doc(notificationID).delete()
 
-  updateNotifications
+  return updateNotifications
 }
 
 export const createReduxJob = (jobState) => async dispatch => {

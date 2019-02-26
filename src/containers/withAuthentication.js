@@ -13,9 +13,7 @@ const withAuthentication = (Component) => {
       const { getCurrentUser } = this.props
 
       firebase.auth.onAuthStateChanged( authUser => {
-        authUser 
-          ? getCurrentUser(authUser.uid.toString())
-          : null
+        return authUser ? getCurrentUser(authUser.uid.toString()) : null
       })
     }
 

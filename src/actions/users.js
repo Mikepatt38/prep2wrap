@@ -91,9 +91,7 @@ export const searchUsersByName = (firstName, lastName) => async dispatch => {
     try {
       database.collection("users").get().then( (querySnapshot) => {
         querySnapshot.forEach( (doc) => {
-          console.log('firstName: ' + doc.data().firstName + ' Given firstName: ' + firstName)
-          console.log('Do firstName match? ' + firstName.includes(doc.data().firstName))
-          firstName.toLowerCase().includes(doc.data().firstName.toLowerCase()) || lastName.toLowerCase().includes(doc.data().lastName.toLowerCase()) ? users.push(doc.data()) : null
+          return firstName.toLowerCase().includes(doc.data().firstName.toLowerCase()) || lastName.toLowerCase().includes(doc.data().lastName.toLowerCase()) ? users.push(doc.data()) : null
         })
       })
       .then( () => {

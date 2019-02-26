@@ -38,8 +38,12 @@ class JobResultsTable extends Component {
     let tempArr = this.state.usersAssigned
     let tempPos = this.state.assignedPositions
     tempArr.map( (item, key) => {
-      item.id === user.id ? tempArr.splice(key, 1) : null
-      item.position === user.position ? tempPos.splice(key, 1) : null
+      return item = {
+        id: user.id ? tempArr.splice(key, 1) : null,
+        position: user.position ? tempPos.splice(key, 1) : null
+      }
+      // item.id === user.id ? tempArr.splice(key, 1) : null
+      // item.position === user.position ? tempPos.splice(key, 1) : null
     })
     this.setState({
       usersAssigned: tempArr,
@@ -67,7 +71,7 @@ class JobResultsTable extends Component {
     let userPositions = []
     this.state.usersReturned.map( (value, key) => {
       value.profileInformation.positions.forEach( position => {
-        this.state.openPositions.includes(position.value) ? userPositions.push(position.value) : null
+        return this.state.openPositions.includes(position.value) ? userPositions.push(position.value) : null
       })
       const userRowDisabled = this.state.usersAssigned.find( (item) => {
         return item.id === value.id

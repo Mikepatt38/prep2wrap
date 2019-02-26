@@ -3,8 +3,8 @@ import { Route, Redirect } from "react-router-dom"
 
 export const ProtectedRoute = ({
   component: Component,
+  componentType,
   ...rest,
-  componentType
 }) => {
   return (
     <Route 
