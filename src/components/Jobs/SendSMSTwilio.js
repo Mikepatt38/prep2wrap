@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import 'whatwg-fetch'
+import { CreateJobFormError } from './CreateJobFormError'
 
 class SendSMSTwilio extends Component {
   state = {
@@ -9,6 +10,12 @@ class SendSMSTwilio extends Component {
   }
 
   componentDidMount = () => {
+    if(!this.props.currentJob.assignedUsers){
+      this.setState({
+        pageError: true,
+        loading: false
+      })
+    }
     this.sendSMSInvites(this.props.currentJob.assignedUsers)
   }
 
@@ -75,11 +82,17 @@ class SendSMSTwilio extends Component {
   }
 
   render() {
+    if(this.state.pageError) { 
+      return <CreateJobFormError 
+              title="There was an error"
+              errorMessage="It looks like there was a problem while creating your job. Please start over creating your job."
+      /> 
+    }
     return (
       <div className="card">
         <div className="card-body">
           {this.state.loading && <p>One moment, sending job invites...</p>}
-          {!this.state.loading && 
+          {!this.state.loading && !this.state.pageError &&
             <Link to={this.state.jobOverviewLink}>View job overview</Link>
           }
         </div>

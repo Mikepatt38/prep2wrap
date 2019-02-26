@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { FormButton } from '../Forms/FormButton'
 import JobResultsTable from './JobResultsTable'
+import { CreateJobFormError } from './CreateJobFormError'
 
 class CreateJobFormStepTwo extends Component {
 
@@ -44,6 +45,12 @@ class CreateJobFormStepTwo extends Component {
   }
  
   render() {
+    if(this.state.pageError) { 
+      return <CreateJobFormError 
+              title="There was an error"
+              errorMessage="It looks like there was a problem while creating your job. Please start over creating your job."
+      /> 
+    }
     return (  
       <div className="card">
         <div className="card-header">
@@ -54,10 +61,6 @@ class CreateJobFormStepTwo extends Component {
           {
             this.state.loading &&
             <p>Loading...</p>
-          }
-          {
-            this.state.pageError &&
-            <p>Error...</p>
           }
           {
             this.state.noUsersReturned &&
@@ -82,6 +85,7 @@ class CreateJobFormStepTwo extends Component {
             className="button-form"
             buttonText="Next Step"
             onClick={this.saveAndContinue}
+            disabled={this.state.pageError}
           />
         </div>
       </div>

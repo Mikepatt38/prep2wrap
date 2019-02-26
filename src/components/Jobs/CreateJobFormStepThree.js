@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { FormButton } from '../Forms/FormButton'
+import { CreateJobFormError } from './CreateJobFormError'
 
 class CreateJobFormStepThree extends Component {
   state = {
@@ -17,7 +18,12 @@ class CreateJobFormStepThree extends Component {
   }
  
   render() {
-    if(this.state.pageError) return <h1>Error</h1>
+    if(this.state.pageError) { 
+      return <CreateJobFormError 
+              title="There was an error"
+              errorMessage="It looks like there was a problem while creating your job. Please start over creating your job."
+      /> 
+    }
     const { jobObj, assignedUsers } = this.props.currentJob
     return (
       <div className="card">
