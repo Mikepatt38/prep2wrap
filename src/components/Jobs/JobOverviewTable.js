@@ -13,8 +13,9 @@ class JobOverviewTable extends Component {
     this.props.getJobOverviewData(creatorID, jobID)
       .then((result) => {
         this.setState({
-          jobOverviewData: result,
-          loading: false
+          jobOverviewData: result !== "error" ? result : {},
+          loading: false,
+          pageError: result === "error" ? true : false
         })
       })
   }
@@ -106,6 +107,7 @@ class JobOverviewTable extends Component {
 
   render() {
     if(this.state.loading) return <h1>Loading</h1>
+    if(this.state.pageError) return <h1>Error</h1>
     const { jobOverviewData } = this.state
     const isCurrentUserAssigned = this.testIfCurrentUserIsAssigned(this.props.currentUser.id)
     const hasUserAccepted = this.testIfCurrentUserAccepted(this.props.currentUser.id)
