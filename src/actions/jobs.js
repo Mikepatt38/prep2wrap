@@ -49,46 +49,6 @@ export const getJobOverviewData = (creatorID, jobID) => async () => {
   return await getJobData
 }
 
-export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, newAssignedUsers, jobOverviewLink) => async (dispatch) => {
-  const database = await db
-  const updateUserStatus = database.collection("jobs").doc(jobCreatorID).collection("createdJobs").doc(jobID).update({
-    usersAssigned: newAssignedUsers
-  })
-  const getUserNotificationsID = database.collection("jobs").doc(currentUser.id).collection("jobNotifications").get().then( (querySnapshot) => {
-    let idToReturn = null
-    querySnapshot.forEach(function(doc) {
-      const compareLink = doc.data().link.split("/")[2] + '/' + doc.data().link.split("/")[3]
-      if(compareLink === jobOverviewLink) {
-        idToReturn = doc.id
-      }
-    })
-    return idToReturn
-  })
-
-
-  const notificationID = await getUserNotificationsID
-
-  const updateStatus = new Promise ( (resolve, reject) => {
-    const jobNotificationData = {
-      text: "A user just accepted your job invitation!",
-      link: jobOverviewLink
-    }
-
-    try {
-      return updateUserStatus
-      .then( () => {
-        dispatch(createJobNotification(jobCreatorID, jobID, jobNotificationData))
-        dispatch(removeUserJobNotification(currentUser.id, notificationID ))
-        resolve("success")
-      })
-    }
-    catch(error) {
-      reject("error")
-    }
-  })
-  return await updateStatus
-} 
-
 export const denyJobInvitation = (jobData, currentUser, jobOverviewLink) => async (dispatch) => {
   const database = await db
   const updateUserStatus = database.collection("jobs").doc(jobData.jobCreatorID).collection("createdJobs").doc(jobData.jobID).set(jobData)
@@ -117,7 +77,7 @@ export const denyJobInvitation = (jobData, currentUser, jobOverviewLink) => asyn
       .then ( () => {
         dispatch(setAlert(true, "Info", "You declined the job and removed yourself from the job."))
         dispatch(removeUserJobNotification(currentUser.id, notificationID ))
-        dispatch(createJobNotification(jobData.jobCreatorID, jobData.jobID, jobNotificationData))
+        dispatch(createUserJobNotification(jobData.jobCreatorID, jobData.jobID, jobNotificationData))
         resolve("success")
       })
     }
@@ -134,23 +94,6 @@ export const createUserAcceptedJob = (userID, jobID, userJobData) => async () =>
   const createUserAcceptedJobEntry = await database.collection("jobs").doc(userID).collection("acceptedJobs").doc(jobID).set(userJobData)
 
   return createUserAcceptedJobEntry
-}
-
-export const createJobNotification = (userID, jobID, jobNotificationData) => async () => {
-  const database = await db
-
-  const createNotification = database.collection("jobs").doc(userID).collection("jobNotifications").doc(jobID).set(jobNotificationData)
-
-  const create = new Promise ( (resolve, reject) => {
-    try {
-      return createNotification
-      .then( () => { resolve("success") })
-    }
-    catch(error) {
-      reject("error")
-    }
-  })
-  const createNotificationSuccess = await create
 }
 
 export const getUserJobNotifications = (userID) => async () => {
@@ -229,6 +172,29 @@ export const removeUserJobNotification = (userID, notificationID ) => async (dis
   return updateNotifications
 }
 
+export async function updateUserJobStatus(database, jobCreatorID, jobID, newAssignedUsers){
+
+  let userJobStatusRef = database.collection("jobs").doc(jobCreatorID).collection("createdJobs").doc(jobID)
+  let updateUserJobStatusRef = await userJobStatusRef.update({ usersAssigned: newAssignedUsers })
+}
+
+export async function getUserJobNotificationID(database, currentUserID, jobOverviewLink){
+  let idToReturn = null
+  let getUserNotificationsRef = await database.collection("jobs").doc(currentUserID).collection("jobNotifications").get()
+  for(let notification of getUserNotificationsRef.docs){
+    const compareLink = notification.data().link.split("/")[2] + '/' + notification.data().link.split("/")[3]
+    if(compareLink === jobOverviewLink) {
+      idToReturn = notification.data().id
+    }  
+  }
+  return idToReturn
+}
+
+export async function createUserJobNotification(userID, jobID, jobNotificationData){
+  const database = await db
+  database.collection("jobs").doc(userID).collection("jobNotifications").doc(jobID).set(jobNotificationData)
+}
+
 // Functions to send data from the API from the database back to the frontend client
 export const createJob = (userID, jobID, jobObj, assignedUsers) => async () => {
   const database = await db
@@ -298,3 +264,29 @@ export const updateReduxJobAssignedUsers = (usersAssigned) => async dispatch => 
     payload: usersAssigned
   })
 }
+
+export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, newAssignedUsers, jobOverviewLink) => async (dispatch) => {
+  const database = await db
+  const jobNotificationData = {
+    text: "A user just accepted your job invitation!",
+    link: jobOverviewLink
+  }
+  try{
+    let [updateJobStatus, 
+        jobNotificationID, 
+        createJobNotification, 
+        removeJobNotification
+      ] = await Promise.all(
+        [updateUserJobStatus(database, jobCreatorID, jobID, newAssignedUsers), 
+        getUserJobNotificationID(database, currentUser.id, jobOverviewLink),
+        createUserJobNotification(jobCreatorID, jobID, jobNotificationData),
+      ])
+    .then( () => {
+      removeUserJobNotification(currentUser.id, jobNotificationID )
+      return 'success'
+    })
+  } 
+  catch{
+    return 'error'
+  }
+} 

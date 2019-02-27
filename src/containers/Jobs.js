@@ -7,7 +7,7 @@ import { createJob,
          getUserJobs,
          deletedCreatedJob,
          userResultsForJobCreation, 
-         createJobNotification, 
+         createUserJobNotification, 
          createReduxJob,
          updateReduxJobAssignedUsers
         } from '../actions/jobs'
@@ -33,7 +33,7 @@ const actions = {
   setModal,
   setUserModal,
   userResultsForJobCreation,
-  createJobNotification,
+  createUserJobNotification,
   createReduxJob,
   updateReduxJobAssignedUsers,
   deletedCreatedJob
