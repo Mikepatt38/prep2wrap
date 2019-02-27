@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import moment from 'moment'
 import { AvailabilityForm } from '../components/Users/AvailabilityForm'
 import Calendar from '../components/Users/Calendar'
 import CloseIcon from '../img/icon-close.svg'
@@ -10,7 +11,7 @@ const style = {
 
 class Availability extends Component {
   state = {
-    selectedDate: null,
+    // selectedDate: null,
     bookedDate: null,
     dateType: null
   }
@@ -23,6 +24,18 @@ class Availability extends Component {
     this.setState({
       selectedDate
     })
+  }
+
+  updateAvailability = (e) => {
+    e.preventDefault()
+    this.props.setModal(true, "Set Availability Date", 
+      <AvailabilityForm 
+        currentUser={this.props.currentUser} 
+        selectedDate={moment()}
+        setAvailabilityDate={this.props.setAvailabilityDate} 
+        closeModal={this.props.closeModal}
+      />   
+    )
   }
 
   setSelectedDate = (selectedDate) => {
@@ -44,31 +57,7 @@ class Availability extends Component {
     const { userDates } = this.props
     return (
       <div className="container containerMargin">
-        <div className="card">
-          <div className="card-header">
-            <h3>Availability Calendar</h3>
-            <p>A calendar view of your current availability. Click on the dates to change or update availability.</p>
-          </div>
-          <div className="card-body">
-            <div className="card-item" style={style}>
-              { this.state.selectedDate !== null 
-                ? 
-                <div className="calendar-alert">
-                  <div className="calendar-alert-text">
-                    <h6>{this.state.selectedDate}</h6>
-                    <p>This date is currently booked, to change it to open to receive job request, click the button below.</p>
-                    <p onClick={() => this.props.removeAvailabilityDate(this.props.currentUser.id.toString(), this.state.selectedDate)}>Remove date.</p>
-                  </div>
-                  <div className="calendar-alert-action">
-                    <img onClick={() => this.setState({ selectedDate: null })} src={CloseIcon} alt="Close Icon" />
-                  </div>
-                </div>
-                :
-                <p>Select a date to change the current availability.</p>
-              }
-            </div>
-          </div>
-        </div>
+        <button className="button-primary" onClick={(e) => this.updateAvailability(e)}>Update Availability</button>
         <Calendar 
           dates={userDates} 
           setSelectedDate={this.setSelectedDate} 
@@ -80,3 +69,21 @@ class Availability extends Component {
 }
 
 export default Availability
+
+// {
+//   this.state.selectedDate &&
+//   <div className="card">
+//     <div className="card-body">
+//       <div className="calendar-alert">
+//         <div className="calendar-alert-text">
+//           <h6>{this.state.selectedDate}</h6>
+//           <p>This date is currently booked, to change it to open to receive job request, click the button below.</p>
+//           <p onClick={() => this.props.removeAvailabilityDate(this.props.currentUser.id.toString(), this.state.selectedDate)}>Remove date.</p>
+//         </div>
+//         <div className="calendar-alert-action">
+//           <img onClick={() => this.setState({ selectedDate: null })} src={CloseIcon} alt="Close Icon" />
+//         </div>
+//       </div>
+//     </div>
+//   </div>
+// }

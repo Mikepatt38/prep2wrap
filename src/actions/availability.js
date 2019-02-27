@@ -49,7 +49,7 @@ export const removeAvailabilityDate = (userID, date) => async dispatch => {
   })
 }
 
-export const setAvailabilityDate = (userID, date, reason) => async dispatch => {
+export const setAvailabilityDate = (userID, date, reason, type) => async dispatch => {
   const database = await db
   let currentDates = []
   try {
@@ -58,8 +58,7 @@ export const setAvailabilityDate = (userID, date, reason) => async dispatch => {
     let dates = await availability.data().availability
     if(dates) {
       currentDates = availability.data().availability.dates === undefined ? [] : availability.data().availability.dates
-      currentDates.push({date: date, reason: reason})
-      // dispatch(updateUserDates(userID, currentDates.push({date: date, reason: reason}) ))
+      currentDates.push({date: date, dateTitle: reason, dateType: type})
     }
     else {
       currentDates = [{date: date, reason: reason}]
