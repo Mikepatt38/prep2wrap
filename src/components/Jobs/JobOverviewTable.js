@@ -47,27 +47,34 @@ class JobOverviewTable extends Component {
     return false
   }
 
+  updateUsersJobDates = (newDates) => {
+    const { currentUser } = this.props
+    let newDatesArr = []
+    newDates.map(currentDate => {
+      newDatesArr.push({date: currentDate, dateTitle: this.state.jobOverviewData.jobName, type: "booked"})
+    })
+    let currentAvailability = currentUser.availability ? currentUser.availability.dates : []
+    let newAvailability = [...currentAvailability, ...newDatesArr]
+    return newAvailability
+  }
+
   acceptJobInvite = (e) => {
     e.preventDefault()
     let index 
     const jobOverviewLink = "/job-overview/" + this.state.jobOverviewData.jobCreatorID + '/' + this.state.jobOverviewData.jobID
     this.state.jobOverviewData.usersAssigned.map( (user, key) => {
-      if( user.id === this.props.currentUser.id) {
-        index = key
-      }
-      else {
-        return null
-      }
+      index = user.id === this.props.currentUser.id ? key : null
     })
     let newUsersAssignedObject = Object.assign({}, this.state.jobOverviewData)
     newUsersAssignedObject.usersAssigned[index].status = "accepted"
     newUsersAssignedObject.usersAssigned[index].jobType = "accepted"
     const userWithAcceptedJob = newUsersAssignedObject.usersAssigned[index]
+    let newUserAvailability = this.updateUsersJobDates(this.state.jobOverviewData.jobDates)
     this.setState({
       jobOverviewData: newUsersAssignedObject
     })
-    this.props.acceptJobInvitation(this.state.jobOverviewData.jobCreatorID, this.state.jobOverviewData.jobID, this.props.currentUser, this.state.jobOverviewData.usersAssigned, jobOverviewLink)
-      .then( (result) => {
+    this.props.acceptJobInvitation(this.state.jobOverviewData.jobCreatorID, this.state.jobOverviewData.jobID, this.props.currentUser, this.state.jobOverviewData.usersAssigned, jobOverviewLink, newUserAvailability)
+      .then( () => {
         this.props.createUserAcceptedJob(this.props.currentUser.id, this.state.jobOverviewData.jobID, userWithAcceptedJob )
       })
   }

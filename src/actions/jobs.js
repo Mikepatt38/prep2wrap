@@ -195,6 +195,11 @@ export async function createUserJobNotification(userID, jobID, jobNotificationDa
   database.collection("jobs").doc(userID).collection("jobNotifications").doc(jobID).set(jobNotificationData)
 }
 
+export async function addUserJobDatesToAvailability(database, userID, jobDates){
+  // about to add the dates to the user's availability 
+  database.collection("users").doc(userID).update({ availability: { dates: jobDates }})
+}
+
 // Functions to send data from the API from the database back to the frontend client
 export const createJob = (userID, jobID, jobObj, assignedUsers) => async () => {
   const database = await db
@@ -265,7 +270,7 @@ export const updateReduxJobAssignedUsers = (usersAssigned) => async dispatch => 
   })
 }
 
-export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, newAssignedUsers, jobOverviewLink) => async (dispatch) => {
+export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, newAssignedUsers, jobOverviewLink, jobDates) => async (dispatch) => {
   const database = await db
   const jobNotificationData = {
     text: "A user just accepted your job invitation!",
@@ -274,10 +279,12 @@ export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, newAssigne
   try{
     let [updateJobStatus, 
         jobNotificationID, 
+        updateUserJobDates,
         createJobNotification, 
         removeJobNotification
-      ] = await Promise.all(
-        [updateUserJobStatus(database, jobCreatorID, jobID, newAssignedUsers), 
+      ] = await Promise.all([
+        updateUserJobStatus(database, jobCreatorID, jobID, newAssignedUsers), 
+        addUserJobDatesToAvailability(database, currentUser.id, jobDates),
         getUserJobNotificationID(database, currentUser.id, jobOverviewLink),
         createUserJobNotification(jobCreatorID, jobID, jobNotificationData),
       ])
