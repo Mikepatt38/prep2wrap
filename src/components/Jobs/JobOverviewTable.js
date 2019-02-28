@@ -51,7 +51,7 @@ class JobOverviewTable extends Component {
     const { currentUser } = this.props
     let newDatesArr = []
     newDates.map(currentDate => {
-      newDatesArr.push({date: currentDate, dateTitle: this.state.jobOverviewData.jobName, type: "booked"})
+      newDatesArr.push({date: currentDate, dateTitle: this.state.jobOverviewData.jobName, dateType: "booked"})
     })
     let currentAvailability = currentUser.availability ? currentUser.availability.dates : []
     let newAvailability = [...currentAvailability, ...newDatesArr]

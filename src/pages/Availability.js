@@ -2,16 +2,10 @@ import React, { Component } from 'react'
 import moment from 'moment'
 import { AvailabilityForm } from '../components/Users/AvailabilityForm'
 import Calendar from '../components/Users/Calendar'
-import CloseIcon from '../img/icon-close.svg'
-
-const style = {
-  marginBottom: '0px'
-}
-
+import { UserAvailabilityList } from '../components/Users/UserAvailabilityList'
 
 class Availability extends Component {
   state = {
-    // selectedDate: null,
     bookedDate: null,
     dateType: null
   }
@@ -54,7 +48,7 @@ class Availability extends Component {
   }
 
   render() {
-    const { userDates } = this.props
+    const { userDates, currentUser } = this.props
     return (
       <div className="container containerMargin">
         <button className="button-primary" onClick={(e) => this.updateAvailability(e)}>Update Availability</button>
@@ -62,6 +56,10 @@ class Availability extends Component {
           dates={userDates} 
           setSelectedDate={this.setSelectedDate} 
           onSelectedDate={this.onSelectedDate} 
+        />
+        <UserAvailabilityList
+          dates={userDates}
+          currentUser={currentUser}
         />
       </div>
     )

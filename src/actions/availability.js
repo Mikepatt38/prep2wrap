@@ -61,7 +61,7 @@ export const setAvailabilityDate = (userID, date, reason, type) => async dispatc
       currentDates.push({date: date, dateTitle: reason, dateType: type})
     }
     else {
-      currentDates = [{date: date, reason: reason}]
+      currentDates = [{date: date, dateTitle: reason, dateType: type}]
     }
     dispatch(updateUserDates(userID, currentDates))
   }
