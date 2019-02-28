@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import { FormButton } from '../Forms/FormButton'
 import { SignUpMultiStepFormOne } from './SignUpMultiStepFormStepOne'
 import { SignUpMultiStepFormStepTwo } from './SignUpMultiStepFormStepTwo'
 import CreateIllustration from '../../img/illustration-create.svg'

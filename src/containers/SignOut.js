@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { removeCurrentUser } from '../actions/users'
+import { removeCurrentUser } from '../actions/accounts'
 import { auth } from '../db'
 
 const signOutStyles = {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Avatar from '../../img/avatar-placeholder-min.png'
 
 class ProfileImageUpload extends Component {
   state = {
@@ -22,16 +23,17 @@ class ProfileImageUpload extends Component {
   }
 
   render() {
-    const { currentUser } = this.props
+    const { profileInformation } = this.props.currentUser
     return (
       <div className="card-form-avatar">
         <label>Profile Avatar:</label>
         <div className="profile-image-upload">
           <input type="file" name="profileImage" id="profileImage" onChange={this.handleFileChange}  />
           <label htmlFor="profileImage" id="profileImage">        
-            {currentUser.avatar ? 
-              <img src={currentUser.avatar} alt="Profile Avatar" /> :
-              <p>No Avatar.</p>
+            {
+              profileInformation.avatarUrl 
+              ? <img src={profileInformation.avatarUrl} alt="Profile Avatar" />
+              : <img src={Avatar} alt="Profile Avatar Placeholder" />
             }
           </label>
           <p>{this.state.fileName}</p>
@@ -42,9 +44,3 @@ class ProfileImageUpload extends Component {
 }
 
 export default ProfileImageUpload
-// <button 
-// className="button-form" 
-// onClick={() => uploadProfileImage(currentUser.id, currentUser.avatar, document.querySelector('#profileImage').files[0])}
-// > 
-// { currentUser.avatar ? 'Upload New Image' : 'Upload' } 
-// </button>

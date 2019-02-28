@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { setUserProfile} from '../actions/accounts'
-import { signUserIn, signUpUser, resetPassword } from '../actions/users'
+import { setUserProfile, signUserIn, signUpUser, resetPassword } from '../actions/accounts'
 import UserAuth from '../pages/UserAuth'
 
 const mapStateToProps = (state) => ({

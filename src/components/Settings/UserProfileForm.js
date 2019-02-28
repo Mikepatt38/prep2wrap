@@ -19,7 +19,7 @@ class UserProfileForm extends Component {
     languages: this.props.currentUser.profileInformation.languages,
     travel: this.props.currentUser.profileInformation.travel, 
     union: this.props.currentUser.profileInformation.union, 
-    unions: this.props.currentUser.profileInformation.unions,
+    unions: this.props.currentUser.profileInformation.unions
   }
 
   handleChange = e => {

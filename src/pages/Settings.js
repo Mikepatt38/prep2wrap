@@ -30,7 +30,7 @@ const AccountSettings = ({ currentUser, setUserProfile, setName, setEmail, setMo
         <UserProfileForm 
           setUserProfile={setUserProfile} 
           currentUser={currentUser} 
-          onClick={this.handleClick}
+          onClick={(e) => handleClick(e)}
         />
       </div>
     </div>
