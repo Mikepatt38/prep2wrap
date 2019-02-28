@@ -65,7 +65,7 @@ export class SignUpMultiStepFormOne extends Component {
     return validated
   }
 
-  signUpUserAndContinue = async (e) => {
+  signUpUserAndContinue = (e) => {
     e.preventDefault()
     this.setState({
       loading: true

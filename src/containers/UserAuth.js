@@ -8,13 +8,15 @@ const mapStateToProps = (state) => ({
   currentUser: state.accountState.currentUser
 })
 
+const actions = {
+  signUserIn,
+  signUpUser,
+  resetPassword,
+  setUserProfile,
+}
+
 const mapDispatchToProps = (dispatch) => {
-  return {
-    signUserIn: bindActionCreators(signUserIn, dispatch),
-    signUpUser: bindActionCreators(signUpUser, dispatch),
-    resetPassword: bindActionCreators(resetPassword, dispatch),
-    setUserProfile: bindActionCreators(setUserProfile, dispatch),
-  }
+  return bindActionCreators(actions, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserAuth)

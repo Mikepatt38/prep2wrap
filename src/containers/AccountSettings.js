@@ -13,21 +13,22 @@ const mapStateToProps = (state) => {
   }
 }
 
+const actions = {
+  setName,
+  setEmail,
+  setMobileNumber,
+  setUserProfile,
+  setAccountView,
+  setAlert,
+  setModal,
+  uploadProfileImage
+}
+
 const mapDispatchToProps = (dispatch) => {
-  return {
-    setName: bindActionCreators(setName, dispatch),
-    setEmail: bindActionCreators(setEmail, dispatch),
-    setMobileNumber: bindActionCreators(setMobileNumber, dispatch),
-    setUserProfile: bindActionCreators(setUserProfile, dispatch),
-    setAccountView: bindActionCreators(setAccountView, dispatch),
-    setAlert: bindActionCreators(setAlert, dispatch),
-    setModal: bindActionCreators(setModal, dispatch),
-    uploadProfileImage: bindActionCreators(uploadProfileImage, dispatch)
-  }
+  return bindActionCreators(actions, dispatch)
 }
 
 const authCondition = (authUser) => !!authUser
-
 
 export default compose(
   withAuthorization(authCondition),

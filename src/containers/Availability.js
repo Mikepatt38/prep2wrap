@@ -15,17 +15,17 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getAvailabilityDates: bindActionCreators(getAvailabilityDates, dispatch),
-    setAvailabilityDate: bindActionCreators(setAvailabilityDate, dispatch),
-    removeAvailabilityDate: bindActionCreators(removeAvailabilityDate, dispatch),
-    // stopListeningForDates: bindActionCreators(stopListeningForDates, dispatch),
-    setModal: bindActionCreators(setModal, dispatch),
-    closeModal: bindActionCreators(closeModal, dispatch)
-  }
+const actions = {
+  getAvailabilityDates,
+  setAvailabilityDate,
+  removeAvailabilityDate,
+  setModal,
+  closeModal
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(actions, dispatch)
+}
 
 const authCondition = (authUser) => !!authUser
 

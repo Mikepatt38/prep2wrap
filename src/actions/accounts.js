@@ -1,4 +1,5 @@
-import { db, auth } from '../db/firebase'
+import { db } from '../db/firebase'
+import { auth } from '../db'
 import { storage } from '../db/firebase'
 
 export const clearSearchUserByNameResults = () => ({type: 'CLEAR_SEARCH_USER_BY_NAME_RESULTS', payload: [] })
@@ -15,34 +16,6 @@ export const signUserIn = (email, password, history, e) => dispatch => {
         payload: [true, 'error', error]   
       })
     })
-}
-
-export const signUpUser = (email, password, firstName, lastName, mobileNumber) => async dispatch => {
-  const signUpUserSuccess = new Promise( (resolve, reject) => {
-    try {
-      auth.doCreateUserWithEmailAndPassword(email, password)
-      .then( async (authUser) => {
-        const database = await db
-        database.collection("users").doc(authUser.user.uid.toString()).set({
-          id: authUser.user.uid.toString(),
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-          mobileNumber: mobileNumber,
-          numberOfTimesFavorite: 0
-        })
-        resolve('success')
-      })
-    }
-    catch(error) {
-      reject('error')
-      dispatch({
-        type: 'SET_ALERT',
-        payload: [true, 'error', error]   
-      })
-    }
-  })
-  return await signUpUserSuccess
 }
 
 export const resetPassword = (email, e) => async dispatch => {
@@ -268,4 +241,26 @@ export const uploadProfileImage = (id, avatar, filename) => async dispatch => {
       })
     })
     .catch(console.error)
+}
+
+// Async actions and functions that call them to interact with Firebase Firestore and then user facing client
+export const signUpUser = (email, password, firstName, lastName, mobileNumber) => async () => {
+  const database = await db
+  try {
+    auth.doCreateUserWithEmailAndPassword(email, password)
+    .then( async (authUser) => {
+      let createUserReplica = await database.collection("users").doc(authUser.user.uid.toString()).set({
+        id: authUser.user.uid.toString(),
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        mobileNumber: mobileNumber,
+        numberOfTimesFavorite: 0
+      })
+    })
+    return 'success'
+  }
+  catch(error){
+    return error
+  }
 }

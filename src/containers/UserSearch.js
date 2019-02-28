@@ -13,12 +13,14 @@ const mapStateToProps = (state) => {
   }
 }
 
+const actions = {
+  searchUsersByName,
+  setUserModal,
+  clearSearchUserByNameResults,
+}
+
 const mapDispatchToProps = (dispatch) => {
-  return {
-    searchUsersByName: bindActionCreators(searchUsersByName, dispatch),
-    setUserModal: bindActionCreators(setUserModal, dispatch),
-    clearSearchUserByNameResults: bindActionCreators(clearSearchUserByNameResults, dispatch)
-  }
+  return bindActionCreators(actions, dispatch)
 }
 
 const authCondition = (authUser) => !!authUser
