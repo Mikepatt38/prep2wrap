@@ -21,7 +21,7 @@ const withAuthorization = (authCondition) => (Component) => {
   }
 
   const mapStateToProps = (state) => ({
-    currentUser: state.userState.currentUser,
+    currentUser: state.accountState.currentUser,
   })
 
   return compose(

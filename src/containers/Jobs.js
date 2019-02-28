@@ -21,7 +21,7 @@ import SendSMSTwilio from '../components/Jobs/SendSMSTwilio';
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.userState.currentUser,
+    currentUser: state.accountState.currentUser,
     userModalActive: state.sessionState.userModalActive,
     currentJob: state.jobsState.currentJob
   }

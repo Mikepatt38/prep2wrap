@@ -5,7 +5,7 @@ import UserAuth from '../pages/UserAuth'
 
 const mapStateToProps = (state) => ({
   authUser: state.sessionState.authUser,
-  currentUser: state.userState.currentUser
+  currentUser: state.accountState.currentUser
 })
 
 const mapDispatchToProps = (dispatch) => {

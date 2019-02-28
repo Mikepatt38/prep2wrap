@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getCurrentUser } from '../actions/users'
+import { getCurrentUser } from '../actions/accounts'
 import { firebase } from '../db'
 
 const withAuthentication = (Component) => {

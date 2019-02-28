@@ -10,7 +10,7 @@ const mapStateToProps = (state) => {
   return {
     userModalActive: state.sessionState.userModalActive,
     user: state.sessionState.user,
-    currentUser: state.userState.currentUser
+    currentUser: state.accountState.currentUser
   }
 }
 

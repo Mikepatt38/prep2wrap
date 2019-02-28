@@ -38,7 +38,7 @@ const App = ({ currentUser }) => {
 }
 
 const mapStateToProps = (state) => ({
-  currentUser: state.userState.currentUser,
+  currentUser: state.accountState.currentUser,
 })
 
 export default compose(

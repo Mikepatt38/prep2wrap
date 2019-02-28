@@ -11,7 +11,7 @@ import withAuthorization from './withAuthorization'
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.userState.currentUser,
+    currentUser: state.accountState.currentUser,
     userModalActive: state.sessionState.userModalActive,
     favorites: state.favoritesState.favorites
   }

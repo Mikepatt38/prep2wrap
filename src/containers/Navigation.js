@@ -5,7 +5,7 @@ import DashboardNavbar from '../components/General/Navbar'
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.userState.currentUser,
+    currentUser: state.accountState.currentUser,
     authUser: state.sessionState.authUser,
     dropdownOpen: state.sessionState.dropdownOpen
   }

@@ -8,7 +8,7 @@ import withAuthorization from './withAuthorization'
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.userState.currentUser,
+    currentUser: state.accountState.currentUser,
     dates: state.availabilityState.availability,
     userDates: state.availabilityState.userDates,
     fetching: state.availabilityState.fetching

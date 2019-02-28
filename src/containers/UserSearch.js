@@ -1,15 +1,15 @@
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
-import { searchUsersByName, clearSearchUserByNameResults } from '../actions/users'
+import { searchUsersByName, clearSearchUserByNameResults } from '../actions/accounts'
 import { setUserModal } from '../actions/components'
 import { UserSearch } from '../components/Users/UserSearch'
 import withAuthorization from './withAuthorization'
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.userState.currentUser,
-    userSearchByNameResults: state.userState.userSearchByNameResults,
+    currentUser: state.accountState.currentUser,
+    userSearchByNameResults: state.accountState.userSearchByNameResults,
   }
 }
 
