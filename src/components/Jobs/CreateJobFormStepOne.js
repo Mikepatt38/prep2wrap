@@ -5,7 +5,7 @@ import { FormButton } from '../Forms/FormButton'
 import { FormCheckboxInput } from '../Forms/FormCheckboxInput'
 import { FormDatePicker, FormDateRangePicker } from '../Forms/FormDatePicker'
 import FormSelectInput from '../Forms/FormSelectInput'
-import { locationObj, positionsObj, contactObj } from '../../data/formOptions'
+import { locationObj, positionsObj, contactObj, jobTypesObj } from '../../data/formOptions'
 
 class CreateJobFormStepOne extends Component {
   state = {
@@ -25,7 +25,8 @@ class CreateJobFormStepOne extends Component {
       jobContact: [],
       usersAssigned: [],
       dateSelectorRangeActive: false,
-      jobType: 'created'
+      jobStatus: 'created',
+      jobType: ''
     },
     jobDescCount: 0,
     startDate: moment(),
@@ -215,6 +216,15 @@ class CreateJobFormStepOne extends Component {
               checkboxId="unionMember"
               onChange={this.handleCheck}
               value={jobObj.unionMember}
+              className="form-group--half"
+            />
+            <FormSelectInput
+              label="Select the Job Type"
+              name="jobTypes"
+              options={jobTypesObj}
+              placeholder="Select Type of Job"
+              isMultiSelect={false}
+              onSelect={this.handleSelect}
               className="form-group--half"
             />
             <FormTextInput

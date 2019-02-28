@@ -67,7 +67,7 @@ class JobOverviewTable extends Component {
     })
     let newUsersAssignedObject = Object.assign({}, this.state.jobOverviewData)
     newUsersAssignedObject.usersAssigned[index].status = "accepted"
-    newUsersAssignedObject.usersAssigned[index].jobType = "accepted"
+    newUsersAssignedObject.usersAssigned[index].jobStatus = "accepted"
     const userWithAcceptedJob = newUsersAssignedObject.usersAssigned[index]
     let newUserAvailability = this.updateUsersJobDates(this.state.jobOverviewData.jobDates)
     this.setState({

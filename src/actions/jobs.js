@@ -216,7 +216,7 @@ export const createJob = (userID, jobID, jobObj, assignedUsers) => async () => {
     jobLocation: jobObj.jobLocation,
     jobContact: jobObj.jobContact,
     dateSelectorRangeActive: jobObj.dateSelectorRangeActive,
-    jobType: jobObj.jobType,
+    jobStatus: jobObj.jobStatus,
     usersAssigned: assignedUsers,
   }  
 
