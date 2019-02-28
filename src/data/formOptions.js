@@ -66,3 +66,10 @@ export const contactObj = [
   { value: 'Email', label: 'Email' },
   { value: 'Phone', label: 'Phone' },
 ]
+
+export const jobTypesObj = [
+  { value: 'Tv', label: 'Tv' },
+  {  value: 'Film', label: 'Film' },
+  {  value: 'Commercial', label: 'Commercial' },
+  {  value: 'Music Video', label: 'Music Video' }
+]

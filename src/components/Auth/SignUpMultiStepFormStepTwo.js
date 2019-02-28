@@ -3,11 +3,11 @@ import { FormTextInput } from '../Forms/FormTextInput'
 import { FormCheckboxInput } from '../Forms/FormCheckboxInput'
 import FormSelectInput from '../Forms/FormSelectInput'
 import { FormButton } from '../Forms/FormButton'
-import { locationObj, skillsObj, positionsObj } from '../../data/formOptions'
+import { locationObj, skillsObj, positionsObj, jobTypesObj } from '../../data/formOptions'
 
 export class SignUpMultiStepFormStepTwo extends Component {
   state = {
-    username: '',
+    jobTypes: '',
     location: '',
     skills: '',
     positions: '',
@@ -62,7 +62,7 @@ export class SignUpMultiStepFormStepTwo extends Component {
 
   validateForm = () => {
     let validated = true
-    const requiredFormFields = [this.state.username, this.state.location, this.state.skills, this.state.positions, this.state.imdbLink ]
+    const requiredFormFields = [this.state.jobTypes, this.state.location, this.state.skills, this.state.positions, this.state.imdbLink ]
     requiredFormFields.map( value => {
       if (value.length === 0 ) {
         console.log(value)
@@ -83,7 +83,7 @@ export class SignUpMultiStepFormStepTwo extends Component {
     }, () => {
       if(this.validateForm()) {
         console.log("Form validated")
-        this.props.setUserProfile(this.props.currentUser.id, this.state.username, this.state.location, this.state.skills, this.state.positions, this.state.fbLink, this.state.imdbLink, this.state.availability, this.state.travel, this.state.union, this.state.bilingual, this.state.unions, this.state.languages)
+        this.props.setUserProfile(this.props.currentUser.id, this.state.jobTypes, this.state.location, this.state.skills, this.state.positions, this.state.fbLink, this.state.imdbLink, this.state.availability, this.state.travel, this.state.union, this.state.bilingual, this.state.unions, this.state.languages)
         .then( result => {
           result === 'success' 
           ?
@@ -110,15 +110,16 @@ export class SignUpMultiStepFormStepTwo extends Component {
       <fieldset disabled={this.state.loading}>
         <form className="signUpForm">
           <h2 className="signUpFormTitle">Set up your profile information.</h2>
-          <FormTextInput 
-            label="Username"
-            type="text"
-            name="username"
-            className="form-group--half"
-            onChange={this.handleChange}
-            value={this.state.username}
-            error={this.state.usernameError}
-            errorMsg="A username is required."
+          <FormSelectInput
+            label="Job Types"
+            name="jobTypes"
+            placeholder="Select Job types that you're qualified to work"
+            isMultiSelect={true}
+            options={jobTypesObj}
+            currentSkills={this.state.jobTypes}
+            onSelect={this.handleSelect}
+            error={this.state.skillsError}
+            errorMsg="Select at least one skill."
           />
           <FormSelectInput
             label="Location"

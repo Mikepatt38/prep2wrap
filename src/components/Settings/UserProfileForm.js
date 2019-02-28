@@ -3,11 +3,11 @@ import { FormTextInput } from '../Forms/FormTextInput'
 import { FormCheckboxInput } from '../Forms/FormCheckboxInput'
 import FormSelectInput from '../Forms/FormSelectInput'
 import { FormButton } from '../Forms/FormButton'
-import { locationObj, skillsObj, positionsObj } from '../../data/formOptions'
+import { locationObj, skillsObj, positionsObj, jobTypesObj } from '../../data/formOptions'
 
 class UserProfileForm extends Component {
   state = {
-    username: this.props.currentUser.profileInformation.username,
+    jobTypes: this.props.currentUser.profileInformation.jobTypes,
     location: this.props.currentUser.profileInformation.location,
     headline: this.props.currentUser.profileInformation.headline,
     skills: this.props.currentUser.profileInformation.skills,
@@ -36,7 +36,7 @@ class UserProfileForm extends Component {
 
   handleClick = async (e) => {
     e.preventDefault()
-    this.props.setUserProfile(this.props.currentUser.id, this.state.username, this.state.location, this.state.skills, this.state.positions, this.state.fbLink, this.state.imdbLink, this.state.availability, this.state.travel, this.state.union, this.state.bilingual, this.state.unions, this.state.languages, e)
+    this.props.setUserProfile(this.props.currentUser.id, this.state.jobTypes, this.state.location, this.state.skills, this.state.positions, this.state.fbLink, this.state.imdbLink, this.state.availability, this.state.travel, this.state.union, this.state.bilingual, this.state.unions, this.state.languages, e)
   }
 
   handleSelect = (name, val) => {
@@ -51,16 +51,17 @@ class UserProfileForm extends Component {
   }
 
   render() {
-    const { username, location, skills, positions, fbLink, imdbLink, availability, bilingual, travel, union } = this.state
+    const { jobTypes, location, skills, positions, fbLink, imdbLink, availability, bilingual, travel, union } = this.state
     return (
       <form className="card-form-profile">
-        <FormTextInput 
-          label="Username"
-          name="username"
-          type="text"
-          onChange={this.handleChange}
-          className="form-group--half"
-          value={username}
+        <FormSelectInput
+          label="Job Types"
+          name="jobTypes"
+          options={jobTypesObj}
+          currentSkills={jobTypes}
+          placeholder="Select Job types that you're qualified to work"
+          isMultiSelect={true}
+          onSelect={this.handleSelect}
         />
         <FormSelectInput
           label="Location"

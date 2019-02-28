@@ -156,13 +156,13 @@ export const setMobileNumber = (id, mobileNumber) => async dispatch => {
   })
 }
 
-export const setUserProfile = (id, username, location, skills, positions, fbLink, imdbLink, availability, travel, union, bilingual, unions, languages) => async dispatch => {
+export const setUserProfile = (id, jobTypes, location, skills, positions, fbLink, imdbLink, availability, travel, union, bilingual, unions, languages) => async dispatch => {
   const database = await db
   const updateUserProfileSuccess = new Promise( (resolve, reject) => {
     try {
       database.collection("users").doc(id).update({
         profileInformation: {
-          username, 
+          jobTypes, 
           location,
           skills,
           positions,
