@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import CloseIcon from '../../img/icon-close.svg'
 
 class DashboardNotifications extends Component {
   state = {
@@ -31,18 +32,22 @@ class DashboardNotifications extends Component {
     if(this.state.loadingNotifications) return <p>Loading...</p>
     return (
       <div className="dashboard-notifications">
-        <h4>Notifications</h4>
-        <ul>
-          {
-            this.state.jobNotifications.map( (notification, key) => {
-              return <li key={key}>
-                  {notification.text} 
-                  <Link to={notification.link}>View Job</Link>
-                  <span onClick={(e) => this.handleRemoveNotification(e, notification.id)}>Clear</span> 
-                </li>
-            })
-          } 
-        </ul>
+        {
+          this.state.jobNotifications.map( (notification, key) => {
+            return (
+              <Link to={notification.link}>
+                <div className="notification" key={key}>
+                  <div className="notification-text">
+                    <p><b>{notification.text}</b> <span>Click to view the job overview.</span></p>
+                  </div>
+                  <div className="notification-close">
+                    <span onClick={(e) => this.handleRemoveNotification(e, notification.id)}><img src={CloseIcon} alt="Close Icon" /></span> 
+                  </div>
+                </div>
+              </Link>
+            )
+          })
+        } 
       </div>
     )
   }

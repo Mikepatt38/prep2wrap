@@ -26,7 +26,7 @@ const App = ({ currentUser }) => {
 const RenderRoute = ({ currentUser }) => (
   <React.Fragment>
     {
-      currentUser &&
+      currentUser && window.location.pathname !== '/signup' &&
       <div className="app-container">
         <div className="app-container-sidebar">
           <Sidebar />
@@ -42,7 +42,7 @@ const RenderRoute = ({ currentUser }) => (
       </div>
     }
     {
-      !currentUser &&
+      (!currentUser || window.location.pathname === '/signup') &&
       <Routes />
     }
   </React.Fragment>

@@ -5,9 +5,11 @@ import DashboardNotifications from '../components/General/DashboardNotifications
 class Dashboard extends Component {
   render() {
     return (
-      <div className="container containerMargin">
-        <h1>Welcome, {this.props.currentUser.firstName}</h1>
-      
+      <div className="app-page">
+        <div className="app-page-title">
+          <h1>Welcome, {this.props.currentUser.firstName}</h1>
+        </div>
+    
         <DashboardNotifications
           currentUser={this.props.currentUser}
           getUserJobNotifications={this.props.getUserJobNotifications}

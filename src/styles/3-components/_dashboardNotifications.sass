@@ -1,0 +1,54 @@
+/* ===============
+  Styles for dashboard notifications
+  ================== */
+
+.dashboard-notifications
+  position: relative
+  display: flex
+  flex-direction: column
+  margin-bottom: 25px
+
+  .notification
+    position: relative
+    padding: 15px
+    background: white
+    border: 1px solid #E6E8EB
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,.075)
+    max-width: 850px
+    border-radius: 3px
+    display: flex
+    justify-content: space-between
+    flex-direction: row
+    align-items: center
+    margin-bottom: 15px
+    transition: all 0.2s ease-in-out
+
+    &:hover
+      transition: all 0.2s ease-in-out
+      transform: translateY(-3px)
+      box-shadow: 0 8px 12px 0 rgba(0,0,0,.075)
+
+    .notification-close
+      width: 14%
+      position: relative
+      display: flex
+      justify-content: flex-end
+      height: 26px
+
+      img
+        position: relative
+        height: 100%
+
+    .notification-text
+      width: 85%
+      position: relative
+
+    .notification-text > p
+      font-size: 14px
+      color: #444
+
+    .notification-text > p > b
+      color: $color__mainBlue
+    
+    .notification-text > p > span
+      opacity: 0.8
