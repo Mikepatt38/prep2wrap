@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { FormTextInput } from '../Forms/FormTextInput'
 import { FormBillingCheckbox } from '../Forms/FormBillingCheckbox'
 import { FormButton } from '../Forms/FormButton'
+import CreateIllustration from '../../img/illustration-create.svg'
 
 export class SignUpMultiStepFormOne extends Component {
   state = {
@@ -86,82 +87,89 @@ export class SignUpMultiStepFormOne extends Component {
 
   render() {
     return (
-      <fieldset disabled={this.state.loading}>
-        <form className="signUpForm">
-          <h2 className="signUpFormTitle">Let's get you signed up.</h2>  
-          <FormTextInput
-            label="First Name"
-            type="text"
-            name="firstName"
-            value={this.state.firstName}
-            onChange={this.handleChange}
-            className="form-group--half"
-            error={this.state.firstNameError}
-            errorMsg="A first name is required."
-          />
-          <FormTextInput
-            label="Last Name"
-            type="text"
-            name="lastName"
-            value={this.state.lastName}
-            onChange={this.handleChange}
-            className="form-group--half"
-            error={this.state.lastNameError}
-            errorMsg="A last name is required."
-          />
-          <FormTextInput
-            label="Email"
-            type="email"
-            name="email"
-            value={this.state.email}
-            onChange={this.handleChange}
-            className="form-group--half"
-            error={this.state.emailError}
-            errorMsg="Please enter a valid email address"
-          />
-          <FormTextInput
-            label="Mobile Number"
-            type="tel"
-            name="mobileNumber"
-            value={this.state.mobileNumber}
-            onChange={this.handleChange}
-            className="form-group--half"
-            error={this.state.mobileNumberError}
-            errorMsg="Please enter a valid mobile number"
-          />
-          <FormTextInput
-            label="Password"
-            name="passwordOne"
-            onChange={this.handleChange}
-            className="form-group--half"
-            value={this.state.passwordOne}
-            type="password"
-            error={this.state.passwordOneError}
-            errorMsg="Your passwords must match and be at least 8 characters"
-          />
-          <FormTextInput
-            label="Confirm Password"
-            name="passwordTwo"
-            onChange={this.handleChange}
-            className="form-group--half"
-            value={this.state.passwordTwo}
-            type="password"
-            error={this.state.passwordTwoError}
-          />
-          <FormBillingCheckbox
-            onChange={this.handleCheck}
-            freeTrialValue={this.state.freeTrial}
-            proMembershipValue={this.state.proMembership}
-          />
-          <div className="button-right">
-            <FormButton
-              className="button-form"
-              buttonText="Next"
-              onClick={this.signUpUserAndContinue}
-            />            
-          </div>
-        </form>
-      </fieldset>      
+      <div className="auth-card auth-card-large">
+        <div className="auth-card-header">
+          <h3>Step 1/3: Lets get started.</h3>
+          <p>First, we'll get your basic information to set up your account. Creating an account is effortless and painless, let's get started today.</p>     
+        </div>
+        <div className="auth-card-body">
+          <fieldset disabled={this.state.loading}>
+            <form className="signUpForm">
+              <FormTextInput
+                label="First Name"
+                type="text"
+                name="firstName"
+                value={this.state.firstName}
+                onChange={this.handleChange}
+                className="form-group--half"
+                error={this.state.firstNameError}
+                errorMsg="A first name is required."
+              />
+              <FormTextInput
+                label="Last Name"
+                type="text"
+                name="lastName"
+                value={this.state.lastName}
+                onChange={this.handleChange}
+                className="form-group--half"
+                error={this.state.lastNameError}
+                errorMsg="A last name is required."
+              />
+              <FormTextInput
+                label="Email"
+                type="email"
+                name="email"
+                value={this.state.email}
+                onChange={this.handleChange}
+                className="form-group--half"
+                error={this.state.emailError}
+                errorMsg="Please enter a valid email address"
+              />
+              <FormTextInput
+                label="Mobile Number"
+                type="tel"
+                name="mobileNumber"
+                value={this.state.mobileNumber}
+                onChange={this.handleChange}
+                className="form-group--half"
+                error={this.state.mobileNumberError}
+                errorMsg="Please enter a valid mobile number"
+              />
+              <FormTextInput
+                label="Password"
+                name="passwordOne"
+                onChange={this.handleChange}
+                value={this.state.passwordOne}
+                type="password"
+                className="form-group--half"
+                error={this.state.passwordOneError}
+                errorMsg="Your passwords must match and be at least 8 characters"
+              />
+              <FormTextInput
+                label="Confirm Password"
+                name="passwordTwo"
+                onChange={this.handleChange}
+                value={this.state.passwordTwo}
+                type="password"
+                className="form-group--half"
+                error={this.state.passwordTwoError}
+              />
+              <FormBillingCheckbox
+                onChange={this.handleCheck}
+                freeTrialValue={this.state.freeTrial}
+                proMembershipValue={this.state.proMembership}
+              />
+              <div className="button-right">
+                <FormButton
+                  className="button-form"
+                  buttonText="Next"
+                  onClick={this.signUpUserAndContinue}
+                />            
+              </div>
+            </form>
+          </fieldset> 
+        </div>
+      </div>     
     )
   }
 }

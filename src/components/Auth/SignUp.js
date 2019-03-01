@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import { FormTextInput } from '../Forms/FormTextInput'
-import { FormButton } from '../Forms/FormButton'
 import { SignUpMultiStepForm } from './SignUpMultiStepForm'
+import logo from '../../img/calltime-logo.png'
 
 export class SignUp extends Component {
   state = {
@@ -23,8 +21,11 @@ export class SignUp extends Component {
   render() {
     const { history, signUpUser, currentUser, setUserProfile } = this.props
     return (
-      <div className="signUpPage fullHeight">
-        <div className="signUpContainer">
+      <div className="authPage">
+        <div className="authContainer auth-container--signup">
+          <div className="auth-logo">
+            <img src={logo} alt="The official logo" />
+          </div>
           <SignUpMultiStepForm
             history={history}
             signUpUser={signUpUser}
@@ -35,13 +36,4 @@ export class SignUp extends Component {
       </div>
     )
   }
-}
-
-
-export const MemberLink = () => {
-  return (
-    <Link to="/login">
-      Already a member?
-    </Link>
-  )
 }

@@ -107,117 +107,127 @@ export class SignUpMultiStepFormStepTwo extends Component {
 
   render() {
     return (
-      <fieldset disabled={this.state.loading}>
-        <form className="signUpForm">
-          <h2 className="signUpFormTitle">Set up your profile information.</h2>
-          <FormSelectInput
-            label="Job Types"
-            name="jobTypes"
-            placeholder="Select Job types that you're qualified to work"
-            isMultiSelect={true}
-            options={jobTypesObj}
-            currentSkills={this.state.jobTypes}
-            onSelect={this.handleSelect}
-            error={this.state.skillsError}
-            errorMsg="Select at least one skill."
-          />
-          <FormSelectInput
-            label="Location"
-            name="location"
-            className="form-group--half"
-            placeholder="Select Cities You Work In"
-            isMultiSelect={true}
-            options={locationObj}
-            currentSkills={this.state.location}
-            onSelect={this.handleSelect}
-            error={this.state.locationError}
-            errorMsg="Select at least one location."
-          />
-          <FormSelectInput
-            label="Skills"
-            name="skills"
-            placeholder="Select Skills You're Qualified For"
-            isMultiSelect={true}
-            options={skillsObj}
-            currentSkills={this.state.skills}
-            onSelect={this.handleSelect}
-            error={this.state.skillsError}
-            errorMsg="Select at least one skill."
-          />
-          <FormSelectInput
-            label="Positions"
-            name="positions"
-            placeholder="Select Positions For Jobs You're Seeking"
-            isMultiSelect={true}
-            options={positionsObj}
-            currentSkills={this.state.positions}
-            onSelect={this.handleSelect}
-            error={this.state.positionsError}
-            errorMsg="Select at least one position."
-          />
-          <FormTextInput 
-            label="Facebook Profile Link"
-            name="fbLink"
-            type="text"
-            className="form-group--half"
-            onChange={this.handleChange}
-            value={this.state.fbLink}
-          />
-          <FormTextInput 
-            label="IMDb Profile Link"
-            name="imdbLink"
-            type="text"
-            className="form-group--half"
-            onChange={this.handleChange}
-            value={this.state.imdbLink}
-            error={this.state.imdbLinkError}
-            errorMsg="Provide a valid profile link."
-          />
-          <FormCheckboxInput
-            label="Willing To Travel"
-            checkboxId="travel"
-            onChange={this.handleCheck}
-            value={this.state.travel}
-            className="form-group--half"
-          />
-          <FormCheckboxInput
-            label="Daily Availability"
-            checkboxId="availability"
-            onChange={this.handleCheck}
-            value={this.state.availability}
-            className="form-group--half"
-          />
-          <FormCheckboxInput
-            label="Bilingual"
-            checkboxId="bilingual"
-            onChange={this.handleCheck}
-            value={this.state.bilingual}
-            inputName="languages"
-            inputLabel="List All Fluent Languages"
-            inputValue={this.state.languages === undefined ? '' : this.state.languages}
-            inputOnChange={this.handleChange}
-            className="form-group--half"
-          />
-          <FormCheckboxInput
-            label="Union"
-            checkboxId="union"
-            onChange={this.handleCheck}
-            value={this.state.union}
-            inputName="unions"
-            inputLabel="List Union Names"
-            inputValue={this.state.unions === undefined ? '' : this.state.unions}
-            inputOnChange={this.handleChange}
-            className="form-group--half"
-          />
-          <div className="button-right">
-            <FormButton
-              onClick={this.setUserProfileAndContinue}
-              className="button-form"
-              buttonText="Next"
-            />
-          </div>
-        </form>  
-      </fieldset>
+      <div className="auth-card auth-card-large">
+        <div className="auth-card-header">
+          <h3>Step 2/3: Set up your profile.</h3>
+          <p>Second, we'll learn a little more about what you do, how you do, and where you do it at to build your profile.</p>     
+        </div>
+        <div className="auth-card-body">
+          <fieldset disabled={this.state.loading}>
+            <form className="signUpForm">
+              <FormSelectInput
+                label="Job Types"
+                name="jobTypes"
+                className="form-group--half"
+                placeholder="Select Job types that you're qualified to work"
+                isMultiSelect={true}
+                options={jobTypesObj}
+                currentSkills={this.state.jobTypes}
+                onSelect={this.handleSelect}
+                error={this.state.skillsError}
+                errorMsg="Select at least one skill."
+              />
+              <FormSelectInput
+                label="Location"
+                name="location"
+                className="form-group--half"
+                placeholder="Select Cities You Work In"
+                isMultiSelect={true}
+                options={locationObj}
+                currentSkills={this.state.location}
+                onSelect={this.handleSelect}
+                error={this.state.locationError}
+                errorMsg="Select at least one location."
+              />
+              <FormSelectInput
+                label="Skills"
+                name="skills"
+                placeholder="Select Skills You're Qualified For"
+                isMultiSelect={true}
+                options={skillsObj}
+                currentSkills={this.state.skills}
+                onSelect={this.handleSelect}
+                error={this.state.skillsError}
+                errorMsg="Select at least one skill."
+              />
+              <FormSelectInput
+                label="Positions"
+                name="positions"
+                placeholder="Select Positions For Jobs You're Seeking"
+                isMultiSelect={true}
+                options={positionsObj}
+                currentSkills={this.state.positions}
+                onSelect={this.handleSelect}
+                error={this.state.positionsError}
+                errorMsg="Select at least one position."
+              />
+              <FormTextInput 
+                label="Facebook Profile Link"
+                name="fbLink"
+                type="text"
+                className="form-group--half"
+                placeholder="Ex: https://facebook.com/your-facebook-link"
+                onChange={this.handleChange}
+                value={this.state.fbLink}
+              />
+              <FormTextInput 
+                label="IMDb Profile Link"
+                name="imdbLink"
+                type="text"
+                className="form-group--half"
+                placeholder="Ex: https://imdb.com/your-imdb-link"
+                onChange={this.handleChange}
+                value={this.state.imdbLink}
+                error={this.state.imdbLinkError}
+                errorMsg="Provide a valid profile link."
+              />
+              <FormCheckboxInput
+                label="Willing To Travel"
+                checkboxId="travel"
+                onChange={this.handleCheck}
+                value={this.state.travel}
+                className="form-group--half"
+              />
+              <FormCheckboxInput
+                label="Daily Availability"
+                checkboxId="availability"
+                onChange={this.handleCheck}
+                value={this.state.availability}
+                className="form-group--half"
+              />
+              <FormCheckboxInput
+                label="Bilingual"
+                checkboxId="bilingual"
+                onChange={this.handleCheck}
+                value={this.state.bilingual}
+                inputName="languages"
+                inputLabel="List All Fluent Languages"
+                inputValue={this.state.languages === undefined ? '' : this.state.languages}
+                inputOnChange={this.handleChange}
+                className="form-group--half"
+              />
+              <FormCheckboxInput
+                label="Union"
+                checkboxId="union"
+                onChange={this.handleCheck}
+                value={this.state.union}
+                inputName="unions"
+                inputLabel="List Union Names"
+                inputValue={this.state.unions === undefined ? '' : this.state.unions}
+                inputOnChange={this.handleChange}
+                className="form-group--half"
+              />
+              <div className="button-right">
+                <FormButton
+                  onClick={this.setUserProfileAndContinue}
+                  className="button-form"
+                  buttonText="Next"
+                />
+              </div>
+            </form>  
+          </fieldset>
+        </div>
+      </div>
     )
   }
 

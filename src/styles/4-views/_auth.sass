@@ -15,8 +15,14 @@
 .authContainer
   max-width: 1250px
   margin: 0 auto
+  padding: 0 15px
   position: relative
   height: auto
+
+  &.auth-container--signup
+    margin: 2rem auto
+
+// =========== Login View Styles =========== //
 
 .auth-logo
   position: relative
@@ -35,10 +41,39 @@
   display: flex
   flex-direction: column
 
+  &.auth-card-columns
+    flex-direction: row
+    max-width: 1450px
+
+  .auth-card-header
+    position: relative
+    width: 100%
+    padding: 30px 30px 0 30px
+
+    h3
+      font-weight: bold
+      font-size: 24px
+      color: #14374c
+      margin: 0
+      margin-bottom: 5px
+
+    p
+      font-size: 16px
+      line-height: 1.5
+      opacity: 0.8
+      margin: 0
+      // max-width: 750px
+
   .auth-card-body
     position: relative
     width: 100%
     padding: 30px
+
+    form > button.button-form
+      width: 100%
+      max-width: 100%
+      background-color: $color__mainBlue 
+      color: #ffffff
 
   .auth-card-footer
     position: relative
@@ -72,7 +107,76 @@
 
   a
     font-size: 16px
-  
 
-// =========== Login View Styles =========== //
+// =========== Signup View Styles =========== //
 
+.auth-card.auth-card-large
+  max-width: 1350px
+
+  fieldset
+    border: 0
+    padding: 0
+
+// =========== Quick Action View Styles =========== //
+
+.auth-card-body
+
+  .quickAction-container
+    width: 100%
+    margin: 0 auto 0
+    background: #ffffff
+    position: relative
+    display: flex
+    justify-content: space-between
+    flex-wrap: wrap
+
+    .quickAction
+      width: 31.5%
+      display: flex
+      flex-direction: column
+      justify-content: center
+      margin-top: 30px
+      cursor: pointer
+
+      &:hover
+        .illustration img
+          margin-top: -15px
+          transition: all 0.4s ease-in-out
+        .content h3
+          color: $color__mainBlue
+          transition: all 0.4s ease-in-out
+
+      .content
+        margin: 0 auto
+        text-align: center
+        position: relative
+
+        h3
+          font-size: 16px
+          font-weight: 700
+          line-height: 1.33333
+          margin: 1em auto 0.5em
+          padding: 0
+          color: #404245
+          transition: all 0.4s ease-in-out
+        
+        p
+          font-size: 15px
+          line-height: 1.4
+          font-weight: 400
+          margin: 0 auto
+          color: #9fa4a6
+          position: relative
+
+      .illustration
+        height: 200px
+        width: 200px
+        margin: 0 auto 5px
+        position: relative
+
+        img
+          width: 100%
+          height: 100%
+          margin: 0 auto
+          position: relative
+          transition: all 0.4s ease-in-out
