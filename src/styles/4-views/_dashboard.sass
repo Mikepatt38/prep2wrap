@@ -1,0 +1,45 @@
+/* ===============
+  Styles for dashboard page
+  ================== */
+
+.dashboard-cards
+  position: relative
+  max-width: 1050px
+  width: 100%
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  flex-wrap: wrap
+
+  .dashboard-card
+    position: relative
+    width: 48.5%
+    padding: 20px
+    background-color: white 
+    border: 1px solid #E6E8EB
+    border-radius: 3px
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,.075)
+    margin-bottom: 15px
+    display: flex
+    justify-content: space-between
+    align-items: center
+    transition: all 0.2s ease-in-out
+
+    &:hover
+      transition: all 0.2s ease-in-out
+      transform: translateY(-3px)
+      box-shadow: 0 8px 12px 0 rgba(0,0,0,.075)
+
+    .icon
+      width: 10%
+      margin-right: 15px
+
+      img
+        max-width: 48px
+        max-height: 48px
+
+    .description > h4
+      font-size: 16px
+      font-weight: 500
+      color: #444
+      margin: 0
