@@ -17,27 +17,27 @@ class Sidebar extends Component {
         </div>
         <div className="sidebar-section">
           <div>
-            <h5><img src={DashboardIcon} /><Link to="/dashboard">Dashboard</Link></h5>
+            <h5><img src={DashboardIcon} /><Link to="/">Dashboard</Link></h5>
           </div>
         </div>
         <div className="sidebar-section">
           <div>
-            <h5><img src={JobsIcon} /><Link to="/jobs">Hire A Crew</Link></h5>
+            <h5><img src={JobsIcon} /><Link to="/jobs">Jobs</Link></h5>
           </div>
         </div>
         <div className="sidebar-section">
           <div>
-            <h5><img src={UsersIcon} /><Link to="/users">Users Directory</Link></h5>
+            <h5><img src={UsersIcon} /><Link to="/users">Users</Link></h5>
           </div>
         </div>
         <div className="sidebar-section">
           <div>
-            <h5><img src={AvailabilityIcon} /><Link to="/availability">My Availability</Link></h5>
+            <h5><img src={AvailabilityIcon} /><Link to="/availability">Availability</Link></h5>
           </div>
         </div>
         <div className="sidebar-section">
           <div>
-            <h5><img src={AccountIcon} /><Link to="/account-settings">Account Settings</Link></h5>
+            <h5><img src={AccountIcon} /><Link to="/account-settings">Account</Link></h5>
           </div>
         </div>
         <div className="sidebar-section sidebar-section--bottom">

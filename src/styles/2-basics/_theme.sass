@@ -2,7 +2,7 @@
   Styles for base theme of The Calltime application
   ================== */
 
-// ========== Body Element ========== //
+// ========== Basic Elements ========== //
 
 body 
   -webkit-font-smoothing: antialiased
@@ -10,6 +10,7 @@ body
   line-height: 1.5
   background-color: white
   color: $color__text
+  // font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif
   font-family: $font__main
   font-size: 16px
   line-height: 1.5
@@ -17,36 +18,8 @@ body
   margin: 0
 
 *
-  box-sizing: border-box
+  box-sizing: border-box 
 
-// ========== Font Styles ========== //
-
-h1, h2, h3, h4, h5, h6, p, a
-  -webkit-font-smoothing: antialiased
-  -moz-osx-font-smoothing: grayscale
-  font-weight: normal
-
-  &.large
-    font-size: 95px
-  &.small
-    font-size: 8px
-  &.bold
-    font-weight: bold
-  &.light
-    font-weight: 300
-
-h1, h2, h3, h4, h5, h6
-  font-weight: bold
-
-h1
-  font-size: 64px
-  margin: 0 0 0.67em 0
-h2
-  font-size: 48px
-h3
-  font-size: 32px
-h4
-  font-size: 24px
 p
   font-size: 16px
   line-height: 1.5
@@ -54,10 +27,11 @@ p
 a
   font-size: 16px
   text-decoration: none
-  line-height: 1.5
   margin: 0
 
-// ========== App Layout Styles ========== //
+// ========== Updated Base Styling for Application ========== //
+
+// // ========== App Layout Styles ========== //
 
 #root
   position: relative
@@ -81,113 +55,180 @@ a
 
 .app-container-main-body
   position: relative
-  min-height: calc(100vh - 144px)
-  margin-top: 68px
+  padding: 10px 30px 50px
+  min-height: 100vh
 
-// ========== Page Layout Styles ========== //
 
-section
-  position: relative
-  width: 100%
-  padding: 50px 0
 
-.container
-  position: relative
-  max-width: 1250px
-  margin: 0 auto
-  padding: 0 15px
+// // ========== Font Styles ========== //
 
-.container__form
-  text-align: center
-  padding-top: 8rem
+// h1, h2, h3, h4, h5, h6, p, a
+//   -webkit-font-smoothing: antialiased
+//   -moz-osx-font-smoothing: grayscale
+//   font-weight: normal
 
-.page-title
-  font-size: 1.05rem
-  font-weight: 600
-  line-height: 1.77
-  color: #444
-  display: flex
-  justify-content: space-between
-  align-items: center
-  text-transform: uppercase
-  letter-spacing: 0.50px
+//   &.large
+//     font-size: 95px
+//   &.small
+//     font-size: 8px
+//   &.bold
+//     font-weight: bold
+//   &.light
+//     font-weight: 300
 
-.component-section
-  position: relative
-  max-width: 1250px
-  margin: 0 auto
-  background: #ffffff
-  border-radius: 3px
-  padding: 30px
-  margin: 20px 0
-  box-shadow: 1px 4px 9px 2px rgba(23, 28, 33, 0.04)
-  visibility: visible
-  display: block
-  opacity: 1
+// h1, h2, h3, h4, h5, h6
+//   font-weight: bold
 
-  hr
-    width: 100%
-    margin: 0 0 30px 0
-    border: none
-    border-top: 2px solid #f0f4f7
+// h1
+//   font-size: 64px
+//   margin: 0 0 0.67em 0
+// h2
+//   font-size: 48px
+// h3
+//   font-size: 32px
+// h4
+//   font-size: 24px
+// p
+//   font-size: 16px
+//   line-height: 1.5
+//   margin: 0
+// a
+//   font-size: 16px
+//   text-decoration: none
+//   line-height: 1.5
+//   margin: 0
 
-  &.closed
-    display: none
-    visibility: hidden
-    opacity: 0
+// // ========== App Layout Styles ========== //
 
-.component-title
-  color: #444
-  font-size: 16px
-  font-weight: 600
-  text-transform: uppercase
-  letter-spacing: 1px
-  margin: 0
-  margin-bottom: 1px
+// #root
+//   position: relative
 
-.component-text
-  color: #676767
-  font-size: 16px
-  font-weight: normal
-  margin: 0
-  margin-bottom: 25px
-  max-width: 1050px
+// .app-container
+//   height: 100%
 
-.containerMargin
-  padding-top: 75px
-  position: relative
+// .main-content
+//   margin: 0 auto
+//   position: relative
+//   max-width: 1450px
 
-.fullHeight
-  min-height: calc(100vh - 125px)
-  position: relative
-// ========== Images ========== //
+// .app-container-main
+//   padding-left: 250px
+//   padding-bottom: 50px
+//   margin: 0 auto
+//   min-height: 100%
+//   height: 100%
+//   width: 100%
+//   background: #fff
 
-img
-  width: 100%
+// .app-container-main-body
+//   position: relative
+//   min-height: calc(100vh - 144px)
+//   margin-top: 68px
 
-// ========== App Layout Styles ========== //
-.app-container
-  background: rgb(239, 243, 245)
-  position: relative
+// // ========== Page Layout Styles ========== //
 
-footer
-  padding: 10px 50px
-  position: relative
-  bottom: 0
-  left: 0
-  right: 0
-  width: 100%
+// section
+//   position: relative
+//   width: 100%
+//   padding: 50px 0
 
-  &.footer--grey
-    background: #fff
-    padding: 25px 50px
-    p
-      color: #353639
-      opacity: 0.7
+// .container
+//   position: relative
+//   max-width: 1250px
+//   margin: 0 auto
+//   padding: 0 15px
 
-footer > p
-  font-size: 12px 
-  font-weight: 500
-  text-transform: uppercase
-  letter-spacing: 1px
+// .container__form
+//   text-align: center
+//   padding-top: 8rem
+
+// .page-title
+//   font-size: 1.05rem
+//   font-weight: 600
+//   line-height: 1.77
+//   color: #444
+//   display: flex
+//   justify-content: space-between
+//   align-items: center
+//   text-transform: uppercase
+//   letter-spacing: 0.50px
+
+// .component-section
+//   position: relative
+//   max-width: 1250px
+//   margin: 0 auto
+//   background: #ffffff
+//   border-radius: 3px
+//   padding: 30px
+//   margin: 20px 0
+//   box-shadow: 1px 4px 9px 2px rgba(23, 28, 33, 0.04)
+//   visibility: visible
+//   display: block
+//   opacity: 1
+
+//   hr
+//     width: 100%
+//     margin: 0 0 30px 0
+//     border: none
+//     border-top: 2px solid #f0f4f7
+
+//   &.closed
+//     display: none
+//     visibility: hidden
+//     opacity: 0
+
+// .component-title
+//   color: #444
+//   font-size: 16px
+//   font-weight: 600
+//   text-transform: uppercase
+//   letter-spacing: 1px
+//   margin: 0
+//   margin-bottom: 1px
+
+// .component-text
+//   color: #676767
+//   font-size: 16px
+//   font-weight: normal
+//   margin: 0
+//   margin-bottom: 25px
+//   max-width: 1050px
+
+// .containerMargin
+//   padding-top: 75px
+//   position: relative
+
+// .fullHeight
+//   min-height: calc(100vh - 125px)
+//   position: relative
+// // ========== Images ========== //
+
+// img
+//   width: 100%
+
+// // ========== App Layout Styles ========== //
+// .app-container
+//   background: rgb(239, 243, 245)
+//   position: relative
+
+// footer
+//   padding: 10px 50px
+//   position: relative
+//   bottom: 0
+//   left: 0
+//   right: 0
+//   width: 100%
+
+//   &.footer--grey
+//     background: #fff
+//     padding: 25px 50px
+//     p
+//       color: #353639
+//       opacity: 0.7
+
+// footer > p
+//   font-size: 12px 
+//   font-weight: 500
+//   text-transform: uppercase
+//   letter-spacing: 1px
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
-import { AuthRoutes, NonAuthRoutes } from '../routes'
+import { Routes } from '../routes'
 
 import Sidebar from '../components/General/Sidebar'
 
@@ -16,26 +16,37 @@ import { DashboardFooter } from '../components/General/DashboardFooter'
 const App = ({ currentUser }) => {
   return (
     <Router>
-      {currentUser === null || window.location.pathname === '/signup'
-        ?
-          <div className="fullHeight">
-            <AuthRoutes />
-          </div>
-        :
-          <div className="app-container">
-            <Alert />
-            <Modal />
-            <UserProfileModal />
-            <Navbar />
-            <div className="app-container-main-body">
-              <AuthRoutes />
-            </div>
-            <DashboardFooter />
-          </div>
-      }
+      <RenderRoute
+        currentUser={currentUser}
+      />
     </Router>
   )
 }
+
+const RenderRoute = ({ currentUser }) => (
+  <React.Fragment>
+    {
+      currentUser &&
+      <div className="app-container">
+        <div className="app-container-sidebar">
+          <Sidebar />
+        </div>
+        <div className="app-container-main">
+          <Alert />
+          <Modal />
+          <UserProfileModal />
+          <div className="app-container-main-body">
+            <Routes />
+          </div>
+        </div>
+      </div>
+    }
+    {
+      !currentUser &&
+      <Routes />
+    }
+  </React.Fragment>
+)
 
 const mapStateToProps = (state) => ({
   currentUser: state.accountState.currentUser,

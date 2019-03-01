@@ -13,15 +13,14 @@ import JobOverview from './containers/JobOverview'
 import Landing from './pages/Landing'
 // import Dashboard from './pages/Dashboard'
 
-export const AuthRoutes = () => {
+export const Routes = () => {
   return (
     <Switch>
-      <Route exact path='/' component={Landing} />
       <Route exact path='/login' component={UserAuth} />
       <Route exact path='/signup' component={UserAuth} />
       <Route exact path='/password-reset' component={UserAuth} />
       {/* <Route exact path='/password-change' component={PasswordChange} /> */}
-      <ProtectedRoute exact path="/dashboard" component={Dashboard} />
+      <ProtectedRoute exact path="/" component={Dashboard} />
       <ProtectedRoute exact path='/jobs' component={JobsPage} />
       <ProtectedRoute exact path='/jobs/:jobID/job-information' component={CreateJobFormStep1} />
       <ProtectedRoute exact path='/jobs/:jobID/assign-users' component={CreateJobFormStep2} />
@@ -34,3 +33,5 @@ export const AuthRoutes = () => {
     </Switch>
   )
 }
+
+// <Route exact path='/' component={Landing} />

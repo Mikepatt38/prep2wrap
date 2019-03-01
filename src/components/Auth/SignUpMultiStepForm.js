@@ -7,7 +7,7 @@ import SettingsIllustration from '../../img/illustration-settings.svg'
 
 export class SignUpMultiStepForm extends Component {
   state = {
-    formStep: 2
+    formStep: 0
   }
 
   nextStep = () => {
@@ -119,7 +119,7 @@ export class SignUpMultiStepForm extends Component {
 const QuickActions = () => (
   <div className="auth-card auth-card-large">
     <div className="auth-card-header">
-      <h3 className="signUpFormTitle">Setp 3/3: Congrats! Get started using your account today.</h3>
+      <h3 className="signUpFormTitle">Step 3/3: Congrats! Get started using your account today.</h3>
       <p className="signUpFormText">Get started using your account today by clicking one of the quick actions or going straight to your user dashboard.</p>  
     </div>
     <div className="auth-card-body">
