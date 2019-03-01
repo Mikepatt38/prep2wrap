@@ -31,6 +31,10 @@ class DashboardNotifications extends Component {
   render() {
     if(this.state.loadingNotifications) return <p>Loading...</p>
     return (
+      <React.Fragment>
+      <div className="section-title">
+        <h3>Notifications:</h3>
+      </div>
       <div className="dashboard-notifications">
         {
           this.state.jobNotifications.map( (notification, key) => {
@@ -49,6 +53,7 @@ class DashboardNotifications extends Component {
           })
         } 
       </div>
+      </React.Fragment>
     )
   }
 }

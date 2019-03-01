@@ -22,7 +22,7 @@ class Dashboard extends Component {
 
         <div className="app-page-section">
           <div className="section-title">
-            <h3>Quick Actions</h3>
+            <h3>Quick Actions:</h3>
           </div>
           <div className="dashboard-cards">
             <div className="dashboard-card">
