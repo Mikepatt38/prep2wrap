@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import Avatar from '../../img/avatar-placeholder-min.png'
+import LinkIcon from '../../img/icon-getting-started.svg'
 
 class JobResultsTable extends Component {
 
@@ -59,9 +61,9 @@ class JobResultsTable extends Component {
   renderHeaders() {
     const headers = ['Name']
     return (
-      headers.map( (header) => {
-        return <div className="table-header-col" key={header}>{header}</div>
-      })
+      <div className="table-list-header table-list-cols-2">
+
+      </div>
     )
   }
 
@@ -76,19 +78,15 @@ class JobResultsTable extends Component {
       const userRowDisabled = this.state.usersAssigned.find( (item) => {
         return item.id === value.id
       })
+      let userAvatar = value.profileInformation.avatarUrl 
+        ? <img src={value.profileInformation.avatarUrl} alt="Profile Avatar" />
+        : <img src={Avatar} alt="Profile Avatar Placeholder" />
       cells.push(
         <React.Fragment key={key}>
-          <div className="table-row-cell">{value.firstName + ' ' + value.lastName}</div>  
-          <div className="table-row-cell cell-centered">
-            <button
-              disabled={userRowDisabled === undefined ? false : true}
-              onClick={() => {this.props.setUserModal(true, value)}}>View Profile
-            </button>
-          </div>
-          <div className="table-row-cell cell-centered">
-
-          </div>
-          <div className="table-row-cell cell-right">
+          <div className="list-row-cell">{userAvatar} {value.firstName + ' ' + value.lastName}</div> 
+          <div className="list-row-cell">Favorited by {value.numberOfTimesFavorite} Users</div>
+          <div className="list-row-cell"> <span className="list-row-link" onClick={() => {this.props.setUserModal(true, value)}}>View Profile<img src={LinkIcon} alt="Table Link Icon" /></span> </div> 
+          <div className="list-row-cell cell-right">
             <select
               onChange={(e) => { this.handleSelectPosition(value, key, e)} }
               disabled={userRowDisabled === undefined ? false : true}
@@ -111,13 +109,13 @@ class JobResultsTable extends Component {
         </React.Fragment>
       )
       rows.push(
-        <div className={userRowDisabled === undefined ? 'table-row table-row--jobResults' : 'table-row table-row--jobResults assigned'} key={key}>
+        <div className={userRowDisabled === undefined ? 'list-row list-cols-2' : 'list-row list-row-cols-2 assigned'} key={key}>
           {cells}
         </div>
       )
       cells = []
     })
-    return <div className="table-body">{rows}</div>
+    return <div className="list-rows">{rows}</div>
   } 
 
   renderAssignedUsers = () => {
@@ -211,20 +209,14 @@ class JobResultsTable extends Component {
     return (
       <div className="table-filter">
         <div className="table-filter-cell">
-          <p>Filter Results by:</p>
-        </div>
-        <div className="table-filter-cell">
-          <form className="table-filter-searchByName">
+          <form className="table-filter-search">
             <input 
               type="text"
               value={this.state.searchByNameTerm}
               onChange={this.handleSearchTermChange}
+              placeholder="Search User By Name"
+              className="table-search"
             />
-            <button 
-              className="button-inline"
-              onClick={(e) => this.filterTableByName(e)}>
-              Search
-            </button>
           </form>
         </div>
         <div className="table-filter-cell">
@@ -248,16 +240,17 @@ class JobResultsTable extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div className="app-page-section">
         {this.renderAssignedUsers()}
         {this.tableFilter()}
-        <div className="table">
-          <div className="table-header table-header-users">
-            {this.renderHeaders()}
-          </div>
-            {this.renderRows()}
+        <div className="section-title">
+          <h3>Search Results:</h3>
+          <hr />
         </div>
-      </React.Fragment>
+        <div className="list-rows">
+          {this.renderRows()}
+        </div>
+      </div>
     )
   }
 }

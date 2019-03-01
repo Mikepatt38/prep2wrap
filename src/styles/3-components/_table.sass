@@ -88,40 +88,99 @@
         img
           max-height: 14px
 
-  
-// ========== Assigned Users List ========== //
-
-.assignedUsers
-  position: relative
-  margin-bottom: 25px
-
-  h4
-    font-size: 18px
-    font-weight: bold
-    margin: 0
-    margin-bottom: 10px
-
-  ul.assignedUsers-list
-    position: relative
-    padding: 0
-    margin: 0
-    list-style: none
-
-    li
-      display: block
-      margin-bottom: 5px
-
-// ========== Table Filter Container ========== //
+/* ================
+  Styles for Table amd List components
+  =============== */
 
 .table-filter
   display: grid
-  grid-template-columns: repeat( auto-fill, minmax(150px, 1fr) )
+  grid-template-columns: repeat( auto-fill, minmax(250px, 1fr) )
   grid-column-gap: 10px
+  margin-bottom: 25px
 
   .table-filter-cell
     display: grid
+
+  .table-filter-cell > form.table-filter-search > input, .table-filter-cell select
+    font-size: 16px
+    line-height: 1.2
+    font-weight: 400
+    color: #16374b
+    position: relative
+    outline: 0
+    border-radius: 0
+    border-radius: 2px
+    border: 1px solid #c9ced1
+    box-shadow: none
+    width: 100%
+    box-sizing: border-box
+    background: white
+    padding: 0
+    text-indent: 12px
+    height: 40px
+    margin: 0 
+
 
 .button-inline
   display: inline-block
   background: $color__mainBlue
   color: #fff
+
+.list-rows
+  position: relative
+
+  .list-row
+    position: relative
+    padding: 16px 30px
+    border-bottom: 1px solid rgba(180,188,199,.32)
+    width: 100%
+    display: grid
+    grid-template-columns: 1fr 1fr 1fr 1fr
+
+    .list-row-cell      
+      display: flex
+      font-size: 16px
+      color: #444444
+      align-items: center
+
+      select
+        font-size: 14px
+        line-height: 1.2
+        font-weight: 400
+        color: #16374b
+        position: relative
+        outline: 0
+        border-radius: 0
+        border-radius: 2px
+        border: 1px solid #c9ced1
+        box-shadow: none
+        width: 100%
+        box-sizing: border-box
+        background: white
+        padding: 0
+        text-indent: 12px
+        margin: 0   
+        height: 32px 
+
+        &[disabled]
+          opacity: 0.6   
+
+      img
+        width: 40px
+        height: 40px
+        border-radius: 50%
+        margin-right: 10px
+
+      span.list-row-link
+        color: $color__mainBlue
+        font-size: 14px
+        letter-spacing: 0.50px
+        text-transform: uppercase
+        font-weight: 500
+        display: flex
+        align-items: center
+        cursor: pointer
+
+        img
+          max-height: 14px
+          margin-top: -1px
