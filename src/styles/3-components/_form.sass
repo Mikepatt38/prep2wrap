@@ -2,91 +2,6 @@
   Styles for Forms
   ================== */
 
-// form
-//   display: flex
-//   justify-content: flex-start
-//   flex-direction: column
-//   flex-wrap: wrap
-
-//   legend
-//     margin: 45px auto 10px
-//     max-width: 460px
-//     font-weight: 600
-//     font-size: 24px
-//     line-height: 32px
-//     letter-spacing: 0
-//     color: #24374e
-
-//   .form-group
-//     width: 100%
-//     display: flex
-//     flex-direction: column
-//     margin-bottom: 20px
-
-//     label
-//       color: #676767
-//       font-size: 12px
-//       padding: 0 0 2px 0
-//       display: block
-//       font-weight: 600
-//       text-transform: uppercase
-//       letter-spacing: 1px
-
-//     input, .css-1aya2g8, .css-2o5izw
-//       font-size: 14px
-//       font-weight: 400
-//       border: 1px solid #d6e0f1
-//       border-radius: 2px
-//       box-shadow: inset 0 1px 1px rgba(0,0,0,.075)
-//       padding: 0 
-//       color: #4c5669
-//       background: white
-//       font-family: $font__main
-//       height: 50px
-//       text-indent: 10px
-//       margin-bottom: 10px
-//       width: 100%
-//       transition: opacity 0.4s ease-in-out
-
-//       &:focus, &:active, &:focus-within, .css-2o5izw, .css-bl6clz
-//         outline: none
-//         border: 1px solid $color__blue
-
-//       &:disabled
-//         opacity: 0.5
-//         transition: opacity 0.4s ease-in-out
-
-/* ===============
-  User Search Form Unique Styles
-  ================== */
-
-// form.user-search-form
-//   display: flex
-//   justify-content: flex-start
-//   flex-direction: row
-//   flex-wrap: wrap 
-//   align-content: center
-//   min-width: 300px
-//   width: 100%
-
-//   .form-group
-//     display: flex
-//     flex-direction: column
-//     margin-bottom: 0
-//     margin-right: 1%
-
-//     input
-//       margin-bottom: 0
-
-//   button
-//     height: 50px
-//     margin-top: 0
-//     min-width: 175px
-//     max-width: 200px
-
-// .css-1aya2g8, .css-2o5izw
-//   height: auto
-
 /* ===============
   Form Select Input Styles
   ================== */
@@ -277,18 +192,7 @@ form .form-group .css-1aya2g8, form .form-group .css-2o5izw
   Card Form Styles
   ================== */
 
-form.card-form-general, form.card-form-userName, form.card-form-email, form.card-form-profile
-  &.card-form-inline
-    display: grid
-    grid-template-columns: 1fr 1fr 105px
-    grid-column-gap: 20px
-
-    label
-      text-align: left
-
-    button.button-form
-      margin-top: 18px
-
+form.card-form
   .form-group
     width: 100%
     margin: 0
@@ -298,7 +202,6 @@ form.card-form-general, form.card-form-userName, form.card-form-email, form.card
       width: 48.5%
 
     label
-      color: $color__text
       margin-bottom: 2px
 
     input
@@ -322,7 +225,17 @@ form.card-form-general, form.card-form-userName, form.card-form-email, form.card
     text-transform: uppercase
     margin: 0
     padding: 0 20px
-    font-family: 'Gotham'
+
+  &.card-form-grid
+    display: grid
+    grid-template-columns: 150px 1fr
+    grid-column-gap: 15px
+
+    .card-form-column
+      display: flex
+      flex-direction: row
+      justify-content: space-between
+      flex-wrap: wrap
 
 
 /* ===============
@@ -336,13 +249,13 @@ form.card-form-general, form.card-form-userName, form.card-form-email, form.card
 
 .card-form-avatar > label
   text-transform: uppercase
-  color: $color__text
   font-weight: 700
   font-size: 11px
   margin-bottom: 2px
   display: block
   white-space: nowrap
   letter-spacing: 1.25px
+  color: #14374c
 
 input[type="file"] 
   opacity: 0

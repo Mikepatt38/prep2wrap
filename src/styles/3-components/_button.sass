@@ -3,104 +3,28 @@
   ================== */
 
 button, a.button
-  padding: 10px
   color: #ffffff
-  font-weight: 600
+  font-weight: bold
   font-size: 14px
+  height: 50px
+  line-height: 40px
+  letter-spacing: 0.750px
+  text-transform: uppercase
+  margin: 0
+  padding: 0 20px
   border-radius: 2px
   border: none
   box-shadow: 0 3px 6px rgba(36, 129, 215, 0.05)
   position: relative
   cursor: pointer
-  font-family: 'Montserrat', sans-serif
-  line-height: 1.5
+  font-family: $font__main
   text-align: center
   vertical-align: center
   white-space: nowrap
   text-decoration: none
   transition: all 0.8s ease
 
-  &.button-table
-    min-width: 150px
-    box-shadow: none
-    height: 30px
-    line-height: auto
-    padding: 0 10px
-
-  &.button-table-primary
-    background-color: white
-    border: 1px solid $color__blue
-    color: $color__blue
-
-  &.button-table-danger
-    background-color: white
-    border: 1px solid #ED4F32
-    color: #ED4F32
-
   &.button-primary
-    background-color: $color__blue
-    border: 1px solid $color__blue
-
-  &.button-danger
-    background-color: #ED4F32
-    border: 1px solid #ED4F32
-
-  &.button-success
-    background-color: $color__green
-    border: 1px solid $color__green
+    background: $color__mainBlue
+    border: 1px solid $color__mainBlue
     color: #fff
-    display: flex
-    flex-direction: row
-    justify-content: center
-    align-items: center
-
-    img
-      height: 90%
-      width: 30px
-
-  &.button-short
-    max-width: 150px
-    min-width: 150px
-    margin-top: 20px
-    margin-left: 20px
-    max-height: 40px
-
-  &.button-disabled
-    cursor: not-allowed
-
-  &.button-hidden
-    display: none
-
-  &.button-inline
-    height: 40px
-    background-color: $color__blue
-    border: 1px solid $color__blue
-    position: relative
-    max-width: 200px
-    min-width: 150px
-
-  &.button-card
-    height: 40px
-    position: relative
-    max-width: 200px
-    min-width: 150px   
-
-  &.button-form
-    border: 0
-    color: $color__mainBlue 
-    background-color: rgba(61, 119, 234, 0.2)
-    display: inline-block
-    width: auto
-    cursor: pointer
-    transition: background 250ms 0s ease
-    position: relative
-    overflow: hidden
-    text-transform: uppercase
-    font-family: 'Gotham'
-    line-height: 40px
-    letter-spacing: 0.50px
-    text-transform: uppercase
-    margin: 0
-    padding: 0 20px
-    font-family: 'Gotham'
-    position: relative

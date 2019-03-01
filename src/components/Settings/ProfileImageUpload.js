@@ -25,20 +25,22 @@ class ProfileImageUpload extends Component {
   render() {
     const { profileInformation } = this.props.currentUser
     return (
-      <div className="card-form-avatar">
-        <label>Profile Avatar:</label>
-        <div className="profile-image-upload">
-          <input type="file" name="profileImage" id="profileImage" onChange={this.handleFileChange}  />
-          <label htmlFor="profileImage" id="profileImage">        
-            {
-              profileInformation.avatarUrl 
-              ? <img src={profileInformation.avatarUrl} alt="Profile Avatar" />
-              : <img src={Avatar} alt="Profile Avatar Placeholder" />
-            }
-          </label>
-          <p>{this.state.fileName}</p>
-        </div>
-      </div>     
+      <div className="card-form-column">
+        <div className="card-form-avatar">
+          <label>Profile Avatar:</label>
+          <div className="profile-image-upload">
+            <input type="file" name="profileImage" id="profileImage" onChange={this.handleFileChange}  />
+            <label htmlFor="profileImage" id="profileImage">        
+              {
+                profileInformation.avatarUrl 
+                ? <img src={profileInformation.avatarUrl} alt="Profile Avatar" />
+                : <img src={Avatar} alt="Profile Avatar Placeholder" />
+              }
+            </label>
+            <p>{this.state.fileName}</p>
+          </div>
+        </div>  
+      </div>   
     )
   }
 }

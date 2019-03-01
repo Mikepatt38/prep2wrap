@@ -1,139 +1,161 @@
 /* ================
   Styles for Card component
   =============== */
-.card-title
-  max-width: 1060px
-  margin: 0 auto 10px
-
-.card-title > h3
-  color: rgb(61, 85, 107)
-  font-size: 21px
-  text-transform: uppercase
-  letter-spacing: 1px
-  font-weight: bold
-  line-height: 1.125
-  margin-bottom: 0
-
-.card-title > p
-  font-size: 18px
-  max-width: 750px
-  line-height: 1.5
 
 .card
-  padding: 0
+  position: relative
+  padding: 30px
   background: white
-  position: relative
-  background: #ffffff
   border: 1px solid #E6E8EB
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,.075)
+  max-width: 1250px
   border-radius: 3px
-  max-width: 1060px
-  margin: 0 auto 50px
+  margin-bottom: 50px
+  transition: all 0.2s ease-in-out
 
-  .card-header
-    padding: 18px 30px 15px
-    border-bottom: 1px solid #E6E8EB
+  &:hover
+    transition: all 0.2s ease-in-out
+    transform: translateY(-3px)
+    box-shadow: 0 8px 12px 0 rgba(0,0,0,.075)
 
-  .card-header > h3
-    text-transform: uppercase
-    font-size: 18px
-    font-weight: 500
-    padding: 0
-    color: #444
-    letter-spacing: 0.50px
-    margin: 0
+  &.no-hover:hover
+    transform: none
+    transition: none
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,.075)
 
-  .card-header > button
-    margin-top: 20px
+// .card-title
+//   max-width: 1060px
+//   margin: 0 auto 10px
 
-  .card-body
-    position: relative
-    padding: 50px 30px
+// .card-title > h3
+//   color: rgb(61, 85, 107)
+//   font-size: 21px
+//   text-transform: uppercase
+//   letter-spacing: 1px
+//   font-weight: bold
+//   line-height: 1.125
+//   margin-bottom: 0
 
-    hr.card-lineBreak
-      margin: 45px 0
-      border-top: 1px solid #d6e0f1
+// .card-title > p
+//   font-size: 18px
+//   max-width: 750px
+//   line-height: 1.5
 
-    .card-content
-      position: relative
-      &.centered
-        text-align: center
-      img
-        max-height: 250px
-      p
-        font-size: 18px
-        margin: 0 auto 10px
-        max-width: 500px
-      button
-        margin: 0 auto
-        text-align: center
+// .card
+//   padding: 0
+//   background: white
+//   position: relative
+//   background: #ffffff
+//   border: 1px solid #E6E8EB
+//   border-radius: 3px
+//   max-width: 1060px
+//   margin: 0 auto 50px
 
-    .card-item
-      position: relative
-      display: flex
-      justify-content: space-between
-      flex-wrap: wrap
-      align-items: center
-      padding: 0
-      margin: 0
+//   .card-header
+//     padding: 18px 30px 15px
+//     border-bottom: 1px solid #E6E8EB
 
-      &.centered
-        text-align: center
+//   .card-header > h3
+//     text-transform: uppercase
+//     font-size: 18px
+//     font-weight: 500
+//     padding: 0
+//     color: #444
+//     letter-spacing: 0.50px
+//     margin: 0
 
-      h6
-        color: #444
-        font-size: 12px
-        padding: 0 0 2px 0
-        display: block
-        font-weight: 600
-        text-transform: uppercase
-        letter-spacing: 1px
-        margin: 0 0 5px 0
+//   .card-header > button
+//     margin-top: 20px
 
-      &.closed
-        display: none
-        visibility: hidden
-        opacity: 0
+//   .card-body
+//     position: relative
+//     padding: 50px 30px
 
-      span
-        justify-self: flex-end
-        color: $color__blue
-        cursor: pointer
+//     hr.card-lineBreak
+//       margin: 45px 0
+//       border-top: 1px solid #d6e0f1
 
-      .card-item-info
-        justify-items: flex-start
-        position: relative
+//     .card-content
+//       position: relative
+//       &.centered
+//         text-align: center
+//       img
+//         max-height: 250px
+//       p
+//         font-size: 18px
+//         margin: 0 auto 10px
+//         max-width: 500px
+//       button
+//         margin: 0 auto
+//         text-align: center
 
-        label
-          color: #444
-          font-size: 12px
-          padding: 0 0 2px 0
-          display: block
-          font-weight: 600
-          text-transform: uppercase
-          letter-spacing: 1px
+//     .card-item
+//       position: relative
+//       display: flex
+//       justify-content: space-between
+//       flex-wrap: wrap
+//       align-items: center
+//       padding: 0
+//       margin: 0
 
-        p
-          font-size: 16px
-          line-height: 1.5
-          color: #676767
-          margin: 0 0 5px 0
-          display: inline-block
+//       &.centered
+//         text-align: center
 
-        input
-          display: block
-          margin-top: 5px
+//       h6
+//         color: #444
+//         font-size: 12px
+//         padding: 0 0 2px 0
+//         display: block
+//         font-weight: 600
+//         text-transform: uppercase
+//         letter-spacing: 1px
+//         margin: 0 0 5px 0
 
-        img
-          position: relative
-          height: 100px
-          width: 100px
+//       &.closed
+//         display: none
+//         visibility: hidden
+//         opacity: 0
 
-        &.card-item-info--large
-          p
-            margin-bottom: 10px
+//       span
+//         justify-self: flex-end
+//         color: $color__blue
+//         cursor: pointer
+
+//       .card-item-info
+//         justify-items: flex-start
+//         position: relative
+
+//         label
+//           color: #444
+//           font-size: 12px
+//           padding: 0 0 2px 0
+//           display: block
+//           font-weight: 600
+//           text-transform: uppercase
+//           letter-spacing: 1px
+
+//         p
+//           font-size: 16px
+//           line-height: 1.5
+//           color: #676767
+//           margin: 0 0 5px 0
+//           display: inline-block
+
+//         input
+//           display: block
+//           margin-top: 5px
+
+//         img
+//           position: relative
+//           height: 100px
+//           width: 100px
+
+//         &.card-item-info--large
+//           p
+//             margin-bottom: 10px
 
 
-.card-footer
-  position: relative
-  padding: 0 30px 30px 30px
-  border-top: 1px solid #E6E8EB
+// .card-footer
+//   position: relative
+//   padding: 0 30px 30px 30px
+//   border-top: 1px solid #E6E8EB

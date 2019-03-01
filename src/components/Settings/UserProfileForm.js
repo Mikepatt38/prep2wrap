@@ -53,7 +53,7 @@ class UserProfileForm extends Component {
   render() {
     const { jobTypes, location, skills, positions, fbLink, imdbLink, availability, bilingual, travel, union } = this.state
     return (
-      <form className="card-form-profile">
+      <form className="card-form">
         <FormSelectInput
           label="Job Types"
           name="jobTypes"
@@ -62,6 +62,7 @@ class UserProfileForm extends Component {
           placeholder="Select Job types that you're qualified to work"
           isMultiSelect={true}
           onSelect={this.handleSelect}
+          className="form-group--half"
         />
         <FormSelectInput
           label="Location"

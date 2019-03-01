@@ -4,13 +4,16 @@ import UserProfileForm from '../components/Settings/UserProfileForm'
 import UserInfoForm from '../components/Settings/UserInfoForm'
 
 const AccountSettings = ({ currentUser, setUserProfile, setName, setEmail, setMobileNumber, uploadProfileImage }) => (
-  <div className="container containerMargin">
-    <div className="card">
-      <div className="card-header">
-        <h3>Basic Details</h3>
-        <p>Your basic account information, you can update this information at any time to keep your account up to date.</p>    
-      </div>
-      <div className="card-body">
+  <div className="app-page">
+    <div className="app-page-title">
+      <h1>Account Settings</h1>
+    </div>
+
+    <div className="app-page-section">
+      <div className="section-title">
+        <h3>Basic Account Information:</h3>
+      </div>  
+      <div className="card no-hover">
         <UserInfoForm
           currentUser={currentUser}
           setName={setName}
@@ -21,12 +24,11 @@ const AccountSettings = ({ currentUser, setUserProfile, setName, setEmail, setMo
       </div>
     </div>
 
-    <div className="card">
-      <div className="card-header">
-        <h3>Profile Settings</h3>
-        <p>Update your profile settings at any time to keep your profile up to date for potential connections.</p>
+    <div className="app-page-section">
+      <div className="section-title">
+        <h3>User Profile Information:</h3>
       </div>
-      <div className="card-body">
+      <div className="card no-hover">
         <UserProfileForm 
           setUserProfile={setUserProfile} 
           currentUser={currentUser} 
@@ -34,6 +36,7 @@ const AccountSettings = ({ currentUser, setUserProfile, setName, setEmail, setMo
         />
       </div>
     </div>
+
   </div>
 )
 
