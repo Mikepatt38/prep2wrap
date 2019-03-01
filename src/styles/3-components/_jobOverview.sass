@@ -2,18 +2,25 @@
   Styles for job overview components
   ================== */
 
-.card-body .job-item
-  position: relative
-  display: block
-  margin: 0 0 15px 0
+.card > .card-body.card-body-flex
+  display: grid
+  grid-template-columns: repeat( auto-fit, minmax(200px, 1fr) )
 
-  h4
-    font-size: 18px
-    font-weight: bold
-    margin: 0 
+  .card-item
     position: relative
+    margin-bottom: 20px
+    width: 100%
 
-  p
-    font-size: 16px
-    font-weight: 400
-    margin: 0 0 5px 0
+    
+    h4
+      text-transform: uppercase
+      color: #14374c
+      font-weight: bold
+      font-size: 12px
+      margin-bottom: 4px
+      display: block
+      white-space: nowrap
+      letter-spacing: 1.25px
+
+    p
+      font-size: 16px

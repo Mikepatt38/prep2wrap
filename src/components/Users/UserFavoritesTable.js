@@ -43,7 +43,7 @@ class UserFavoritesTable extends Component {
   renderEmptyTable() {
     return (
       <React.Fragment>
-        <p>You haven't favorited any users.</p>
+        <p>You currently don't have any favorites.</p>
         <p>Search for users to add them to your favorites so you can hire, find and connect with them easier.</p>
       </React.Fragment>
     )

@@ -12,19 +12,23 @@ class Jobs extends Component {
 
   render() {
     return (
-      <div className="container">
-        <Link to={{
-          pathname: `/jobs/${this.state.jobID}/job-information`,
-          query: `${this.state.jobID}`
-        }}>Create a job</Link> 
+      <div className="app-page">
+        <div className="app-page-title">
+          <h1>Jobs</h1>
+          <Link className="button button-primary" to={{
+            pathname: `/jobs/${this.state.jobID}/job-information`,
+            query: `${this.state.jobID}`
+          }}>Create New Job</Link> 
+        </div>
 
-        <div className="container">
-          <div className="jobs-list">
-            <JobsList
-              getUserJobs={this.props.getUserJobs}
-              currentUser={this.props.currentUser}
-            />
+        <div className="app-page-section">
+          <div className="section-title">
+            <h3>Jobs List:</h3>
           </div>
+          <JobsList
+            getUserJobs={this.props.getUserJobs}
+            currentUser={this.props.currentUser}
+          />
         </div>
       </div> 
 

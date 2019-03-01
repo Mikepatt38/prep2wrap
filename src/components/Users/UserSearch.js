@@ -29,19 +29,24 @@ export class UserSearch extends Component {
 
   renderSearchForm = (active) => {
     if(active) return (
-      <UserSearchForm 
-        searchUsersByName={this.props.searchUsersByName}
-      />
+      <React.Fragment>
+        <div className="section-title">
+          <h3>Search Users:</h3>
+        </div>
+        <div className="card no-hover">
+          <UserSearchForm 
+            searchUsersByName={this.props.searchUsersByName}
+            toggleUserSearchForm={this.toggleUserSearchForm}
+          />
+        </div>
+      </React.Fragment>
     )
     else {
       return (
-        <React.Fragment>
-          <p className="centered">Search users by their first or last name to contact them, add them to your favorites, or check their profile.</p>
-          <button
-            className="button-form"
-            onClick={() => this.setState({ userSearchFormActive: true })}
-          >Search Users</button>
-        </React.Fragment>
+        <button
+          className="button-primary"
+          onClick={() => this.setState({ userSearchFormActive: true })}
+        >Search Users</button>
       )
     }
   }
@@ -50,13 +55,13 @@ export class UserSearch extends Component {
     const { userData, userDataFilled, loading, userSearchFormActive  } = this.state
 
     return (
-      <div className="card-content centered">
+      <div className="app-page-section">
         { this.renderSearchForm(userSearchFormActive) }
-        { loading && <p className="card-item">Loading...</p> }
+        { loading && <p>Loading...</p> }
         {
           !loading && userDataFilled &&
           <UserSearchTable 
-            headers={['Users Name', "Location", "Available Today"]}
+            headers={['', 'Name', 'Location', 'Times Favorited', '']}
             value={userData}
             setUserModal={this.props.setUserModal}
           />

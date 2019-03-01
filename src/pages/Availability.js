@@ -50,17 +50,31 @@ class Availability extends Component {
   render() {
     const { userDates, currentUser } = this.props
     return (
-      <div className="container containerMargin">
-        <button className="button-primary" onClick={(e) => this.updateAvailability(e)}>Update Availability</button>
-        <Calendar 
-          dates={userDates} 
-          setSelectedDate={this.setSelectedDate} 
-          onSelectedDate={this.onSelectedDate} 
-        />
-        <UserAvailabilityList
-          dates={userDates}
-          currentUser={currentUser}
-        />
+      <div className="app-page">
+        <div className="app-page-title">
+          <h1>User Availability</h1>
+          <button className="button-primary" onClick={(e) => this.updateAvailability(e)}>Update Availability</button>
+        </div>
+        <div className="app-page-section">
+          <div className="section-title">
+            <h3>Calendar View:</h3>
+          </div>
+          <Calendar 
+            dates={userDates} 
+            setSelectedDate={this.setSelectedDate} 
+            onSelectedDate={this.onSelectedDate} 
+          />
+        </div>
+
+        <div className="app-page-section">
+          <div className="section-title">
+            <h3>List View:</h3>
+          </div>
+          <UserAvailabilityList
+            dates={userDates}
+            currentUser={currentUser}
+          />
+        </div>
       </div>
     )
   }

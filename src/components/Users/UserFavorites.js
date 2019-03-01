@@ -9,7 +9,7 @@ class UserFavorites extends Component {
 
   render() {
     return (
-      <div className="card-content centered">
+      <div className="card no-hover">
         <UserFavoritesTable
           currentUser={this.props.currentUser}
           favorites={this.props.favorites}

@@ -123,11 +123,11 @@ class JobResultsTable extends Component {
   renderAssignedUsers = () => {
     return (
       <div className="assignedUsers">
-        <h4>Assigned Users and Positions</h4>
+        <h4>Positions Assigned:</h4>
         <ul className="assignedUsers-list">
           {
             this.state.usersAssigned.map( (user, key) => {
-              return <li onClick={() => this.removeAssignedUser(user)} key={key}>{user.name} assigned as {user.position}</li>
+              return <li onClick={() => this.removeAssignedUser(user)} key={key}><p><span>{user.position}:</span> {user.name}</p></li>
             })
           }
         </ul>

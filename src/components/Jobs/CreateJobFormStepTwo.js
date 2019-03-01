@@ -52,41 +52,44 @@ class CreateJobFormStepTwo extends Component {
       /> 
     }
     return (  
-      <div className="card">
-        <div className="card-header">
-          <h3>Assign Positions to Potential Users</h3>
-          <p>Fill out the job details to find the best users for the job.</p>
+      <div className="app-page">
+        <div className="app-page-title">
+          <h1>Job Overview / Assign Positions</h1>
         </div>
-        <div className="card-body">
-          {
-            this.state.loading &&
-            <p>Loading...</p>
-          }
-          {
-            this.state.noUsersReturned &&
-              <p><b>Oh NO!</b> No users matched your search criteria. Try going back and trying new parameters!</p>  
-          }
-          {
-            this.state.resultsSuccessfullyLoaded &&
-            <JobResultsTable
-              results={this.state.usersMatchedResults}
-              setUserModal={this.props.setUserModal}
-              userModalActive={this.props.userModalActive}
-              positions={this.props.currentJob.jobObj.jobPositions}
-              assignPosition={this.assignPosition}
-              jobID={this.props.match.params.jobID}
-              jobName={this.props.currentJob.jobObj.jobName}
-              jobCreatorID={this.props.currentJob.jobObj.jobCreatorID}
-            />
-          }
-        </div>
-        <div className="card-footer">
-          <FormButton
-            className="button-form"
-            buttonText="Next Step"
-            onClick={this.saveAndContinue}
-            disabled={this.state.pageError}
-          />
+        <div className="app-page-section">
+          <div className="card no-hover">
+            <div className="card-body">
+              {
+                this.state.loading &&
+                <p>Loading...</p>
+              }
+              {
+                this.state.noUsersReturned &&
+                  <p><b>Oh NO!</b> No users matched your search criteria. Try going back and trying new parameters!</p>  
+              }
+              {
+                this.state.resultsSuccessfullyLoaded &&
+                <JobResultsTable
+                  results={this.state.usersMatchedResults}
+                  setUserModal={this.props.setUserModal}
+                  userModalActive={this.props.userModalActive}
+                  positions={this.props.currentJob.jobObj.jobPositions}
+                  assignPosition={this.assignPosition}
+                  jobID={this.props.match.params.jobID}
+                  jobName={this.props.currentJob.jobObj.jobName}
+                  jobCreatorID={this.props.currentJob.jobObj.jobCreatorID}
+                />
+              }
+            </div>
+            <div className="card-footer">
+              <FormButton
+                className="button-primary"
+                buttonText="Next Step"
+                onClick={this.saveAndContinue}
+                disabled={this.state.pageError}
+              />
+            </div>
+          </div>
         </div>
       </div>
     )

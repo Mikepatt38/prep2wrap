@@ -125,52 +125,48 @@ class JobOverviewTable extends Component {
     const isCurrentUserJobCreator = this.testIfCurrentUserIsCreator(this.props.currentUser.id)
     return (
       <div className="card">
-        <div className="card-header">
-        <h3>Job Overview: {jobOverviewData.jobName}</h3>
-        <p>This is the job overview page for the selected job. Anyone can view this job, the job creator can edit or delete.</p>  
-        </div>
-        <div className="card-body">
-        <div className="job-item">
-          <h4>Job Creator:</h4>
-          <p>{jobOverviewData.jobCreator}</p>
-        </div>
-        <div className="job-item">
-          <h4>Job Location:</h4>
-          <p>{jobOverviewData.jobLocation.value}</p>
-        </div>
-        <div className="job-item">
-          <h4>Job Dates:</h4>
-          { jobOverviewData.dateSelectorRangeActive 
-            ?
-              <p>{jobOverviewData.jobDates[0]} - {jobOverviewData.jobDates[1]}</p>
-            :
-              jobOverviewData.jobDates.map( (date, key) => { return <p key={key}>{date}</p>})
-          }
-        </div>
-        <div className="job-item">
-          <h4>Job Description:</h4>
-          <p>{jobOverviewData.jobDesc}</p>
-        </div>
-        <div className="job-item">
-          <h4>Union Required:</h4>
-          <p>{jobOverviewData.unionMember ? 'Yes' : 'No'}</p>
-        </div>
-        <div className="job-item">
-          <h4>Positions:</h4>
-          {jobOverviewData.jobPositions.map( (position, key) => { return <p key={key}>{position}</p>})}
-        </div>
-        <div className="job-item">
-          <h4>Preferred Contact:</h4>
-          <p>{jobOverviewData.jobContact}</p>
-        </div>
-        <div className="job-item">
-          <h4>Assigned Positions:</h4>
-          {
-            jobOverviewData.usersAssigned.map( (user, key) => {
-              return <p key={key}>{user.position}: {user.name} with a status of {user.status}</p>
-            })
-          }
-        </div>
+        <div className="card-body card-body-flex">
+          <div className="card-item">
+            <h4>Job Creator:</h4>
+            <p>{jobOverviewData.jobCreator}</p>
+          </div>
+          <div className="card-item">
+            <h4>Job Location:</h4>
+            <p>{jobOverviewData.jobLocation.value}</p>
+          </div>
+          <div className="card-item card-item--full">
+            <h4>Job Dates:</h4>
+            { jobOverviewData.dateSelectorRangeActive 
+              ?
+                <p>{jobOverviewData.jobDates[0]} - {jobOverviewData.jobDates[1]}</p>
+              :
+                jobOverviewData.jobDates.map( (date, key) => { return <p key={key}>{date}</p>})
+            }
+          </div>
+          <div className="card-item card-item--full">
+            <h4>Job Description:</h4>
+            <p>{jobOverviewData.jobDesc}</p>
+          </div>
+          <div className="card-item">
+            <h4>Union Required:</h4>
+            <p>{jobOverviewData.unionMember ? 'Yes' : 'No'}</p>
+          </div>
+          <div className="card-item">
+            <h4>Positions:</h4>
+            {jobOverviewData.jobPositions.map( (position, key) => { return <p key={key}>{position}</p>})}
+          </div>
+          <div className="card-item">
+            <h4>Preferred Contact:</h4>
+            <p>{jobOverviewData.jobContact}</p>
+          </div>
+          <div className="card-item">
+            <h4>Assigned Positions:</h4>
+            {
+              jobOverviewData.usersAssigned.map( (user, key) => {
+                return <p key={key}>{user.position}: {user.name} with a status of {user.status}</p>
+              })
+            }
+          </div>
         </div>
         <div className="card-footer">
         {

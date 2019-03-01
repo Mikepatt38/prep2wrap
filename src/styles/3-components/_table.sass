@@ -6,18 +6,24 @@
   position: relative
   display: block
   width: 100%
-  max-width: 1450px
   background: #ffffff
   border-radius: 3px
+  border: 1px solid #E6E8EB
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,.075)
+  max-width: 1250px
 
   .table-header
-    padding: 0.50em 30px
+    padding: 16px 30px
     background: #f0f4f7
     display: grid
     grid-gap: 0
+    border-bottom: 1px solid #e6e6e6
 
-    &.table-header-users
-      grid-template-columns: 1fr 1fr 1fr 100px
+    &.table-rows-5
+      grid-template-columns: 75px 1fr 1fr 1fr 100px
+
+    &.table-rows-4
+      grid-template-columns: 150px 1fr 1fr 1fr 200px
 
     .table-header-col
       font-size: 12px
@@ -31,38 +37,24 @@
       display: grid
 
   .table-row
-    padding: 0.75em 30px
+    padding: 16px 30px
     border-bottom: 1px solid rgba(180,188,199,.32)
     display: grid
     grid-gap: 0
     width: 100%
 
-    &.table-row--users
-      grid-template-columns: 1fr 1fr 1fr 100px
-      border-bottom: 1px solid #f0f4f7
+    &.table-rows-5
+      grid-template-columns: 75px 1fr 1fr 1fr 100px
+      border-bottom: 1px solid #e6e6e6
 
-      &:last-child
-        border: 0
-
-    &.table-row--favorites
-      grid-template-columns: 1fr 150px 150px
-      border-bottom: 1px solid #f0f4f7
-      grid-column-gap: 20px
-
-      &:last-child
-        border: 0
-
-    &.table-row--jobResults
-      grid-template-columns: 1fr 1fr 1fr 1fr
-      border-bottom: 1px solid #f0f4f7
-      grid-column-gap: 20px
-
-      &:last-child
-        border: 0
-
-      &.assigned
-        filter: grayscale(100%)
-        opacity: 0.5
+    &.table-rows-4
+      grid-template-columns: 150px 1fr 1fr 1fr 200px
+      border-bottom: 1px solid #e6e6e6
+      transition: all 0.3s ease-in-out
+      &:hover
+        background: rgba(0, 0, 0, 0.035)
+        transition: all 0.3s ease-in-out
+        cursor: pointer
 
     .table-row-cell
       display: grid
@@ -70,24 +62,33 @@
       color: #444444
       align-items: center
 
-      &.cell-centered
-        text-align: center
+      img
+        width: 50px
+        height: 50px
+        border-radius: 50%
 
-      span, button
-        color: $color__blue
-        font-size: 16px
-        cursor: pointer
-        background: transparent
-        padding: 0
-        border: none
-        outline: none
-        box-shadow: none
-        font-weight: 400
+      span > span.status.active
+        border-radius: 4px
+        padding: 4px 12px
+        background: #dff0d8
+        color: #3c763d 
+        font-size: 14px
+        font-weight: 500
+      
+      span.table-row-link
+        color: $color__mainBlue
+        font-size: 14px
+        letter-spacing: 0.50px
+        text-transform: uppercase
+        font-weight: 500
+        display: flex
+        align-items: center
+        justify-content: flex-end
 
-        &[disabled="true"]
-          cursor: default
+        img
+          max-height: 14px
 
-
+  
 // ========== Assigned Users List ========== //
 
 .assignedUsers

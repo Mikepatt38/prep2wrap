@@ -29,7 +29,7 @@ export class UserSearchForm extends Component {
     return (
       <form
         method="form"
-        className="card-form-general card-form-inline"
+        className="card-form card-form-inline"
       >
         <FormTextInput 
           label="First Name"
@@ -45,11 +45,13 @@ export class UserSearchForm extends Component {
           onChange={this.handleChange}
           value={lastName}
         />
-        <FormButton
-          onClick={(e) => this.handleClick(e)}
-          className="button-form"
-          buttonText="Search"
-        />
+        <div className="button-wrapper">
+          <FormButton
+            onClick={(e) => this.handleClick(e)}
+            className="button-primary"
+            buttonText="Search"
+          />
+        </div>
       </form>
     )
   }
