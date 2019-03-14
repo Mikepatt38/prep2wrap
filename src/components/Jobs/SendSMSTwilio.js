@@ -89,12 +89,17 @@ class SendSMSTwilio extends Component {
       /> 
     }
     return (
-      <div className="card">
-        <div className="card-body">
-          {this.state.loading && <p>One moment, sending job invites...</p>}
-          {!this.state.loading && !this.state.pageError &&
-            <Link to={this.state.jobOverviewLink}>View job overview</Link>
-          }
+      <div className="app-page">
+        <div className="app-page-title">
+          <h1>Your Job Was Created</h1>
+        </div>
+        <div className="card no-hover">
+          <div className="card-body">
+            {this.state.loading && <p>One moment, sending job invites...</p>}
+            {!this.state.loading && !this.state.pageError &&
+              <Link to={this.state.jobOverviewLink}>View job overview</Link>
+            }
+          </div>
         </div>
       </div>
     )

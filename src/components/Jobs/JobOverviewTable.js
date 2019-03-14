@@ -124,7 +124,7 @@ class JobOverviewTable extends Component {
     const hasUserAccepted = this.testIfCurrentUserAccepted(this.props.currentUser.id)
     const isCurrentUserJobCreator = this.testIfCurrentUserIsCreator(this.props.currentUser.id)
     return (
-      <div className="card">
+      <div className="card no-hover">
         <div className="card-body card-body-flex">
           <div className="card-item">
             <h4>Job Creator:</h4>
@@ -172,9 +172,9 @@ class JobOverviewTable extends Component {
         {
           isCurrentUserAssigned && !hasUserAccepted &&
           <div className="card-footer-action">
-            <button className="button-form" onClick={(e) => this.acceptJobInvite(e)}>Accept</button>
+            <button className="button-primary" onClick={(e) => this.acceptJobInvite(e)}>Accept</button>
             &nbsp;
-            <button className="button-form" onClick={(e) => this.denyJobInvite(e)}>Deny</button>
+            <button className="button-danger" onClick={(e) => this.denyJobInvite(e)}>Deny</button>
           </div>
         }
         {
@@ -187,8 +187,7 @@ class JobOverviewTable extends Component {
           isCurrentUserJobCreator && 
           <div className="job-creator-controls">
             <div className="button-wrapper">
-            <button className="button-form" onClick={() => this.editCreatedJob()}>Edit Job</button>
-            <button className="button-form" onClick={(e) => this.deleteCreatedJob(e)}>Delete Job</button>
+            <button className="button-danger" onClick={(e) => this.deleteCreatedJob(e)}>Delete Job</button>
             </div>
           </div>
         }
@@ -197,5 +196,7 @@ class JobOverviewTable extends Component {
     )
   }
 }
+
+// <button className="button-primary" onClick={() => this.editCreatedJob()}>Edit Job</button>
 
 export default JobOverviewTable

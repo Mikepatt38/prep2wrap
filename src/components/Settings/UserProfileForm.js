@@ -147,7 +147,7 @@ class UserProfileForm extends Component {
         <div className="button-wrapper">
           <FormButton
             onClick={(e) => this.handleClick(e)}
-            className="button-form"
+            className="button-primary"
             buttonText="Update Profile"
           />
         </div>

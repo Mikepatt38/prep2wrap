@@ -84,7 +84,7 @@ class UserInfoForm extends Component {
         <div className="button-wrapper">
           <FormButton
             onClick={this.updateBasicInformation}
-            className="button-form"
+            className="button-primary"
             buttonText="Update"
           />
         </div>

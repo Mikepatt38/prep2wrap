@@ -38,7 +38,7 @@ class JobsList extends Component {
         <React.Fragment key={key}>
           <div className="table-row-cell">{job.jobStatus}</div>
           <div className="table-row-cell">{job.jobName}</div>
-          <div className="table-row-cell">{job.jobLocation.value}</div>
+          <div className="table-row-cell">New York City, New York</div>
           <div className="table-row-cell"><span><span className="status active">Active</span></span></div> 
           <div className="table-row-cell"><span className="table-row-link">View <img src={LinkIcon} alt="Table Link Icon" /></span></div>       
         </React.Fragment>

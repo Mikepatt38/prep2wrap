@@ -8,7 +8,7 @@ export const signUserIn = (email, password, history, e) => dispatch => {
   e.preventDefault()
   auth.doSignInWithEmailAndPassword(email, password)
     .then( () => {
-      history.push("/dashboard")
+      history.push("/")
     })
     .catch(error => {
       dispatch({
