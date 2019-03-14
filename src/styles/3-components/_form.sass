@@ -1,67 +1,4 @@
-/* ===============
-  Styles for Forms
-  ================== */
-
-/* ===============
-  Form Select Input Styles
-  ================== */
-
-.css-bl6clz
-  outline: none
-  border: 1px solid $color__blue !important
-
-.css-1rtrksz
-  padding: 0 !important
-  color: #4c5669
-
-.css-1492t68
-  color: #4c5669 !important
-
-.css-xwjg1b
-  background-color: #21d1cc !important
-  color: white
-  margin: 5px !important 
-
-.css-10odw4q
-  color: white !important
-
-/* ===============
-  Form Checkbox Type
-  ================== */
-
-.custom-checkbox > input
-  display: none
-
-label.checkbox
-  position: relative
-  display: block
-  padding: 5px !important
-  border: 2px solid #f1f1f1
-  border-radius: 2px
-  color: #ccc
-  font-size: 14px
-  font-weight: 400
-  max-width: 75px
-  text-align: center
-  cursor: pointer
-  transition: all 0.3s ease-in-out
-
-  &.xlarge
-    max-width: 325px
-    width: 100%
-    height: 50px
-    display: inline-flex
-    justify-content: center
-    align-items: center
-  &.spacing
-    margin-right: 25px
-
-input[type="checkbox"]#proMembership:checked + label.checkbox, input[type="checkbox"]#freeTrial:checked + label.checkbox, input[type="checkbox"]#unionMember:checked + label.checkbox, input[type="checkbox"]#travel:checked + label.checkbox, input[type="checkbox"]#availability:checked + label.checkbox, input[type="checkbox"]#bilingual:checked + label.checkbox, input[type="checkbox"]#union:checked + label.checkbox
-  border: 2px solid $color__blue
-  background: $color__blue
-  color: white
-  transition: all 0.3s ease-in-out
-
+// Forms Styles 
 
 /* ===============
   Profile Image Upload Form
@@ -88,6 +25,14 @@ form
   justify-content: space-between
   flex-wrap: wrap
   flex: 1
+
+  hr.form-break
+    position: relative
+    width: 100%
+    margin: 0
+    border: 0
+    border-top: 1px solid #c9ced1
+    margin: 10px 0 35px
 
   .button-right
     display: flex
@@ -153,6 +98,64 @@ form
       padding-top: 4px
       font-size: 12px
       line-height: 1
+
+  .form-additional, #extra-filters
+    position: relative
+    width: 100%
+
+    span
+      display: flex
+      align-items: center
+      cursor: pointer
+
+      img
+        width: 20px
+        margin: 0 0 4px 5px
+        transition: all 0.4s ease
+
+    &.open span img
+      transform: rotate(180deg)
+      transition: all 0.4s ease
+
+    &.open .form-additional-filters
+      visibility: visible
+      height: 100%
+      opacity: 1
+      transition: all 0.4s ease
+
+    .form-additional-filters
+      visibility: hidden
+      height: 0
+      opacity: 0
+      position: relative
+      padding: 5px 0
+      display: flex
+      flex-wrap: wrap
+      justify-content: space-between
+
+
+/* ===============
+  Custom React Select Form Styles
+  ================== */
+
+.css-bl6clz
+  outline: none
+  border: 1px solid $color__blue !important
+
+.css-1rtrksz
+  padding: 0 !important
+  color: #4c5669
+
+.css-1492t68
+  color: #4c5669 !important
+
+.css-xwjg1b
+  background-color: #21d1cc !important
+  color: white
+  margin: 5px !important 
+
+.css-10odw4q
+  color: white !important
 
 form .form-group input, form .form-group .css-1aya2g8, form .form-group .css-2o5izw
   font-size: 14px
@@ -228,6 +231,9 @@ form.card-form
       justify-content: space-between
       flex-wrap: wrap
 
+/* ===============
+  Table Form Styles
+  ================== */
 
 /* ===============
   Avatar Image Upload Styles
@@ -265,3 +271,39 @@ input[type="file"] + label
     width: auto
     cursor: pointer
 
+/* ===============
+  Form Checkbox Type
+  ================== */
+
+.custom-checkbox > input
+  display: none
+
+label.checkbox
+  position: relative
+  display: block
+  padding: 5px !important
+  border: 2px solid #f1f1f1
+  border-radius: 2px
+  color: #ccc
+  font-size: 14px
+  font-weight: 400
+  max-width: 75px
+  text-align: center
+  cursor: pointer
+  transition: all 0.3s ease-in-out
+
+  &.xlarge
+    max-width: 325px
+    width: 100%
+    height: 50px
+    display: inline-flex
+    justify-content: center
+    align-items: center
+  &.spacing
+    margin-right: 25px
+
+input[type="checkbox"]#proMembership:checked + label.checkbox, input[type="checkbox"]#freeTrial:checked + label.checkbox, input[type="checkbox"]#unionMember:checked + label.checkbox, input[type="checkbox"]#travel:checked + label.checkbox, input[type="checkbox"]#availability:checked + label.checkbox, input[type="checkbox"]#bilingual:checked + label.checkbox, input[type="checkbox"]#union:checked + label.checkbox
+  border: 2px solid $color__blue
+  background: $color__blue
+  color: white
+  transition: all 0.3s ease-in-out

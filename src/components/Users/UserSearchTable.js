@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import UserProfileModal from './UserProfileModal'
 import Avatar from '../../img/avatar-placeholder-min.png'
+import { FormTextInput } from '../Forms/FormTextInput'
+import FormSelectInput from '../Forms/FormSelectInput'
+import { FormButton } from '../Forms/FormButton'
+import DownArrowIcon from '../../img/icon-down-arrow.svg'
+import { locationObj, skillsObj, positionsObj, jobTypesObj } from '../../data/formOptions'
 
 class Table extends Component {
 
@@ -34,7 +39,6 @@ class Table extends Component {
           <div className="table-row-cell">{userAvatar}</div>
           <div className="table-row-cell">{value.firstName + ' ' + value.lastName}</div>
           <div className="table-row-cell">{locations.map( (location) => {return location})}</div>
-          <div className="table-row-cell">{value.numberOfTimesFavorite}</div>  
           <div className="table-row-cell">
             <span onClick={() => {this.props.setUserModal(true, value)}}>View Profile</span>
           </div>       
@@ -52,14 +56,71 @@ class Table extends Component {
 
   render() {
     return (
-      <div className="table">
-        <div className="table-header table-rows-5">
-          {this.renderHeaders()}
-        </div>
-          {this.renderRows()}
-      </div>
+      <UserSearchTableFilter />
+      // <div className="table">
+      //   <div className="table-header table-rows-5">
+      //     {this.renderHeaders()}
+      //   </div>
+      //     {this.renderRows()}
+      // </div>
     )
   }
 }
 
 export default Table
+
+class UserSearchTableFilter extends Component {
+  state = {
+    firstName: '',
+    lastName: '',
+    positions: [],
+    location: [],
+    skills: [],
+    jobTypes: []
+  }
+
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+
+  handleSelect = (name, val) => {
+    const newArr = val
+    let tempArr = []
+    newArr.map( value => {
+      tempArr.push(value.value)
+    })
+    this.setState({
+      [name]: val,
+    })
+  }
+
+  handleClick = (e) => {
+    e.preventDefault()
+    this.props.searchUsersByName(this.state.firstName, this.state.lastName)
+    this.setState({
+      firstName: '',
+      lastName: ''
+    })
+  }
+
+  handleAdditionalFilters = () => {
+    const element = document.getElementById('extra-filters')
+    element.classList.contains('open') ? element.classList.remove('open') : element.classList.add('open')
+
+  }
+
+  render() {
+    const { firstName, lastName, positions, location, skills, jobTypes  } = this.state
+
+    return (
+      <form
+        method="form"
+        className="table-form"
+      >
+        
+      </form>
+    )
+  }
+}

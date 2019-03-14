@@ -27,41 +27,19 @@ export class UserSearch extends Component {
     }, 1000)
   }
 
-  renderSearchForm = (active) => {
-    if(active) return (
-      <React.Fragment>
-        <div className="section-title">
-          <h3>Search Users:</h3>
-        </div>
-        <div className="card no-hover">
-          <UserSearchForm 
-            searchUsersByName={this.props.searchUsersByName}
-            toggleUserSearchForm={this.toggleUserSearchForm}
-          />
-        </div>
-      </React.Fragment>
-    )
-    else {
-      return (
-        <button
-          className="button-primary"
-          onClick={() => this.setState({ userSearchFormActive: true })}
-        >Search Users</button>
-      )
-    }
-  }
-
   render() {
-    const { userData, userDataFilled, loading, userSearchFormActive  } = this.state
+    const { userData, loading  } = this.state
 
     return (
       <div className="app-page-section">
-        { this.renderSearchForm(userSearchFormActive) }
+        <div className="section-title">
+          <h3>Search Users:</h3>
+        </div>
         { loading && <p>Loading...</p> }
         {
-          !loading && userDataFilled &&
+          !loading &&
           <UserSearchTable 
-            headers={['', 'Name', 'Location', 'Times Favorited', '']}
+            headers={['', 'Name', 'Location', '']}
             value={userData}
             setUserModal={this.props.setUserModal}
           />
