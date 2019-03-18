@@ -13,7 +13,7 @@ export const FormBillingCheckbox = ({ onChange, freeTrialValue, proMembershipVal
           value={freeTrialValue} 
           checked={freeTrialValue}
         />
-        <label className="checkbox xlarge spacing" htmlFor="freeTrial">Start 14 Day Free Trial</label>
+        <label className="checkbox xlarge" htmlFor="freeTrial">Start 14 Day Free Trial</label>
       </span>
 
       <span className="custom-checkbox">
@@ -24,7 +24,7 @@ export const FormBillingCheckbox = ({ onChange, freeTrialValue, proMembershipVal
           value={proMembershipValue} 
           checked={proMembershipValue}
         />
-        <label className="checkbox xlarge" htmlFor="proMembership">Start my Pro Membership</label>
+        <label className="checkbox xlarge spacing" htmlFor="proMembership">Start my Pro Membership</label>
       </span>
     </div>
   )

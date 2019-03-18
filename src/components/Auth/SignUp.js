@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { FormTextInput } from '../Forms/FormTextInput'
 import { FormBillingCheckbox } from '../Forms/FormBillingCheckbox'
 import { FormButton } from '../Forms/FormButton'
@@ -25,8 +26,15 @@ export class SignUp extends Component {
 
   handleChange = e => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
+      [e.target.name+'Error']: false
     })
+    if(e.target.name === 'email' && this.props.error) {
+      this.props.resetErrors(false, '', '')
+      this.setState({
+        loading: false
+      })
+    }
   }
 
   handleCheck = e => {
@@ -87,7 +95,11 @@ export class SignUp extends Component {
           <div className="auth-logo">
             <img src={logo} alt="The official logo" />
           </div>
-          <div className="auth-card  auth-card-large">
+          <div className="auth-card auth-card-large">
+            <div className="auth-card-header">
+              <h3>Create New Account</h3>
+              <p>Signup to get started today using your account right away.</p>     
+            </div>
             <div className="auth-card-body">
               { error && <p className="error-text">{errorText}</p> }
               <SignUpForm 
@@ -98,6 +110,12 @@ export class SignUp extends Component {
                 handleUserSignUp={this.handleUserSignUp}
               />
             </div>
+          </div>
+          <div className="auth-external-link">
+            <p>Already have an account?</p> &nbsp;
+            <Link to="/login" className="link">
+              Log In
+            </Link>
           </div>
         </div>
       </div>
@@ -117,7 +135,6 @@ const SignUpForm = ({state, error, handleChange, handleCheck, handleUserSignUp})
         name="firstName"
         value={state.firstName}
         onChange={handleChange}
-        className="form-group--half"
         error={state.firstNameError}
         errorMsg="A first name is required."
       />
@@ -127,7 +144,6 @@ const SignUpForm = ({state, error, handleChange, handleCheck, handleUserSignUp})
         name="lastName"
         value={state.lastName}
         onChange={handleChange}
-        className="form-group--half"
         error={state.lastNameError}
         errorMsg="A last name is required."
       />
@@ -135,9 +151,9 @@ const SignUpForm = ({state, error, handleChange, handleCheck, handleUserSignUp})
         label="Email"
         type="email"
         name="email"
+        className={error && 'field-error'}
         value={state.email}
         onChange={handleChange}
-        className={error ? 'form-group--half field-error' : 'form-group--half'}
         error={state.emailError}
         errorMsg="Please enter a valid email address"
       />
@@ -147,27 +163,26 @@ const SignUpForm = ({state, error, handleChange, handleCheck, handleUserSignUp})
         name="mobileNumber"
         value={state.mobileNumber}
         onChange={handleChange}
-        className="form-group--half"
         error={state.mobileNumberError}
         errorMsg="Please enter a valid mobile number"
       />
       <FormTextInput
         label="Password"
         name="passwordOne"
+        className="form-group--half"
         onChange={handleChange}
         value={state.passwordOne}
         type="password"
-        className="form-group--half"
         error={state.passwordOneError}
         errorMsg="Your passwords must match and be at least 8 characters"
       />
       <FormTextInput
         label="Confirm Password"
         name="passwordTwo"
+        className="form-group--half"
         onChange={handleChange}
         value={state.passwordTwo}
         type="password"
-        className="form-group--half"
         error={state.passwordTwoError}
       />
       <FormBillingCheckbox
@@ -175,22 +190,10 @@ const SignUpForm = ({state, error, handleChange, handleCheck, handleUserSignUp})
         freeTrialValue={state.freeTrial}
         proMembershipValue={state.proMembership}
       />
-      <div className="button-right">
-        <FormButton
-          className="button-form"
-          buttonText="Next"
-        />            
-      </div>
+      <FormButton
+        className="button-primary full"
+        buttonText="Sign Up"
+      />    
     </form>
   </fieldset>
 )
-
-          // <SignUpMultiStepForm
-          //   history={history}
-          //   signUpUser={signUpUser}
-          //   currentUser={currentUser}
-          //   setUserProfile={setUserProfile}
-          //   error={error}
-          //   errorText={errorText}
-          //   resetErrors={resetErrors}
-          // />
