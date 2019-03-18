@@ -28,7 +28,7 @@ class Dashboard extends Component {
             <div className="dashboard-card">
               <div className="icon"><img src={GettingStartedIcon} alt="Getting Started Icon" /></div>
               <div className="description">
-                <h4>Getting Started</h4>
+                <h4>Visit Tutorials</h4>
                 <p>Get started with how to use the Calltime platform for your career and current jobs.</p>
               </div>
             </div>
