@@ -9,6 +9,7 @@ import UsersPage from './pages/Users'
 import Availability from './containers/Availability'
 import { JobsPage, CreateJobFormStep1, CreateJobFormStep2, CreateJobFormStep3, SendJobInvites } from './containers/Jobs'
 import JobOverview from './containers/JobOverview'
+import { NotFound } from './pages/NotFound'
 
 import Landing from './pages/Landing'
 // import Dashboard from './pages/Dashboard'
@@ -30,6 +31,7 @@ export const Routes = () => {
       <ProtectedRoute exact path='/users' component={UsersPage} />
       <ProtectedRoute exact path='/availability' component={Availability} />
       <ProtectedRoute exact path='/account-settings' component={AccountSettings} />
+      <ProtectedRoute component={NotFound} />
     </Switch>
   )
 }
