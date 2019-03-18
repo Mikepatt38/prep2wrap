@@ -19,7 +19,7 @@ export class SignUp extends Component {
   }
 
   render() {
-    const { history, signUpUser, currentUser, setUserProfile } = this.props
+    const { history, signUpUser, currentUser, setUserProfile, error, errorText, resetErrors } = this.props
     return (
       <div className="authPage">
         <div className="authContainer auth-container--signup">
@@ -31,6 +31,9 @@ export class SignUp extends Component {
             signUpUser={signUpUser}
             currentUser={currentUser}
             setUserProfile={setUserProfile}
+            error={error}
+            errorText={errorText}
+            resetErrors={resetErrors}
           />
         </div>
       </div>

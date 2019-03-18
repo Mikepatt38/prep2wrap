@@ -3,14 +3,11 @@ import { Link } from 'react-router-dom'
 import { FormTextInput } from '../Forms/FormTextInput'
 import { FormButton } from '../Forms/FormButton'
 import logo from '../../img/calltime-logo.png'
-import LoginIllustration from '../../img/illustration-login.svg'
 
 export class Login extends Component {
   state = {
     email: '',
     password: '',
-    emailError: '',
-    passwordError: ''
   }
 
   handleChange = e => {
@@ -20,7 +17,7 @@ export class Login extends Component {
   }
 
   render() {
-    const { history, signUserIn } = this.props
+    const { history, signUserIn, error, errorText } = this.props
     return (
       <div className="authPage">
         <div className="auth-container">
@@ -29,11 +26,13 @@ export class Login extends Component {
           </div>
           <div className="auth-card">
             <div className="auth-card-body">
+              { error && <p className="error-text">{errorText}</p> }
               <LoginForm
                 history={history}
                 signUserIn={signUserIn}
                 state={this.state}
                 handleChange={this.handleChange}
+                error={error}
               />
             </div>
             <div className="auth-card-footer">
@@ -54,22 +53,20 @@ export class Login extends Component {
   }
 }
 
-const LoginForm = ({ history, signUserIn, state, handleChange}) => (
+const LoginForm = ({ history, signUserIn, state, handleChange, error}) => (
   <form onSubmit={(e) => signUserIn(state.email, state.password, history, e)}> 
     <FormTextInput
       label="Email"
       name="email"
       onChange={handleChange}
-      errorMsg="Please enter your valid account email address"
-      className={state.emailError}
+      className={error && 'field-error'}
       type="email"
     />
     <FormTextInput
       label="password"
       name="password"
       onChange={handleChange}
-      errorMsg="Please enter your valid account password"
-      className={state.passwordError}
+      className={error && 'field-error'}
       type="password"
     />
     <FormButton

@@ -1,11 +1,15 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { setUserProfile, signUserIn, signUpUser, resetPassword } from '../actions/accounts'
+import { setAlert } from '../actions/components'
 import UserAuth from '../pages/UserAuth'
 
 const mapStateToProps = (state) => ({
   authUser: state.sessionState.authUser,
-  currentUser: state.accountState.currentUser
+  currentUser: state.accountState.currentUser,
+  active: state.sessionState.alertActive,
+  alertText: state.sessionState.alertText,
+  alertType: state.sessionState.alertType
 })
 
 const actions = {
@@ -13,6 +17,7 @@ const actions = {
   signUpUser,
   resetPassword,
   setUserProfile,
+  setAlert
 }
 
 const mapDispatchToProps = (dispatch) => {

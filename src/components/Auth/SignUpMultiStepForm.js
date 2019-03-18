@@ -52,8 +52,10 @@ export class SignUpMultiStepForm extends Component {
           <SignUpMultiStepFormOne
             signUpUser={this.props.signUpUser}
             saveAndContinue={this.saveAndContinue}
-            signUpUserAndContinue={this.signUpUserAndContinue}
             errorAndStop={this.errorAndStop}
+            error={this.props.error}
+            errorText={this.props.errorText}
+            resetErrors={this.props.resetErrors}
           />
         )
         break

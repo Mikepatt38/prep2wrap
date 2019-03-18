@@ -28,6 +28,9 @@ export class SignUpMultiStepFormOne extends Component {
       [e.target.name]: e.target.value,
       [e.target.name+'Error']: false
     })
+    if(e.target.name === 'email' && this.props.error) {
+      this.props.resetErrors(false, '', '')
+    }
   }
 
   handleCheck = e => {
@@ -59,7 +62,7 @@ export class SignUpMultiStepFormOne extends Component {
       this.setState({ mobileNumberError: true })
       validated = false
     }
-    if( passwordOne.length == 0 || passwordTwo.length == 0 || passwordOne !== passwordTwo ) {
+    if( passwordOne.length < 7 || passwordOne.length == 0 || passwordTwo.length == 0 || passwordOne !== passwordTwo ) {
       this.setState({ passwordOneError: true, passwordTwoError: true })
       validated = false
     }
@@ -70,14 +73,12 @@ export class SignUpMultiStepFormOne extends Component {
     e.preventDefault()
     this.setState({
       loading: true
-    }, () => {
+    }, async () => {
       if(this.validateForm()) {
-        this.props.signUpUser(this.state.email, this.state.passwordOne, this.state.firstName, this.state.lastName, this.state.mobileNumber)
-        .then( result => {
-          result === 'success' 
-          ? this.props.saveAndContinue(e)
-          : this.props.errorAndStop(e)
-        })
+        const result = await this.props.signUpUser(this.state.email, this.state.passwordOne, this.state.firstName, this.state.lastName, this.state.mobileNumber)
+        result === 'success'
+          ? this.props.saveAndContinue()
+          : this.setState({ loading: false })
       }
       else {
         this.setState({ loading: false })
@@ -86,6 +87,7 @@ export class SignUpMultiStepFormOne extends Component {
   }
 
   render() {
+    const { error, errorText } = this.props
     return (
       <div className="auth-card auth-card-large">
         <div className="auth-card-header">
@@ -93,7 +95,8 @@ export class SignUpMultiStepFormOne extends Component {
           <p>First, we'll get your basic information to set up your account. Creating an account is effortless and painless, let's get started today.</p>     
         </div>
         <div className="auth-card-body">
-          <fieldset disabled={this.state.loading}>
+          { error && <p className="error-text">{errorText}</p> }
+          <fieldset disabled={this.state.loading && !error}>
             <form className="signUpForm">
               <FormTextInput
                 label="First Name"
@@ -121,7 +124,7 @@ export class SignUpMultiStepFormOne extends Component {
                 name="email"
                 value={this.state.email}
                 onChange={this.handleChange}
-                className="form-group--half"
+                className={error ? 'form-group--half field-error' : 'form-group--half'}
                 error={this.state.emailError}
                 errorMsg="Please enter a valid email address"
               />

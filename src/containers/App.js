@@ -43,7 +43,9 @@ const RenderRoute = ({ currentUser }) => (
     }
     {
       (!currentUser || window.location.pathname === '/signup') &&
-      <Routes />
+      <React.Fragment>
+        <Routes />
+      </React.Fragment>
     }
   </React.Fragment>
 )

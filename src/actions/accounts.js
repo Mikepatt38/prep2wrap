@@ -11,9 +11,10 @@ export const signUserIn = (email, password, history, e) => dispatch => {
       history.push("/")
     })
     .catch(error => {
+      const errorMsg = error.code === 'auth/user-not-found' ? 'No user was found with that email address.' : 'The provided password is not valid for that email account.'
       dispatch({
         type: 'SET_ALERT',
-        payload: [true, 'error', error]   
+        payload: [true, 'Error', errorMsg]   
       })
     })
 }
@@ -244,23 +245,37 @@ export const uploadProfileImage = (id, avatar, filename) => async dispatch => {
 }
 
 // Async actions and functions that call them to interact with Firebase Firestore and then user facing client
-export const signUpUser = (email, password, firstName, lastName, mobileNumber) => async () => {
+export const signUpUser = (email, password, firstName, lastName, mobileNumber) => async dispatch => {
   const database = await db
+  let success = false 
+
   try {
-    auth.doCreateUserWithEmailAndPassword(email, password)
-    .then( async (authUser) => {
-      let createUserReplica = await database.collection("users").doc(authUser.user.uid.toString()).set({
-        id: authUser.user.uid.toString(),
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        mobileNumber: mobileNumber,
-        numberOfTimesFavorite: 0
+    const addNewUser = await auth.doCreateUserWithEmailAndPassword(email, password)
+      .then( (authUser) => {
+        database.collection("users").doc(authUser.user.uid.toString()).set({
+          id: authUser.user.uid.toString(),
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          mobileNumber: mobileNumber,
+          // numberOfTimesFavorite: 0
+        })
+        success = true
       })
-    })
-    return 'success'
+      .catch( error => {
+        dispatch({
+          type: 'SET_ALERT',
+          payload: [true, 'Error', error.message]   
+        })
+        console.log(error)
+        return 'error'
+      })
   }
-  catch(error){
+  catch(error) {
+    console.log(error)
     return error
+  }
+  finally {
+    return success
   }
 }
