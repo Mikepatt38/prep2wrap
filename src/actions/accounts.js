@@ -245,12 +245,11 @@ export const uploadProfileImage = (id, avatar, filename) => async dispatch => {
 }
 
 // Async actions and functions that call them to interact with Firebase Firestore and then user facing client
-export const signUpUser = (email, password, firstName, lastName, mobileNumber) => async dispatch => {
+export const signUpUser = (email, password, firstName, lastName, mobileNumber, history) => async dispatch => {
   const database = await db
-  let success = false 
 
   try {
-    const addNewUser = await auth.doCreateUserWithEmailAndPassword(email, password)
+    auth.doCreateUserWithEmailAndPassword(email, password)
       .then( (authUser) => {
         database.collection("users").doc(authUser.user.uid.toString()).set({
           id: authUser.user.uid.toString(),
@@ -258,24 +257,20 @@ export const signUpUser = (email, password, firstName, lastName, mobileNumber) =
           lastName: lastName,
           email: email,
           mobileNumber: mobileNumber,
-          // numberOfTimesFavorite: 0
         })
-        success = true
+      })
+      .then( () => {
+        history.push("/")
       })
       .catch( error => {
         dispatch({
           type: 'SET_ALERT',
           payload: [true, 'Error', error.message]   
         })
-        console.log(error)
         return 'error'
       })
   }
   catch(error) {
-    console.log(error)
     return error
-  }
-  finally {
-    return success
   }
 }

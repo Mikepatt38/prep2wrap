@@ -75,7 +75,7 @@ export class SignUpMultiStepFormOne extends Component {
       loading: true
     }, async () => {
       if(this.validateForm()) {
-        const result = await this.props.signUpUser(this.state.email, this.state.passwordOne, this.state.firstName, this.state.lastName, this.state.mobileNumber)
+        const result = await this.props.signUpUser(this.state.email, this.state.passwordOne, this.state.firstName, this.state.lastName, this.state.mobileNumber, history)
         result === 'success'
           ? this.props.saveAndContinue()
           : this.setState({ loading: false })

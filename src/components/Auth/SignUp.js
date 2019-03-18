@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { SignUpMultiStepForm } from './SignUpMultiStepForm'
+import { FormTextInput } from '../Forms/FormTextInput'
+import { FormBillingCheckbox } from '../Forms/FormBillingCheckbox'
+import { FormButton } from '../Forms/FormButton'
 import logo from '../../img/calltime-logo.png'
 
 export class SignUp extends Component {
@@ -10,6 +12,15 @@ export class SignUp extends Component {
     password: '',
     passwordOne: '',
     passwordTwo: '',
+    mobileNumber: '',
+    mobileNumberError: false,
+    emailError: false,
+    passwordOneError: false,
+    firstNameError: false,
+    lastNameError: false,
+    freeTrial: false,
+    proMembership: false,
+    loading: false
   }
 
   handleChange = e => {
@@ -18,25 +29,168 @@ export class SignUp extends Component {
     })
   }
 
+  handleCheck = e => {
+    const newVal = e.target.checked
+    const name = e.target.id
+    this.setState({
+      freeTrial: false,
+      proMembership: false,
+      [name]: newVal
+    })
+  }
+
+  validateForm = () => {
+    const { firstName, lastName, email, passwordOne, passwordTwo, mobileNumber } = this.state
+    let validated = true
+    if ( firstName.length == 0 ) {
+      this.setState({ firstNameError: true})
+      validated = false
+    }
+    if ( lastName.length == 0) {
+      this.setState({ lastNameError: true })
+      validated = false
+    }
+    if ( email.length == 0) {
+      this.setState({ emailError: true })
+      validated = false
+    }
+    if ( mobileNumber.length == 0) {
+      this.setState({ mobileNumberError: true })
+      validated = false
+    }
+    if( passwordOne.length < 7 || passwordOne.length == 0 || passwordTwo.length == 0 || passwordOne !== passwordTwo ) {
+      this.setState({ passwordOneError: true, passwordTwoError: true })
+      validated = false
+    }
+    return validated
+  }
+
+  handleUserSignUp = (e) => {
+    e.preventDefault()
+    this.setState({
+      loading: true
+    }, () => {
+      if(this.validateForm()) {
+        this.props.signUpUser(this.state.email, this.state.passwordOne, this.state.firstName, this.state.lastName, this.state.mobileNumber, this.props.history)
+      }
+      else {
+        this.setState({ loading: false })
+      }
+    })
+  }
+
   render() {
-    const { history, signUpUser, currentUser, setUserProfile, error, errorText, resetErrors } = this.props
+    const { error, errorText } = this.props
     return (
       <div className="authPage">
         <div className="authContainer auth-container--signup">
           <div className="auth-logo">
             <img src={logo} alt="The official logo" />
           </div>
-          <SignUpMultiStepForm
-            history={history}
-            signUpUser={signUpUser}
-            currentUser={currentUser}
-            setUserProfile={setUserProfile}
-            error={error}
-            errorText={errorText}
-            resetErrors={resetErrors}
-          />
+          <div className="auth-card  auth-card-large">
+            <div className="auth-card-body">
+              { error && <p className="error-text">{errorText}</p> }
+              <SignUpForm 
+                state={this.state}
+                error={error}
+                handleChange={this.handleChange}
+                handleCheck={this.handleCheck}
+                handleUserSignUp={this.handleUserSignUp}
+              />
+            </div>
+          </div>
         </div>
       </div>
     )
   }
 }
+
+const SignUpForm = ({state, error, handleChange, handleCheck, handleUserSignUp}) => (
+  <fieldset disabled={state.loading && !error}>
+    <form 
+      className="signUpForm"
+      onSubmit={(e) => handleUserSignUp(e)}  
+    >
+      <FormTextInput
+        label="First Name"
+        type="text"
+        name="firstName"
+        value={state.firstName}
+        onChange={handleChange}
+        className="form-group--half"
+        error={state.firstNameError}
+        errorMsg="A first name is required."
+      />
+      <FormTextInput
+        label="Last Name"
+        type="text"
+        name="lastName"
+        value={state.lastName}
+        onChange={handleChange}
+        className="form-group--half"
+        error={state.lastNameError}
+        errorMsg="A last name is required."
+      />
+      <FormTextInput
+        label="Email"
+        type="email"
+        name="email"
+        value={state.email}
+        onChange={handleChange}
+        className={error ? 'form-group--half field-error' : 'form-group--half'}
+        error={state.emailError}
+        errorMsg="Please enter a valid email address"
+      />
+      <FormTextInput
+        label="Mobile Number"
+        type="tel"
+        name="mobileNumber"
+        value={state.mobileNumber}
+        onChange={handleChange}
+        className="form-group--half"
+        error={state.mobileNumberError}
+        errorMsg="Please enter a valid mobile number"
+      />
+      <FormTextInput
+        label="Password"
+        name="passwordOne"
+        onChange={handleChange}
+        value={state.passwordOne}
+        type="password"
+        className="form-group--half"
+        error={state.passwordOneError}
+        errorMsg="Your passwords must match and be at least 8 characters"
+      />
+      <FormTextInput
+        label="Confirm Password"
+        name="passwordTwo"
+        onChange={handleChange}
+        value={state.passwordTwo}
+        type="password"
+        className="form-group--half"
+        error={state.passwordTwoError}
+      />
+      <FormBillingCheckbox
+        onChange={handleCheck}
+        freeTrialValue={state.freeTrial}
+        proMembershipValue={state.proMembership}
+      />
+      <div className="button-right">
+        <FormButton
+          className="button-form"
+          buttonText="Next"
+        />            
+      </div>
+    </form>
+  </fieldset>
+)
+
+          // <SignUpMultiStepForm
+          //   history={history}
+          //   signUpUser={signUpUser}
+          //   currentUser={currentUser}
+          //   setUserProfile={setUserProfile}
+          //   error={error}
+          //   errorText={errorText}
+          //   resetErrors={resetErrors}
+          // />
