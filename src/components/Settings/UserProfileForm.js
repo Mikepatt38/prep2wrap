@@ -36,7 +36,6 @@ class UserProfileForm extends Component {
 
   handleClick = async (e) => {
     e.preventDefault()
-    this.props.setGlobalAlert(false)
     this.props.setUserProfile(this.props.currentUser.id, this.state.jobTypes, this.state.location, this.state.skills, this.state.positions, this.state.fbLink, this.state.imdbLink, this.state.availability, this.state.travel, this.state.union, this.state.bilingual, this.state.unions, this.state.languages, e)
   }
 

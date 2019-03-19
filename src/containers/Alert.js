@@ -7,7 +7,6 @@ const mapStateToProps = (state) => ({
   active: state.sessionState.alertActive,
   alertText: state.sessionState.alertText,
   alertType: state.sessionState.alertType,
-  globalAlertActive: state.accountState.globalAlertActive
 })
 
 const mapDispatchToProps = (dispatch) => ({
