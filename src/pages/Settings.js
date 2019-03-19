@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import UserProfileForm from '../components/Settings/UserProfileForm'
 import UserInfoForm from '../components/Settings/UserInfoForm'
 
-const AccountSettings = ({ currentUser, setUserProfile, setName, setEmail, setMobileNumber, uploadProfileImage }) => (
+const AccountSettings = ({ currentUser, setUserProfile, setName, setEmail, setMobileNumber, uploadProfileImage, setGlobalAlert }) => (
   <div className="app-page">
     <div className="app-page-title">
       <h1>Account Settings</h1>
@@ -33,6 +33,7 @@ const AccountSettings = ({ currentUser, setUserProfile, setName, setEmail, setMo
           setUserProfile={setUserProfile} 
           currentUser={currentUser} 
           onClick={(e) => handleClick(e)}
+          setGlobalAlert={setGlobalAlert}
         />
       </div>
     </div>

@@ -32,7 +32,7 @@ class ProfileImageUpload extends Component {
             <input type="file" name="profileImage" id="profileImage" onChange={this.handleFileChange}  />
             <label htmlFor="profileImage" id="profileImage">        
               {
-                profileInformation.avatarUrl 
+                profileInformation && profileInformation.avatarUrl 
                 ? <img src={profileInformation.avatarUrl} alt="Profile Avatar" />
                 : <img src={Avatar} alt="Profile Avatar Placeholder" />
               }

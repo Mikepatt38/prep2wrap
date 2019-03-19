@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { setUserProfile, signUserIn, signUpUser, resetPassword } from '../actions/accounts'
+import { setUserProfile, signUserIn, signUpUser, resetPassword, setGlobalAlert } from '../actions/accounts'
 import { setAlert } from '../actions/components'
 import UserAuth from '../pages/UserAuth'
 
@@ -17,7 +17,8 @@ const actions = {
   signUpUser,
   resetPassword,
   setUserProfile,
-  setAlert
+  setAlert,
+  setGlobalAlert
 }
 
 const mapDispatchToProps = (dispatch) => {

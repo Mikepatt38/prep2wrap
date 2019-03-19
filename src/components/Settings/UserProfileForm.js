@@ -7,19 +7,19 @@ import { locationObj, skillsObj, positionsObj, jobTypesObj } from '../../data/fo
 
 class UserProfileForm extends Component {
   state = {
-    jobTypes: this.props.currentUser.profileInformation.jobTypes,
-    location: this.props.currentUser.profileInformation.location,
-    headline: this.props.currentUser.profileInformation.headline,
-    skills: this.props.currentUser.profileInformation.skills,
-    positions: this.props.currentUser.profileInformation.positions,
-    fbLink: this.props.currentUser.profileInformation.fbLink,
-    imdbLink: this.props.currentUser.profileInformation.imdbLink,
-    availability: this.props.currentUser.profileInformation.availability,
-    bilingual: this.props.currentUser.profileInformation.bilingual, 
-    languages: this.props.currentUser.profileInformation.languages,
-    travel: this.props.currentUser.profileInformation.travel, 
-    union: this.props.currentUser.profileInformation.union, 
-    unions: this.props.currentUser.profileInformation.unions
+    jobTypes: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.jobTypes : [] ,
+    location: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.location : [],
+    headline: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.headline : '',
+    skills: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.skills : [],
+    positions: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.positions : [],
+    fbLink: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.fbLink : '',
+    imdbLink: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.imdbLink : '',
+    availability: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.availability : '',
+    bilingual: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.bilingual : '', 
+    languages: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.languages : [],
+    travel: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.travel : '', 
+    union: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.union : '', 
+    unions: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.unions : []
   }
 
   handleChange = e => {
@@ -36,6 +36,7 @@ class UserProfileForm extends Component {
 
   handleClick = async (e) => {
     e.preventDefault()
+    this.props.setGlobalAlert(false)
     this.props.setUserProfile(this.props.currentUser.id, this.state.jobTypes, this.state.location, this.state.skills, this.state.positions, this.state.fbLink, this.state.imdbLink, this.state.availability, this.state.travel, this.state.union, this.state.bilingual, this.state.unions, this.state.languages, e)
   }
 

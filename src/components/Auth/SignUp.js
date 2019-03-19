@@ -80,6 +80,7 @@ export class SignUp extends Component {
     }, () => {
       if(this.validateForm()) {
         this.props.signUpUser(this.state.email, this.state.passwordOne, this.state.firstName, this.state.lastName, this.state.mobileNumber, this.props.history)
+        this.props.setGlobalAlert(true)
       }
       else {
         this.setState({ loading: false })

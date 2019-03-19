@@ -1,11 +1,13 @@
 import { connect } from 'react-redux'
+import { compose } from 'recompose'
 import { setAlert } from '../actions/components'
 import { Alert } from '../components/General/Alert'
 
 const mapStateToProps = (state) => ({
   active: state.sessionState.alertActive,
   alertText: state.sessionState.alertText,
-  alertType: state.sessionState.alertType
+  alertType: state.sessionState.alertType,
+  globalAlertActive: state.accountState.globalAlertActive
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -4,6 +4,11 @@ import { storage } from '../db/firebase'
 
 export const clearSearchUserByNameResults = () => ({type: 'CLEAR_SEARCH_USER_BY_NAME_RESULTS', payload: [] })
 
+export const setGlobalAlert = (active) => ({
+  type: 'SET_GLOBAL_ALERT',
+  payload: active
+})
+
 export const signUserIn = (email, password, history, e) => dispatch => {
   e.preventDefault()
   auth.doSignInWithEmailAndPassword(email, password)

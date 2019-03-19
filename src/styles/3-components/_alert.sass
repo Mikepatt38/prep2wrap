@@ -1,6 +1,22 @@
 /* ===============
   Styles for Alerts
   ================== */
+.global-alert
+  z-index: 2
+  position: relative
+  top: 0
+  width: 100% 
+  text-align: center
+  padding: 15px 0
+  background-color: $color__mainBlue
+  display: none
+
+  &.active
+    display: block 
+
+  p,a 
+    font-size: 14px
+    color: #fff
   
 .alert
   position: fixed
@@ -10,20 +26,20 @@
   margin: 0 auto
   font-weight: 400
   color: #676767
-  cursor: pointer
+  cursor: default
   background: #fafafa
   border-radius: 0
   border: none
   transform: translateY(-40px)
   opacity: 0
   transition: all 0.3s ease-in-out
-  z-index: 100
   max-width: 100%
   padding: 15px 3%
   display: flex
   justify-content: space-between
   flex-direction: row
   align-content: center
+  z-index: 1
 
 
   &.Success
@@ -55,6 +71,7 @@
     opacity: 1
     transition: all 0.3s ease-in-out
     z-index: 100
+    cursor: pointer
 
     p
       margin: 0

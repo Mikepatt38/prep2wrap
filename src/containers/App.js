@@ -12,7 +12,7 @@ import Alert from './Alert'
 import Modal from './Modal'
 import UserProfileModal from './UserProfileModal'
 import { DashboardFooter } from '../components/General/DashboardFooter'
-
+import { GlobalAlert } from '../components/General/GlobalAlert'
 const App = ({ currentUser }) => {
   return (
     <Router>
@@ -32,6 +32,7 @@ const RenderRoute = ({ currentUser }) => (
           <Sidebar />
         </div>
         <div className="app-container-main">
+          <GlobalAlert active={currentUser.profileInformation ? false : true} />
           <Alert />
           <Modal />
           <UserProfileModal />

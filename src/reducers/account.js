@@ -2,7 +2,8 @@ const INITIAL_STATE = {
   accountView: 'general',
   profileImageURL: '',
   currentUser: null,
-  userSearchByNameResults: []
+  userSearchByNameResults: [],
+  globalAlertActive: null
 }
 
 function accountReducer(state = INITIAL_STATE, action) {
@@ -41,6 +42,9 @@ function accountReducer(state = INITIAL_STATE, action) {
     }
     case 'SET_ACCOUNT_VIEW': {
       return { ...state, accountView: action.payload }
+    }
+    case 'SET_GLOBAL_ALERT': {
+      return { ...state, globalAlertActive: action.payload }
     }
     default : return state
   }
