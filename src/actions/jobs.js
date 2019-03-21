@@ -297,3 +297,12 @@ export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, newAssigne
     return 'error'
   }
 } 
+
+export const getUserJobCount = (userID) => async () => {
+  const database = await db
+  const createdJobsRef = await database.collection("jobs").doc(userID).collection("createdJobs").get()
+  const acceptedJobsRef = await database.collection("jobs").doc(userID).collection("acceptedJobs").get()
+  const completedJobsRef = await database.collection("jobs").doc(userID).collection("completedJobs").get()
+  
+  return { "createdJobsCount": createdJobsRef.size, "acceptedJobsCount": acceptedJobsRef.size, "completedJobsCount": completedJobsRef.size }
+}

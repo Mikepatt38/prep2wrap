@@ -9,7 +9,7 @@ import { createJob,
          userResultsForJobCreation, 
          createUserJobNotification, 
          createReduxJob,
-         updateReduxJobAssignedUsers
+         updateReduxJobAssignedUsers,
         } from '../actions/jobs'
 import { setModal, setUserModal } from '../actions/components'
 import withAuthorization from './withAuthorization'
@@ -36,7 +36,7 @@ const actions = {
   createUserJobNotification,
   createReduxJob,
   updateReduxJobAssignedUsers,
-  deletedCreatedJob
+  deletedCreatedJob,
 }
 
 

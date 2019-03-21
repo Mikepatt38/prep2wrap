@@ -200,48 +200,52 @@ export const uploadProfileImage = (id, avatar, filename) => async dispatch => {
   const ref = storage.ref()
   const file = filename
   const name = id
-  const database = await db
   const metadata = {
     contentType: file.type
   }
 
-  const deleted = new Promise( (resolve, reject) => {
-    if(avatar) {
-      ref.child(name).delete().then(function() {
-        resolve(true)
-      }).catch(function(error) {
-        reject(false)
-      })
-    }
-    resolve(true)
-  })
-
-  const success = await deleted
-
-  const task  = ref.child(name).put(file, metadata)
-
-  success && task
-    .then( (snapshot) => snapshot.ref.getDownloadURL() )
-    .then( (url) => {
-      database.collection("users").doc(id).update({
-        profileInformation: {
-          avatarUrl: url
-        }
-      })
-      .then( () => {
-        dispatch({
-          type: 'SET_ALERT',
-          payload: [true, 'success', 'SUCCESS: Your public avatar image has been updated.']
-        })
-      })
-      .catch( (error) => {
-        dispatch({
-          type: 'SET_ALERT',
-          payload: [true, 'error', error]   
-        })
+  const [deletedOriginal, uploadNew] = await Promise.all([ deleteCurrentUserAvatar(ref, avatar, id), uploadAvatarImage(id, file, metadata)])
+    .then( () => {
+      dispatch({ 
+        type: 'SET_ALERT',
+        payload: [true, 'Success', 'SUCCESS: Your public avatar image has been updated.']
+      })    
+    })
+    // .then( () => {
+    //   const newFileName = `min_${id}`
+    //   let newUrl = ' '
+    //   setTimeout( async () => {
+    //     newUrl = await getAvatarURL(newFileName)
+    //   }, 36000)
+    //   console.log(newUrl)
+    // })  
+    .catch( (error) => {
+      dispatch({
+        type: 'SET_ALERT',
+        payload: [true, 'Error', error.message]   
       })
     })
-    .catch(console.error)
+}
+
+// Async actions used by the async functions below
+export async function deleteCurrentUserAvatar(ref, avatar, imageName){
+  avatar &&
+    ref.child(imageName).delete()
+      .then( () => { return true })
+      .catch( (error) => { return false })
+
+  return false
+}
+
+export async function uploadAvatarImage(imageName, imageFile, imageMetadata){
+  const ref = storage.ref()
+  ref.child(imageName).put(imageFile, imageMetadata)
+}
+
+export async function getAvatarURL(imageName){
+  const ref = storage.ref()
+  return await ref.child(imageName).getDownloadURL()
+  
 }
 
 // Async actions and functions that call them to interact with Firebase Firestore and then user facing client

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import withAuthorization from '../containers/withAuthorization'
 import DashboardNotifications from '../components/General/DashboardNotifications'
+import DashboardStatus from '../components/General/DashboardStatus'
 import GettingStartedIcon from '../img/icon-getting-started.svg'
 import CreateIcon from '../img/icon-create.svg'
 import GlassIcon from '../img/icon-glass.svg'
@@ -18,6 +19,11 @@ class Dashboard extends Component {
           currentUser={this.props.currentUser}
           getUserJobNotifications={this.props.getUserJobNotifications}
           removeUserJobNotification={this.props.removeUserJobNotification}
+        />
+
+        <DashboardStatus
+          currentUser={this.props.currentUser}
+          getUserJobCount={this.props.getUserJobCount}
         />
 
         <div className="app-page-section">
