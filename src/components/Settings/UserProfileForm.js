@@ -14,11 +14,11 @@ class UserProfileForm extends Component {
     positions: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.positions : [],
     fbLink: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.fbLink : '',
     imdbLink: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.imdbLink : '',
-    availability: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.availability : '',
-    bilingual: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.bilingual : '', 
+    availability: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.availability : false,
+    bilingual: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.bilingual : false, 
     languages: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.languages : [],
-    travel: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.travel : '', 
-    union: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.union : '', 
+    travel: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.travel : false, 
+    union: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.union : false, 
     unions: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.unions : []
   }
 

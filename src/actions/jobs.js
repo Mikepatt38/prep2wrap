@@ -1,37 +1,6 @@
 import { db, auth, firebase } from '../db/firebase'
 import { setAlert } from './components'
 
-export const userResultsForJobCreation = (currentUserId, jobObj) => async () => {
-  const database = await db
-  let users = []
-  let tempUsers = []
-  const availability = database.collection("availability").get()
-  const getAllUsersBasedOnUnionAndLocation = database.collection("users").where("profileInformation.union", "==", jobObj.unionMember).where("profileInformation.location", "array-contains", jobObj.jobLocation).get()
-
-  const getJobMatches = new Promise( (resolve, reject) => {
-    try {
-      getAllUsersBasedOnUnionAndLocation.then( querySnapshot => {
-        for (let user of querySnapshot.docs) {
-          for (let userPosition of user.data().profileInformation.positions) {
-            if(jobObj.jobPositions.includes(userPosition.value) && user.data().id !== currentUserId) {
-              tempUsers.push(user.data())
-              break
-            }
-          }
-        }
-        users = tempUsers
-      })
-      .then( () => {
-        resolve(users)
-      })
-    }
-    catch(error) {
-      reject(error)
-    }
-  })
-  return await getJobMatches
-}
-
 export const getJobOverviewData = (creatorID, jobID) => async () => {
   const database = await db
   const getJobOverview = database.collection("jobs").doc(creatorID).collection("createdJobs").doc(jobID).get()
@@ -305,4 +274,29 @@ export const getUserJobCount = (userID) => async () => {
   const completedJobsRef = await database.collection("jobs").doc(userID).collection("completedJobs").get()
   
   return { "createdJobsCount": createdJobsRef.size, "acceptedJobsCount": acceptedJobsRef.size, "completedJobsCount": completedJobsRef.size }
+}
+
+export const userResultsForJobCreation = (userID, jobObj) => async () => {
+  const database = await db
+  let tempUsers = []
+  let allMatches = []
+
+  await database.collection("users").where("profileInformation.union", "==", jobObj.unionMember).get().then( snapshot => {
+    for( let item of snapshot.docs ){ allMatches.push(item.data())} })
+  await database.collection("users").where("profileInformation.location", "array-contains", jobObj.jobLocation).get().then( snapshot => {
+    for( let item of snapshot.docs ){ allMatches.push(item.data())} })
+  await database.collection("users").where("profileInformation.jobTypes", "array-contains", jobObj.jobType).get().then( snapshot => {
+    for( let item of snapshot.docs ){ allMatches.push(item.data())} })
+    
+  const uniqueResults = allMatches.filter((object,index) => index === allMatches.findIndex(obj => JSON.stringify(obj) === JSON.stringify(object)))
+
+  for(let user of uniqueResults) {
+    for(let userPosition of user.profileInformation.positions){
+      if(jobObj.jobPositions.includes(userPosition.value) && user.id !== userID){
+        tempUsers.push(user)
+        break
+      }
+    }
+  }
+  return tempUsers
 }

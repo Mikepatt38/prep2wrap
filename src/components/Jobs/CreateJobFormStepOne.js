@@ -98,7 +98,7 @@ class CreateJobFormStepOne extends Component {
     }))
   }
 
-  handleLocationSelect = (name, val) => {
+  handleSelectValues = (name, val) => {
     const newVal = val
     this.setState(prevState => ({
       jobObj: {
@@ -218,16 +218,16 @@ class CreateJobFormStepOne extends Component {
                   options={locationObj}
                   placeholder="Select Location for Job"
                   isMultiSelect={false}
-                  onSelect={this.handleLocationSelect}
+                  onSelect={this.handleSelectValues}
                   className="form-group--half"
                 />
                 <FormSelectInput
                   label="Select the Job Type"
-                  name="jobTypes"
+                  name="jobType"
                   options={jobTypesObj}
                   placeholder="Select Type of Job"
                   isMultiSelect={false}
-                  onSelect={this.handleSelect}
+                  onSelect={this.handleSelectValues}
                   className="form-group--half"
                 />
                 <FormTextInput

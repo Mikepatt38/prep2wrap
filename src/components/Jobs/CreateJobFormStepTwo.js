@@ -22,6 +22,7 @@ class CreateJobFormStepTwo extends Component {
     else {
       this.props.userResultsForJobCreation(this.props.currentUser.id.toString(), this.props.currentJob.jobObj)
       .then( (results) => {
+        console.log(results)
         const filterResults = results.filter(user => user.id !== this.props.currentUserID) 
         this.setState({
           usersMatchedResults: filterResults,

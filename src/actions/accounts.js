@@ -180,7 +180,7 @@ export const setUserProfile = (id, jobTypes, location, skills, positions, fbLink
       .then( () => {
         dispatch({
           type: 'SET_ALERT',
-          payload: [true, 'success', 'SUCCESS: Your public profile information was updated.']
+          payload: [true, 'Success', 'SUCCESS: Your public profile information was updated.']
         })
         resolve('success')
       })
@@ -189,7 +189,7 @@ export const setUserProfile = (id, jobTypes, location, skills, positions, fbLink
       reject('error')
       dispatch({
         type: 'SET_ALERT',
-        payload: [true, 'error', error]   
+        payload: [true, 'Error', error.message]   
       })
     }
   })

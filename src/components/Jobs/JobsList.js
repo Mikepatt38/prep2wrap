@@ -44,7 +44,7 @@ class JobsList extends Component {
         </React.Fragment>
       )
       rows.push(
-        <Link to={`/job-overview/${job.jobCreatorID}/${job.jobID}`}>
+        <Link to={`/job-overview/${job.jobCreatorID}/${job.jobID}`} key={key}>
           <div className="table-row table-rows-4" key={key}>
             {cells}
           </div>
