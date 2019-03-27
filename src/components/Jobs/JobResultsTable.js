@@ -67,14 +67,22 @@ class JobResultsTable extends Component {
     )
   }
 
+  createUserPositionsArr(positions){
+    let arr = []
+    positions.map( position => {
+      if(this.state.openPositions.includes(position.value)){
+        arr.push(position.value)
+      }
+    })
+    return arr
+  }
+
   renderRows(){
     let rows = []
     let cells = []
-    let userPositions = []
+    let userPositions = [] 
     this.state.usersReturned.map( (value, key) => {
-      value.profileInformation.positions.forEach( position => {
-        return this.state.openPositions.includes(position.value) ? userPositions.push(position.value) : null
-      })
+      const userPositions = this.createUserPositionsArr(value.profileInformation.positions)
       const userRowDisabled = this.state.usersAssigned.find( (item) => {
         return item.id === value.id
       })
