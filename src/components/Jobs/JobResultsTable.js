@@ -141,44 +141,6 @@ class JobResultsTable extends Component {
     )
   }
 
-  filterTableByPosition = (userPosition) => {
-    const position = userPosition
-    let results = []
-
-    const getFilterResults = new Promise( (resolve, reject) => {
-      try {
-        this.props.results.map( result => {
-          let isMatch = false
-          result.positions.map( resultPosition => {
-            if(resultPosition.value === position) {
-              isMatch = true
-            }
-          })
-          if(isMatch === true) {
-            results.push(result)
-          }
-          isMatch = false
-        })
-        resolve(results)
-      } catch(error) {
-        reject(results)
-      }
-    })
-    return getFilterResults
-  }
-
-  handleTableFilter = async (e, filterBy) => {
-    const position = e.target.value
-    switch(filterBy) {
-      case "position": 
-        const result = await this.filterTableByPosition(position)
-        this.setState({
-          usersReturned: result
-        })
-        break
-    }
-  }
-
   handleFilterByPosition = (e) => {
     const selectedPosition = e.target.value
     let filterResults = []
@@ -227,7 +189,7 @@ class JobResultsTable extends Component {
         </div>
         <div className="table-filter-cell">
           <select
-            onChange={(e) => { this.handleFilterByPosition(e)} }
+            onChange={this.handleFilterByPosition}
           >
             <option value="" disabled selected>Filter by Position</option>
             { this.props.positions.map( position => {
