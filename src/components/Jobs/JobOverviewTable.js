@@ -53,7 +53,9 @@ class JobOverviewTable extends Component {
     newDates.map(currentDate => {
       newDatesArr.push({date: currentDate, dateTitle: this.state.jobOverviewData.jobName, dateType: "booked"})
     })
-    let currentAvailability = currentUser.availability ? currentUser.availability.dates : []
+    let currentAvailability = currentUser.availability ? currentUser.availability : []
+    console.log(currentAvailability)
+    console.log(newDatesArr)
     let newAvailability = [...currentAvailability, ...newDatesArr]
     return newAvailability
   }
@@ -62,6 +64,7 @@ class JobOverviewTable extends Component {
     e.preventDefault()
     let index 
     const jobOverviewLink = "/job-overview/" + this.state.jobOverviewData.jobCreatorID + '/' + this.state.jobOverviewData.jobID
+    console.log(this.state.jobOverviewData.usersAssigned)
     this.state.jobOverviewData.usersAssigned.map( (user, key) => {
       index = user.id === this.props.currentUser.id ? key : null
     })
@@ -104,7 +107,7 @@ class JobOverviewTable extends Component {
 
   deleteCreatedJob = (e) => {
     e.preventDefault()
-    this.props.deletedCreatedJob(this.props.currentUser.id, this.state.jobOverviewData.jobID, this.state.jobOverviewData.usersAssigned)
+    this.props.deletedCreatedJob(this.props.currentUser, this.state.jobOverviewData.jobID, this.state.jobOverviewData.jobName, this.state.jobOverviewData.jobDates, this.state.jobOverviewData.usersAssigned)
     .then( (result) => {
       console.log(result)
       if( result === 'success') { this.props.history.push("/jobs") }

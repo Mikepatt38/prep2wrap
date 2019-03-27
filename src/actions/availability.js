@@ -3,7 +3,7 @@ import { db, auth } from '../db/firebase'
 export const getAvailabilityDates = (user) => async dispatch => {
   dispatch({
     type: 'SET_USERS_DATES',
-    payload: user.availability ? user.availability.dates : []  
+    payload: user.availability ? user.availability : []  
   })
 }
 
@@ -11,7 +11,7 @@ export const updateUserDates = (userID, dates) => async dispatch => {
   const database = await db
 
   try{
-    let setAvailability = await database.collection("users").doc(userID).update({ availability: { dates: dates }})
+    let setAvailability = await database.collection("users").doc(userID).update({ availability: dates})
     dispatch({
       type: 'SET_USERS_DATES',
       payload: dates

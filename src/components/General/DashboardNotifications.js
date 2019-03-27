@@ -39,7 +39,7 @@ class DashboardNotifications extends Component {
         {
           this.state.jobNotifications.map( (notification, key) => {
             return (
-              <Link to={notification.link}>
+              <Link to={notification.link} key={key}>
                 <div className="notification" key={key}>
                   <div className="notification-text">
                     <p><b>{notification.text}</b> <span>Click to view the job overview.</span></p>

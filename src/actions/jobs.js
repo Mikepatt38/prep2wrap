@@ -124,13 +124,24 @@ export async function getUserAcceptedJobs(database, currentUserID){
   return acceptedJobs
 } 
 
-export async function deleteUserCreatedJob(database, currentUserID, jobID){
-  database.collection("jobs").doc(currentUserID).collection("createdJobs").doc(jobID).delete()
+export async function deleteUserCreatedJob(database, user, jobID, jobDates){
+  database.collection("jobs").doc(user.id).collection("createdJobs").doc(jobID).delete()
+  deleteJobAvailabilityDates(database, [user], jobDates )
 }
 
 export async function deleteAcceptedJob(database, usersAssigned, jobID){
   usersAssigned.map( user => {
     database.collection("jobs").doc(user.id).collection("acceptedJobs").doc(jobID).delete()
+  })
+}
+
+export async function deleteJobAvailabilityDates(database, users, dates){
+  users.map( async user => {
+    const currentAvailability = await database.collection("users").doc(user.id).get().then( doc => doc.data().availability)
+    const newAvailability = currentAvailability.filter( date => !(dates.includes(date.date)) ) 
+    database.collection("users").doc(user.id).update({
+      availability: newAvailability
+    })
   })
 }
 
@@ -164,13 +175,27 @@ export async function createUserJobNotification(userID, jobID, jobNotificationDa
   database.collection("jobs").doc(userID).collection("jobNotifications").doc(jobID).set(jobNotificationData)
 }
 
-export async function addUserJobDatesToAvailability(database, userID, jobDates){
+export function addUserJobDatesToAvailability(database, userID, jobDates){
   // about to add the dates to the user's availability 
-  database.collection("users").doc(userID).update({ availability: { dates: jobDates }})
+  database.collection("users").doc(userID).update({ availability: jobDates})
+}
+
+export function createJobDataArr(jobObj){
+  let jobDatesArr = []
+  jobObj.jobDates.map(date => {
+    jobDatesArr.push(
+      {
+        date: date,
+        dateTitle: jobObj.jobName,
+        dateType: 'booked'
+      }
+    )
+  })
+  return jobDatesArr
 }
 
 // Functions to send data from the API from the database back to the frontend client
-export const createJob = (userID, jobID, jobObj, assignedUsers) => async () => {
+export const createJob = (userID, jobID, jobObj, assignedUsers) => async dispatch => {
   const database = await db
   const newUserCreatedJob = {
     jobID: jobID,
@@ -188,40 +213,41 @@ export const createJob = (userID, jobID, jobObj, assignedUsers) => async () => {
     jobStatus: jobObj.jobStatus,
     usersAssigned: assignedUsers,
   }  
+  const jobDatesArr = await createJobDataArr(jobObj)
 
-  try {
-    createUserJob(userID, jobID, newUserCreatedJob, database)
-    return 'success'
-  }
-  catch(error) {
-    return('error')
-  }
+  let jobCreated = await Promise.all([
+    createUserJob(userID, jobID, newUserCreatedJob, database),
+    addUserJobDatesToAvailability(database, userID, jobDatesArr)
+  ])
+  .catch( (error) => { dispatch(setAlert(true, "Error", error.message)) }) 
+  return jobCreated ? 'success' : null
 }
 
 export const getUserJobs = (currentUserID) => async () => {
   const database = await db
-  const createdJobs = await getUserCreatedJobs(database, currentUserID)
-  const acceptedJobs = await getUserAcceptedJobs(database, currentUserID)
 
-  try {
-    return createdJobs.concat(acceptedJobs)
-  }
-  catch(error) {
-    console.log(error)
-  }
+  let [createdJobs, acceptedJobs] = await Promise.all([
+    getUserCreatedJobs(database, currentUserID),
+    getUserAcceptedJobs(database, currentUserID)   
+  ])
+  .catch( () => { return [] })
+  return createdJobs.concat(acceptedJobs)
 }
 
-export const deletedCreatedJob = (currentUserID, jobID, usersAssigned) => async dispatch => {
+export const deletedCreatedJob = (user, jobID, jobName, jobDates, usersAssigned) => async dispatch => {
   const database = await db
 
   try {
-    deleteUserCreatedJob(database, currentUserID, jobID)
-    deleteAcceptedJob(database, usersAssigned, jobID)
-    dispatch(setAlert(true, "Success", "The job was successfully deleted."))
-    return 'success'
+    let deleteJobAndDates = await Promise.all([
+      deleteUserCreatedJob(database, user, jobID, jobDates),
+      deleteAcceptedJob(database, usersAssigned, jobID, jobName),
+      deleteJobAvailabilityDates(database, usersAssigned, jobDates),
+      dispatch(setAlert(true, "Success", "The job was successfully deleted."))
+    ])
+    return deleteJobAndDates ? 'success' : 'error'
   }
   catch(error) {
-    dispatch(setAlert(true, "Error", "We could not deleted the selected job.."))
+    dispatch(setAlert(true, "Error", error.message))
   }
 }
 
