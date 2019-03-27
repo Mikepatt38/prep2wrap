@@ -179,37 +179,36 @@ class JobResultsTable extends Component {
     }
   }
 
-  filterTableByName = async (e) => {
-    e.preventDefault()
-    const userName = this.state.searchByNameTerm
-    let results = []
+  handleFilterByPosition = (e) => {
+    const selectedPosition = e.target.value
+    let filterResults = []
 
-    const getFilterResultsByName = new Promise( (resolve, reject) => {
-      try {
-        this.props.results.map( result => {
-          if(userName.toLowerCase().includes(result.firstName.toLowerCase()) || userName.toLowerCase().includes(result.lastName.toLowerCase())
-            || result.firstName.toLowerCase().includes(userName.toLowerCase()) || result.lastName.toLowerCase().includes(userName.toLowerCase())
-          ) {
-            results.push(result)
-          }
-        })
-        resolve(results)
-      }
-      catch(error) {
-        reject(error)
-      }
+    this.props.results.map( result => {
+      let isMatch = false
+      result.profileInformation.positions.map( resultPosition => {
+        if(resultPosition.value === selectedPosition) {
+          isMatch = true
+        }
+      })
+      if(isMatch){ filterResults.push(result) }
     })
-    const users = await getFilterResultsByName
     this.setState({
-      usersReturned: users,
-      searchByNameTerm: ''
+      usersReturned: filterResults
     })
   }
 
-  handleSearchTermChange = e => {
-    const value = e.target.value
+  handleFilterByName = (e) => {
+    const searchTerm = e.target.value
+    let searchResults = []
+    
+    this.props.results.map( result => {
+      if(searchTerm.toLowerCase().includes(result.firstName.toLowerCase()) || searchTerm.toLowerCase().includes(result.lastName.toLowerCase())
+      || result.firstName.toLowerCase().includes(searchTerm.toLowerCase()) || result.lastName.toLowerCase().includes(searchTerm.toLowerCase())) {
+        searchResults.push(result)
+      }
+    })
     this.setState({
-      searchByNameTerm: value
+      usersReturned: searchResults,
     })
   }
 
@@ -220,8 +219,7 @@ class JobResultsTable extends Component {
           <form className="table-filter-search">
             <input 
               type="text"
-              value={this.state.searchByNameTerm}
-              onChange={this.handleSearchTermChange}
+              onChange={this.handleFilterByName}
               placeholder="Search User By Name"
               className="table-search"
             />
@@ -229,7 +227,7 @@ class JobResultsTable extends Component {
         </div>
         <div className="table-filter-cell">
           <select
-            onChange={(e) => { this.handleTableFilter(e, "position")} }
+            onChange={(e) => { this.handleFilterByPosition(e)} }
           >
             <option value="" disabled selected>Filter by Position</option>
             { this.props.positions.map( position => {
