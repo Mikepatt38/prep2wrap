@@ -170,11 +170,6 @@ export async function getUserJobNotificationID(database, currentUserID, jobOverv
   return idToReturn
 }
 
-export async function createUserJobNotification(userID, jobID, jobNotificationData){
-  const database = await db
-  database.collection("jobs").doc(userID).collection("jobNotifications").doc(jobID).set(jobNotificationData)
-}
-
 export function addUserJobDatesToAvailability(database, userID, jobDates){
   // about to add the dates to the user's availability 
   database.collection("users").doc(userID).update({ availability: jobDates})
@@ -221,6 +216,11 @@ export const createJob = (userID, jobID, jobObj, assignedUsers) => async dispatc
   ])
   .catch( (error) => { dispatch(setAlert(true, "Error", error.message)) }) 
   return jobCreated ? 'success' : null
+}
+
+export const createUserJobNotification = (userID, jobID, jobNotificationData) => async () => {
+  const database = await db
+  database.collection("jobs").doc(userID).collection("jobNotifications").doc(jobID).set(jobNotificationData)
 }
 
 export const getUserJobs = (currentUserID) => async () => {

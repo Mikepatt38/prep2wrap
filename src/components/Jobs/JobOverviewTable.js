@@ -54,20 +54,14 @@ class JobOverviewTable extends Component {
       newDatesArr.push({date: currentDate, dateTitle: this.state.jobOverviewData.jobName, dateType: "booked"})
     })
     let currentAvailability = currentUser.availability ? currentUser.availability : []
-    console.log(currentAvailability)
-    console.log(newDatesArr)
     let newAvailability = [...currentAvailability, ...newDatesArr]
     return newAvailability
   }
 
   acceptJobInvite = (e) => {
     e.preventDefault()
-    let index 
     const jobOverviewLink = "/job-overview/" + this.state.jobOverviewData.jobCreatorID + '/' + this.state.jobOverviewData.jobID
-    console.log(this.state.jobOverviewData.usersAssigned)
-    this.state.jobOverviewData.usersAssigned.map( (user, key) => {
-      index = user.id === this.props.currentUser.id ? key : null
-    })
+    const index = this.state.jobOverviewData.usersAssigned.findIndex(user => user.id === this.props.currentUser.id)
     let newUsersAssignedObject = Object.assign({}, this.state.jobOverviewData)
     newUsersAssignedObject.usersAssigned[index].status = "accepted"
     newUsersAssignedObject.usersAssigned[index].jobStatus = "accepted"
