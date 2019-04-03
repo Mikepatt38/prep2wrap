@@ -108,7 +108,16 @@ export async function getUserCreatedJobs(database, currentUserID){
   let userJobRef = database.collection("jobs").doc(currentUserID)
   let createdJobsRef = await userJobRef.collection("createdJobs").get()  
   for(let createdJob of createdJobsRef.docs) {
-    createdJobs.push(createdJob.data())
+    const currentDate = new Date()
+    const jobDate = new Date(createdJob.data().jobDates[0])
+    console.log(jobDate < currentDate)
+    console.log(jobDate)
+    console.log(currentDate)
+    let jobItem = {
+      status: jobDate > currentDate ? 'Pending' : 'Active',
+      ...createdJob.data()
+    }
+    createdJobs.push(jobItem)
   }
   return createdJobs
 } 
@@ -119,9 +128,30 @@ export async function getUserAcceptedJobs(database, currentUserID){
   let userJobRef = database.collection("jobs").doc(currentUserID)
   let acceptedJobsRef = await userJobRef.collection("acceptedJobs").get()  
   for(let acceptedJob of acceptedJobsRef.docs) {
-    acceptedJobs.push(acceptedJob.data())
+    const currentDate = new Date()
+    const jobDate = new Date(acceptedJob.data().jobDates[0])
+    let jobItem = {
+      status: jobDate > currentDate ? 'Pending' : 'Active',
+      ...acceptedJob.data()
+    }
+    acceptedJobs.push(jobItem)
   }
   return acceptedJobs
+} 
+
+export async function getUserCompletedJobs(database, currentUserID){
+  let completedJobs = []
+
+  let userJobRef = database.collection("jobs").doc(currentUserID)
+  let completedJobsRef = await userJobRef.collection("completedJobs").get()  
+  for(let completedJob of completedJobsRef.docs) {
+    let jobItem = {
+      status: 'completed',
+      ...completedJob.data()
+    }
+    completedJobs.push(jobItem)
+  }
+  return completedJobs
 } 
 
 export async function deleteUserCreatedJob(database, user, jobID, jobDates){
@@ -226,12 +256,13 @@ export const createUserJobNotification = (userID, jobID, jobNotificationData) =>
 export const getUserJobs = (currentUserID) => async () => {
   const database = await db
 
-  let [createdJobs, acceptedJobs] = await Promise.all([
+  let [createdJobs, acceptedJobs, completedJobs] = await Promise.all([
     getUserCreatedJobs(database, currentUserID),
-    getUserAcceptedJobs(database, currentUserID)   
+    getUserAcceptedJobs(database, currentUserID),
+    getUserCompletedJobs(database, currentUserID)   
   ])
   .catch( () => { return [] })
-  return createdJobs.concat(acceptedJobs)
+  return [...createdJobs, ...acceptedJobs, ...completedJobs]
 }
 
 export const deletedCreatedJob = (user, jobID, jobName, jobDates, usersAssigned) => async dispatch => {

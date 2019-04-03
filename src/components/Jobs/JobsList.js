@@ -11,7 +11,6 @@ class JobsList extends Component {
   componentDidMount = async () => {
     const { getUserJobs, currentUser} = this.props
     const jobData = await getUserJobs(currentUser.id)
-    console.log(jobData)
     this.setState({
       userJobs: jobData,
       loading: false

@@ -8,9 +8,6 @@ export const JobOverview = (props) => {
         <h1>Job Overview</h1>
       </div>
       <div className="app-page-section">
-        <div className="section-title">
-          <h3>Job Overview Table:</h3>
-        </div>
         <JobOverviewTable
           currentUser={props.currentUser}
           getJobOverviewData={props.getJobOverviewData}

@@ -6,10 +6,8 @@ class JobOverviewTable extends Component {
   }
 
   componentDidMount = () => {
-    const path = window.location.pathname
-    const result = path.split("/")
-    const creatorID = result[2]
-    const jobID = result[3]
+    const creatorID = window.location.pathname.split("/")[2]
+    const jobID = window.location.pathname.split("/")[3]
     this.props.getJobOverviewData(creatorID, jobID)
       .then((result) => {
         this.setState({
@@ -20,31 +18,19 @@ class JobOverviewTable extends Component {
       })
   }
 
-  testIfCurrentUserIsAssigned = (currentUserId) => {
-    let isUserAssigned = false
-    this.state.jobOverviewData.usersAssigned.map( user => {
-      if(user.id === currentUserId) {
-        isUserAssigned = true
-      }
-    })
-    return isUserAssigned
-  }
-  
-  testIfCurrentUserAccepted = (currentUserId) => {
-    let userAccepted = false
-    this.state.jobOverviewData.usersAssigned.map( user => {
-      if(user.id === currentUserId) {
-        userAccepted =  user.status === "pending" ? false : true
-      }
-    })
-    return userAccepted
-  }
-
-  testIfCurrentUserIsCreator = (currentUserID) => {
-    if(this.state.jobOverviewData.jobCreatorID === currentUserID) {
-      return true
+  getUserType(userID){
+    let userType = 'visitor'
+    if(this.state.jobOverviewData.jobCreatorID === userID) {
+      userType = 'creator'
     }
-    return false
+    else {
+      this.state.jobOverviewData.usersAssigned.map( user => {
+        if(user.id === userID) {
+          userType = (user.status === "pending") ? 'assigned' : 'accepted'
+        }
+      })
+    }
+    return userType
   }
 
   updateUsersJobDates = (newDates) => {
@@ -117,37 +103,45 @@ class JobOverviewTable extends Component {
     if(this.state.loading) return <h1>Loading</h1>
     if(this.state.pageError) return <h1>Error</h1>
     const { jobOverviewData } = this.state
-    const isCurrentUserAssigned = this.testIfCurrentUserIsAssigned(this.props.currentUser.id)
-    const hasUserAccepted = this.testIfCurrentUserAccepted(this.props.currentUser.id)
-    const isCurrentUserJobCreator = this.testIfCurrentUserIsCreator(this.props.currentUser.id)
+    const userType = this.getUserType(this.props.currentUser.id)
     return (
-      <div className="card no-hover">
-        <div className="card-body card-body-flex">
-          <div className="card-item">
-            <h4>Job Creator:</h4>
-            <p>{jobOverviewData.jobCreator}</p>
+      <React.Fragment>
+        <div className="section-title">
+          <h3>Job Overview Table:</h3>
+        </div>
+        <div className="card no-hover">
+          <div className="card-body card-body-flex">
+            <div className="card-item">
+              <h4>Job Creator:</h4>
+              <p>{jobOverviewData.jobCreator}</p>
+            </div>
+            <div className="card-item">
+              <h4>Job Location:</h4>
+              <p>{jobOverviewData.jobLocation.value}</p>
+            </div>
+            <div className="card-item card-item--full">
+              <h4>Job Dates:</h4>
+              { jobOverviewData.dateSelectorRangeActive 
+                ?
+                  <p>{jobOverviewData.jobDates[0]} - {jobOverviewData.jobDates[1]}</p>
+                :
+                  jobOverviewData.jobDates.map( (date, key) => { return <p key={key}>{date}</p>})
+              }
+            </div>
+            <div className="card-item card-item--full">
+              <h4>Job Description:</h4>
+              <p>{jobOverviewData.jobDesc}</p>
+            </div>
+            <div className="card-item">
+              <h4>Union Required:</h4>
+              <p>{jobOverviewData.unionMember ? 'Yes' : 'No'}</p>
+            </div>
           </div>
-          <div className="card-item">
-            <h4>Job Location:</h4>
-            <p>{jobOverviewData.jobLocation.value}</p>
-          </div>
-          <div className="card-item card-item--full">
-            <h4>Job Dates:</h4>
-            { jobOverviewData.dateSelectorRangeActive 
-              ?
-                <p>{jobOverviewData.jobDates[0]} - {jobOverviewData.jobDates[1]}</p>
-              :
-                jobOverviewData.jobDates.map( (date, key) => { return <p key={key}>{date}</p>})
-            }
-          </div>
-          <div className="card-item card-item--full">
-            <h4>Job Description:</h4>
-            <p>{jobOverviewData.jobDesc}</p>
-          </div>
-          <div className="card-item">
-            <h4>Union Required:</h4>
-            <p>{jobOverviewData.unionMember ? 'Yes' : 'No'}</p>
-          </div>
+        </div>
+        <div className="section-title">
+          <h3>Job Positions:</h3>
+        </div>
+        <div className="card card-body-flex">
           <div className="card-item">
             <h4>Positions:</h4>
             {jobOverviewData.jobPositions.map( (position, key) => { return <p key={key}>{position}</p>})}
@@ -165,31 +159,34 @@ class JobOverviewTable extends Component {
             }
           </div>
         </div>
-        <div className="card-footer">
-        {
-          isCurrentUserAssigned && !hasUserAccepted &&
-          <div className="card-footer-action">
-            <button className="button-primary" onClick={(e) => this.acceptJobInvite(e)}>Accept</button>
-            &nbsp;
-            <button className="button-danger" onClick={(e) => this.denyJobInvite(e)}>Deny</button>
-          </div>
-        }
-        {
-          isCurrentUserAssigned && hasUserAccepted &&
-          <div className="card-footer-action">
-            <a href={`mailto:${this.state.jobOverviewData.jobContactEmail}`} className="button button-form">Contact Job Creator</a>
-          </div>
-        }
-        {
-          isCurrentUserJobCreator && 
-          <div className="job-creator-controls">
-            <div className="button-wrapper">
-            <button className="button-danger" onClick={(e) => this.deleteCreatedJob(e)}>Delete Job</button>
-            </div>
-          </div>
-        }
+        <div className="section-title">
+          <h3>Job Actions:</h3>
         </div>
-      </div>
+        <div className="card">
+          {
+            userType === 'assigned' &&
+            <div className="card-footer-action">
+              <button className="button-primary" onClick={(e) => this.acceptJobInvite(e)}>Accept</button>
+              &nbsp;
+              <button className="button-danger" onClick={(e) => this.denyJobInvite(e)}>Deny</button>
+            </div>
+          }
+          {
+            userType === 'accepted' &&
+            <div className="card-footer-action">
+              <a href={`mailto:${this.state.jobOverviewData.jobContactEmail}`} className="button button-form">Contact Job Creator</a>
+            </div>
+          }
+          {
+            userType === 'creator' && 
+            <div className="job-creator-controls">
+              <div className="button-wrapper">
+              <button className="button-danger" onClick={(e) => this.deleteCreatedJob(e)}>Delete Job</button>
+              </div>
+            </div>
+          }
+        </div>
+      </React.Fragment>
     )
   }
 }
