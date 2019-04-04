@@ -110,9 +110,6 @@ export async function getUserCreatedJobs(database, currentUserID){
   for(let createdJob of createdJobsRef.docs) {
     const currentDate = new Date()
     const jobDate = new Date(createdJob.data().jobDates[0])
-    console.log(jobDate < currentDate)
-    console.log(jobDate)
-    console.log(currentDate)
     let jobItem = {
       status: jobDate > currentDate ? 'Pending' : 'Active',
       ...createdJob.data()
@@ -201,7 +198,6 @@ export async function getUserJobNotificationID(database, currentUserID, jobOverv
 }
 
 export function addUserJobDatesToAvailability(database, userID, jobDates){
-  // about to add the dates to the user's availability 
   database.collection("users").doc(userID).update({ availability: jobDates})
 }
 

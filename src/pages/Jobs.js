@@ -29,15 +29,6 @@ class Jobs extends Component {
           />
         </div>
 
-        <div className="app-page-section">
-          <div className="section-title">
-            <h3>Jobs List:</h3>
-          </div>
-          <JobsList
-            getUserJobs={this.props.getUserJobs}
-            currentUser={this.props.currentUser}
-          />
-        </div>
       </div> 
 
     )

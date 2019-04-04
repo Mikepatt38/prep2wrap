@@ -77,6 +77,8 @@ class CreateJobFormStepTwo extends Component {
                   positions={this.props.currentJob.jobObj.jobPositions}
                   assignPosition={this.assignPosition}
                   jobID={this.props.match.params.jobID}
+                  jobDates={this.props.currentJob.jobObj.jobDates}
+                  jobLocation={this.props.currentJob.jobObj.jobLocation}
                   jobName={this.props.currentJob.jobObj.jobName}
                   jobCreatorID={this.props.currentJob.jobObj.jobCreatorID}
                 />

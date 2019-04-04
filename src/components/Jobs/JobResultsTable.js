@@ -26,7 +26,9 @@ class JobResultsTable extends Component {
           jobType: "invited",
           jobID: this.props.jobID,
           jobName: this.props.jobName,
-          jobCreatorID: this.props.jobCreatorID
+          jobCreatorID: this.props.jobCreatorID,
+          jobDates: this.props.jobDates,
+          jobLocation: this.props.jobLocation
         }
       ],
       assignedPositions: [...this.state.assignedPositions, position]

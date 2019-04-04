@@ -1,6 +1,7 @@
 import ReactTable from "react-table"
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import ActionIcon from '../../img/icon-action.svg'
 import 'react-table/react-table.css'
 
 export class JobsTable extends Component {
@@ -20,34 +21,39 @@ export class JobsTable extends Component {
 
   render() {
    
-    const columns = [{
-      Header: 'Type',
-      accessor: 'jobStatus' // String-based value accessors!
-    }, 
-    {
-      Header: 'Name',
-      accessor: 'jobName',
-    }, 
-    {
-      id: 'Location', // Required because our accessor is not a string
-      Header: 'Location',
-      accessor: 'jobLocation.value'
-    },
-    {
-      id: 'Status', // Required because our accessor is not a string
-      Header: 'Status',
-      Cell: props => props.original.status === 'Active' ? <span>Active</span> : <span>Pending</span>
-    },
-    {
-      id: 'Actions', // Required because our accessor is not a string
-      Header: 'Status',
-      Cell: props => <Link to={`/job-overview/${props.original.jobCreatorID}/${props.original.jobID}`} key={props.original.jobID}>View</Link>
-    }, 
-    // {
-    //   Header: props => <span>Friend Age</span>, // Custom header components!
-    //   accessor: 'friend.age'
-    // },
-  ]
+    const columns = [
+      {
+        id: 'Status', // Required because our accessor is not a string
+        Header: 'Status',
+        headerClassName: 'cell-small',
+        Cell: props => props.original.status === 'Active' ? <span className="cell-status active">Active</span> : props.original.status === 'Completed' ? <span className="cell-status completed">Completed</span> : <span className="cell-status pending">Pending</span>,
+        className: 'cell-small'
+      },
+      {
+        Header: 'Position',
+        headerClassName: 'cell-medium',
+        Cell: props => props.original.jobStatus === 'created' ? <span>Creator</span> : <span>{props.original.position}</span>,
+        className: 'cell-medium'
+      }, 
+      {
+        Header: 'Name',
+        accessor: 'jobName',
+      }, 
+      {
+        id: 'Location', // Required because our accessor is not a string
+        Header: 'Location',
+        headerClassName: 'cell-small',
+        accessor: 'jobLocation.value',
+        className: 'cell-small'
+      },
+      {
+        id: 'Actions', // Required because our accessor is not a string
+        Header: 'Action',
+        headerClassName: 'cell-small',
+        Cell: props => <Link to={`/job-overview/${props.original.jobCreatorID}/${props.original.jobID}`} key={props.original.jobID}><img src={ActionIcon} alt="Table Icon for Actions" /></Link>,
+        className: 'cell-small'
+      }
+    ]
    
     return <ReactTable
       data={this.state.userJobs}
