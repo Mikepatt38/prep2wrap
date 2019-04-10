@@ -60,7 +60,7 @@ form
       white-space: nowrap
       letter-spacing: 1.25px
 
-    input, form .form-group .css-1aya2g8, form .form-group .css-2o5izw
+    input, form .form-group .css-1aya2g8, form .form-group .css-2o5izw, textarea
       font-size: 16px
       line-height: 1.2
       font-weight: 400
@@ -75,12 +75,19 @@ form
       background: white
       padding: 0
       text-indent: 12px
-      height: 40px
+      height: 40px 
       margin: 0 
       
       &:focus, &:active, &:focus-within, .css-2o5izw, .css-bl6clz
         outline: none
         border: 1px solid $color__blue
+
+    textarea
+      resize: none
+      padding-top: 5px
+
+    form .form-group .css-1aya2g8
+      height: 40px !important
 
     p.error-msg
       display: none
@@ -144,6 +151,8 @@ form
 .css-1rtrksz
   padding: 0 !important
   color: #4c5669
+  height: 40px !important
+  align-content: center !important
 
 .css-1492t68
   color: #4c5669 !important
@@ -161,7 +170,7 @@ form .form-group input, form .form-group .css-1aya2g8, form .form-group .css-2o5
   background: white
   padding: 0
   text-indent: 12px
-  height: 40px
+  height: 40px 
   margin: 0 
   line-height: 1.2
   position: relative
@@ -171,6 +180,9 @@ form .form-group input, form .form-group .css-1aya2g8, form .form-group .css-2o5
   box-shadow: none
   width: 100%
   box-sizing: border-box
+
+form .form-group .css-1aya2g8
+  height: 40px !important
 
 form .form-group.field-error  .css-1aya2g8, form .form-group.field-error  .css-2o5izw
   border-color: $color__errorRed
@@ -206,12 +218,21 @@ form.card-form
     label
       margin-bottom: 2px
 
-    input
-      font-size: 12px
+    input, textarea
+      font-size: 16px
       padding: 0
       text-indent: 12px
       height: 40px
       margin: 0
+
+    textarea
+      height: 120px
+      justify-content: flex-start
+      align-content: flex-start
+      resize: none
+      padding: 10px 0 0 10px
+      text-indent: 0
+      
 
   .button-wrapper
     display: flex
@@ -312,7 +333,7 @@ label.checkbox
       align-items: center
       position: relative
 
-input[type="checkbox"]#proMembership:checked + label.checkbox, input[type="checkbox"]#freeTrial:checked + label.checkbox, input[type="checkbox"]#unionMember:checked + label.checkbox, input[type="checkbox"]#travel:checked + label.checkbox, input[type="checkbox"]#availability:checked + label.checkbox, input[type="checkbox"]#bilingual:checked + label.checkbox, input[type="checkbox"]#union:checked + label.checkbox
+input[type="checkbox"]#proMembership:checked + label.checkbox, input[type="checkbox"]#freeTrial:checked + label.checkbox, input[type="checkbox"]#unionMember:checked + label.checkbox, input[type="checkbox"]#travel:checked + label.checkbox, input[type="checkbox"]#availability:checked + label.checkbox, input[type="checkbox"]#bilingual:checked + label.checkbox, input[type="checkbox"]#union:checked + label.checkbox, input[type="checkbox"]#dateRangeSelector:checked + label.checkbox, input[type="checkbox"]#dateSelector:checked + label.checkbox
   border: 2px solid $color__blue
   background: $color__blue
   color: white

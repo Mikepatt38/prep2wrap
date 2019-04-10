@@ -32,9 +32,21 @@ button, a.button
     color: #fff
 
   &.button-danger
-    background: #fff
-    border: 1px solid #a94442
+    background: #f2dede
+    border: 1px solid #D4B3AD
     color: #a94442
+
+  &.button-secondary
+    background: transparent
+    border: 1px solid $color__mainBlue
+    color: $color__mainBlue
+    opacity: 0.8
+
+  &:disabled
+    color: #aaa
+    background: #efefef
+    border: #aaa
+    cursor: not-allowed
 
   &.full
     width: 100%

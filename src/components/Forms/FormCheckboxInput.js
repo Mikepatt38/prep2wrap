@@ -4,10 +4,10 @@ import PropTypes from 'prop-types'
 const style = {
   marginBottom: '5px'
 }
-export const FormCheckboxInput = ({ label, checkboxId, value, disabled, onChange, inputName, inputLabel, inputValue, inputOnChange, className }) => {
+export const FormCheckboxInput = ({ label, checkboxId, value, disabled, onChange, inputName, inputLabel, inputValue, inputOnChange, className, customText }) => {
   return (
     <div className={'form-group ' + ` ${className}`}>
-      <label>{label}:</label>
+      <label>{label ? label + ':' : ''}</label>
       <span className="custom-checkbox" style={style}>
         <input 
           type="checkbox" 
@@ -17,7 +17,7 @@ export const FormCheckboxInput = ({ label, checkboxId, value, disabled, onChange
           checked={value}
           disabled={disabled}
         />
-        <label className="checkbox" htmlFor={checkboxId}>Yes</label>
+        <label className="checkbox" htmlFor={checkboxId}>{customText ? customText : 'Yes'}</label>
       </span>
       { inputValue !== undefined && value === true && 
         <React.Fragment>

@@ -2,6 +2,81 @@
   Datepicker Form Styles
   ================== */
 
+.date-selector-type
+  display: flex
+  justify-content: space-between
+  position: relative
+  flex-wrap: wrap
+
+.react-datepicker-wrapper
+  width: 100%
+  .react-datepicker__input-container
+    width: 100%
+.react-datepicker__month-container
+  float: none !important
+
+.date-picker--range-dates
+  position: relative
+
+  label.label-bottom
+    margin-top: 15px
+
+  span.date-pill
+    position: relative
+    padding: 6px
+    background: rgba(28, 133, 232, 0.8)
+    color: white  
+    font-size: 14px
+    font-weight: bold
+    letter-spacing: 0.25px
+    border-radius: 3px
+    border-top-right-radius: 0
+    border-bottom-right-radius: 0
+    margin-bottom: 15px
+
+ul.date-picker-list
+  position: relative
+  padding: 0
+  margin: 0
+  list-style: none
+  display: flex
+  justify-content: flex-start
+  flex-direction: row
+  flex-wrap: wrap
+
+  span.date-picker-list-item
+    display: flex
+    justify-content: flex-start
+    margin: 10px
+
+    li
+      position: relative
+      padding: 6px
+      background: rgba(28, 133, 232, 0.8)
+      color: white  
+      font-size: 14px
+      font-weight: bold
+      letter-spacing: 0.25px
+      border-radius: 3px
+      border-top-right-radius: 0
+      border-bottom-right-radius: 0
+
+    span.date-picker-list-delete
+      background: #f2dede
+      padding: 6px     
+      position: relative
+      align-items: center
+      display: flex
+      margin-bottom: 0
+      transition: all 0.3s ease
+      cursor: pointer
+
+      img
+        height: 14px
+        width: 14px
+
+    
+
 .react-datepicker__input-container input.react-datepicker-ignore-onclickoutside, .react-datepicker__input-container input
   font-size: 14px
   font-weight: 400
