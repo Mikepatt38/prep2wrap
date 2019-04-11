@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 export const FormTextInput = ( {label, name, value, type, disabled, placeholder, onChange, className, errorMsg, error} ) => {
   return (
     <div className={error ? 'field-error form-group' + ` ${className}` : 'form-group' + ` ${className}` }>
-      <label>{label}:</label>
+      <label>{label}</label>
       <input 
         name={name}
         onChange={onChange}

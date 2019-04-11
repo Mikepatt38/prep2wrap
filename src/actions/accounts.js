@@ -58,36 +58,6 @@ export const getCurrentUser = (id) => async dispatch => {
   })
 }
 
-export const searchUsersByName = (firstName, lastName) => async dispatch => {
-  const database = await db
-  let users = []
-  const returnUserSearchResults = new Promise( (resolve, reject) => {
-    try {
-      database.collection("users").get().then( (querySnapshot) => {
-        querySnapshot.forEach( (doc) => {
-          return firstName.toLowerCase().includes(doc.data().firstName.toLowerCase()) || lastName.toLowerCase().includes(doc.data().lastName.toLowerCase()) ? users.push(doc.data()) : null
-        })
-      })
-      .then( () => {
-        resolve(users)
-      })
-    }
-    catch(error) {
-      reject('error')
-      dispatch({
-        type: 'SET_ALERT',
-        payload: [true, 'error', error]   
-      })
-    }
-  }) 
-  const usersArr = await returnUserSearchResults
-  await dispatch({
-      type: 'SEARCH_USER_BY_NAME_RESULTS',
-      payload: usersArr
-    })
-}
-
-
 export const setAccountView = (view) => ({
   type: 'SET_ACCOUNT_VIEW',
   payload: view
@@ -277,4 +247,53 @@ export const signUpUser = (email, password, firstName, lastName, mobileNumber, h
   catch(error) {
     return error
   }
+}
+
+export const usersSearch = (userName) => async dispatch => {
+  const database = await db
+  let nameMatch = []
+
+  await database.collection("users").get().then( results => {
+    for( let user of results.docs) {
+      if(userName.toLowerCase().includes(user.data().firstName.toLowerCase()) ||
+         userName.toLowerCase().includes(user.data().lastName.toLowerCase())) {
+           nameMatch.push(user.data())
+         }
+    }
+  })
+  .then( () =>{
+    dispatch({
+      type: 'SEARCH_USER_BY_NAME_RESULTS',
+      payload: nameMatch
+    })
+  })
+}
+
+export const searchUsersByName = (firstName, lastName) => async dispatch => {
+  const database = await db
+  let users = []
+  const returnUserSearchResults = new Promise( (resolve, reject) => {
+    try {
+      database.collection("users").get().then( (querySnapshot) => {
+        querySnapshot.forEach( (doc) => {
+          return firstName.toLowerCase().includes(doc.data().firstName.toLowerCase()) || lastName.toLowerCase().includes(doc.data().lastName.toLowerCase()) ? users.push(doc.data()) : null
+        })
+      })
+      .then( () => {
+        resolve(users)
+      })
+    }
+    catch(error) {
+      reject('error')
+      dispatch({
+        type: 'SET_ALERT',
+        payload: [true, 'error', error]   
+      })
+    }
+  }) 
+  const usersArr = await returnUserSearchResults
+  await dispatch({
+      type: 'SEARCH_USER_BY_NAME_RESULTS',
+      payload: usersArr
+    })
 }

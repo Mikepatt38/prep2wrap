@@ -168,6 +168,8 @@
   line-height: normal
   box-shadow: none
 
+.ReactTable .rt-noData
+  z-index: 0
 /* ================
   Styles for Table components
   =============== */
@@ -363,3 +365,53 @@
         img
           max-height: 14px
           margin-top: -1px
+
+/* ================
+  Styles for User Search Table Filter
+  =============== */
+
+.search-filter
+  position: relative
+  display: grid
+  grid-template-columns: 1fr 1fr 1fr 1fr 100px
+  width: 100%
+  margin-bottom: 8px
+  align-items: center
+  grid-column-gap: 5px
+
+  button
+    height: 38px
+    display: flex
+    justify-content: center
+    align-items: center
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.075)
+
+  .search-filter-item
+    position: relative
+
+    &:last-child
+      margin-right: 0
+
+    .css-xwjg1b
+      display: none
+
+    .css-1aya2g8, .css-2o5izw, .css-1aya2g8, .css-2o5izw, input
+      background: white
+      font-size: 14px
+      padding: 0
+      margin: 0 
+      text-indent: 10px
+      line-height: 1.2
+      position: relative
+      outline: 0
+      border-radius: 2px
+      border: 1px solid #E6E8EB
+      border-radius: 3px
+      // box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.075)
+      width: 100%
+      box-sizing: border-box
+      height: 40px
+
+      .css-1rtrksz > input
+        height: 0 
+        width: 0
