@@ -22,7 +22,6 @@ class CreateJobFormStepTwo extends Component {
     else {
       this.props.userResultsForJobCreation(this.props.currentUser.id.toString(), this.props.currentJob.jobObj)
       .then( (results) => {
-        console.log(results)
         const filterResults = results.filter(user => user.id !== this.props.currentUserID) 
         this.setState({
           usersMatchedResults: filterResults,
@@ -55,43 +54,52 @@ class CreateJobFormStepTwo extends Component {
     return (  
       <div className="app-page">
         <div className="app-page-title">
-          <h1>Job Overview / Assign Positions</h1>
+          <h1>Assign Job Positions</h1>
         </div>
         <div className="app-page-section">
-          <div className="card no-hover">
-            <div className="card-body">
-              {
-                this.state.loading &&
-                <p>Loading...</p>
-              }
-              {
-                this.state.noUsersReturned &&
-                  <p><b>Oh NO!</b> No users matched your search criteria. Try going back and trying new parameters!</p>  
-              }
-              {
-                this.state.resultsSuccessfullyLoaded &&
-                <JobResultsTable
-                  results={this.state.usersMatchedResults}
-                  setUserModal={this.props.setUserModal}
-                  userModalActive={this.props.userModalActive}
-                  positions={this.props.currentJob.jobObj.jobPositions}
-                  assignPosition={this.assignPosition}
-                  jobID={this.props.match.params.jobID}
-                  jobDates={this.props.currentJob.jobObj.jobDates}
-                  jobLocation={this.props.currentJob.jobObj.jobLocation}
-                  jobName={this.props.currentJob.jobObj.jobName}
-                  jobCreatorID={this.props.currentJob.jobObj.jobCreatorID}
-                />
-              }
-            </div>
-            <div className="card-footer">
-              <FormButton
-                className="button-primary"
-                buttonText="Next Step"
-                onClick={this.saveAndContinue}
-                disabled={this.state.pageError}
-              />
-            </div>
+          {
+            this.state.loading &&
+            <p>Loading...</p>
+          }
+          {
+            this.state.noUsersReturned &&
+              <p><b>Oh NO!</b> No users matched your search criteria. Try going back and trying new parameters!</p>  
+          }
+          {
+            this.state.resultsSuccessfullyLoaded &&
+            <JobResultsTable
+              results={this.state.usersMatchedResults}
+              setUserModal={this.props.setUserModal}
+              userModalActive={this.props.userModalActive}
+              positions={this.props.currentJob.jobObj.jobPositions}
+              assignPosition={this.assignPosition}
+              jobID={this.props.match.params.jobID}
+              jobDates={this.props.currentJob.jobObj.jobDates}  
+              jobLocation={this.props.currentJob.jobObj.jobLocation}  
+              jobName={this.props.currentJob.jobObj.jobName}  
+              jobCreatorID={this.props.currentJob.jobObj.jobCreatorID}  
+            />
+          }
+        </div>
+        <div className="job-form-navigation">
+          <div className="buttons-left">
+            <FormButton
+              className="button-danger"
+              buttonText="Cancel"
+              // onClick={this.saveAndContinue}
+            />
+          </div>
+          <div className="buttons-right">
+            <FormButton
+              className="button-secondary"
+              buttonText="Prev Step"
+              // onClick={this.saveAndContinue}
+            />
+            <FormButton
+              className="button-primary"
+              buttonText="Next Step"
+              onClick={this.saveAndContinue}
+            />
           </div>
         </div>
       </div>

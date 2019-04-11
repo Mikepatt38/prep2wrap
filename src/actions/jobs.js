@@ -1,6 +1,17 @@
 import { db, auth, firebase } from '../db/firebase'
 import { setAlert } from './components'
 
+export const getAllUsersData = () => async () => {
+  let temp = []
+  const database = await db
+  const users = await database.collection("users").get().then( results => {
+    results.forEach( (doc) => {
+      temp.push(doc.data())
+    })
+  })
+  return temp
+}
+
 export const getJobOverviewData = (creatorID, jobID) => async () => {
   const database = await db
   const getJobOverview = database.collection("jobs").doc(creatorID).collection("createdJobs").doc(jobID).get()

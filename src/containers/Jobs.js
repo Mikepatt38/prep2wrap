@@ -10,6 +10,7 @@ import { createJob,
          createUserJobNotification, 
          createReduxJob,
          updateReduxJobAssignedUsers,
+         getAllUsersData
         } from '../actions/jobs'
 import { setModal, setUserModal } from '../actions/components'
 import withAuthorization from './withAuthorization'
@@ -37,6 +38,7 @@ const actions = {
   createReduxJob,
   updateReduxJobAssignedUsers,
   deletedCreatedJob,
+  getAllUsersData
 }
 
 

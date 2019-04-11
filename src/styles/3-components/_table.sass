@@ -45,6 +45,9 @@
 
 .ReactTable .rt-thead .rt-th
   border-right: none !important
+.ReactTable .rt-thead .rt-th.cell-avatar
+  width: 100% !important
+  max-width: 50px !important
 .ReactTable .rt-thead .rt-th.cell-small
   width: 100% !important
   max-width: 150px !important
@@ -61,6 +64,54 @@
   max-height: 67px
 
 // styles for the cells of the table
+.ReactTable .rt-tbody .rt-td
+  display: flex
+  align-content: center
+
+  &.cell-end
+    justify-content: flex-end
+
+  &.cell-select
+    padding: 0
+
+  select
+    padding: 0
+    font-size: 14px
+    line-height: 1.2
+    font-weight: 400
+    color: #16374b
+    position: relative
+    outline: 0
+    border-radius: 0
+    border-radius: 2px
+    border: 1px solid #c9ced1
+    box-shadow: none
+    width: 100%
+    box-sizing: border-box
+    background: white
+    padding: 0
+    text-indent: 12px
+    margin: 0
+    height: 32px
+
+    &[disabled]
+      opacity: 0.6 
+      cursor: not-allowed
+
+  span > img
+    max-height: 15px
+
+  span.view-profile
+    display: flex
+    align-items: center
+    color: #3d77ea
+    cursor: pointer
+    font-size: 11px
+    font-weight: 500
+    text-transform: uppercase
+    letter-spacing: 0.50px
+    img
+      margin-right: 4px
 .ReactTable .rt-tbody .rt-td, .ReactTable .rt-tbody .rt-td a
   border: none !important 
   font-size: 14px
@@ -95,6 +146,16 @@
 .ReactTable .rt-tbody .rt-td.cell-medium
   width: 100%
   max-width: 175px
+
+//styles for avatar cell for the table
+.ReactTable .rt-tbody .rt-td.cell-avatar
+  width: 100% !important
+  max-width: 50px !important
+  padding: 0
+
+  img
+    max-height: 35px
+    border-radius: 50%
 
 // styles for the pagination of the table
 .ReactTable .-pagination
@@ -198,6 +259,60 @@
           max-height: 14px
 
 /* ================
+  Styles for Assigned Users List
+  =============== */
+.assignedUsers
+  position: relative
+
+  ul.assignedUsers-list
+    padding: 0
+    margin: 0
+    list-style: none
+
+    li.assignedUsers-list-item
+      position: relative
+      margin-bottom: 10px
+
+      label
+        text-transform: uppercase
+        color: #677694
+        font-weight: 700
+        font-size: 11px
+        margin-bottom: 3px
+        display: block
+        white-space: nowrap
+        letter-spacing: 1.25px  
+
+      span.assignedUsers-list-pill
+        position: relative
+        padding: 6px
+        background: rgba(28, 133, 232, 0.8)
+        color: white  
+        font-size: 12px
+        letter-spacing: 0.05px
+        font-weight: 500
+        border-radius: 3px
+        border-top-right-radius: 0
+        border-bottom-right-radius: 0
+        display: inline-block
+
+      span.assignedUsers-list-delete
+        background: #f2dede
+        padding: 6px     
+        position: relative
+        align-items: center
+        display: flex
+        margin-bottom: 0
+        transition: all 0.3s ease
+        cursor: pointer
+        display: inline-block
+        height: 30px
+
+        img
+          height: 12px
+          width: 12px
+
+/* ================
   Styles for Table amd List components
   =============== */
 
@@ -205,13 +320,23 @@
   display: grid
   grid-template-columns: repeat( auto-fill, minmax(250px, 1fr) )
   grid-column-gap: 10px
-  margin-bottom: 25px
+  margin-bottom: 10px
+
+  label
+    text-transform: uppercase
+    color: #677694
+    font-weight: 700
+    font-size: 11px
+    margin-bottom: 3px
+    display: block
+    white-space: nowrap
+    letter-spacing: 1.25px   
 
   .table-filter-cell
     display: grid
 
   .table-filter-cell > form.table-filter-search > input, .table-filter-cell select
-    font-size: 16px
+    font-size: 14px
     line-height: 1.2
     font-weight: 400
     color: #16374b
