@@ -117,3 +117,65 @@
     letter-spacing: 0.150px
     font-weight: 500
     font-size: 14px
+
+/* ================
+  Styles for Assigned Users List
+  =============== */
+.assignedUsers
+  position: relative
+
+  ul.assignedUsers-list
+    padding: 0
+    margin: 0
+    list-style: none
+
+    div.assignedUsers-list-item
+      margin-bottom: 15px
+      position: relative
+
+    label
+      text-transform: uppercase
+      color: #677694
+      font-weight: 700
+      font-size: 13px
+      margin-bottom: 3px
+      display: block
+      white-space: nowrap
+      letter-spacing: 1.25px  
+
+    .assignedUsers-list-item-user
+      position: relative
+      display: flex
+      align-items: center
+
+      li.assignedUsers-list-pill
+        position: relative
+        // padding: 6px
+        // background: rgba(28, 133, 232, 0.8)
+        // color: white  
+        font-size: 14px
+        letter-spacing: 0.05px
+        // font-weight: 500
+        // border-radius: 3px
+        // border-top-right-radius: 0
+        // border-bottom-right-radius: 0
+        display: inline-block
+
+      span.assignedUsers-list-delete
+        // background: #f2dede
+        // padding: 6px     
+        position: relative
+        align-items: center
+        display: flex
+        margin-bottom: 0
+        transition: all 0.3s ease
+        cursor: pointer
+        display: inline-block
+        // height: 30px
+        border-top-right-radius: 3px
+        border-bottom-right-radius: 3px
+        margin-left: 6px
+
+        img
+          height: 12px
+          width: 12px

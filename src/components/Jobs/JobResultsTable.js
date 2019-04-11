@@ -142,10 +142,10 @@ class JobResultsTable extends Component {
           {
             this.state.usersAssigned.map( (user, key) => {
               return (
-                <li key={key} className="assignedUsers-list-item">
+                <div key={key} className="assignedUsers-list-item">
                   <label>{user.position}:</label>
-                  <span className="assignedUsers-list-pill">{user.name}</span><span className="assignedUsers-list-delete" onClick={() => this.removeAssignedUser(user)}><img src={TrashIcon} alt="Delete Icon" /></span>
-                </li>
+                  <span className="assignedUsers-list-item-user"><li className="assignedUsers-list-pill">{user.name}</li><span className="assignedUsers-list-delete" onClick={() => this.removeAssignedUser(user)}><img src={TrashIcon} alt="Delete Icon" /></span></span>
+                </div>
               )
             })
           }
@@ -168,7 +168,7 @@ class JobResultsTable extends Component {
       if(isMatch){ filterResults.push(result) }
     })
     this.setState({
-      usersReturned: filterResults
+      data: filterResults
     })
   }
 
@@ -183,7 +183,7 @@ class JobResultsTable extends Component {
       }
     })
     this.setState({
-      usersReturned: searchResults,
+      data: searchResults,
     })
   }
 
