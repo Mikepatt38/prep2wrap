@@ -35,7 +35,6 @@ export class UserSearch extends Component {
     return (
       <div className="app-page-section">
         <UserSearchTable 
-          headers={['', 'Name', 'Location', '']}
           users={userData}
           setUserModal={this.props.setUserModal}
           usersSearch={this.props.usersSearch}

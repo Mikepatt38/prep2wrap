@@ -19,7 +19,7 @@ export const FormTextInput = ( {label, name, value, type, disabled, placeholder,
 }
 
 FormTextInput.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   name: PropTypes.string.isRequired,
   value: PropTypes.string,
   type: PropTypes.string.isRequired,

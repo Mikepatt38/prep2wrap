@@ -10,6 +10,7 @@ export class Table extends Component {
       columns={this.props.columns}
       defaultPageSize={10}
       minRows={1}
+      NoDataComponent={() => null}
     />
   }
 }

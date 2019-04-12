@@ -9,6 +9,7 @@ import DownArrowIcon from '../../img/icon-down-arrow.svg'
 import { locationObj, skillsObj, positionsObj, jobTypesObj } from '../../data/formOptions'
 import GlassIcon from '../../img/icon-searchglass.svg'
 import LinkIcon from '../../img/icon-profile.svg'
+import ActionIcon from '../../img/icon-action.svg'
 
 class UserSearchTable extends Component {
   state = {
@@ -24,7 +25,8 @@ class UserSearchTable extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.users !== this.props.users) {
       this.setState({
-        data: this.props.users
+        data: this.props.users,
+        loading: false
       })
     }
   }
@@ -48,10 +50,11 @@ class UserSearchTable extends Component {
 
   handleUpdateSearch = (e) => {
     e.preventDefault()
-    this.props.usersSearch(this.state.searchName)
     this.setState({
-      searchName: ''
+      loading: true,
     })
+    const { searchName, positionsSelected, locationsSelected, jobTypesSelected } = this.state
+    this.props.usersSearch(searchName, positionsSelected, locationsSelected, jobTypesSelected)
   }
   
   tableFilter() {
@@ -117,7 +120,7 @@ class UserSearchTable extends Component {
 
     const columns = [
       {
-        id: 'Avatar', // Required because our accessor is not a string
+        id: 'Avatar', 
         Header: 'User',
         headerClassName: 'cell-avatar',
         Cell: props => props.original.profileInformation.avatarUrl 
@@ -130,12 +133,24 @@ class UserSearchTable extends Component {
         Cell: props => <span>{props.original.firstName + ' ' + props.original.lastName}</span>,
       }, 
       {
-        id: 'Profile', // Required because our accessor is not a string
-        Header: '',
-        className: 'cell-end',
-        Cell: props => <span className="view-profile" onClick={() => {this.props.setUserModal(true, props.original)}}><img src={LinkIcon} alt="Table Link Icon" />View Profile</span>
+        id: 'Location', 
+        Header: 'Main Location',
+        // headerClassName: 'cell-medium',
+        Cell: props => <span>{props.original.profileInformation.location[0].value}</span>,
+        // className: 'cell-medium'
+      }, 
+      {
+        id: 'Profile',
+        Header: 'Action',
+        headerClassName: 'cell-small',
+        className: 'cell-small',
+        Cell: props => <span className="action" onClick={() => {this.props.setUserModal(true, props.original)}}><img src={ActionIcon} alt="Take Action Icon" /></span>
       },
     ]
+
+    // if(!this.state.data.length)
+    //   return this.tableFilter()
+
     return (
       <React.Fragment>
         {this.tableFilter()}
