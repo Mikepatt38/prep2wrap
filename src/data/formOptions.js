@@ -42,7 +42,8 @@ export const locationObj = [
   { value: 'Puerto Rico', label: 'Puerto Rico' },
   { value: 'Miami, FL', label: 'Miami, FL' },
   { value: 'Savannah, GA', label: 'Savannah, GA' },
-  { value: 'Seattle, WA', label: 'Seattle, WA' }
+  { value: 'Seattle, WA', label: 'Seattle, WA' },
+  { value: 'Vancouver, BC', label: 'Vancouver, BC'}
 ]
 
 export const positionsObj = [

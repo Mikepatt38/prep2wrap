@@ -35,7 +35,7 @@ class Dashboard extends Component {
               <div className="icon"><img src={GettingStartedIcon} alt="Getting Started Icon" /></div>
               <div className="description">
                 <h4>Visit Tutorials</h4>
-                <p>Get started with how to use the Calltime platform for your career and current jobs.</p>
+                <p>Get started with how to use the CrewItUp platform for your career and current jobs.</p>
               </div>
             </div>
 
@@ -43,7 +43,7 @@ class Dashboard extends Component {
               <div className="icon"><img src={CreateIcon} alt="Getting Started Icon" /></div>
               <div className="description">
                 <h4>Create A Job</h4>
-                <p>Get started with how to use the Calltime platform for your career and current jobs.</p>
+                <p>Get started with how to use the CrewItUp platform for your career and current jobs.</p>
               </div>
             </div>
 
@@ -51,7 +51,7 @@ class Dashboard extends Component {
               <div className="icon"><img src={GlassIcon} alt="Getting Started Icon" /></div>
               <div className="description">
                 <h4>Update Availability</h4>
-                <p>Get started with how to use the Calltime platform for your career and current jobs.</p>
+                <p>Get started with how to use the CrewItUp platform for your career and current jobs.</p>
               </div>
             </div>
 
@@ -59,7 +59,7 @@ class Dashboard extends Component {
               <div className="icon"><img src={CalendarIcon} alt="Getting Started Icon" /></div>
               <div className="description">
                 <h4>Find A User</h4>
-                <p>Get started with how to use the Calltime platform for your career and current jobs.</p>
+                <p>Get started with how to use the CrewItUp platform for your career and current jobs.</p>
               </div>
             </div>
           </div>

@@ -21,7 +21,7 @@ class JobResultsTable extends Component {
     const columns = [
       {
         id: 'Avatar', // Required because our accessor is not a string
-        Header: 'User',
+        Header: 'Crew Memeber',
         headerClassName: 'cell-avatar',
         Cell: props => props.original.profileInformation.avatarUrl 
           ? <img src={props.original.profileInformation.avatarUrl} alt="Profile Avatar" />
@@ -227,7 +227,7 @@ class JobResultsTable extends Component {
           <div className="create-job-wrapper">
             <div className="create-job-wrapper-main">
               <div className="card card-create-job no-hover">
-                <h3>User Job Matches</h3>
+                <h3>Crew Job Matches</h3>
                 {this.tableFilter()}
                 <Table
                   data={this.state.data}

@@ -14,6 +14,7 @@ class UserProfileForm extends Component {
     positions: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.positions : [],
     fbLink: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.fbLink : '',
     imdbLink: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.imdbLink : '',
+    instagramLink: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.instagramLink : '',
     availability: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.availability : false,
     bilingual: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.bilingual : false, 
     languages: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.languages : [],
@@ -36,7 +37,7 @@ class UserProfileForm extends Component {
 
   handleClick = async (e) => {
     e.preventDefault()
-    this.props.setUserProfile(this.props.currentUser.id, this.state.jobTypes, this.state.location, this.state.skills, this.state.positions, this.state.fbLink, this.state.imdbLink, this.state.availability, this.state.travel, this.state.union, this.state.bilingual, this.state.unions, this.state.languages, e)
+    this.props.setUserProfile(this.props.currentUser.id, this.state.jobTypes, this.state.location, this.state.skills, this.state.positions, this.state.fbLink, this.state.imdbLink, this.state.instagramLink, this.state.availability, this.state.travel, this.state.union, this.state.bilingual, this.state.unions, this.state.languages, e)
   }
 
   handleSelect = (name, val) => {
@@ -51,7 +52,7 @@ class UserProfileForm extends Component {
   }
 
   render() {
-    const { jobTypes, location, skills, positions, fbLink, imdbLink, availability, bilingual, travel, union } = this.state
+    const { jobTypes, location, skills, positions, fbLink, imdbLink, availability, bilingual, travel, union, instagramLink } = this.state
     return (
       <form className="card-form">
         <FormSelectInput
@@ -107,6 +108,14 @@ class UserProfileForm extends Component {
           onChange={this.handleChange}
           className="form-group--half"
           value={imdbLink}
+        />
+        <FormTextInput 
+          label="Instagram Profile Link"
+          name="instagram"
+          type="text"
+          onChange={this.handleChange}
+          className="form-group--half"
+          value={instagramLink}
         />
         <FormCheckboxInput
           label="Willing To Travel"

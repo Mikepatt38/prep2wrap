@@ -18,7 +18,13 @@ class UserFavorites extends Component {
     return (
       <div className="card no-hover">
         {this.state.loading && <p>Loading...</p>}
-        <p>You currently do not have any favorites. You can add up to 8 to your directory.</p>
+        <ul>
+          {
+            this.state.favorites.map( favorite => {
+              console.log(favorite)
+            })
+          }
+        </ul>
       </div>
     )
   }
