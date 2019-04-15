@@ -36,33 +36,29 @@ export const updateUserFavorites = (userID, usersFavorites) => async dispatch =>
   })
 }
 
-export const getCurrentFavorites  = async (currentUserId) => {
+// return an async callback function to workaround redux not being able to 
+// use async functions as an action
+export const getCurrentFavorites = (currentUserId) => async () => {
   const database = await db
   let currentFavorites = []
-  
-  return new Promise( (resolve, reject) => {
-    try {
-      database.collection("users").doc(currentUserId).get().then( results => {
-        currentFavorites = typeof results.data().favorites === undefined ? results.data().favorites : []
-      })
-      resolve(currentFavorites)
-    }
-    catch (error) {
-      reject(error)
-    }
+
+  currentFavorites = database.collection("users").doc(currentUserId).get().then( results => {
+    return typeof results.data().favorites !== undefined ? results.data().favorites : []
   })
+
+  return currentFavorites
 }
 
-export const addToUsersFavorites = (currentUserId, userToBeAdded) => async dispatch => {
+export const addToUsersFavorites = (currentUserId, currentUserFavorites, userToBeAdded) => async dispatch => {
   const newFavorite = {
     id: userToBeAdded.id,
     name: userToBeAdded.firstName + ' ' + userToBeAdded.lastName,
     email: userToBeAdded.email,
     avatar: userToBeAdded.avatar ? userToBeAdded.avatar : "",
+    location: userToBeAdded.profileInformation.location[0].value,
     numberOfTimesFavorite: userToBeAdded.numberOfTimesFavorite + 1
   }
 
-  const currentUserFavorites = await getCurrentFavorites(currentUserId)
   if(currentUserFavorites.length < 8) {
     currentUserFavorites.push(newFavorite)
     dispatch(updateUserFavorites(currentUserId, currentUserFavorites))

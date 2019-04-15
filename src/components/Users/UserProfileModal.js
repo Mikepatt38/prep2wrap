@@ -41,12 +41,9 @@ class UserProfileModal extends Component {
   }
 
   handleAddFavorite = async (addToUsersFavorites, user) => {
-    const userAdded = await addToUsersFavorites(this.props.currentUser.id.toString(), user)
-    this.setState({
-      favoritesUpdated: userAdded ? true : false
-    }, () => {
-      this.props.closeModal(false)
-    })
+    const userCurrentFavorites = this.props.currentUser.favorites ? this.props.currentUser.favorites : [] 
+    const userAdded = await addToUsersFavorites(this.props.currentUser.id.toString(), userCurrentFavorites, user)
+    this.props.closeModal(false)
   }
 
   render() {

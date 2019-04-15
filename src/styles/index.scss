@@ -1,9 +1,7 @@
 // Tools Imports
 @import '1-tools/vars';
-
 // Basics Imports
 @import '2-basics/theme';
-
 // Modules Imports
 @import '3-components/button';
 @import '3-components/form';
@@ -20,9 +18,9 @@
 @import '3-components/jobOverview';
 @import '3-components/userSearch';
 @import '3-components/dashboardNotifications';
-
 // Pages Imports
 @import '4-views/dashboard';
 @import '4-views/accountSettings';
 @import '4-views/auth';
 @import '4-views/jobs';
+@import '4-views/favorites';

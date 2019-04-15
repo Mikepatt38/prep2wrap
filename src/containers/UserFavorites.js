@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { setUserModal } from '../actions/components'
 import { addToUsersFavorites,
          getUserFavorites,
+         getCurrentFavorites,
          stopListeningForFavorites,
          removeUserFromUserFavorites } from '../actions/favorites'
 import UserFavorites from '../components/Users/UserFavorites'
@@ -21,6 +22,7 @@ const actions = {
   setUserModal,
   addToUsersFavorites,
   getUserFavorites,
+  getCurrentFavorites,
   stopListeningForFavorites,
   removeUserFromUserFavorites
 }

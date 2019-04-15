@@ -15,7 +15,7 @@ const UsersPage = () => (
       <h1>Quick Crew</h1>
     </div>
     <div className="app-page-section">
-      
+      <UserFavorites />
     </div>
   </div> 
 )
