@@ -6,7 +6,8 @@ class Calendar extends Component {
     currentMonth: new Date(),
     selectedDate: null,
     selectedDateType: '',
-    bookedDates: []
+    bookedDates: [],
+    personalDates: []
   }
 
   componentWillReceiveProps = () => {
@@ -69,18 +70,23 @@ class Calendar extends Component {
         formattedDate = dateFns.format(day, dateFormat)
         compareDate = dateFns.format(day, "MM/DD/YYYY")
         const cloneDay = day
-        // console.log(this.props.dates)
         this.props.dates.map( (date) => {
-          // console.log(compareDate)
-          // console.log(Object.keys(date))
-          return compareDate === date.date ? this.state.bookedDates.push(dateFns.format(day, "MM/DD/YYYY")) : ''
+          return compareDate === date.date 
+            ? date.dateType.toLowerCase() === 'booked' 
+              ? this.state.bookedDates.push(dateFns.format(day, "MM/DD/YYYY")) 
+              : this.state.personalDates.push(dateFns.format(day, "MM/DD/YYYY"))
+            : ''
         })
         days.push(
           <div
             className={`col cell ${
               !dateFns.isSameMonth(day, monthStart)
                 ? "disabled"
-                :  this.state.bookedDates.includes(compareDate) ? "selected" : ""
+                :  this.state.bookedDates.includes(compareDate) 
+                  ? "booked" 
+                  : this.state.personalDates.includes(compareDate)
+                    ? "personal"
+                    : ""
             }`}
             key={day}
             // Not sure I want the user to set availability based on clicked the day cell

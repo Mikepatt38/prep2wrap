@@ -114,7 +114,7 @@
       margin-right: 4px
 .ReactTable .rt-tbody .rt-td, .ReactTable .rt-tbody .rt-td a
   border: none !important 
-  font-size: 16px
+  font-size: 15px
   color: #444444
   & > a, & > span.action
     display: inline-block
@@ -138,9 +138,12 @@
     &.pending
       background: #fcf8e3
       color: #8a6d3b
-    &.completed
+    &.completed, &.unavailable
       color: #676767
       background: #fafafa
+    &.personal
+      background: #d9edf7
+      color: #31708f
 
 .ReactTable .rt-tbody .rt-td.cell-small
   width: 100%

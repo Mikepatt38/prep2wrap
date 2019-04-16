@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import moment from 'moment'
 import { AvailabilityForm } from '../components/Users/AvailabilityForm'
 import Calendar from '../components/Users/Calendar'
-import { UserAvailabilityList } from '../components/Users/UserAvailabilityList'
+import { UserAvailabilityTable } from '../components/Users/UserAvailabilityTable'
 
 class Availability extends Component {
   state = {
@@ -60,7 +60,7 @@ class Availability extends Component {
           {
             // Need to check to make sure the availability array isn't empty
             this.state.userAvailability && 
-            <UserAvailabilityList
+            <UserAvailabilityTable
               dates={this.state.userAvailability}
               currentUser={currentUser}
             />
