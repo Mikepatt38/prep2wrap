@@ -1,5 +1,4 @@
 const INITIAL_STATE = {
-  accountView: 'general',
   profileImageURL: '',
   currentUser: null,
   userSearchByNameResults: []
@@ -38,9 +37,6 @@ function accountReducer(state = INITIAL_STATE, action) {
     }
     case 'SET_EMAIL': {
       return Object.assign({}, state, action.payload)
-    }
-    case 'SET_ACCOUNT_VIEW': {
-      return { ...state, accountView: action.payload }
     }
     default : return state
   }

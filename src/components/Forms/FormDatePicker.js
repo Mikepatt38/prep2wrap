@@ -10,6 +10,7 @@ export const FormDatePicker = ( {label, handleChange, className, selectedDate, p
       <DatePicker
         inline
         onChange={handleChange}
+        selected={selectedDate}
         placeholderText={placeholderText}
       />
     </div>

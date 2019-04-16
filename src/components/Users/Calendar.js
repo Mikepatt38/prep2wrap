@@ -69,7 +69,10 @@ class Calendar extends Component {
         formattedDate = dateFns.format(day, dateFormat)
         compareDate = dateFns.format(day, "MM/DD/YYYY")
         const cloneDay = day
+        // console.log(this.props.dates)
         this.props.dates.map( (date) => {
+          // console.log(compareDate)
+          // console.log(Object.keys(date))
           return compareDate === date.date ? this.state.bookedDates.push(dateFns.format(day, "MM/DD/YYYY")) : ''
         })
         days.push(
@@ -80,11 +83,14 @@ class Calendar extends Component {
                 :  this.state.bookedDates.includes(compareDate) ? "selected" : ""
             }`}
             key={day}
-            onClick={ () => 
-              this.state.bookedDates.includes(dateFns.format(dateFns.parse(cloneDay), "MM/DD/YYYY"))
-                ? this.onDateClick(dateFns.parse(cloneDay))
-                : this.setDateClick(dateFns.parse(cloneDay))
-            }
+            // Not sure I want the user to set availability based on clicked the day cell
+            // might bring back to allow user to "quick view" a blocked out date
+            // onClick={ () => 
+            //   this.state.bookedDates.includes(dateFns.format(dateFns.parse(cloneDay), "MM/DD/YYYY"))
+            //     // ? this.onDateClick(dateFns.parse(cloneDay))
+            //     ? null // null while trying to figure out what to do when user clicks date that is booked
+            //     : this.setDateClick(dateFns.parse(cloneDay))
+            // }
           >
             <span className="number">{formattedDate}</span>
             <span className="bg">{formattedDate}</span>

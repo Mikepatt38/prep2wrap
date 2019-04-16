@@ -10,7 +10,7 @@ const rootReducer = combineReducers({
   accountState: accountReducer,
   availabilityState: availabilityReducer,
   favoritesState: favoritesReducer,
-  jobsState: jobsReducer,
+  jobsState: jobsReducer
 })
 
 export default rootReducer

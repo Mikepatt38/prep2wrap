@@ -8,7 +8,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 
 export class AvailabilityForm extends Component {
   state = {
-    startDate: moment(),
+    currentSelectedDate: moment(),
     formattedDate: dateFns.format(this.props.selectedDate, 'MM/DD/YYYY'),
     reason: '',
     dates: []
@@ -16,7 +16,7 @@ export class AvailabilityForm extends Component {
 
   handleChange = (date) => {
     this.setState({
-      startDate: date,
+      currentSelectedDate: date,
       formattedDate: date.format('MM/DD/YYYY')
     })
   }
@@ -29,13 +29,13 @@ export class AvailabilityForm extends Component {
 
   handleClick = (e) => {
     e.preventDefault()
-    this.props.setAvailabilityDate(this.props.currentUser.id.toString(), dateFns.format(this.props.selectedDate, 'MM/DD/YYYY'), this.state.reason, "Requested")
+    this.props.updateUserAvailability(this.props.currentUser.id.toString(), this.props.currentAvailability, dateFns.format(this.state.currentSelectedDate, 'MM/DD/YYYY'), this.state.reason, "Requested")
     this.props.closeModal(false)
   }
 
 
   render() {
-    const { startDate, reason } = this.state
+    const { currentSelectedDate, reason } = this.state
     return (
       <form 
         method="form"
@@ -43,8 +43,9 @@ export class AvailabilityForm extends Component {
       >
         <FormDatePicker
           label="Select a date"
-          startDate={startDate}
-          selectedDate={this.props.selectedDate}
+          currentSelectedDate={currentSelectedDate}
+          startDate={currentSelectedDate}
+          selectedDate={currentSelectedDate}
           className="date-picker-form-group"
           handleChange={this.handleChange}
         />
