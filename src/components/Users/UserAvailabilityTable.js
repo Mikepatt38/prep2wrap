@@ -5,7 +5,13 @@ import ActionIcon from '../../img/icon-action.svg'
 
 export class UserAvailabilityTable extends Component {
   state = {
-    availability: this.props.dates,
+    availability:     
+      // Sort the dates from most recent to latest
+      // sort and reverse both manipulate the original array
+      // so no need to create a new var
+      this.props.dates.sort(function(a,b){
+        return new Date(b.date) - new Date(a.date);
+      }).reverse(),
     loading: this.props.dates ? false : true
   }
 
