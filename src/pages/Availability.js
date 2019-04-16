@@ -46,7 +46,7 @@ class Availability extends Component {
           {
             this.state.userAvailability && 
             <Calendar 
-              dates={[]} 
+              dates={this.state.userAvailability} 
               setSelectedDate={this.setSelectedDate} 
               // onSelectedDate={this.onSelectedDate} 
             />
@@ -61,7 +61,7 @@ class Availability extends Component {
             // Need to check to make sure the availability array isn't empty
             this.state.userAvailability && 
             <UserAvailabilityList
-              dates={[]}
+              dates={this.state.userAvailability}
               currentUser={currentUser}
             />
           }

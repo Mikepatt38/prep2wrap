@@ -11,7 +11,14 @@ export class AvailabilityForm extends Component {
     currentSelectedDate: moment(),
     formattedDate: dateFns.format(this.props.selectedDate, 'MM/DD/YYYY'),
     reason: '',
-    dates: []
+  }
+
+  clearForm = () => {
+    this.setState({
+      currentSelectedDate: moment(),
+      formattedDate: moment(),
+      reason: '',
+    })
   }
 
   handleChange = (date) => {
@@ -30,6 +37,7 @@ export class AvailabilityForm extends Component {
   handleClick = (e) => {
     e.preventDefault()
     this.props.updateUserAvailability(this.props.currentUser.id.toString(), this.props.currentAvailability, dateFns.format(this.state.currentSelectedDate, 'MM/DD/YYYY'), this.state.reason, "Requested")
+    this.clearForm()
     this.props.closeModal(false)
   }
 
