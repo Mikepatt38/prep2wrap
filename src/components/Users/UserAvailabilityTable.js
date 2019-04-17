@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Table } from '../General/Table'
 import { Link } from 'react-router-dom'
 import ActionIcon from '../../img/icon-action.svg'
+import TrashIcon from '../../img/icon-trash.svg'
 
 export class UserAvailabilityTable extends Component {
   state = {
@@ -20,6 +21,29 @@ export class UserAvailabilityTable extends Component {
       this.setState({
         availability: this.props.dates
       })
+    }
+  }
+
+  elementHasId(element){
+    return typeof element.id != 'undefined'
+  }
+
+  toggleTableDropdown(index){
+    // store which dropdown was selected
+    const el = document.getElementById(`dropdown-${index}`)
+    // if there are dropdowns that are active, lets find them
+    const els = document.getElementsByClassName('menu-dropdown--active')
+    // we need to remove this class if it is out there
+    if(els[0] && els[0].id === `dropdown-${index}`){
+      els[0].classList.remove('menu-dropdown--active')
+    }
+    else if(els[0]){
+      els[0].classList.remove('menu-dropdown--active')
+      el.classList.add('menu-dropdown--active')
+    }
+    //if there aren't any active, lets add the class
+    else {
+      el.classList.add('menu-dropdown--active')
     }
   }
 
@@ -47,8 +71,26 @@ export class UserAvailabilityTable extends Component {
         id: 'Actions', // Required because our accessor is not a string
         Header: 'Action',
         headerClassName: 'cell-small',
-        Cell: props => <Link to={`/job-overview/${props.original.jobCreatorID}/${props.original.jobID}`} key={props.original.jobID}><img src={ActionIcon} alt="Table Icon for Actions" /></Link>,
-        className: 'cell-small'
+        Cell: props => {
+          return (     
+            <div className="action-container">
+              <span className="action" onClick={() => this.toggleTableDropdown(props.index)}><img src={ActionIcon} alt="Table Icon for Actions" /></span>
+              <div className="menu-dropdown" id={`dropdown-${props.index}`}>
+              <div className="arrow-up"></div>
+                <div className="menu-dropdownView">
+                  <ul className="menu-dropdownItems">
+                    {
+                      props.original.dateType.toLowerCase() === 'requested'
+                        ? <li className="menu-dropdown-item red">Delete</li>
+                        : <li className="menu-dropdown-item">View Jobs</li>
+                    }
+                  </ul>
+                </div>
+              </div>
+            </div>
+          )
+        },
+        className: 'cell-small cell-action'
       }
     ]
    
