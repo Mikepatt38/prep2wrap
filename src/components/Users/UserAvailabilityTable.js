@@ -3,6 +3,7 @@ import { Table } from '../General/Table'
 import { Link } from 'react-router-dom'
 import ActionIcon from '../../img/icon-action.svg'
 import TrashIcon from '../../img/icon-trash.svg'
+import SwapIcon from '../../img/icon-swap.svg'
 
 export class UserAvailabilityTable extends Component {
   state = {
@@ -54,23 +55,29 @@ export class UserAvailabilityTable extends Component {
         id: 'Status', // Required because our accessor is not a string
         Header: 'Type',
         headerClassName: 'cell-small',
+        filterable: false,
+        sortable: false,
         Cell: props => props.original.dateType.toLowerCase() === 'booked' ? <span className="cell-status active">Booked</span> : props.original.dateType.toLowerCase() === 'requested' ? <span className="cell-status personal">Personal</span> : <span className="cell-status unavailable">Unavailable</span>,
         className: 'cell-small'
       },
       {
-        Header: 'Date',
+        Header: props => <span>Date <img src={SwapIcon} alt="Change Date Order Icon" /></span>,
         headerClassName: 'cell-medium',
         accessor: 'date',
         className: 'cell-medium'
       }, 
       {
         Header: 'Date Title',
+        filterable: false,
+        sortable: false,
         accessor: 'dateTitle',
       }, 
       {
         id: 'Actions', // Required because our accessor is not a string
         Header: 'Action',
         headerClassName: 'cell-small',
+        filterable: false,
+        sortable: false,
         Cell: props => {
           return (     
             <div className="action-container">

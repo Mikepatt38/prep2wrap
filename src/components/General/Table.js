@@ -11,6 +11,8 @@ export class Table extends Component {
       defaultPageSize={10}
       minRows={1}
       NoDataComponent={() => null}
+      resizable={false}
+      defaultSortDesc={true}
     />
   }
 }

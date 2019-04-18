@@ -20,12 +20,10 @@
 
 // styles for when a column is being sorted ascending
 .ReactTable .rt-thead .rt-th.-sort-asc, .ReactTable .rt-thead .rt-td.-sort-asc
-  font-weight: bold
   box-shadow: none !important
 
 // styles for what a column is being sorted descending
 .ReactTable .rt-thead .rt-th.-sort-desc, .ReactTable .rt-thead .rt-td.-sort-desc
-  font-weight: bold
   box-shadow: none !important
 
 // The column header styles
@@ -45,6 +43,9 @@
 
 .ReactTable .rt-thead .rt-th
   border-right: none !important
+  img
+    height: 12px
+    margin-left: 3px
 .ReactTable .rt-thead .rt-th.cell-avatar
   width: 100% !important
   max-width: 50px !important
@@ -55,6 +56,9 @@
   width: 100% !important
   max-width: 175px !important
 
+.ReactTable .rt-thead .rt-resizable-header-content span
+  display: flex
+  align-items: center
 
 // styles for the rows of the table
 .ReactTable .rt-tr
