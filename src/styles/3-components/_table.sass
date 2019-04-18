@@ -55,6 +55,10 @@
 .ReactTable .rt-thead .rt-th.cell-medium
   width: 100% !important
   max-width: 175px !important
+.ReactTable .rt-thead .rt-th.cell-action
+  width: 100% !important
+  max-width: 150px !important 
+  text-align: center 
 
 .ReactTable .rt-thead .rt-resizable-header-content span
   display: flex
@@ -129,9 +133,9 @@
       max-height: 25px
       margin-left: 10px
 
-  span.action > img
-    max-height: 25px
-    margin-left: 10px
+  div.action > img
+    max-height: 30px
+    // margin-left: 10px
     cursor: pointer
 
   span.cell-status
@@ -164,6 +168,7 @@
 
 .ReactTable .rt-tbody .rt-td.cell-action
   overflow: visible
+  justify-content:  center
 
 //styles for avatar cell for the table
 .ReactTable .rt-tbody .rt-td.cell-avatar
@@ -211,8 +216,10 @@
   100%
     opacity: 0
 
-.action-container
+.action-container, .action
   position: relative
+  width: 100%
+  text-align: center
 
 .arrow-up
   width: 0
@@ -221,11 +228,11 @@
   border-right: 9px solid transparent
   border-bottom: 9px solid #dfdfdf  
   position: absolute
-  left: 50%  
+  left: 45%  
   top: -9px
   z-index: 2
-  left: auto
-  right: 27px
+  // left: auto
+  // right: 27px
   margin-left: 0
 
   &::after
@@ -251,11 +258,10 @@
   box-shadow: 0 2px 8px rgba(0,0,0,.1)
   border: 1px solid #dfdfdf
   top: calc(50% + 22px)
-  min-width: 100px
-  left: auto
+  left: 15px
   z-index: 3
   margin: -2px 0 25px -1px
-  right: -24px
+  // right: -24px
   transform: translate3d(0,0,0)
   display: none
   border-top: 1px solid #dfdfdf,10px solid #fff
@@ -281,9 +287,8 @@
       display: block
 
       li
-        min-width: 170px
         background: #fff
-        padding: 12px 10px
+        padding: 12px 30px
         display: flex
         align-items: center
         text-align: center

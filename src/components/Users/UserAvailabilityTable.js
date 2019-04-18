@@ -75,13 +75,13 @@ export class UserAvailabilityTable extends Component {
       {
         id: 'Actions', // Required because our accessor is not a string
         Header: 'Action',
-        headerClassName: 'cell-small',
+        headerClassName: 'cell-action',
         filterable: false,
         sortable: false,
         Cell: props => {
           return (     
             <div className="action-container">
-              <span className="action" onClick={() => this.toggleTableDropdown(props.index)}><img src={ActionIcon} alt="Table Icon for Actions" /></span>
+              <div className="action" onClick={() => this.toggleTableDropdown(props.index)}><img src={ActionIcon} alt="Table Icon for Actions" /></div>
               <div className="menu-dropdown" id={`dropdown-${props.index}`}>
               <div className="arrow-up"></div>
                 <div className="menu-dropdownView">
