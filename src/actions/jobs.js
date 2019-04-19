@@ -174,13 +174,15 @@ export async function deleteAcceptedJob(database, usersAssigned, jobID){
 }
 
 export async function deleteJobAvailabilityDates(database, users, dates){
-  users.map( async user => {
-    const currentAvailability = await database.collection("users").doc(user.id).get().then( doc => doc.data().availability)
+  for(let user of users){
+    const currentAvailability = await database.collection("users").doc(user.id).get().then( doc => { 
+      return doc.data().availability === undefined ? [] : doc.data().availability 
+    })
     const newAvailability = currentAvailability.filter( date => !(dates.includes(date.date)) ) 
     database.collection("users").doc(user.id).update({
       availability: newAvailability
-    })
-  })
+    }) 
+  }
 }
 
 export const removeUserJobNotification = (userID, notificationID ) => async (dispatch) => {
@@ -208,7 +210,17 @@ export async function getUserJobNotificationID(database, currentUserID, jobOverv
   return idToReturn
 }
 
-export function addUserJobDatesToAvailability(database, userID, jobDates){
+export async function addUserJobDatesToAvailability(database, userID, jobDates){
+  // We must first loop through the current availability, if there are already set dates,
+  // go through and add the new job dates to this availability array, if there
+  // are none then just set the new job dates as the user's availability
+  await database.collection("users").doc(userID).get().then( doc => { 
+    return doc.data().availability === undefined 
+      ? [] 
+      : doc.data().availability.map( date => {
+        jobDates.push(date)
+      }) 
+  })
   database.collection("users").doc(userID).update({ availability: jobDates})
 }
 

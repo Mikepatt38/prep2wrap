@@ -52,6 +52,7 @@ const jobContainerCreator = connect(mapStateToProps, mapDispatchToProps)
 
 export const JobsPage = compose(
   withAuthorization(authCondition),
+  withRouter,
   jobContainerCreator
 )(Jobs)
 

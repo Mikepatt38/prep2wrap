@@ -170,6 +170,15 @@
   overflow: visible
   justify-content:  center
 
+  a
+    font-size: 14px
+    color: $color__mainBlue
+
+ul.table-action-list li
+  font-size: 14px
+  color: $color__mainBlue 
+  cursor: pointer
+
 //styles for avatar cell for the table
 .ReactTable .rt-tbody .rt-td.cell-avatar
   width: 100% !important
@@ -201,7 +210,7 @@
     display: none
     opacity: 0
   1%
-    display: block
+    display: flex
     opacity: 0
   100%
     opacity: 1
@@ -220,6 +229,38 @@
   position: relative
   width: 100%
   text-align: center
+  transition: animation 0.5s ease
+  animation: fade-in 0.5s ease 
+
+.action.action-hidden
+  display: none
+  transition: animation 0.5s ease
+  animation: fade-out 0.5s
+
+ul.table-action-list
+  padding: 0
+  margin: 0
+  list-style: none
+  display: none
+  transition: animation 0.5s ease
+  animation: fade-out 0.5s ease 
+  display: none
+  justify-content: center
+  position: relative
+
+  &.row-actions-active
+    transition: animation 0.5s ease
+    animation: fade-in 0.5s
+    display: flex
+
+  li
+    position: relative
+    font-size: 14px
+    border-right: 1px solid #dfdfdf
+    padding: 0 8px
+
+    &:last-child
+      border-right: none
 
 .arrow-up
   width: 0
@@ -259,7 +300,7 @@
   border: 1px solid #dfdfdf
   top: calc(50% + 22px)
   left: 15px
-  z-index: 3
+  z-index: 999
   margin: -2px 0 25px -1px
   // right: -24px
   transform: translate3d(0,0,0)
@@ -267,6 +308,9 @@
   border-top: 1px solid #dfdfdf,10px solid #fff
   transition: animation 0.5s ease
   animation: fade-out 0.5s ease
+
+  &.jobs-menu-dropdown
+    left: -3px
 
   &.menu-dropdown--active
     transition: animation 0.5s ease
@@ -292,10 +336,9 @@
         display: flex
         align-items: center
         text-align: center
-        cursor: pointer
         white-space: nowrap
         border-radius: 3px
-        font-size: 14px
+        font-size: 16px
         font-weight: 500
         justify-content: center
 
