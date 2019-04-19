@@ -26,6 +26,7 @@ class Jobs extends Component {
           <JobsTable 
             getUserJobs={this.props.getUserJobs}
             currentUser={this.props.currentUser}
+            setJobsModal={this.props.setJobsModal}
             deletedCreatedJob={this.props.deletedCreatedJob}
             history={this.props.history}
           />

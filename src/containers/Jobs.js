@@ -10,7 +10,8 @@ import { createJob,
          createUserJobNotification, 
          createReduxJob,
          updateReduxJobAssignedUsers,
-         getAllUsersData
+         getAllUsersData,
+         setJobsModal
         } from '../actions/jobs'
 import { setModal, setUserModal } from '../actions/components'
 import withAuthorization from './withAuthorization'
@@ -24,7 +25,9 @@ const mapStateToProps = (state) => {
   return {
     currentUser: state.accountState.currentUser,
     userModalActive: state.sessionState.userModalActive,
-    currentJob: state.jobsState.currentJob
+    currentJob: state.jobsState.currentJob,
+    jobModalActive: state.sessionState.jobModalActive,
+    jobModalData: state.sessionState.jobModalData
   }
 }
 
@@ -38,7 +41,8 @@ const actions = {
   createReduxJob,
   updateReduxJobAssignedUsers,
   deletedCreatedJob,
-  getAllUsersData
+  getAllUsersData,
+  setJobsModal
 }
 
 

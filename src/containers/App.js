@@ -11,6 +11,7 @@ import Navbar from './Navigation'
 import Alert from './Alert'
 import Modal from './Modal'
 import UserProfileModal from './UserProfileModal'
+import JobsModal from './JobsModal'
 import { DashboardFooter } from '../components/General/DashboardFooter'
 import { GlobalAlert } from '../components/General/GlobalAlert'
 const App = ({ currentUser }) => {
@@ -36,6 +37,7 @@ const RenderRoute = ({ currentUser }) => (
           <Alert />
           <Modal />
           <UserProfileModal />
+          <JobsModal />
           <div className="app-container-main-body">
             <Routes />
           </div>

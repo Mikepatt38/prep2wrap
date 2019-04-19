@@ -1,6 +1,12 @@
 import { db, auth, firebase } from '../db/firebase'
 import { setAlert } from './components'
 
+// Setup and call job modal to display job data
+export const setJobsModal = (active, jobData) => ({
+  type: 'SET_JOB_MODAL',
+  payload: [active, jobData]
+})
+
 export const getAllUsersData = () => async () => {
   let temp = []
   const database = await db
