@@ -133,7 +133,7 @@ export class JobsTable extends Component {
                   userType === 'accepted' &&
                   <React.Fragment>
                     <li><Link to="/">View</Link></li>
-                    <li><Link to="/">Contact Creator</Link></li>
+                    <li><a href={`mailto:${props.original.jobContactEmail}`}>Contact Creator</a></li>
                   </React.Fragment>
                 }
                 {
