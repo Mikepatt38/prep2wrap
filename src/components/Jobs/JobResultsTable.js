@@ -42,7 +42,6 @@ class JobResultsTable extends Component {
             return item.id === props.original.id
           })
           const key = props.index
-          console.log(key)
           {
             return <select
               onChange={(e) => { this.handleSelectPosition(props.original, key, e)} }
@@ -95,7 +94,7 @@ class JobResultsTable extends Component {
           jobDates: this.props.jobData.jobDates,
           jobLocation: this.props.jobData.jobLocation,
           jobContactEmail: this.props.jobData.jobContactEmail,
-          jobDescription: this.props.jobData.jobDescription
+          jobDescription: this.props.jobData.jobDesc
         }
       ],
       assignedPositions: [...this.state.assignedPositions, position],
@@ -109,8 +108,6 @@ class JobResultsTable extends Component {
     let tempArr = this.state.usersAssigned
     let tempPos = this.state.assignedPositions
     tempArr.map( (item, key) => {
-      console.log(item)
-      console.log(user)
       return (
         item.id === user.id ? tempArr.splice(key, 1) : null,
         item.position === user.position ? tempPos.splice(key, 1) : null

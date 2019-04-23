@@ -29,6 +29,7 @@ class Jobs extends Component {
             setJobsModal={this.props.setJobsModal}
             deletedCreatedJob={this.props.deletedCreatedJob}
             history={this.props.history}
+            completeUserJob={this.props.completeUserJob}
           />
         </div>
 

@@ -11,7 +11,8 @@ import { createJob,
          createReduxJob,
          updateReduxJobAssignedUsers,
          getAllUsersData,
-         setJobsModal
+         setJobsModal,
+         completeUserJob
         } from '../actions/jobs'
 import { setModal, setUserModal } from '../actions/components'
 import withAuthorization from './withAuthorization'
@@ -42,7 +43,8 @@ const actions = {
   updateReduxJobAssignedUsers,
   deletedCreatedJob,
   getAllUsersData,
-  setJobsModal
+  setJobsModal,
+  completeUserJob
 }
 
 

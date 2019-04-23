@@ -290,23 +290,6 @@ export const getUserJobs = (currentUserID) => async () => {
   return [...createdJobs, ...acceptedJobs, ...completedJobs]
 }
 
-export const deletedCreatedJob = (user, jobID, jobName, jobDates, usersAssigned) => async dispatch => {
-  const database = await db
-
-  try {
-    let deleteJobAndDates = await Promise.all([
-      deleteUserCreatedJob(database, user, jobID, jobDates),
-      deleteAcceptedJob(database, usersAssigned, jobID, jobName),
-      deleteJobAvailabilityDates(database, usersAssigned, jobDates),
-      dispatch(setAlert(true, "Success", "The job was successfully deleted."))
-    ])
-    return deleteJobAndDates ? 'success' : 'error'
-  }
-  catch(error) {
-    dispatch(setAlert(true, "Error", error.message))
-  }
-}
-
 export const createReduxJob = (jobState) => async dispatch => {
   dispatch({
     type: 'CREATE_UPDATE_JOB',
@@ -381,4 +364,67 @@ export const userResultsForJobCreation = (userID, jobObj) => async () => {
     }
   }
   return tempUsers
+}
+
+export async function moveUserJobToCompleted(database, currentUser, jobObj){
+  let jobData = await database.collection("jobs").doc(currentUser.id).collection("createdJobs").doc(jobObj.jobID).get()
+  let createCompletedJob = await database.collection("jobs").doc(currentUser.id).collection("completedJobs").doc(jobObj.jobID).set({
+    ...jobData.data(),
+    status: 'completed'
+  })
+  let deleteJob = await database.collection("jobs").doc(currentUser.id).collection("createdJobs").doc(jobObj.jobID).delete()
+}
+
+export async function moveAcceptedJobToCompleted(database, usersAssigned, jobObj){
+  usersAssigned.map( async (user) => {
+    let jobData = await database.collection("jobs").doc(user.id).collection("acceptedJobs").doc(jobObj.jobID).get()
+    let createCompletedJob = await database.collection("jobs").doc(user.id).collection("completedJobs").doc(jobObj.jobID).set({
+      ...jobData.data(),
+      status: 'completed'
+    })
+    let deleteJob = await database.collection("jobs").doc(user.id).collection("acceptedJobs").doc(jobObj.jobID).delete()
+  })
+}
+
+export const deletedCreatedJob = (user, jobID, jobName, jobDates, usersAssigned) => async dispatch => {
+  const database = await db
+
+  try {
+    let deleteJobAndDates = await Promise.all([
+      deleteUserCreatedJob(database, user, jobID, jobDates),
+      deleteAcceptedJob(database, usersAssigned, jobID, jobName),
+      deleteJobAvailabilityDates(database, usersAssigned, jobDates),
+      dispatch(setAlert(true, "Success", "The job was successfully deleted."))
+    ])
+    return 'success'
+  }
+  catch(error) {
+    dispatch(setAlert(true, "Error", error.message))
+  }
+}
+
+export const completeUserJob = (currentUser, jobObj) => async dispatch => {
+  const database = await db
+
+  // add the job creator to current users apart of the job
+  let allUsers = [
+    ...jobObj.usersAssigned,
+    currentUser
+  ]
+
+  // move the user's current created job to a new completed job section of the job database
+  // first we need to get the job, then we need to add this job to the completed job area
+  // after we add it to completed we need to delete it\
+  try {
+    let markJobAsCompleted = await Promise.all([
+      moveUserJobToCompleted(database, currentUser, jobObj),
+      moveAcceptedJobToCompleted(database, jobObj.usersAssigned, jobObj),
+      deleteJobAvailabilityDates(database, allUsers, jobObj.jobDates),
+      dispatch(setAlert(true, "Success", 'You successfully marked the job as completed.'))
+    ])
+    return 'success'
+  }
+  catch(error){
+    dispatch(setAlert(true, "Error", error.message))
+  }
 }
