@@ -139,7 +139,7 @@ export class JobsTable extends Component {
                 {
                   userType === 'creator' &&
                   <React.Fragment>
-                    <li><Link to="/">View</Link></li>
+                    <li className="table-action-list-item" onClick={() => this.props.setJobsModal(true, props.original)}>View</li>
                     <li><Link to="/">Complete</Link></li>
                     <li className="table-action-list-item" onClick={(e) => this.deleteCreatedJob(e, props.original.jobID, props.original.jobName, props.original.jobDates, props.original.usersAssigned)}>Delete</li>
                   </React.Fragment>

@@ -8,7 +8,7 @@ class JobResultsTable extends Component {
 
   state = {
     usersAssigned: [],
-    openPositions: this.props.positions,
+    openPositions: this.props.jobData.jobPositions,
     assignedPositions: [],
     usersReturned: this.props.results,
     allUsers: this.props.results,
@@ -90,11 +90,12 @@ class JobResultsTable extends Component {
           status: "pending",
           jobType: "invited",
           jobID: this.props.jobID,
-          jobName: this.props.jobName,
-          jobCreatorID: this.props.jobCreatorID,
-          jobDates: this.props.jobDates,
-          jobLocation: this.props.jobLocation,
-          jobContactEmail: this.props.jobContactEmail
+          jobName: this.props.jobData.jobName,
+          jobCreatorID: this.props.jobData.jobCreatorID,
+          jobDates: this.props.jobData.jobDates,
+          jobLocation: this.props.jobData.jobLocation,
+          jobContactEmail: this.props.jobData.jobContactEmail,
+          jobDescription: this.props.jobData.jobDescription
         }
       ],
       assignedPositions: [...this.state.assignedPositions, position],
@@ -207,7 +208,7 @@ class JobResultsTable extends Component {
             onChange={this.handleFilterByPosition}
           >
             <option value="" disabled selected>Filter by Position</option>
-            { this.props.positions.map( position => {
+            { this.props.jobData.jobPositions.map( position => {
               return <option 
                 key={position}
                 value={position}
