@@ -13,10 +13,11 @@ class CreateJobFormStepThree extends Component {
       .then( result => {
         result === 'success' 
         ? this.props.history.push(`/jobs/${this.state.jobID}/send-job-invites`)
-        : this.props.errorStep()
+        : console.log('error')
       })
   }
  
+  
   render() {
     if(this.state.pageError) { 
       return <CreateJobFormError 

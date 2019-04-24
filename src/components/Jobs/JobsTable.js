@@ -35,7 +35,11 @@ export class JobsTable extends Component {
       userType = 'creator'
     }
     else {
-      userType = (status === "pending") ? 'assigned' : 'accepted'
+      userType = (status === "waiting") 
+        ? 'pending' 
+        : (status === "accepted")
+          ? 'accepted'
+          : 'visitor'
     }
     return userType
   }
@@ -65,6 +69,53 @@ export class JobsTable extends Component {
     }
   }
 
+  updateUsersJobDates = (newDates, jobName) => {
+    const { currentUser } = this.props
+    let newDatesArr = []
+    newDates.map(currentDate => {
+      newDatesArr.push({date: currentDate, dateTitle: jobName, dateType: "booked"})
+    })
+    let currentAvailability = currentUser.availability ? currentUser.availability : []
+    let newAvailability = [...currentAvailability, ...newDatesArr]
+    return newAvailability
+  }
+
+  acceptJobInvite = (jobObj) => {
+    const index = jobObj.usersAssigned.findIndex(user => user.id === this.props.currentUser.id)
+    let newUsersAssignedObject = Object.assign({}, jobObj)
+    newUsersAssignedObject.usersAssigned[index].status = "accepted"
+    newUsersAssignedObject.usersAssigned[index].jobStatus = "accepted"
+    const userWithAcceptedJob = newUsersAssignedObject.usersAssigned[index]
+    let newUserAvailability = this.updateUsersJobDates(jobObj.jobDates, jobObj.jobName)
+    this.props.acceptJobInvitation(newUsersAssignedObject.jobCreatorID, newUsersAssignedObject.jobID, this.props.currentUser, newUsersAssignedObject.usersAssigned, newUserAvailability)
+      .then( () => {
+        this.props.createUserAcceptedJob(this.props.currentUser.id, newUsersAssignedObject.jobID, userWithAcceptedJob)
+      })
+  }
+
+  denyJobInvite = (e) => {
+    e.preventDefault()
+    const jobOverviewLink = this.state.jobOverviewData.jobCreatorID + '/' + this.state.jobOverviewData.jobID
+    const index = this.state.jobOverviewData.usersAssigned.map( (user, key) => {
+      if( user.id === this.props.currentUser.id) {
+        return key
+      }
+    })
+
+    const newUsers = this.state.jobOverviewData.usersAssigned.filter( user => user.id.toString() !== this.props.currentUser.id.toString())
+    this.setState(prevState => ({
+      jobOverviewData: {
+        ...prevState.jobOverviewData,
+        usersAssigned: newUsers
+      }
+    }), () => {
+      this.props.denyJobInvitation(this.state.jobOverviewData, this.props.currentUser, jobOverviewLink)
+      .then( (result) => {
+        result === "success" ? this.props.history.push("/dashboard") : console.log("Error")
+      })
+    })
+  }
+
   deleteCreatedJob = (jobObj) => {
     this.props.deletedCreatedJob(this.props.currentUser, jobObj.jobID, jobObj.jobName, jobObj.jobDates, jobObj.usersAssigned)
     .then( () => {
@@ -89,6 +140,7 @@ export class JobsTable extends Component {
   // Stripe Integration into the Signup form
   // Have a way to filter the different dates by booked/ etc
   // ✅ Should calendar say if a job has been completed or not?
+  // Let users go back on job creation
 
   render() {
    
@@ -99,7 +151,7 @@ export class JobsTable extends Component {
         headerClassName: 'cell-small',
         filterable: false,
         sortable: false,
-        Cell: props => props.original.status === 'Active' ? <span className="cell-status active">Active</span> : props.original.status.toLowerCase() === 'completed' ? <span className="cell-status completed">Completed</span> : <span className="cell-status pending">Pending</span>,
+        Cell: props => props.original.status === 'Active' ? <span className="cell-status active">Active</span> : props.original.status.toLowerCase() === 'completed' ? <span className="cell-status completed">Completed</span> : <span className="cell-status waiting">Waiting</span>,
         className: 'cell-small'
       },
       {
@@ -145,9 +197,9 @@ export class JobsTable extends Component {
               </div>
               <ul className="table-action-list" id={`row-${props.index}`}>
                 {
-                  userType === 'assigned' &&
+                  userType === 'pending' && props.original.status === 'waiting' &&
                   <React.Fragment>
-                    <li><Link to="/">Accept</Link></li>
+                    <li className="table-action-list-item" onClick={() => this.props.acceptJobInvite(props.original)}>Accept</li>
                     <li><Link to="/">Deny</Link></li>
                   </React.Fragment>
                 }

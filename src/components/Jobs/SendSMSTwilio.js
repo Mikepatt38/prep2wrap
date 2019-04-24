@@ -24,6 +24,7 @@ class SendSMSTwilio extends Component {
     const jobOverviewLink = '/job-overview/' + this.props.currentUser.id.toString() + '/' + this.props.currentJob.jobObj.jobID
     try{
       users.map( user => {
+        this.props.createPendingJob(user.id, this.props.currentJob.jobObj.jobID, this.props.currentJob.jobObj, this.props.currentJob.assignedUsers)
         this.sendSMSWithTwilio(user.name, user.number)
         this.sendJobNotificationLink(user.id, this.props.currentJob.jobObj.jobID, jobOverviewLink)
       })
