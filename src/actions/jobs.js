@@ -76,10 +76,7 @@ export const denyJobInvitation = (jobData, currentUser, jobOverviewLink) => asyn
 
 export const createUserAcceptedJob = (userID, jobID, userJobData) => async () => {
   const database = await db
-
-  const createUserAcceptedJobEntry = await database.collection("jobs").doc(userID).collection("acceptedJobs").doc(jobID).set(userJobData)
-
-  return createUserAcceptedJobEntry
+  await database.collection("jobs").doc(userID).collection("acceptedJobs").doc(jobID).set(userJobData)
 }
 
 export const getUserJobNotifications = (userID) => async () => {
@@ -160,7 +157,7 @@ export async function getUserCompletedJobs(database, currentUserID){
   let completedJobsRef = await userJobRef.collection("completedJobs").get()  
   for(let completedJob of completedJobsRef.docs) {
     let jobItem = {
-      status: 'completed',
+      status: 'Completed',
       ...completedJob.data()
     }
     completedJobs.push(jobItem)
@@ -175,7 +172,7 @@ export async function getUserPendingJobs(database, currentUserID){
   let pendingJobsRef = await userJobRef.collection("pendingJobs").get()
   for(let pendingJob of pendingJobsRef.docs){
     let jobItem = {
-      status: 'waiting',
+      status: 'Review',
       ...pendingJob.data()
     }
     pendingJobs.push(jobItem)
@@ -192,6 +189,10 @@ export async function deleteAcceptedJob(database, usersAssigned, jobID){
   usersAssigned.map( user => {
     database.collection("jobs").doc(user.id).collection("acceptedJobs").doc(jobID).delete()
   })
+}
+
+export async function deleteUserPendingJob(database, userID, jobID){
+  database.collection("jobs").doc(userID).collection("pendingJobs").doc(jobID).delete()
 }
 
 export async function deleteJobAvailabilityDates(database, users, dates){
@@ -213,10 +214,25 @@ export const removeUserJobNotification = (userID, notificationID ) => async (dis
   return updateNotifications
 }
 
-export async function updateUserJobStatus(database, jobCreatorID, jobID, newAssignedUsers){
+export async function updateUserJobStatus(database, jobCreatorID, jobID, jobStartDate, userID){
+  const currentDate = new Date()
+  const jobDate = new Date(jobStartDate)
 
-  let userJobStatusRef = database.collection("jobs").doc(jobCreatorID).collection("createdJobs").doc(jobID)
-  let updateUserJobStatusRef = await userJobStatusRef.update({ usersAssigned: newAssignedUsers })
+  let userJobStatusRef = database.collection("jobs").doc(jobCreatorID).collection("createdJobs").doc(jobID).get()
+    .then( results => {
+      const userIndex = results.data().usersAssigned.findIndex(user => user.id === userID)
+      let userToUpdate = {
+        ...results.data().usersAssigned[userIndex],
+        status: 'accepted'
+      }
+      const newAssignedUsers = results.data().usersAssigned
+      newAssignedUsers.splice(userIndex, 1) 
+      newAssignedUsers.push(userToUpdate)
+      database.collection("jobs").doc(jobCreatorID).collection("createdJobs").doc(jobID).update({
+        status: jobDate > currentDate ? 'Pending' : 'Active',
+        usersAssigned: newAssignedUsers
+      })
+    })
 }
 
 export async function getUserJobNotificationID(database, currentUserID, jobID){
@@ -287,28 +303,15 @@ export const createJob = (userID, jobID, jobObj, assignedUsers) => async dispatc
   return jobCreated ? 'success' : null
 }
 
-export const createPendingJob = (userID, jobID, jobObj, assignedUsers) => async () => {
+export const createPendingJob = (userID, jobID, assignedUsers) => async () => {
   const database = await db 
 
-  const pendingJobData = {
-    jobID: jobID,
-    jobName: jobObj.jobName,
-    jobCreator: jobObj.jobCreator,
-    jobCreatorID: jobObj.jobCreatorID,
-    jobContactEmail: jobObj.jobContactEmail,
-    unionMember: jobObj.unionMember,
-    jobDesc: jobObj.jobDesc,
-    jobDates: jobObj.jobDates,
-    jobPositions: jobObj.jobPositions,
-    jobLocation: jobObj.jobLocation,
-    jobContact: jobObj.jobContact,
-    dateSelectorRangeActive: jobObj.dateSelectorRangeActive,
-    jobStatus: jobObj.jobStatus,
-    usersAssigned: assignedUsers,
-  }  
+  const index = assignedUsers.findIndex(user => user.id === userID)
+  const pendingJobData = assignedUsers[index]
 
   database.collection("jobs").doc(userID).collection("pendingJobs").doc(jobID).set({
-    ...pendingJobData
+    ...pendingJobData,
+    usersAssigned: assignedUsers
   })
 }
 
@@ -344,7 +347,7 @@ export const updateReduxJobAssignedUsers = (usersAssigned) => async dispatch => 
   })
 }
 
-export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, newAssignedUsers, jobDates) => async (dispatch) => {
+export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, jobDates) => async (dispatch) => {
   const database = await db
   const jobNotificationData = {
     text: "A user just accepted your job invitation!",
@@ -357,10 +360,12 @@ export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, newAssigne
         createJobNotification, 
         removeJobNotification
       ] = await Promise.all([
-        updateUserJobStatus(database, jobCreatorID, jobID, newAssignedUsers), 
+        deleteUserPendingJob(database, currentUser.id, jobID),
+        updateUserJobStatus(database, jobCreatorID, jobID, jobDates[0], currentUser.id), 
         addUserJobDatesToAvailability(database, currentUser.id, jobDates),
         getUserJobNotificationID(database, currentUser.id, jobID),
         createUserJobNotification(jobCreatorID, jobID, jobNotificationData),
+        dispatch(setAlert(true, "Success", "You successfully accepted the job."))
       ])
     .then( () => {
       removeUserJobNotification(currentUser.id, jobNotificationID )

@@ -29,7 +29,7 @@ class JobsModal extends Component {
                 <p>{jobModalData.jobName}</p> 
               </div>
 
-              <div class="modal-body">
+              <div className="modal-body">
                 <label>Description</label>
                 <p>{jobModalData.jobDescription}</p> 
               </div>

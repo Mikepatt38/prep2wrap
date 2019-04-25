@@ -37,7 +37,7 @@ class CreateJobFormStepOne extends Component {
     selectedDates: [], 
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState(prevState => ({
       jobObj: {
         ...prevState.jobObj,

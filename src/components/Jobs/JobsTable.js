@@ -11,14 +11,8 @@ export class JobsTable extends Component {
   }
 
   componentDidMount(){
-    console.log('component is mounting...')
     this.getUsersCurrentJobs()
   }
-
-  // componentDidUpdate(){
-  //   console.log('component is updating...')
-  //   this.getUsersCurrentJobs()
-  // }
 
   getUsersCurrentJobs = async () => {
     const { getUserJobs, currentUser} = this.props
@@ -35,9 +29,9 @@ export class JobsTable extends Component {
       userType = 'creator'
     }
     else {
-      userType = (status === "waiting") 
+      userType = (status.toLowerCase() === "review") 
         ? 'pending' 
-        : (status === "accepted")
+        : (status.toLowerCase() === "pending")
           ? 'accepted'
           : 'visitor'
     }
@@ -81,15 +75,18 @@ export class JobsTable extends Component {
   }
 
   acceptJobInvite = (jobObj) => {
-    const index = jobObj.usersAssigned.findIndex(user => user.id === this.props.currentUser.id)
-    let newUsersAssignedObject = Object.assign({}, jobObj)
-    newUsersAssignedObject.usersAssigned[index].status = "accepted"
-    newUsersAssignedObject.usersAssigned[index].jobStatus = "accepted"
-    const userWithAcceptedJob = newUsersAssignedObject.usersAssigned[index]
+    const userIndex = jobObj.usersAssigned.findIndex(user => user.id === this.props.currentUser.id)
+    const newUserObj = {
+      ...jobObj.usersAssigned[userIndex],
+      status: 'Pending'
+    }
     let newUserAvailability = this.updateUsersJobDates(jobObj.jobDates, jobObj.jobName)
-    this.props.acceptJobInvitation(newUsersAssignedObject.jobCreatorID, newUsersAssignedObject.jobID, this.props.currentUser, newUsersAssignedObject.usersAssigned, newUserAvailability)
+    this.props.acceptJobInvitation(jobObj.jobCreatorID, jobObj.jobID, this.props.currentUser, newUserAvailability)
       .then( () => {
-        this.props.createUserAcceptedJob(this.props.currentUser.id, newUsersAssignedObject.jobID, userWithAcceptedJob)
+        this.props.createUserAcceptedJob(this.props.currentUser.id, jobObj.jobID, newUserObj)
+        .then( () => {
+          this.getUsersCurrentJobs()
+        })
       })
   }
 
@@ -141,6 +138,7 @@ export class JobsTable extends Component {
   // Have a way to filter the different dates by booked/ etc
   // ✅ Should calendar say if a job has been completed or not?
   // Let users go back on job creation
+  // Create proper loading and error states and implement them for jobs creation
 
   render() {
    
@@ -151,7 +149,7 @@ export class JobsTable extends Component {
         headerClassName: 'cell-small',
         filterable: false,
         sortable: false,
-        Cell: props => props.original.status === 'Active' ? <span className="cell-status active">Active</span> : props.original.status.toLowerCase() === 'completed' ? <span className="cell-status completed">Completed</span> : <span className="cell-status waiting">Waiting</span>,
+        Cell: props => <span className={`cell-status ${props.original.status.toLowerCase()}`}>{props.original.status}</span>,
         className: 'cell-small'
       },
       {
@@ -159,7 +157,7 @@ export class JobsTable extends Component {
         headerClassName: 'cell-medium',
         filterable: false,
         sortable: false,
-        Cell: props => props.original.jobStatus === 'created' ? <span>Creator</span> : <span>{props.original.position}</span>,
+        Cell: props => props.original.jobStatus === 'created' ? <span>Creator</span> : props.original.jobStatus === 'invited' ? <span>Invited</span> : <span>{props.original.position}</span>,
         className: 'cell-medium'
       }, 
       {
@@ -197,9 +195,9 @@ export class JobsTable extends Component {
               </div>
               <ul className="table-action-list" id={`row-${props.index}`}>
                 {
-                  userType === 'pending' && props.original.status === 'waiting' &&
+                  userType === 'pending' && props.original.status.toLowerCase() === 'review' &&
                   <React.Fragment>
-                    <li className="table-action-list-item" onClick={() => this.props.acceptJobInvite(props.original)}>Accept</li>
+                    <li className="table-action-list-item" onClick={() => this.acceptJobInvite(props.original)}>Accept</li>
                     <li><Link to="/">Deny</Link></li>
                   </React.Fragment>
                 }

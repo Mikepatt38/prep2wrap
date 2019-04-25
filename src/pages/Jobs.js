@@ -30,6 +30,8 @@ class Jobs extends Component {
             deletedCreatedJob={this.props.deletedCreatedJob}
             history={this.props.history}
             completeUserJob={this.props.completeUserJob}
+            acceptJobInvitation={this.props.acceptJobInvitation}
+            createUserAcceptedJob={this.props.createUserAcceptedJob}
           />
         </div>
 
