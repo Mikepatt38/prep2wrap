@@ -111,7 +111,7 @@ class UserProfileForm extends Component {
         />
         <FormTextInput 
           label="Instagram Profile Link"
-          name="instagram"
+          name="instagramLink"
           type="text"
           onChange={this.handleChange}
           className="form-group--half"
