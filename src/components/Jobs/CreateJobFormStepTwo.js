@@ -9,7 +9,7 @@ class CreateJobFormStepTwo extends Component {
     jobID: this.props.match.params.jobID,
     currentPositionsInvited: [],
     loading: true,
-    usersAssigned: [[]],
+    usersAssigned: [],
     error: false
   }
 
@@ -49,7 +49,7 @@ class CreateJobFormStepTwo extends Component {
 
   validateAssignedUsers = () => {
     let validated = true
-    if(this.state.usersAssigned.length === 1){
+    if(this.state.usersAssigned.length === 0){
       this.setState({
         error: true
       })

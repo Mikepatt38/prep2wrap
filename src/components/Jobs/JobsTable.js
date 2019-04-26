@@ -28,12 +28,17 @@ export class JobsTable extends Component {
     if(jobCreatorID === userID) {
       userType = 'creator'
     }
+    else if(status.toLowerCase() === "review"){
+      userType = 'pending'
+    }
+    // else if(status.toLowerCase() === "completed"){
+    //   userType = 'visitor'
+    // }
+    else if(status.toLowerCase() === "pending"){
+      userType = 'accepted'
+    }
     else {
-      userType = (status.toLowerCase() === "review") 
-        ? 'pending' 
-        : (status.toLowerCase() === "pending")
-          ? 'accepted'
-          : 'visitor'
+      userType = 'visitor'
     }
     return userType
   }
@@ -114,11 +119,11 @@ export class JobsTable extends Component {
     })
   }
 
-  moveJobToCompleted = (currentUser, jobObj) => {
+  completeCreatedJob = (jobObj) => {
     this.setState({
       loading: true
     })
-    this.props.completeUserJob(currentUser, jobObj)
+    this.props.completeUserJob(this.props.currentUser, jobObj)
     .then( () => {
       this.getUsersCurrentJobs()
     })
@@ -186,22 +191,22 @@ export class JobsTable extends Component {
                   </React.Fragment>
                 }
                 {
-                  userType === 'accepted' &&
+                  userType === 'accepted' || userType === 'visitor' &&
                   <React.Fragment>
                     <li className="table-action-list-item" onClick={() => this.props.setJobsModal(true, props.original)}>View</li>
                     <li><a href={`mailto:${props.original.jobContactEmail}`}>Contact Creator</a></li>
                   </React.Fragment>
                 }
                 {
-                  userType === 'creator' && props.original.status !== 'completed' &&
+                  userType === 'creator' && props.original.status.toLowerCase() !== 'completed' &&
                   <React.Fragment>
                     <li className="table-action-list-item" onClick={() => this.props.setJobsModal(true, props.original)}>View</li>
-                    <li className="table-action-list-item" onClick={() => this.props.completeUserJob(this.props.currentUser, props.original)}>Complete</li>
+                    <li className="table-action-list-item" onClick={() => this.completeCreatedJob(props.original)}>Complete</li>
                     <li className="table-action-list-item" onClick={() => this.deleteCreatedJob(props.original)}>Delete</li>
                   </React.Fragment>
                 }
                 {
-                  userType === 'creator' && props.original.status === 'completed' &&
+                  userType === 'creator' && props.original.status.toLowerCase() === 'completed' &&
                   <React.Fragment>
                     <li className="table-action-list-item" onClick={() => this.props.setJobsModal(true, props.original)}>View</li>
                   </React.Fragment>
