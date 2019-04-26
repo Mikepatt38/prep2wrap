@@ -65,7 +65,8 @@ class CreateJobFormStepOne extends Component {
         jobObj: {
           ...prevState.jobObj,
           [name]: this.state.jobDescCount < 140 ? newVal : this.state.jobObj.jobDesc
-        }
+        },
+        jobDescError: false
       }))
     })
   }
@@ -73,12 +74,14 @@ class CreateJobFormStepOne extends Component {
   handleChange = e => {
     const newVal = e.target.value
     const name = e.target.name
+    const errorName = `${name}Error`
 
     this.setState(prevState => ({
       jobObj: {
           ...prevState.jobObj,
-          [name]: newVal
-      }
+          [name]: newVal,
+      },
+      [errorName]: false 
     }))
   }
 
@@ -95,27 +98,32 @@ class CreateJobFormStepOne extends Component {
 
   handleSelect = (name, val) => {
     const newVal = val.value
+    const errorName = `${name}Error`
     this.setState(prevState => ({
       jobObj: {
           ...prevState.jobObj,
           [name]: newVal
-      }
+      },
+      [errorName]: false
     }))
   }
 
   handleSelectValues = (name, val) => {
     const newVal = val
+    const errorName = `${name}Error`
     this.setState(prevState => ({
       jobObj: {
           ...prevState.jobObj,
           [name]: newVal
-      }
+      },
+      [errorName]: false
     }))
   }
 
   handleMultiSelect = (name, val) => {
     const newArr = val
     let tempArr = []
+    const errorName = `${name}Error`
     newArr.map( value => {
       tempArr.push(value.value)
     })
@@ -123,7 +131,8 @@ class CreateJobFormStepOne extends Component {
       jobObj: {
         ...prevState.jobObj,
         [name]: tempArr
-      }
+      },
+      errorName: false
     }))
   }
 
@@ -133,6 +142,7 @@ class CreateJobFormStepOne extends Component {
           ...prevState.jobObj,
           jobDates: [...prevState.jobObj.jobDates, date.format('MM/DD/YYYY')]
       },
+      jobDatesError: false,
       selectedDate: date,
       selectedDates: [...prevState.selectedDates, date.format('MM/DD/YYYY')]
     }))
@@ -185,10 +195,9 @@ class CreateJobFormStepOne extends Component {
   }
 
   saveAndContinue = () => {
-    console.log(this.validateForm())
-    // this.validateForm &&
-    //   this.props.createReduxJob(this.state)
-    //   this.props.history.push(`/jobs/${this.state.jobObj.jobID}/assign-users`)
+    this.validateForm() && 
+      this.props.createReduxJob(this.state) &&
+      this.props.history.push(`/jobs/${this.state.jobObj.jobID}/assign-users`)
   }
 
   validateForm = () => {
@@ -199,7 +208,6 @@ class CreateJobFormStepOne extends Component {
       if( input[1].length == 0 ){
         const inputName = `${input[0]}Error`
         this.setState({ [inputName]: true })
-        console.log(inputName)
         validated = false
       }
     })

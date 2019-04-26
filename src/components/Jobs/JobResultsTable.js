@@ -227,6 +227,7 @@ class JobResultsTable extends Component {
             <div className="create-job-wrapper-main">
               <div className="card card-create-job no-hover">
                 <h3>Crew Job Matches</h3>
+                {this.props.error && <p className="error-message">Please assign at least one position before continuing.</p>}
                 {this.tableFilter()}
                 <Table
                   data={this.state.data}

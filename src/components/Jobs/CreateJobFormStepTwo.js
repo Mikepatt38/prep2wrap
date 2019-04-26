@@ -9,7 +9,8 @@ class CreateJobFormStepTwo extends Component {
     jobID: this.props.match.params.jobID,
     currentPositionsInvited: [],
     loading: true,
-    usersAssigned: [[]]
+    usersAssigned: [[]],
+    error: false
   }
 
   componentDidMount() {
@@ -35,13 +36,26 @@ class CreateJobFormStepTwo extends Component {
  
   assignPosition = (usersAssignedArr) => {
     this.setState({
-      usersAssigned: usersAssignedArr
+      usersAssigned: usersAssignedArr,
+      error: false
     })
   }
 
   saveAndContinue = () => {
-    this.props.updateReduxJobAssignedUsers(this.state.usersAssigned)
+    this.validateAssignedUsers() &&
+    this.props.updateReduxJobAssignedUsers(this.state.usersAssigned) &&
     this.props.history.push(`/jobs/${this.state.jobID}/job-overview`)
+  }
+
+  validateAssignedUsers = () => {
+    let validated = true
+    if(this.state.usersAssigned.length === 1){
+      this.setState({
+        error: true
+      })
+      validated = false
+    }
+    return validated
   }
  
   render() {
@@ -73,7 +87,8 @@ class CreateJobFormStepTwo extends Component {
               userModalActive={this.props.userModalActive}
               assignPosition={this.assignPosition}
               jobData={this.props.currentJob.jobObj}
-              jobID={this.props.match.params.jobID}    
+              jobID={this.props.match.params.jobID}  
+              error={this.state.error}  
             />
           }
         </div>
