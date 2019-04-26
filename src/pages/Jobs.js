@@ -32,6 +32,7 @@ class Jobs extends Component {
             completeUserJob={this.props.completeUserJob}
             acceptJobInvitation={this.props.acceptJobInvitation}
             createUserAcceptedJob={this.props.createUserAcceptedJob}
+            denyJobInvitation={this.props.denyJobInvitation}
           />
         </div>
 

@@ -35,43 +35,39 @@ export const getJobOverviewData = (creatorID, jobID) => async () => {
   return await getJobData
 }
 
-export const denyJobInvitation = (jobData, currentUser, jobOverviewLink) => async (dispatch) => {
+// We need to refactor this to use the logic on this side and not on the client,
+// We do not need to make it this complicated
+export const denyJobInvitation = (currentUser, jobCreatorID, jobID, newAssignedUsers) => async () => {
   const database = await db
-  const updateUserStatus = database.collection("jobs").doc(jobData.jobCreatorID).collection("createdJobs").doc(jobData.jobID).set(jobData)
-  const getUserNotificationsID = database.collection("jobs").doc(currentUser.id).collection("jobNotifications").get().then( (querySnapshot) => {
-    let idToReturn = null
-    querySnapshot.forEach(function(doc) {
-      const compareLink = doc.data().link.split("/")[4] + '/' + doc.data().link.split("/")[5]
-      if(compareLink === jobOverviewLink) {
-        idToReturn = doc.id
-      }
-    })
-    return idToReturn
+  const jobNotificationData = {
+    text: `${currentUser.firstName + ' ' + currentUser.lastName} has denied your job invitation for position`,
+  }
+  // Delete the pending job., we need to do this first before we send the new job's request update
+  // to the client
+  await deleteUserPendingJob(database, currentUser.id, jobID)
+  // Update the users of the job to delete the user that denied the job
+  await database.collection("jobs").doc(jobCreatorID).collection("createdJobs").doc(jobID).update({
+    usersAssigned: newAssignedUsers
   })
-
-
-  const notificationID = await getUserNotificationsID
-
-  const updateStatus = new Promise ( (resolve, reject) => {
-    const jobNotificationData = {
-      text: "A user just denied your job invitation.",
-      link: jobOverviewLink
-    }
-
-    try {
-      return updateUserStatus
-      .then ( () => {
-        dispatch(setAlert(true, "Info", "You declined the job and removed yourself from the job."))
-        dispatch(removeUserJobNotification(currentUser.id, notificationID ))
-        dispatch(createUserJobNotification(jobData.jobCreatorID, jobData.jobID, jobNotificationData))
-        resolve("success")
-      })
-    }
-    catch(error) {
-      reject("error")
-    }
+  .then(() => {
+    deleteUserPendingJob(database, currentUser.id, jobID)
+    removeUserJobNotification(currentUser.id, jobID )
+    createUserJobNotification(jobCreatorID, jobID, jobNotificationData)
+    setAlert(true, "Success", "You declined the job and removed yourself from the job.")
   })
-  return await updateStatus
+  // const getUserNotificationsID = database.collection("jobs").doc(currentUser.id).collection("jobNotifications").get().then( (querySnapshot) => {
+  //   let idToReturn = null
+  //   querySnapshot.forEach(function(doc) {
+  //     const compareLink = doc.data().link.split("/")[4] + '/' + doc.data().link.split("/")[5]
+  //     if(compareLink === jobOverviewLink) {
+  //       idToReturn = doc.id
+  //     }
+  //   })
+  //   return idToReturn
+  // })
+
+
+  // const notificationID = await getUserNotificationsID
 }
 
 export const createUserAcceptedJob = (userID, jobID, userJobData) => async () => {
@@ -207,11 +203,9 @@ export async function deleteJobAvailabilityDates(database, users, dates){
   }
 }
 
-export const removeUserJobNotification = (userID, notificationID ) => async (dispatch) => {
+export const removeUserJobNotification = (userID, notificationID ) => async () => {
   const database = await db
-  const updateNotifications = await database.collection("jobs").doc(userID).collection("jobNotifications").doc(notificationID).delete()
-
-  return updateNotifications
+  await database.collection("jobs").doc(userID).collection("jobNotifications").doc(notificationID).delete()
 }
 
 export async function updateUserJobStatus(database, jobCreatorID, jobID, jobStartDate, userID){

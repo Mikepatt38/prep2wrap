@@ -75,6 +75,9 @@ export class JobsTable extends Component {
   }
 
   acceptJobInvite = (jobObj) => {
+    this.setState({
+      loading: true
+    })
     const userIndex = jobObj.usersAssigned.findIndex(user => user.id === this.props.currentUser.id)
     const newUserObj = {
       ...jobObj.usersAssigned[userIndex],
@@ -90,30 +93,21 @@ export class JobsTable extends Component {
       })
   }
 
-  denyJobInvite = (e) => {
-    e.preventDefault()
-    const jobOverviewLink = this.state.jobOverviewData.jobCreatorID + '/' + this.state.jobOverviewData.jobID
-    const index = this.state.jobOverviewData.usersAssigned.map( (user, key) => {
-      if( user.id === this.props.currentUser.id) {
-        return key
-      }
+  denyJobInvite = (jobObj) => {
+    this.setState({
+      loading: true
     })
-
-    const newUsers = this.state.jobOverviewData.usersAssigned.filter( user => user.id.toString() !== this.props.currentUser.id.toString())
-    this.setState(prevState => ({
-      jobOverviewData: {
-        ...prevState.jobOverviewData,
-        usersAssigned: newUsers
-      }
-    }), () => {
-      this.props.denyJobInvitation(this.state.jobOverviewData, this.props.currentUser, jobOverviewLink)
-      .then( (result) => {
-        result === "success" ? this.props.history.push("/dashboard") : console.log("Error")
-      })
+    const newAssignedUsers = jobObj.usersAssigned.filter( user => user.id.toString() !== this.props.currentUser.id.toString())
+    this.props.denyJobInvitation(this.props.currentUser, jobObj.jobCreatorID, jobObj.jobID, newAssignedUsers)
+    .then( () => {
+      this.getUsersCurrentJobs()
     })
   }
 
   deleteCreatedJob = (jobObj) => {
+    this.setState({
+      loading: true
+    })
     this.props.deletedCreatedJob(this.props.currentUser, jobObj.jobID, jobObj.jobName, jobObj.jobDates, jobObj.usersAssigned)
     .then( () => {
       this.getUsersCurrentJobs()
@@ -121,6 +115,9 @@ export class JobsTable extends Component {
   }
 
   moveJobToCompleted = (currentUser, jobObj) => {
+    this.setState({
+      loading: true
+    })
     this.props.completeUserJob(currentUser, jobObj)
     .then( () => {
       this.getUsersCurrentJobs()
@@ -139,6 +136,8 @@ export class JobsTable extends Component {
   // ✅ Should calendar say if a job has been completed or not?
   // Let users go back on job creation
   // Create proper loading and error states and implement them for jobs creation
+  // Check if users are being checked based on union requirement
+  // Fix instagram input in user profile section
 
   render() {
    
@@ -198,7 +197,7 @@ export class JobsTable extends Component {
                   userType === 'pending' && props.original.status.toLowerCase() === 'review' &&
                   <React.Fragment>
                     <li className="table-action-list-item" onClick={() => this.acceptJobInvite(props.original)}>Accept</li>
-                    <li><Link to="/">Deny</Link></li>
+                    <li className="table-action-list-item" onClick={() => this.denyJobInvite(props.original)}>Deny</li>
                   </React.Fragment>
                 }
                 {

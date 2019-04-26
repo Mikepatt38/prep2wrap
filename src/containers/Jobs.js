@@ -15,7 +15,8 @@ import { createJob,
          completeUserJob,
          createPendingJob,
          createUserAcceptedJob,
-         acceptJobInvitation
+         acceptJobInvitation,
+         denyJobInvitation
         } from '../actions/jobs'
 import { setModal, setUserModal } from '../actions/components'
 import withAuthorization from './withAuthorization'
@@ -50,7 +51,8 @@ const actions = {
   completeUserJob,
   createPendingJob,
   createUserAcceptedJob,
-  acceptJobInvitation
+  acceptJobInvitation,
+  denyJobInvitation
 }
 
 
