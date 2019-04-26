@@ -124,21 +124,6 @@ export class JobsTable extends Component {
     })
   }
 
-  // Have the table update on change\
-  // ✅ Change users who accepted jobs to completed when the job creator does
-  // Accept/ Deny Ability from the Jobs Table
-  // Form validation for the job creation process
-  // Redirect to jobs page not overview page
-  // Clean Up Job Overview Link Code 
-  // Fix URL changing when sending SMS Text Notifications 
-  // Stripe Integration into the Signup form
-  // Have a way to filter the different dates by booked/ etc
-  // ✅ Should calendar say if a job has been completed or not?
-  // Let users go back on job creation
-  // Create proper loading and error states and implement them for jobs creation
-  // Check if users are being checked based on union requirement
-  // Fix instagram input in user profile section
-
   render() {
    
     const columns = [

@@ -3,9 +3,10 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import DatePicker from 'react-datepicker'
 
-export const FormDatePicker = ( {label, handleChange, className, selectedDate, placeholderText} ) => {
+
+export const FormDatePicker = ( {label, handleChange, className, selectedDate, placeholderText, error, errorMsg} ) => {
   return (
-    <div className={'form-group' + ` ${className}`}>
+    <div className={error ? 'field-error form-group' + ` ${className}` : 'form-group' + ` ${className}` }>
       <label className="date-picker-label">{label}</label>
       <DatePicker
         inline
@@ -13,6 +14,7 @@ export const FormDatePicker = ( {label, handleChange, className, selectedDate, p
         selected={selectedDate}
         placeholderText={placeholderText}
       />
+      <p className="error-msg">{errorMsg}</p>
     </div>
   )
 } 

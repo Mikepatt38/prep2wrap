@@ -95,8 +95,11 @@ form
     &.field-error > label
       color: $color__errorRed
 
-    &.field-error > input 
+    &.field-error > input, &.field-error > textarea  
       border-color: $color__errorRed
+
+    &.field-error > .react-datepicker
+      border: 1px solid #ea3267
     
     &.field-error > p.error-msg
       display: block

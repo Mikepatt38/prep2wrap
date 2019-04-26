@@ -35,6 +35,12 @@ class CreateJobFormStepOne extends Component {
     selectedStartDate: moment(),
     selectedEndDate: moment(),
     selectedDates: [], 
+    jobNameError: false,
+    jobDescError: false,
+    jobDatesError: false,
+    jobPositionsError: false,
+    jobLocationError: false,
+    jobTypeError: false,
   }
 
   componentDidMount() {
@@ -179,8 +185,25 @@ class CreateJobFormStepOne extends Component {
   }
 
   saveAndContinue = () => {
-    this.props.createReduxJob(this.state)
-    this.props.history.push(`/jobs/${this.state.jobObj.jobID}/assign-users`)
+    console.log(this.validateForm())
+    // this.validateForm &&
+    //   this.props.createReduxJob(this.state)
+    //   this.props.history.push(`/jobs/${this.state.jobObj.jobID}/assign-users`)
+  }
+
+  validateForm = () => {
+    const { jobName, jobDesc, jobDates, jobLocation, jobPositions, jobType } = this.state.jobObj
+    const inputs = [ ['jobName', jobName], ['jobDesc', jobDesc], ['jobDates', jobDates], ['jobLocation', jobLocation], ['jobPositions', jobPositions], ['jobType', jobType] ]
+    let validated = true
+    inputs.map( input => {
+      if( input[1].length == 0 ){
+        const inputName = `${input[0]}Error`
+        this.setState({ [inputName]: true })
+        console.log(inputName)
+        validated = false
+      }
+    })
+    return validated
   }
  
   render() {
@@ -215,6 +238,8 @@ class CreateJobFormStepOne extends Component {
                       isMultiSelect={false}
                       onSelect={this.handleSelectValues}
                       className="form-group--half"
+                      error={this.state.jobLocationError}
+                      errorMsg="Please select a job location."
                     />
                     <FormTextInput
                       label="Job Name"
@@ -223,6 +248,8 @@ class CreateJobFormStepOne extends Component {
                       value={jobObj.jobName}
                       onChange={this.handleChange}
                       className="form-group--half"
+                      error={this.state.jobNameError}
+                      errorMsg="Please add a valid job name."
                     />
                     <FormSelectInput
                       label="Select the Job Type"
@@ -232,8 +259,10 @@ class CreateJobFormStepOne extends Component {
                       isMultiSelect={false}
                       onSelect={this.handleSelectValues}
                       className="form-group--half"
+                      error={this.state.jobTypeError}
+                      errorMsg="Please select a job type."
                     />
-                    <div className="form-group">
+                    <div className={this.state.jobDescError ? 'field-error form-group' : 'form-group'}>
                       <label>{"Job Description (" + jobDescCount + "/140)"}:</label>
                       <textarea 
                         name="jobDesc"
@@ -242,6 +271,7 @@ class CreateJobFormStepOne extends Component {
                         onChange={this.handleJobDescChange}
                         className="textarea"
                       ></textarea>  
+                      <p className="error-msg">Please add a valid job description.</p>
                     </div>
                   </form>
                 </div>
@@ -273,6 +303,8 @@ class CreateJobFormStepOne extends Component {
                       placeholder="Select Positions For Jobs"
                       isMultiSelect={true}
                       onSelect={this.handleMultiSelect}
+                      error={this.state.jobPositionsError}
+                      errorMsg="Please select job positions to hire for."
                     />
                     </form>
                   </div>
@@ -327,6 +359,8 @@ class CreateJobFormStepOne extends Component {
                                 className="date-picker-form-group"
                                 handleChange={this.handleDateChange}
                                 placeholderText="Click to add job dates."
+                                error={this.state.jobDatesError}
+                                errorMsg="Please choose job dates."
                               />
                                 <label>Selected Job Dates:</label>
                                 <ul className="date-picker-list">
