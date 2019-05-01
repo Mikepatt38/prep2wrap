@@ -88,8 +88,9 @@ export class JobsTable extends Component {
       ...jobObj.usersAssigned[userIndex],
       status: 'Pending'
     }
+    const position = jobObj.usersAssigned[userIndex].position
     let newUserAvailability = this.updateUsersJobDates(jobObj.jobDates, jobObj.jobName)
-    this.props.acceptJobInvitation(jobObj.jobCreatorID, jobObj.jobID, this.props.currentUser, newUserAvailability)
+    this.props.acceptJobInvitation(jobObj.jobCreatorID, jobObj.jobID, this.props.currentUser, newUserAvailability, position)
       .then( () => {
         this.props.createUserAcceptedJob(this.props.currentUser.id, jobObj.jobID, newUserObj)
         .then( () => {
@@ -102,8 +103,10 @@ export class JobsTable extends Component {
     this.setState({
       loading: true
     })
+    const userIndex = jobObj.usersAssigned.findIndex(user => user.id === this.props.currentUser.id)
+    const position = jobObj.usersAssigned[userIndex].position
     const newAssignedUsers = jobObj.usersAssigned.filter( user => user.id.toString() !== this.props.currentUser.id.toString())
-    this.props.denyJobInvitation(this.props.currentUser, jobObj.jobCreatorID, jobObj.jobID, newAssignedUsers)
+    this.props.denyJobInvitation(this.props.currentUser, jobObj.jobCreatorID, jobObj.jobID, newAssignedUsers, position)
     .then( () => {
       this.getUsersCurrentJobs()
     })

@@ -37,20 +37,22 @@ export const getJobOverviewData = (creatorID, jobID) => async () => {
 
 // We need to refactor this to use the logic on this side and not on the client,
 // We do not need to make it this complicated
-export const denyJobInvitation = (currentUser, jobCreatorID, jobID, newAssignedUsers) => async dispatch => {
+export const denyJobInvitation = (currentUser, jobCreatorID, jobID, newAssignedUsers, position) => async dispatch => {
   const database = await db
   const jobNotificationData = {
-    text: `${currentUser.firstName + ' ' + currentUser.lastName} has denied your job invitation for position`,
+    text: `${currentUser.firstName + ' ' + currentUser.lastName} has denied to join your crew as a ${position}`,
+    type: 'deny'
   }
+
+  dispatch(removeUserJobNotification(currentUser.id, jobID))
+  dispatch(createUserJobNotification(jobCreatorID, jobID, jobNotificationData))
   // Delete the pending job., we need to do this first before we send the new job's request update
   // to the client
   await Promise.all([
     deleteUserPendingJob(database, currentUser.id, jobID),
     database.collection("jobs").doc(jobCreatorID).collection("createdJobs").doc(jobID).update({
       usersAssigned: newAssignedUsers
-    }),
-    removeUserJobNotification(currentUser.id, jobID ),
-    createUserJobNotification(jobCreatorID, jobID, jobNotificationData)
+    })
   ])
   .then(() => {
     dispatch(setAlert(true, "Success", "You declined the job and removed yourself from the job."))
@@ -74,7 +76,7 @@ export const getUserJobNotifications = (userID) => async () => {
       notifications.push( {
         id: doc.id,
         text: doc.data().text,
-        link: doc.data().link.length > 1 ? doc.data().link : ''
+        type: doc.data().type
         })
       })
       return notifications
@@ -195,9 +197,7 @@ export async function deleteJobAvailabilityDates(database, users, dates){
 
 export const removeUserJobNotification = (userID, notificationID ) => async () => {
   const database = await db
-  console.log(userID)
-  console.log(notificationID)
-  await database.collection("jobs").doc(userID).collection("jobNotifications").doc(notificationID).delete()
+  database.collection("jobs").doc(userID).collection("jobNotifications").doc(notificationID).delete()
 }
 
 export async function updateUserJobStatus(database, jobCreatorID, jobID, jobStartDate, userID){
@@ -333,18 +333,22 @@ export const updateReduxJobAssignedUsers = (usersAssigned) => async dispatch => 
   })
 }
 
-export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, jobDates) => async (dispatch) => {
+export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, jobDates, position) => async (dispatch) => {
   const database = await db
+
   const jobNotificationData = {
-    text: "A user just accepted your job invitation!",
-    link: '/jobs'
+    text: `${currentUser.firstName} ${currentUser.lastName} accepted to join your crew as a ${position}`,
+    type: 'accept'
   }
+  dispatch(removeUserJobNotification(currentUser.id, jobID))
+  dispatch(createUserJobNotification(jobCreatorID, jobID, jobNotificationData))
+
+
   await Promise.all([
     deleteUserPendingJob(database, currentUser.id, jobID),
     updateUserJobStatus(database, jobCreatorID, jobID, jobDates[0], currentUser.id), 
     addUserJobDatesToAvailability(database, currentUser.id, jobDates),
-    removeUserJobNotification(currentUser.id, jobID),
-    createUserJobNotification(jobCreatorID, jobID, jobNotificationData),
+    // removeUserJobNotification(currentUser.id, jobID),
   ])
   .then( () => {
     dispatch(setAlert(true, "Success", "You successfully accepted the job."))

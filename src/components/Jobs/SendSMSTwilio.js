@@ -26,7 +26,7 @@ class SendSMSTwilio extends Component {
       users.map( user => {
         this.props.createPendingJob(user.id, this.props.currentJob.jobObj.jobID, this.props.currentJob.assignedUsers)
         this.sendSMSWithTwilio(user.name, user.number)
-        this.sendJobNotificationLink(user.id, this.props.currentJob.jobObj.jobID, jobOverviewLink)
+        this.sendJobNotificationLink(user.id, user.name, user.position, this.props.currentJob.jobObj.jobID, jobOverviewLink)
       })
     }
     catch(error) {
@@ -42,16 +42,16 @@ class SendSMSTwilio extends Component {
     })
   }
 
-  sendJobNotificationLink = (userID, jobID, jobOverviewLink) => {
+  sendJobNotificationLink = (userID, userName, userPosition, jobID, jobOverviewLink) => {
     const jobNotificationData = {
-      text: "You were invited to a job!",
-      link: jobOverviewLink
+      text: `${userName}, you're invited to join a crew as a ${userPosition}`,
+      type: 'invite'
     }
     this.props.createUserJobNotification(userID, jobID, jobNotificationData)
   }
 
   sendSMSWithTwilio = (name, number) => {
-    let textBody = `Hey ${name}! You just received a job invite on The Calltime!`
+    let textBody = `Hey ${name}, you were invited to join a crew on CREW IT UP. Visit the jobs page on your account to see more.`
     fetch('http://localhost:9000/sendsms', {
       method: 'POST',
       headers: {
