@@ -23,12 +23,11 @@ class CreateJobFormStepTwo extends Component {
     else {
       this.props.userResultsForJobCreation(this.props.currentUser.id.toString(), this.props.currentJob.jobObj)
       .then( (results) => {
-        const filterResults = results.filter(user => user.id !== this.props.currentUserID) 
         this.setState({
-          usersMatchedResults: filterResults,
+          usersMatchedResults: results,
           loading: false,
-          resultsSuccessfullyLoaded: filterResults.length > 0,
-          noUsersReturned: filterResults.length === 0
+          resultsSuccessfullyLoaded: results.length > 0,
+          noUsersReturned: results.length === 0
         })
       })
     }

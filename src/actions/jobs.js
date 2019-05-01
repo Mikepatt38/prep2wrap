@@ -368,25 +368,43 @@ export const getUserJobCount = (userID) => async () => {
 export const userResultsForJobCreation = (userID, jobObj) => async () => {
   const database = await db
   let tempUsers = []
-  let allMatches = []
+  let longerArr = []
+  let shorterArr = []
+  const usersRef = database.collection("users")
 
-  await database.collection("users").where("profileInformation.union", "==", jobObj.unionMember).get().then( snapshot => {
-    for( let item of snapshot.docs ){ allMatches.push(item.data())} })
-  await database.collection("users").where("profileInformation.location", "array-contains", jobObj.jobLocation).get().then( snapshot => {
-    for( let item of snapshot.docs ){ allMatches.push(item.data())} })
-  await database.collection("users").where("profileInformation.jobTypes", "array-contains", jobObj.jobType).get().then( snapshot => {
-    for( let item of snapshot.docs ){ allMatches.push(item.data())} })
-    
-  const uniqueResults = allMatches.filter((object,index) => index === allMatches.findIndex(obj => JSON.stringify(obj) === JSON.stringify(object)))
+  // Need two separate queries because Firebase only allows one "array-contains" argument per query
+  const unionAndLocationResults = await usersRef
+    .where("profileInformation.union", "==", jobObj.unionMember)
+    .where("profileInformation.location", "array-contains", jobObj.jobLocation).get()
+  const jobTypeResults = await usersRef
+    .where("profileInformation.jobTypes", "array-contains", jobObj.jobType).get()
 
-  for(let user of uniqueResults) {
-    for(let userPosition of user.profileInformation.positions){
-      if(jobObj.jobPositions.includes(userPosition.value) && user.id !== userID){
-        tempUsers.push(user)
-        break
-      }
-    }
+  // Turning the snapshot into an array of objects so that they can be compared for the same results
+  const unionAndLocationResultsObj = unionAndLocationResults.docs.map( result => {
+    return result.data()
+  })
+  const jobTypeResultsObj = jobTypeResults.docs.map( result => {
+    return result.data()
+  })
+  // I want to make sure the longer array is being filtered by the shorter results array
+  if(unionAndLocationResultsObj.length > jobTypeResultsObj.length ){
+    longerArr = unionAndLocationResultsObj
+    shorterArr = jobTypeResultsObj
   }
+  else {
+    shorterArr = unionAndLocationResultsObj
+    longerArr = jobTypeResultsObj   
+  }
+
+  // Only keep results that satisfy both query conditions
+  const results = longerArr.filter( object => shorterArr.some(obj => obj.id === object.id)) 
+  // We want only users that satisfy the position requirements, we check this last to only
+  // iterate over user positions that we need
+  // const finalResults = results.filter(user => jobObj.jobPositions.map(position => user.profileInformation.positions.some(userPosition => userPosition.value === position.value)))
+  results.map(user => user.profileInformation.positions.map(position => jobObj.jobPositions.some(jobPosition => {
+    position.value === jobPosition && !tempUsers.includes(user) && userID !== user.id && tempUsers.push(user) 
+  })))
+  console.log(tempUsers)
   return tempUsers
 }
 
