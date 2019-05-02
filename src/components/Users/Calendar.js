@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import dateFns from "date-fns"
+import LeftArrow from '../../img/icon-calendar-arrow-left.svg'
+import RightArrow from '../../img/icon-calendar-arrow-right.svg'
 
 class Calendar extends Component {
   state = {
@@ -25,7 +27,7 @@ class Calendar extends Component {
       <div className="header row flex-middle" id="calendar">
         <div className="col col-start">
           <div className="icon" onClick={this.prevMonth}>
-            chevron_left
+            <img src={LeftArrow} alt="Left Arrow" />
           </div>
         </div>
         <div className="col col-center">
@@ -34,7 +36,9 @@ class Calendar extends Component {
           </span>
         </div>
         <div className="col col-end" onClick={this.nextMonth}>
-          <div className="icon">chevron_right</div>
+          <div className="icon">
+            <img src={RightArrow} alt="Right Arrow" />
+          </div>
         </div>
       </div>
     )

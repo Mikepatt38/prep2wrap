@@ -1,27 +1,6 @@
 /* ===============
   Styles for Calendar Layout
   ================== */
-  
-@import url(https://fonts.googleapis.com/icon?family=Material+Icons)
-
-.icon
-  font-family: 'Material Icons', serif
-  font-style: normal
-  display: inline-block
-  vertical-align: middle
-  line-height: 1
-  text-transform: none
-  letter-spacing: normal
-  word-wrap: normal
-  white-space: nowrap
-  direction: ltr
-  -webkit-font-smoothing: antialiased
-  text-rendering: optimizeLegibility
-  -moz-osx-font-smoothing: grayscale
-  font-feature-settings: 'liga'
-
-*
-  box-sizing: border-box
 
 header#calendar
   display: block
@@ -85,7 +64,6 @@ main
   margin: 0 0 50px
   background: #fff
   border: 2px solid #E6E8EB
-  // box-shadow: 0 2px 12px 0 rgba(0,0,0,.075)
   border-radius: 3px
   border: 1px solid #E6E8EB
   // box-shadow: 1px 4px 9px 2px rgba(23, 28, 33, 0.04)
@@ -100,10 +78,6 @@ main
     .icon
       cursor: pointer
       transition: .15s ease-out
-      // &:hover
-      //   transform: scale(1.75)
-      //   transition: .25s ease-out
-      //   color: #1a8fff
       &:first-of-type
         margin-left: 1em
       &:last-of-type
@@ -123,7 +97,6 @@ main
       height: 5em
       border-right: 1px solid rgba(180,188,199,.32)
       overflow: hidden
-      cursor: pointer
       background: #fff
       transition: 0.25s ease-out
     .personal
@@ -159,9 +132,6 @@ main
         right: -.05em
         transition: .25s ease-out
         letter-spacing: -.07em
-      // &:hover .bg
-      //   opacity: 0.05
-      //   transition: .5s ease-in
     .selected .bg
       opacity: 0.05
       transition: .5s ease-in
@@ -169,37 +139,3 @@ main
       flex-grow: 0
       flex-basis: calc(100%/7)
       width: calc(100%/7)
-
-/* ===============
-  Styles for Calendar Alerts
-  ================== */
-
-.calendar-alert
-  position: relative
-  display: flex
-  justify-content: space-between
-  align-content: center
-  width: 100%
-
-  .calendar-alert-text
-    position: relative
-    align-self: center
-    
-    h6
-      color: #444
-      font-size: 14px
-      font-weight: 600
-      text-transform: uppercase
-      letter-spacing: 1px
-      margin: 0
-
-  .calendar-alert-action
-    position: relative
-    display: flex
-    align-self: center
-
-
-    img
-      height: 27px
-      width: 27px
-      cursor: pointer
