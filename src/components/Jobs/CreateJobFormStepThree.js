@@ -8,21 +8,21 @@ class CreateJobFormStepThree extends Component {
   }
 
   saveAndContinue = (e) => {
-    e.preventDefault()
-    this.props.createJob(this.props.currentUser.id.toString(), this.props.currentJob.jobObj.jobID.toString(), this.props.currentJob.jobObj, this.props.currentJob.assignedUsers)
-      .then( result => {
-        result === 'success' 
-        ? this.props.history.push(`/jobs/${this.state.jobID}/send-job-invites`)
-        : console.log('error')
-      })
+    // e.preventDefault()
+    // this.props.createJob(this.props.currentUser.id.toString(), this.props.currentJob.jobObj.jobID.toString(), this.props.currentJob.jobObj, this.props.currentJob.assignedUsers)
+    //   .then( result => {
+    //     result === 'success' 
+    //     ? this.props.history.push(`/jobs/${this.state.jobID}/send-job-invites`)
+    //     : console.log('error')
+    //   })
   }
  
   
   render() {
     if(this.state.pageError) { 
       return <CreateJobFormError 
-              title="There was an error"
-              errorMessage="It looks like there was a problem while creating your job. Please start over creating your job."
+        title="There was an error"
+        errorMessage="It looks like there was a problem while creating your job. Please start over creating your job."
       /> 
     }
     const { jobObj, assignedUsers } = this.props.currentJob

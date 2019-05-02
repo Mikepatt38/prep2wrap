@@ -43,7 +43,8 @@ class CreateJobFormStepTwo extends Component {
   saveAndContinue = () => {
     this.validateAssignedUsers() &&
     this.props.updateReduxJobAssignedUsers(this.state.usersAssigned) &&
-    this.props.history.push(`/jobs/${this.state.jobID}/job-overview`)
+    this.props.history.push(`/jobs/${this.state.jobID}/send-job-invites`)
+    // this.props.history.push(`/jobs/${this.state.jobID}/job-overview`)
   }
 
   validateAssignedUsers = () => {
@@ -107,7 +108,7 @@ class CreateJobFormStepTwo extends Component {
             />
             <FormButton
               className="button-primary"
-              buttonText="Next Step"
+              buttonText="Send Job Invites"
               onClick={this.saveAndContinue}
             />
           </div>

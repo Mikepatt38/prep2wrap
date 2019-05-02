@@ -8,7 +8,7 @@ import UserAuth from './containers/UserAuth'
 import UsersPage from './pages/Users'
 import Availability from './containers/Availability'
 import { JobsPage, CreateJobFormStep1, CreateJobFormStep2, CreateJobFormStep3, SendJobInvites } from './containers/Jobs'
-import JobOverview from './containers/JobOverview'
+// import JobOverview from './containers/JobOverview'
 import { NotFound } from './pages/NotFound'
 
 import Landing from './pages/Landing'
@@ -27,7 +27,6 @@ export const Routes = () => {
       <ProtectedRoute exact path='/jobs/:jobID/assign-users' component={CreateJobFormStep2} />
       <ProtectedRoute exact path='/jobs/:jobID/job-overview' component={CreateJobFormStep3} />
       <ProtectedRoute exact path='/jobs/:jobID/send-job-invites' component={SendJobInvites} />
-      <ProtectedRoute exact path='/job-overview/:userID/:jobID' component={JobOverview} />
       <ProtectedRoute exact path='/users' component={UsersPage} />
       <ProtectedRoute exact path='/availability' component={Availability} />
       <ProtectedRoute exact path='/account-settings' component={AccountSettings} />
@@ -37,3 +36,4 @@ export const Routes = () => {
 }
 
 // <Route exact path='/' component={Landing} />
+// <ProtectedRoute exact path='/job-overview/:userID/:jobID' component={JobOverview} />

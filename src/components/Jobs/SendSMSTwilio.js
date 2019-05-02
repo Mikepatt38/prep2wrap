@@ -6,7 +6,6 @@ import { CreateJobFormError } from './CreateJobFormError'
 class SendSMSTwilio extends Component {
   state = {
     loading: true,
-    jobOverviewLink: ''
   }
 
   componentDidMount = () => {
@@ -16,17 +15,25 @@ class SendSMSTwilio extends Component {
         loading: false
       })
     }
-    this.sendSMSInvites(this.props.currentJob.assignedUsers)
+    this.props.createJob(this.props.currentUser.id.toString(), this.props.currentJob.jobObj.jobID.toString(), this.props.currentJob.jobObj, this.props.currentJob.assignedUsers)
+    .then( result => {
+      result === 'success' 
+      ? this.sendSMSInvites(this.props.currentJob.assignedUsers)
+      : console.log('error')
+    })
   }
 
-  sendSMSInvites(users){
-    this.createJobOverviewLink(this.props.currentUser.id.toString(), this.props.currentJob.jobObj.jobID)
-    const jobOverviewLink = '/job-overview/' + this.props.currentUser.id.toString() + '/' + this.props.currentJob.jobObj.jobID
+  async sendSMSInvites(users){
+    // this.createJobOverviewLink(this.props.currentUser.id.toString(), this.props.currentJob.jobObj.jobID)
+    // const jobOverviewLink = '/job-overview/' + this.props.currentUser.id.toString() + '/' + this.props.currentJob.jobObj.jobID
     try{
       users.map( user => {
         this.props.createPendingJob(user.id, this.props.currentJob.jobObj.jobID, this.props.currentJob.assignedUsers)
         this.sendSMSWithTwilio(user.name, user.number)
-        this.sendJobNotificationLink(user.id, user.name, user.position, this.props.currentJob.jobObj.jobID, jobOverviewLink)
+        this.sendJobNotificationLink(user.id, user.name, user.position, this.props.currentJob.jobObj.jobID)
+      })
+      this.setState({
+        loading: false
       })
     }
     catch(error) {
@@ -34,15 +41,22 @@ class SendSMSTwilio extends Component {
     }
   }
 
-  createJobOverviewLink = (userID, jobID) => {
-    const jobOverviewLink = '/job-overview/' + userID + '/' + jobID
+  completeJobInvites(){
     this.setState({
-      loading: false,
-      jobOverviewLink: jobOverviewLink
+      loading: false
     })
+    this.props.history.push('/jobs')
   }
 
-  sendJobNotificationLink = (userID, userName, userPosition, jobID, jobOverviewLink) => {
+  // createJobOverviewLink = (userID, jobID) => {
+  //   const jobOverviewLink = '/job-overview/' + userID + '/' + jobID
+  //   this.setState({
+  //     loading: false,
+  //     jobOverviewLink: jobOverviewLink
+  //   })
+  // }
+
+  sendJobNotificationLink = (userID, userName, userPosition, jobID) => {
     const jobNotificationData = {
       text: `${userName}, you're invited to join a crew as a ${userPosition}`,
       type: 'invite'
@@ -67,7 +81,7 @@ class SendSMSTwilio extends Component {
     .then(resp => {
       resp.status === 200 
       ? 
-        console.log('Success, Twilio text sent')
+        console.log('SMS sent.')
       : console.log('Message not sent!')
     })
   }
@@ -75,8 +89,8 @@ class SendSMSTwilio extends Component {
   render() {
     if(this.state.pageError) { 
       return <CreateJobFormError 
-              title="There was an error"
-              errorMessage="It looks like there was a problem while creating your job. Please start over creating your job."
+        title="There was an error"
+        errorMessage="It looks like there was a problem while creating your job. Please start over creating your job."
       /> 
     }
     return (
@@ -88,7 +102,7 @@ class SendSMSTwilio extends Component {
           <div className="card-body">
             {this.state.loading && <p>One moment, sending job invites...</p>}
             {!this.state.loading && !this.state.pageError &&
-              <Link to={this.state.jobOverviewLink}>View job overview</Link>
+              <Link to="/jobs">Back to Jobs Table</Link>
             }
           </div>
         </div>
