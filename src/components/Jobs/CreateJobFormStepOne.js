@@ -200,6 +200,11 @@ class CreateJobFormStepOne extends Component {
       this.props.history.push(`/jobs/${this.state.jobObj.jobID}/assign-users`)
   }
 
+  cancelJobCreation(e){
+    e.preventDefault()
+    this.props.history.push('/jobs')
+  }
+
   validateForm = () => {
     const { jobName, jobDesc, jobDates, jobLocation, jobPositions, jobType } = this.state.jobObj
     const inputs = [ ['jobName', jobName], ['jobDesc', jobDesc], ['jobDates', jobDates], ['jobLocation', jobLocation], ['jobPositions', jobPositions], ['jobType', jobType] ]
@@ -392,16 +397,10 @@ class CreateJobFormStepOne extends Component {
               <FormButton
                 className="button-danger"
                 buttonText="Cancel"
-                // onClick={this.saveAndContinue}
+                onClick={(e) => this.cancelJobCreation(e)}
               />
             </div>
             <div className="buttons-right">
-              <FormButton
-                className="button-secondary"
-                buttonText="Prev Step"
-                disabled="true"
-                // onClick={this.saveAndContinue}
-              />
               <FormButton
                 className="button-primary"
                 buttonText="Next Step"

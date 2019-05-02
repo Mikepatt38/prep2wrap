@@ -44,7 +44,17 @@ class CreateJobFormStepTwo extends Component {
     this.validateAssignedUsers() &&
     this.props.updateReduxJobAssignedUsers(this.state.usersAssigned) &&
     this.props.history.push(`/jobs/${this.state.jobID}/send-job-invites`)
-    // this.props.history.push(`/jobs/${this.state.jobID}/job-overview`)
+  }
+
+  saveAndGoBack(e){
+    e.preventDefault()
+    this.props.history.push(`/jobs/${this.state.jobID}/job-information`)
+  }
+
+  cancelJobCreation(e){
+    e.preventDefault()
+    this.props.createReduxJob({})
+    this.props.history.push('/jobs')
   }
 
   validateAssignedUsers = () => {
@@ -97,14 +107,14 @@ class CreateJobFormStepTwo extends Component {
             <FormButton
               className="button-danger"
               buttonText="Cancel"
-              // onClick={this.saveAndContinue}
+              onClick={(e) => this.cancelJobCreation(e)}
             />
           </div>
           <div className="buttons-right">
             <FormButton
               className="button-secondary"
-              buttonText="Prev Step"
-              // onClick={this.saveAndContinue}
+              buttonText="Start Over"
+              onClick={(e) => this.saveAndGoBack(e)}
             />
             <FormButton
               className="button-primary"
