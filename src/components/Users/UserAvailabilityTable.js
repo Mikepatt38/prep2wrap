@@ -14,7 +14,8 @@ export class UserAvailabilityTable extends Component {
       this.props.dates.sort(function(a,b){
         return new Date(b.date) - new Date(a.date);
       }).reverse(),
-    loading: this.props.dates ? false : true
+    loading: this.props.dates ? false : true,
+    dateTypeKey: 0
   }
 
   componentDidUpdate(prevProps, prevState){
@@ -63,6 +64,8 @@ export class UserAvailabilityTable extends Component {
   }
 
   render() {
+
+    const { dateTypeKey } = this.state
    
     const columns = [
       {
