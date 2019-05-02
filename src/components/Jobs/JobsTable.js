@@ -181,7 +181,8 @@ export class JobsTable extends Component {
             <div className="action-container">
               <div 
                 className="action" 
-                onClick={() => this.toggleRowActions(props.index)} id={`action-${props.index}`}
+                onClick={() => this.toggleRowActions(props.index)} 
+                id={`action-${props.index}`}
               >
                   <img src={ActionIcon} alt="Table Icon for Actions" />
               </div>

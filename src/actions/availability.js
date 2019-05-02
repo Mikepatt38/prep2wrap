@@ -31,41 +31,24 @@ export const updateUserAvailability = (userID, currentUserAvailability, newDate,
   await database.collection("users").doc(userID).update({
     availability: currentUserAvailability
   })
-  .catch( (error) => {
-    dispatch({
-      type: 'SET_ALERT',
-      payload: [true, 'Error', error.message]
-    })
+  .catch( (error) => { dispatch({ type: 'SET_ALERT', payload: [true, 'Error', error.message] })
   })
-  await dispatch({
-      type: 'SET_ALERT',
-      payload: [true, 'Success', 'Your calendar was updated!']
-    })
+  await dispatch({ type: 'SET_ALERT', payload: [true, 'Success', 'Your calendar was updated!'] })
 }
 
-export const updateUserDates = (userID, dates) => async dispatch => {
-//   const database = await db
-
-//   try{
-//     let setAvailability = await database.collection("users").doc(userID).update({ availability: dates})
-//     dispatch({
-//       type: 'SET_USERS_DATES',
-//       payload: dates
-//     })
-//     dispatch({
-//       type: 'SET_ALERT',
-//       payload: [true, 'Success', 'Your calendar was updated!']
-//     })
-//   }
-//   catch(error) {
-//     dispatch({
-//       type: 'SET_ALERT',
-//       payload: [true, 'Error', 'ERROR: ' + error]   
-//     })
-//   }
+export const removeAvailabilityDate = (userID, currentDates, dateToDelete) => async dispatch => {
+  const database = await db
+  const dateIndex = currentDates.indexOf(dateToDelete)
+  // Remove the date to be deleted from the user's current array of availability dates
+  currentDates.splice(dateIndex, 1)
+  await database.collection("users").doc(userID).update({
+    availability: currentDates
+  })
+  .catch( (error) => { dispatch({ type: 'SET_ALERT', payload: [true, 'Error', error.message] })})
+  await dispatch({ type: 'SET_ALERT', payload: [true, 'Success', 'Your calendar was updated!']})
 }
 
-export const removeAvailabilityDate = (userID, date) => async dispatch => {
+// export const removeAvailabilityDate = (userID, date) => async dispatch => {
 //   const database = await db
 //   let currentDates = []
 
@@ -83,7 +66,7 @@ export const removeAvailabilityDate = (userID, date) => async dispatch => {
 //   .then( () => {
 //     dispatch(updateUserDates(userID, currentDates))
 //   })
-}
+// }
 
 export const setAvailabilityDate = (userID, date, reason, type) => async dispatch => {
 //   const database = await db

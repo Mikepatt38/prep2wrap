@@ -7,13 +7,16 @@ class Calendar extends Component {
     selectedDate: null,
     selectedDateType: '',
     bookedDates: [],
-    personalDates: []
+    personalDates: [],
   }
 
-  componentWillReceiveProps = () => {
-    this.setState({
-      bookedDates: []
-    })
+  componentDidUpdate(prevProps, prevState){
+    if(prevProps.currentUser.availability !== this.props.currentUser.availability){
+      this.setState({
+        bookedDates: [],
+        personalDates: []
+      })
+    }
   }
 
   renderHeader() {
@@ -89,14 +92,6 @@ class Calendar extends Component {
                     : ""
             }`}
             key={day}
-            // Not sure I want the user to set availability based on clicked the day cell
-            // might bring back to allow user to "quick view" a blocked out date
-            // onClick={ () => 
-            //   this.state.bookedDates.includes(dateFns.format(dateFns.parse(cloneDay), "MM/DD/YYYY"))
-            //     // ? this.onDateClick(dateFns.parse(cloneDay))
-            //     ? null // null while trying to figure out what to do when user clicks date that is booked
-            //     : this.setDateClick(dateFns.parse(cloneDay))
-            // }
           >
             <span className="number">{formattedDate}</span>
             <span className="bg">{formattedDate}</span>

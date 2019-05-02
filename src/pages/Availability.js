@@ -11,7 +11,6 @@ class Availability extends Component {
 
   async componentDidMount(){
     const userAvailability = await this.props.getCurrentAvailability(this.props.currentUser.id)
-    console.log(userAvailability)
     this.setState({
       loading: false,
       userAvailability: userAvailability
@@ -46,9 +45,9 @@ class Availability extends Component {
           {
             this.state.userAvailability && 
             <Calendar 
+              currentUser={currentUser}
               dates={this.state.userAvailability} 
               setSelectedDate={this.setSelectedDate} 
-              // onSelectedDate={this.onSelectedDate} 
             />
           }
         </div>
@@ -63,6 +62,7 @@ class Availability extends Component {
             <UserAvailabilityTable
               dates={this.state.userAvailability}
               currentUser={currentUser}
+              removeAvailabilityDate={this.props.removeAvailabilityDate}
             />
           }
         </div>

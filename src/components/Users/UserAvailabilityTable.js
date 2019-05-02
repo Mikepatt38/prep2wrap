@@ -20,7 +20,8 @@ export class UserAvailabilityTable extends Component {
   componentDidUpdate(prevProps, prevState){
     if(prevProps.dates !== this.props.dates){
       this.setState({
-        availability: this.props.dates
+        availability: this.props.dates,
+        loading: false
       })
     }
   }
@@ -29,22 +30,35 @@ export class UserAvailabilityTable extends Component {
     return typeof element.id != 'undefined'
   }
 
-  toggleTableDropdown(index){
-    // store which dropdown was selected
-    const el = document.getElementById(`dropdown-${index}`)
-    // if there are dropdowns that are active, lets find them
-    const els = document.getElementsByClassName('menu-dropdown--active')
+  deleteCreatedDate(currentDates, dateToDelete){
+    this.setState({
+      loading: true
+    })
+    this.props.removeAvailabilityDate(this.props.currentUser.id, currentDates, dateToDelete)
+  }
+
+  toggleRowActions(index){
+    // store which row was selected
+    const el = document.getElementById(`row-${index}`)
+    const elAction = document.getElementById(`action-${index}`)
+    // if there are rows that are active, lets find them
+    const els = document.getElementsByClassName('row-actions-active')
+    const elsAction = document.getElementsByClassName('action-hidden')
     // we need to remove this class if it is out there
-    if(els[0] && els[0].id === `dropdown-${index}`){
-      els[0].classList.remove('menu-dropdown--active')
+    if(els[0] && els[0].id === `row-${index}`){
+      els[0].classList.remove('row-actions-active')
+      elsAction[0].classList.remove('action-hidden')
     }
     else if(els[0]){
-      els[0].classList.remove('menu-dropdown--active')
-      el.classList.add('menu-dropdown--active')
+      els[0].classList.remove('row-actions-active')
+      elsAction[0].classList.remove('action-hidden')
+      el.classList.add('row-actions-active')
+      elAction.classList.add('action-hidden')
     }
     //if there aren't any active, lets add the class
     else {
-      el.classList.add('menu-dropdown--active')
+      el.classList.add('row-actions-active')
+      elAction.classList.add('action-hidden')
     }
   }
 
@@ -81,19 +95,20 @@ export class UserAvailabilityTable extends Component {
         Cell: props => {
           return (     
             <div className="action-container">
-              <div className="action" onClick={() => this.toggleTableDropdown(props.index)}><img src={ActionIcon} alt="Table Icon for Actions" /></div>
-              <div className="menu-dropdown" id={`dropdown-${props.index}`}>
-              <div className="arrow-up"></div>
-                <div className="menu-dropdownView">
-                  <ul className="menu-dropdownItems">
-                    {
-                      props.original.dateType.toLowerCase() === 'requested'
-                        ? <li className="menu-dropdown-item red">Delete</li>
-                        : <li className="menu-dropdown-item">View Jobs</li>
-                    }
-                  </ul>
-                </div>
+              <div 
+                className="action" 
+                onClick={() => this.toggleRowActions(props.index)} 
+                id={`action-${props.index}`}
+              >
+                <img src={ActionIcon} alt="Table Icon for Actions" />
               </div>
+              <ul className="table-action-list" id={`row-${props.index}`}>
+                {
+                  props.original.dateType.toLowerCase() === 'requested'
+                    ? <li className="table-action-list-item" onClick={() => this.deleteCreatedDate(this.state.availability, props.original.date)}>Delete</li>
+                    : <li className="table-action-list-item"><Link to="/jobs">View Jobs</Link></li>
+                }
+              </ul>
             </div>
           )
         },
