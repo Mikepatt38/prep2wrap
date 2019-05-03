@@ -20,9 +20,12 @@ export class Login extends Component {
     const { history, signUserIn, error, errorText } = this.props
     return (
       <div className="authPage">
+        <div className="auth-logo">
+          <img src={logo} alt="The official logo" />
+        </div>
         <div className="auth-container">
-          <div className="auth-logo">
-            <img src={logo} alt="The official logo" />
+          <div className="auth-header">
+            <h1>Welcome back.</h1>
           </div>
           <div className="auth-card">
             <div className="auth-card-body">
@@ -60,17 +63,19 @@ const LoginForm = ({ history, signUserIn, state, handleChange, error}) => (
       name="email"
       onChange={handleChange}
       className={error && 'field-error'}
-      type="email"
+      type="email" 
+      placeholder="user@email.com"
     />
     <FormTextInput
-      label="password"
+      label="Password"
       name="password"
       onChange={handleChange}
       className={error && 'field-error'}
       type="password"
+      placeholder="password"
     />
     <FormButton
-      className="button-form"
+      className="button-primary auth"
       buttonText="Login"
     />
   </form>

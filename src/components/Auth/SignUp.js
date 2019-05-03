@@ -91,15 +91,18 @@ export class SignUp extends Component {
     const { error, errorText } = this.props
     return (
       <div className="authPage">
-        <div className="authContainer auth-container--signup">
-          <div className="auth-logo">
-            <img src={logo} alt="The official logo" />
+        <div className="auth-logo">
+          <img src={logo} alt="The official logo" />
+        </div>
+        <div className="auth-container auth-container--signup">
+          <div className="auth-header">
+            <h1>Create a New Account</h1>
+            <p>Already have an account?</p> &nbsp;
+            <Link to="/login" className="link">
+              Log In
+            </Link>
           </div>
           <div className="auth-card auth-card-large">
-            <div className="auth-card-header">
-              <h3>Create New Account</h3>
-              <p>Signup to get started today using your account right away.</p>     
-            </div>
             <div className="auth-card-body">
               { error && <p className="error-text">{errorText}</p> }
               <SignUpForm 
@@ -110,12 +113,6 @@ export class SignUp extends Component {
                 handleUserSignUp={this.handleUserSignUp}
               />
             </div>
-          </div>
-          <div className="auth-external-link">
-            <p>Already have an account?</p> &nbsp;
-            <Link to="/login" className="link">
-              Log In
-            </Link>
           </div>
         </div>
       </div>
@@ -133,6 +130,7 @@ const SignUpForm = ({state, error, handleChange, handleCheck, handleUserSignUp})
         label="First Name"
         type="text"
         name="firstName"
+        className="form-group--half"
         value={state.firstName}
         onChange={handleChange}
         error={state.firstNameError}
@@ -142,6 +140,7 @@ const SignUpForm = ({state, error, handleChange, handleCheck, handleUserSignUp})
         label="Last Name"
         type="text"
         name="lastName"
+        className="form-group--half"
         value={state.lastName}
         onChange={handleChange}
         error={state.lastNameError}
@@ -191,7 +190,7 @@ const SignUpForm = ({state, error, handleChange, handleCheck, handleUserSignUp})
         proMembershipValue={state.proMembership}
       />
       <FormButton
-        className="button-primary full"
+        className="button-primary auth"
         buttonText="Sign Up"
       />    
     </form>
