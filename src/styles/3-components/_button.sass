@@ -46,7 +46,7 @@ button, a.button
   text-decoration: none
   vertical-align: middle
   transition: all 0.8s ease
-  min-height: 49px
+  height: 49px
 
   &.button-primary
     background: $color__primary
@@ -54,7 +54,6 @@ button, a.button
     color: #fff
 
     &.auth
-      height: 45px
       font-size: 18px
       width: 100%
 
@@ -79,3 +78,13 @@ button, a.button
     background: #efefef
     border: #aaa
     cursor: not-allowed
+
+  &.button-transparent
+    background: none
+    border: none
+    box-shadow: none
+    opacity: 0.6
+
+    &:hover
+      opacity: 1
+      transition: all 0.8s ease

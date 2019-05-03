@@ -21,12 +21,6 @@ class Modal extends Component {
         <div className="modal">
           <div className="modal-header">
             <h2>{title}</h2>
-            <a 
-              role="button"
-              onClick={() => setModal(false, '', null)}
-            >
-              <img src={CloseIcon} />
-            </a>
           </div>
           <div className="modal-body">
             {children}
@@ -45,3 +39,10 @@ Modal.propTypes = {
 }
 
 export default Modal
+
+// <a 
+// role="button"
+// onClick={() => setModal(false, '', null)}
+// >
+// <img src={CloseIcon} />
+// </a>

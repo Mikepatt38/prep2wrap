@@ -41,6 +41,11 @@ export class AvailabilityForm extends Component {
     this.props.closeModal(false)
   }
 
+  handleCancel(e){
+    e.preventDefault()
+    this.props.closeModal(false)
+  }
+
 
   render() {
     const { currentSelectedDate, reason } = this.state
@@ -64,11 +69,18 @@ export class AvailabilityForm extends Component {
           type="text"
           value={reason}
         />
-        <FormButton
-          className="button-primary"
-          buttonText="Block Out Date"
-          onClick={(e) => this.handleClick(e)}
-        />
+        <div className="modal-button-wrapper">
+          <FormButton
+            className="button-transparent"
+            buttonText="Cancel"
+            onClick={(e) => this.handleCancel(e)}
+          />
+          <FormButton
+            className="button-primary"
+            buttonText="Block Out Date"
+            onClick={(e) => this.handleClick(e)}
+          />
+        </div>
       </form>
     )
   }

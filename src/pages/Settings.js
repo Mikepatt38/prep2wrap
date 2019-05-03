@@ -10,9 +10,6 @@ const AccountSettings = ({ currentUser, setUserProfile, setName, setEmail, setMo
     </div>
 
     <div className="app-page-section">
-      <div className="section-title">
-        <h3>Basic Account Information:</h3>
-      </div>  
       <div className="card no-hover">
         <UserInfoForm
           currentUser={currentUser}
@@ -25,9 +22,6 @@ const AccountSettings = ({ currentUser, setUserProfile, setName, setEmail, setMo
     </div>
 
     <div className="app-page-section">
-      <div className="section-title">
-        <h3>User Profile Information:</h3>
-      </div>
       <div className="card no-hover">
         <UserProfileForm 
           setUserProfile={setUserProfile} 

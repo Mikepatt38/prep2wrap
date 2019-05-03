@@ -40,73 +40,69 @@ div#linktotop
 
 // =========== Auth Modal Styles =========== //
 
-.modal
-  display: none
-  width: 47%
-  box-sizing: border-box
-  margin-left: auto
-  margin-right: auto
-  position: relative
-  margin-top: 60px
-  margin-bottom: 120px
-  background-color: #fff
-  padding: 40px 0
-  border-radius: 2px
+// .modal
+//   display: none
+//   width: 47%
+//   box-sizing: border-box
+//   margin-left: auto
+//   margin-right: auto
+//   position: relative
+//   margin-top: 60px
+//   margin-bottom: 120px
+//   background-color: #fff
+//   padding: 40px 0
+//   border-radius: 2px
 
-  &#static
-    display: block
+//   &#static
+//     display: block
 
-  .modal-header
-    text-align: center
-    padding-left: 17.37588652%
-    padding-right: 17.37588652%
+//   .modal-header
+//     text-align: center
+//     padding-left: 17.37588652%
+//     padding-right: 17.37588652%
 
-    img
-      width: 40px
+//     img
+//       width: 40px
 
-    h2
-      letter-spacing: -.5px
-      font-size: 39px
-      line-height: 1.5
-      font-weight: 700
-      margin-top: 0
-      margin-bottom: 10px
-      color: #16373B
+//     h2
+//     font-size: 32px
+//     font-weight: 700
+//     color: $color__black
 
-    p
-      font-size: 18px
-      line-height: 1.5
-      font-weight: 400
-      margin-top: 0
-      color: #9fa4a6
+//     p
+//       font-size: 18px
+//       line-height: 1.5
+//       font-weight: 400
+//       margin-top: 0
+//       color: #9fa4a6
 
-  .modal-body
-    padding-top: 30px
-    padding-bottom: 30px
-    padding-left: 17.37588652%
-    padding-right: 17.37588652%
+//   .modal-body
+//     padding-top: 30px
+//     padding-bottom: 30px
+//     padding-left: 17.37588652%
+//     padding-right: 17.37588652%
 
-  .modal-footer
-    position: relative
-    text-align: center
-    padding-left: 10.81560284%
-    padding-right: 10.81560284%
-    display: flex
-    flex-direction: row
-    align-items: center
-    justify-content: center
-    flex: 1
-    backface-visibility: hidden
-    text-align: center
+//   .modal-footer
+//     position: relative
+//     text-align: center
+//     padding-left: 10.81560284%
+//     padding-right: 10.81560284%
+//     display: flex
+//     flex-direction: row
+//     align-items: center
+//     justify-content: center
+//     flex: 1
+//     backface-visibility: hidden
+//     text-align: center
 
-    a
-      color: $color__blue
-      cursor: pointer
-      font-size: 13px
-      font-weight: 500
+//     a
+//       color: $color__blue
+//       cursor: pointer
+//       font-size: 13px
+//       font-weight: 500
 
-      &:hover
-        color: rgba(99,234,211,.9)
+//       &:hover
+//         color: rgba(99,234,211,.9)
 
 
 // =========== General Modal Styles =========== //
@@ -139,26 +135,46 @@ div#linktotop
     position: relative
     display: block
     padding: 0
+    background: #fff
+    border-radius: 3px
+    max-width: 650px
+    box-shadow: 0 8px 36px 0 rgba(0,0,0,.075)
 
     .modal-header
       display: grid
       grid-template-columns: 1fr 40px
       text-align: left
-      padding: 30px
+      padding: 20px 30px
       align-items: center
-      border-bottom: 1px solid #E6E8EB
+      // border-bottom: 1px solid #E6E8EB
+
+      a
+        display: flex
+        max-height: 42px
 
       img
         cursor: pointer
+        width: 40px
 
       h2
-        color: #2c2c2c
-        font-size: 24px
-        font-weight: 500
-        margin: 0
-        text-transform: uppercase
-        letter-spacing: 1px
+        color: $color__black
+        font-size: 28px
+        font-weight: 400
 
     .modal-body
       position: relative
-      padding: 30px
+      padding-top: 20px 
+      
+      form > .form-group
+        padding: 0 30px
+
+      .modal-button-wrapper
+        position: relative
+        padding: 30px 20px
+        background: $color__grey
+        width: 100%
+        text-align: right 
+        margin-top: 20px
+
+        button:first-child
+          margin-right: 5px
