@@ -4,7 +4,7 @@
 
 .dashboard-cards
   position: relative
-  max-width: 1050px
+  max-width: 670px
   width: 100%
   display: flex
   flex-direction: row
@@ -15,9 +15,10 @@
     position: relative
     width: 48.5%
     padding: 20px
+    padding-left: 0
     background-color: white 
-    border: 1px solid #E6E8EB
-    border-radius: 3px
+    // border: 1px solid #E6E8EB
+    // border-radius: 3px
     // box-shadow: 0 2px 12px 0 rgba(0,0,0,.075)
     margin-bottom: 15px
     display: flex
@@ -27,23 +28,37 @@
     cursor: pointer
 
     &:hover
-      transition: all 0.2s ease-in-out
-      transform: translateY(-3px)
-      box-shadow: 0 8px 12px 0 rgba(0,0,0,.075)
+      // transition: all 0.2s ease-in-out
+      // transform: translateY(-3px)
+      // box-shadow: 0 8px 12px 0 rgba(0,0,0,.075)
 
     .icon
-      width: 10%
+      width: 15%
       margin-right: 15px
+      border: 1px solid $color__primary
+      display: flex
+      justify-content: center
+      align-items: center
+      padding: 10px
+      border-radius: 3px
 
       img
-        max-width: 36px
-        max-height: 36px
+        max-width: 18px
+        max-height: 18px
+
+    .description
+      position: relative
+      width: 84%
 
     .description > h4
       font-size: 16px
-      font-weight: 500
-      color: #444
+      font-weight: 400
+      color: $color__primary
       margin: 0
+
+    .description > p
+      color: #676767
+      font-size: 16px
 
 .dashboard-status-cards
   position: relative
@@ -64,6 +79,7 @@
     flex-direction: column
     justify-content: center
     align-items: center
+    text-align: center 
 
     span.count
       margin-bottom: 10px

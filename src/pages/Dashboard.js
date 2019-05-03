@@ -28,14 +28,14 @@ class Dashboard extends Component {
 
         <div className="app-page-section">
           <div className="section-title">
-            <h3>Quick Actions:</h3>
+            <p>Get started with quick actions:</p>
           </div>
           <div className="dashboard-cards">
             <div className="dashboard-card">
               <div className="icon"><img src={GettingStartedIcon} alt="Getting Started Icon" /></div>
               <div className="description">
                 <h4>Visit Tutorials</h4>
-                <p>Get started with how to use the CrewItUp platform for your career and current jobs.</p>
+                <p>Learn the Crew It Up platform.</p>
               </div>
             </div>
 
@@ -43,7 +43,7 @@ class Dashboard extends Component {
               <div className="icon"><img src={CreateIcon} alt="Getting Started Icon" /></div>
               <div className="description">
                 <h4>Create A Job</h4>
-                <p>Get started with how to use the CrewItUp platform for your career and current jobs.</p>
+                <p>Hire your next crew.</p>
               </div>
             </div>
 
@@ -51,7 +51,7 @@ class Dashboard extends Component {
               <div className="icon"><img src={GlassIcon} alt="Getting Started Icon" /></div>
               <div className="description">
                 <h4>Update Availability</h4>
-                <p>Get started with how to use the CrewItUp platform for your career and current jobs.</p>
+                <p>Keep your calendar updated.</p>
               </div>
             </div>
 
@@ -59,7 +59,7 @@ class Dashboard extends Component {
               <div className="icon"><img src={CalendarIcon} alt="Getting Started Icon" /></div>
               <div className="description">
                 <h4>Find A User</h4>
-                <p>Get started with how to use the CrewItUp platform for your career and current jobs.</p>
+                <p>Easily grow your network.</p>
               </div>
             </div>
           </div>

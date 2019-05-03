@@ -39,9 +39,6 @@ class Availability extends Component {
           <button className="button-primary" onClick={(e) => this.updateAvailability(e)}>Update Availability</button>
         </div>
         <div className="app-page-section">
-          <div className="section-title">
-            <h3>Calendar View:</h3>
-          </div>
           {
             this.state.userAvailability && 
             <Calendar 
@@ -54,7 +51,7 @@ class Availability extends Component {
 
         <div className="app-page-section">
           <div className="section-title">
-            <h3>List View:</h3>
+            <p>Availability list view:</p>
           </div>
           {
             // Need to check to make sure the availability array isn't empty

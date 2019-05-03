@@ -23,21 +23,18 @@ class DashboardStatus extends Component {
     if(this.state.loading) return <p>Loading...</p>
     return (
       <React.Fragment>
-        <div className="section-title">
-          <h3>Job Stats:</h3>
-        </div>
         <div className="dashboard-status-cards">
           <div className="status-card">
             <span className="count">{this.state.createdJobsCount}</span>
-            <span className="description">Created</span>
+            <span className="description">Jobs<br/>Created</span>
           </div>
           <div className="status-card">
             <span className="count">{this.state.acceptedJobsCount}</span>
-            <span className="description">Accepted</span>
+            <span className="description">Jobs<br/>Accepted</span>
           </div>
           <div className="status-card">
             <span className="count">{this.state.completedJobsCount}</span>
-            <span className="description">Completed</span>
+            <span className="description">Jobs<br/>Completed</span>
           </div>
         </div>
       </React.Fragment>

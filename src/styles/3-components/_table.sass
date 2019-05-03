@@ -13,7 +13,7 @@
   max-width: 1250px
 
 .ReactTable .rt-thead
-  background: #f0f4f7
+  background: #f2f2f2
 
 .ReactTable .rt-thead .rt-tr
   text-align: left !important
@@ -38,8 +38,14 @@
   text-transform: uppercase
   letter-spacing: 1px
   margin: 0
-  color: #677694
+  color: $color__black
   display: grid
+
+.ReactTable .rt-thead .rt-th
+  font-size: 13px 
+  text-transform: uppercase
+  letter-spacing: 0.25px
+  font-weight: 600
 
 .ReactTable .rt-thead .rt-th
   border-right: none !important
@@ -122,8 +128,7 @@
       margin-right: 4px
 .ReactTable .rt-tbody .rt-td, .ReactTable .rt-tbody .rt-td a, .ReactTable .rt-tbody .rt-td, .ReactTable .rt-tbody .rt-td
   border: none !important 
-  font-size: 15px
-  color: #444444
+  font-size: 16px
   & > a, & > span.action
     display: inline-block
     max-height: 25px
@@ -195,10 +200,14 @@ ul.table-action-list li
   border-top: 1px solid rgba(0,0,0,0.1) !important
 
 .ReactTable .-pagination .-btn
-  padding: 6px !important
-  font-size: 12px !important
+  padding: 0 !important
+  font-size: 13px !important
+  text-transform: uppercase
+  letter-spacing: 0.5px
   line-height: normal
   box-shadow: none
+  height: auto
+  min-height: auto
 
 .ReactTable .rt-noData
   z-index: 0
