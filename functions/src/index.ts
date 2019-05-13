@@ -1,4 +1,15 @@
 import * as functions from 'firebase-functions';
+const admin = require('firebase-admin');
+admin.initializeApp({
+  apiKey: functions.config().app.key,
+  authDomain: "the-calltime.firebaseapp.com",
+  databaseURL: "https://the-calltime.firebaseio.com",
+  projectId: "the-calltime",
+  storageBucket: "the-calltime.appspot.com",
+  messagingSenderId: "48348373939"
+});
+const stripe = require('stripe')(functions.config().stripe.testkey)
+// const currency = functions.config().stripe.currency || 'USD'
 
 import { Storage } from '@google-cloud/storage'
 const gcs = new Storage()
@@ -64,3 +75,11 @@ export const generateThumbs = functions.storage
     // Remove the temp directory from the file system
     return fs.remove(workingDir)
   })
+
+  // When a user is created, register them with Stripe
+  export const createStripeCustomer = functions.auth.user().onCreate(async (user) => {
+    // Create the customer with Stripe, get a callback for the customer from Stripe
+    const customer = await stripe.customers.create({email: user.email});
+    // Add the customer's Stripe customer ID to the database to use for later
+    return admin.firestore().collection('users').doc(user.uid).update({stripe_id: customer.id});
+  });

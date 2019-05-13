@@ -7,6 +7,7 @@ const cors = require('cors') // Cors origin policy
 const jsonParser = bodyParser.json()
 const fetch = require('node-fetch')
 const app = express()
+const stripe = require("stripe")("sk_test_dFdzogiSreiyt7uncg3dg1eE0065opT4ZA")
 
 const PORT = process.env.SERVER_PORT || 9000
 
@@ -28,7 +29,6 @@ const corsOptions = {
   methods: ['POST'],
   allowedHeaders: ['Accept', 'Content-Type', 'Access-Control-Allow-Origin'],
 }
-app.use(bodyParser.json())
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -39,6 +39,57 @@ app.use(express.static(path.join(__dirname, 'build')))
 app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'))
 })
+
+app.use(bodyParser.json()) 
+app.post("/create-user-subscription", async (req, res) => {
+  try{
+    // We want to create the customer with stripe
+    const customer = await stripe.customers.create({email: req.body.userEmail})
+    // // Link the created source to our created customer
+    const source = await stripe.customers.createSource(customer.id, { source: req.body.stripeSourceId });
+    // // We want to create the subscription from the customer to the product
+    // This is the test subscription plan -- replace with live when goes live
+    const subscription = await stripe.subscriptions.create({
+      customer: customer.id,
+      items: [{ plan: 'plan_F3rVuzuNYV90YJ' }],
+    })
+    const obj = {
+      status: subscription.status,
+      stripe_id: customer.id
+    }
+    res.json({
+      status: subscription.status,
+      stripe_id: customer.id
+    })
+  }
+  catch(err){
+    console.log('Error: ' + err.message)
+    res.status(500).end()    
+  }
+  // try{
+  //   let {status} = stripe.customers.createSource(
+  //     req.body.customerId, 
+  //     { source: req.body.stripeSourceId }
+  //   )
+  //   res.json({status})
+  // } catch(err){
+  //   console.log(err)
+  //   res.status(500).end()
+  // }
+  // try {
+  //   let {status} = await stripe.charges.create({
+  //     amount: 2000,
+  //     currency: "usd",
+  //     description: "An example subscription charge",
+  //     source: req.body
+  //   });
+
+  //   res.json({status});
+  // } catch (err) {
+  //   console.log(err.message)
+  //   res.status(500).end();
+  // }
+});
 
 app.post('/sendsms', bodyParser.json(), (req, res) => {
   let SID = process.env.TWILIO_SID

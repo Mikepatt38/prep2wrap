@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import {Elements, StripeProvider} from 'react-stripe-elements'
 import { FormTextInput } from '../Forms/FormTextInput'
 import { FormBillingCheckbox } from '../Forms/FormBillingCheckbox'
 import { FormButton } from '../Forms/FormButton'
+import SubscriptionForm from '../Billing/SubscriptionForm'
 import logo from '../../img/calltime-logo.png'
 
 export class SignUp extends Component {
@@ -44,6 +46,19 @@ export class SignUp extends Component {
       freeTrial: false,
       proMembership: false,
       [name]: newVal
+    })
+  }
+
+  subscriptionAdded = (subscriptionSuccess) => {
+    this.setState({
+      subscriptionAdded: subscriptionSuccess ? true : false
+    })
+  }
+
+
+  setUserStripeID(stripe_id){
+    this.setState({
+      stripe_id
     })
   }
 
@@ -111,6 +126,7 @@ export class SignUp extends Component {
                 handleChange={this.handleChange}
                 handleCheck={this.handleCheck}
                 handleUserSignUp={this.handleUserSignUp}
+                subscriptionAdded={this.subscriptionAdded}
               />
             </div>
           </div>
@@ -120,79 +136,90 @@ export class SignUp extends Component {
   }
 }
 
-const SignUpForm = ({state, error, handleChange, handleCheck, handleUserSignUp}) => (
-  <fieldset disabled={state.loading && !error}>
-    <form 
-      className="signUpForm"
-      onSubmit={(e) => handleUserSignUp(e)}  
-    >
-      <FormTextInput
-        label="First Name"
-        type="text"
-        name="firstName"
-        className="form-group--half"
-        value={state.firstName}
-        onChange={handleChange}
-        error={state.firstNameError}
-        errorMsg="A first name is required."
-      />
-      <FormTextInput
-        label="Last Name"
-        type="text"
-        name="lastName"
-        className="form-group--half"
-        value={state.lastName}
-        onChange={handleChange}
-        error={state.lastNameError}
-        errorMsg="A last name is required."
-      />
-      <FormTextInput
-        label="Email"
-        type="email"
-        name="email"
-        className={error && 'field-error'}
-        value={state.email}
-        onChange={handleChange}
-        error={state.emailError}
-        errorMsg="Please enter a valid email address"
-      />
-      <FormTextInput
-        label="Mobile Number"
-        type="tel"
-        name="mobileNumber"
-        value={state.mobileNumber}
-        onChange={handleChange}
-        error={state.mobileNumberError}
-        errorMsg="Please enter a valid mobile number"
-      />
-      <FormTextInput
-        label="Password"
-        name="passwordOne"
-        className="form-group--half"
-        onChange={handleChange}
-        value={state.passwordOne}
-        type="password"
-        error={state.passwordOneError}
-        errorMsg="Your passwords must match and be at least 8 characters"
-      />
-      <FormTextInput
-        label="Confirm Password"
-        name="passwordTwo"
-        className="form-group--half"
-        onChange={handleChange}
-        value={state.passwordTwo}
-        type="password"
-        error={state.passwordTwoError}
-      />
-      <FormBillingCheckbox
-        onChange={handleCheck}
-        freeTrialValue={state.freeTrial}
-        proMembershipValue={state.proMembership}
-      />
-      <FormButton
-        className="button-primary auth"
-        buttonText="Sign Up"
-      />    
-    </form>
-  </fieldset>
+const SignUpForm = ({state, error, handleChange, handleUserSignUp, subscriptionAdded, setUserStripeID}) => (
+  <StripeProvider apiKey="pk_test_QFA7A5tAJkV0kWHQHLJBBdHT00nh4HmiKv">
+    <fieldset disabled={state.loading && !error}>
+      <form 
+        className="signUpForm"
+        onSubmit={(e) => handleUserSignUp(e)}  
+      >
+        <FormTextInput
+          label="First Name"
+          type="text"
+          name="firstName"
+          className="form-group--half"
+          value={state.firstName}
+          onChange={handleChange}
+          error={state.firstNameError}
+          errorMsg="A first name is required."
+        />
+        <FormTextInput
+          label="Last Name"
+          type="text"
+          name="lastName"
+          className="form-group--half"
+          value={state.lastName}
+          onChange={handleChange}
+          error={state.lastNameError}
+          errorMsg="A last name is required."
+        />
+        <FormTextInput
+          label="Email"
+          type="email"
+          name="email"
+          className={error && 'field-error'}
+          value={state.email}
+          onChange={handleChange}
+          error={state.emailError}
+          errorMsg="Please enter a valid email address"
+        />
+        <FormTextInput
+          label="Mobile Number"
+          type="tel"
+          name="mobileNumber"
+          value={state.mobileNumber}
+          onChange={handleChange}
+          error={state.mobileNumberError}
+          errorMsg="Please enter a valid mobile number"
+        />
+        <FormTextInput
+          label="Password"
+          name="passwordOne"
+          className="form-group--half"
+          onChange={handleChange}
+          value={state.passwordOne}
+          type="password"
+          error={state.passwordOneError}
+          errorMsg="Your passwords must match and be at least 8 characters"
+        />
+        <FormTextInput
+          label="Confirm Password"
+          name="passwordTwo"
+          className="form-group--half"
+          onChange={handleChange}
+          value={state.passwordTwo}
+          type="password"
+          error={state.passwordTwoError}
+        />
+        <Elements>
+          <SubscriptionForm
+            subscriptionAdded={subscriptionAdded}
+            setUserStripeID={setUserStripeID}
+            userEmail={state.email}
+            userName={state.firstName + ' ' + state.lastName}
+          />
+        </Elements>
+        <FormButton
+          className="button-primary auth"
+          buttonText="Sign Up"
+        />    
+      </form>
+    </fieldset>
+  </StripeProvider>
 )
+
+// <FormBillingCheckbox
+// onChange={handleCheck}
+// freeTrialValue={state.freeTrial}
+// proMembershipValue={state.proMembership}
+// />
