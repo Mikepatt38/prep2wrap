@@ -14,10 +14,17 @@ export class Login extends Component {
     this.setState({
       [e.target.name]: e.target.value
     })
+    this.props.error && this.props.resetErrors(false, '', '') 
+  }
+
+  handleSignUserIn = (e) =>{
+    e.preventDefault()
+    this.props.resetErrors(false, '', '')
+    this.props.signUserIn(this.state.email, this.state.password, this.props.history)
   }
 
   render() {
-    const { history, signUserIn, error, errorText } = this.props
+    const { error, errorText } = this.props
     return (
       <div className="authPage">
         <div className="auth-logo">
@@ -31,9 +38,7 @@ export class Login extends Component {
             <div className="auth-card-body">
               { error && <p className="error-text">{errorText}</p> }
               <LoginForm
-                history={history}
-                signUserIn={signUserIn}
-                state={this.state}
+                handleSignUserIn={this.handleSignUserIn}
                 handleChange={this.handleChange}
                 error={error}
               />
@@ -56,8 +61,8 @@ export class Login extends Component {
   }
 }
 
-const LoginForm = ({ history, signUserIn, state, handleChange, error}) => (
-  <form onSubmit={(e) => signUserIn(state.email, state.password, history, e)}> 
+const LoginForm = ({ handleSignUserIn, handleChange, error}) => (
+  <form onSubmit={(e) => handleSignUserIn(e)}> 
     <FormTextInput
       label="Email"
       name="email"

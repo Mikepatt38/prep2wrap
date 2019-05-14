@@ -55,6 +55,8 @@ class SubscriptionForm extends Component {
       loading: true,
       buttonText: 'Creating your account now...'
     })
+    // Reset any old errors so they won't show when we login
+    this.props.resetErrors(false, '', '')
 
     if(this.validateForm()) {
       // Call function in backend to create the user with the given email

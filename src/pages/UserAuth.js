@@ -1,7 +1,5 @@
-import React, { Component } from 'react'
-import { Link, withRouter } from 'react-router-dom'
-import dateFns from "date-fns"
-import logo from '../img/calltime-logo.png'
+import React from 'react'
+import { withRouter } from 'react-router-dom'
 import { Login } from '../components/Auth/Login'
 import SignUp from '../components/Auth/SignUp'
 import { PasswordReset } from '../components/Auth/PasswordReset'
@@ -15,6 +13,7 @@ const UserAuth = ({ history, signUserIn, signUpUser, resetPassword, location, cu
           history={history}
           error={active}
           errorText={alertText}
+          resetErrors={setAlert}
         />
       )
       break

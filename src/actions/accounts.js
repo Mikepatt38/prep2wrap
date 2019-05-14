@@ -4,19 +4,13 @@ import { storage } from '../db/firebase'
 
 export const clearSearchUserByNameResults = () => ({type: 'CLEAR_SEARCH_USER_BY_NAME_RESULTS', payload: [] })
 
-export const signUserIn = (email, password, history, e) => dispatch => {
-  e.preventDefault()
+export const signUserIn = (email, password, history) => dispatch => {
   auth.doSignInWithEmailAndPassword(email, password)
-    .then( () => {
-      history.push("/")
-    })
-    .catch(error => {
-      const errorMsg = error.code === 'auth/user-not-found' ? 'No user was found with that email address.' : 'The provided password is not valid for that email account.'
-      dispatch({
-        type: 'SET_ALERT',
-        payload: [true, 'Error', errorMsg]   
-      })
-    })
+  .then( () => { history.push("/") })
+  .catch(error => {
+    const errorMsg = error.code === 'auth/user-not-found' ? 'No user was found with that email address.' : 'The provided password is not valid for that email account.'
+    dispatch({ type: 'SET_ALERT', payload: [true, 'Error', errorMsg] })
+  })
 }
 
 export const resetPassword = (email, e) => async dispatch => {
@@ -220,7 +214,7 @@ export async function getAvatarURL(imageName){
 }
 
 // Async actions and functions that call them to interact with Firebase Firestore and then user facing client
-export const signUpUser = (email, password, firstName, lastName, mobileNumber, stripe_id, history) => async () => {
+export const signUpUser = (email, password, firstName, lastName, mobileNumber, stripe_id, history) => async dispatch => {
   const database = await db
 
   try {
@@ -236,36 +230,9 @@ export const signUpUser = (email, password, firstName, lastName, mobileNumber, s
     return history.push("/")
   }
   catch(error) {
-    console.log(error.message)
+    dispatch({ type: 'SET_ALERT', payload: [true, 'Error', error.message] })
     return error
   }
-  
-
-  // try {
-  //   auth.doCreateUserWithEmailAndPassword(email, password)
-  //     .then( (authUser) => {
-  //       database.collection("users").doc(authUser.user.uid.toString()).set({
-  //         id: authUser.user.uid.toString(),
-  //         firstName: firstName,
-  //         lastName: lastName,
-  //         email: email,
-  //         mobileNumber: mobileNumber,
-  //       })
-  //     })
-  //     .then( () => {
-  //       history.push("/")
-  //     })
-  //     .catch( error => {
-  //       dispatch({
-  //         type: 'SET_ALERT',
-  //         payload: [true, 'Error', error.message]   
-  //       })
-  //       return 'error'
-  //     })
-  // }
-  // catch(error) {
-  //   return error
-  // }
 }
 
 export function containsObject(obj, list) {
