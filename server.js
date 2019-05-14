@@ -53,10 +53,6 @@ app.post("/create-user-subscription", async (req, res) => {
       customer: customer.id,
       items: [{ plan: 'plan_F3rVuzuNYV90YJ' }],
     })
-    const obj = {
-      status: subscription.status,
-      stripe_id: customer.id
-    }
     res.json({
       status: subscription.status,
       stripe_id: customer.id
@@ -66,29 +62,6 @@ app.post("/create-user-subscription", async (req, res) => {
     console.log('Error: ' + err.message)
     res.status(500).end()    
   }
-  // try{
-  //   let {status} = stripe.customers.createSource(
-  //     req.body.customerId, 
-  //     { source: req.body.stripeSourceId }
-  //   )
-  //   res.json({status})
-  // } catch(err){
-  //   console.log(err)
-  //   res.status(500).end()
-  // }
-  // try {
-  //   let {status} = await stripe.charges.create({
-  //     amount: 2000,
-  //     currency: "usd",
-  //     description: "An example subscription charge",
-  //     source: req.body
-  //   });
-
-  //   res.json({status});
-  // } catch (err) {
-  //   console.log(err.message)
-  //   res.status(500).end();
-  // }
 });
 
 app.post('/sendsms', bodyParser.json(), (req, res) => {

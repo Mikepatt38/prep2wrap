@@ -81,10 +81,10 @@ class SubscriptionForm extends Component {
         // Getting the Customer ID back from the server
         let jsonResponse = await response.json()
         let responseObj = await JSON.stringify(jsonResponse)
-        console.log(responseObj)
-
+        let jsonObj = await JSON.parse(responseObj)
+        let stripe_id = await jsonObj.stripe_id
         // Actually sign the user up
-        // this.props.signUpUser(this.state.email, this.state.passwordOne, this.state.firstName, this.state.lastName, this.state.mobileNumber, this.props.history)
+        this.props.signUpUser(this.state.email, this.state.passwordOne, this.state.firstName, this.state.lastName, this.state.mobileNumber, stripe_id, this.props.history)
       }
       else{
         console.log('No source was created')

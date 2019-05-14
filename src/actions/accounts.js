@@ -220,34 +220,52 @@ export async function getAvatarURL(imageName){
 }
 
 // Async actions and functions that call them to interact with Firebase Firestore and then user facing client
-export const signUpUser = (email, password, firstName, lastName, mobileNumber, history) => async dispatch => {
+export const signUpUser = (email, password, firstName, lastName, mobileNumber, stripe_id, history) => async () => {
   const database = await db
 
   try {
-    auth.doCreateUserWithEmailAndPassword(email, password)
-      .then( (authUser) => {
-        database.collection("users").doc(authUser.user.uid.toString()).set({
-          id: authUser.user.uid.toString(),
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-          mobileNumber: mobileNumber,
-        })
-      })
-      .then( () => {
-        history.push("/")
-      })
-      .catch( error => {
-        dispatch({
-          type: 'SET_ALERT',
-          payload: [true, 'Error', error.message]   
-        })
-        return 'error'
-      })
+    let authUser = await auth.doCreateUserWithEmailAndPassword(email, password) 
+    let createUser = await database.collection("users").doc(authUser.user.uid.toString()).set({
+      id: authUser.user.uid.toString(),
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      mobileNumber: mobileNumber,
+      stripe_id: stripe_id
+    })
+    return history.push("/")
   }
   catch(error) {
+    console.log(error.message)
     return error
   }
+  
+
+  // try {
+  //   auth.doCreateUserWithEmailAndPassword(email, password)
+  //     .then( (authUser) => {
+  //       database.collection("users").doc(authUser.user.uid.toString()).set({
+  //         id: authUser.user.uid.toString(),
+  //         firstName: firstName,
+  //         lastName: lastName,
+  //         email: email,
+  //         mobileNumber: mobileNumber,
+  //       })
+  //     })
+  //     .then( () => {
+  //       history.push("/")
+  //     })
+  //     .catch( error => {
+  //       dispatch({
+  //         type: 'SET_ALERT',
+  //         payload: [true, 'Error', error.message]   
+  //       })
+  //       return 'error'
+  //     })
+  // }
+  // catch(error) {
+  //   return error
+  // }
 }
 
 export function containsObject(obj, list) {
