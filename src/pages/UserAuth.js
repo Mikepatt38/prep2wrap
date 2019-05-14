@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom'
 import dateFns from "date-fns"
 import logo from '../img/calltime-logo.png'
 import { Login } from '../components/Auth/Login'
-import { SignUp } from '../components/Auth/SignUp'
+import SignUp from '../components/Auth/SignUp'
 import { PasswordReset } from '../components/Auth/PasswordReset'
 
 const UserAuth = ({ history, signUserIn, signUpUser, resetPassword, location, currentUser, setUserProfile, active, alertText, setAlert}) => {
