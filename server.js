@@ -44,14 +44,25 @@ app.use(bodyParser.json())
 app.post("/create-user-subscription", async (req, res) => {
   try{
     // We want to create the customer with stripe
-    const customer = await stripe.customers.create({email: req.body.userEmail})
+    const customer = await stripe.customers.create({
+      name: req.body.userName,
+      email: req.body.userEmail,
+      source: req.body.stripeSourceId
+    })
+
+    // We Do not need this ============
     // // Link the created source to our created customer
-    const source = await stripe.customers.createSource(customer.id, { source: req.body.stripeSourceId });
-    // // We want to create the subscription from the customer to the product
-    // This is the test subscription plan -- replace with live when goes live
+    // const source = await stripe.customers.createSource(customer.id, { source: req.body.stripeSourceId });
+    // We Do not need this ============
+
+    // We want to create the subscription from the customer to the product
+    // *********** This is the test subscription plan -- replace with live when goes live ************
+
+    // We need to create a trial period of 14 days and then see if we want a 
+    // prorate period so everyone pays on the 1st or no
     const subscription = await stripe.subscriptions.create({
       customer: customer.id,
-      items: [{ plan: 'plan_F3rVuzuNYV90YJ' }],
+      items: [{ plan: 'plan_F4KYpb4Vh36vyA' }],
     })
     res.json({
       status: subscription.status,

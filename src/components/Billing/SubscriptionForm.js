@@ -65,11 +65,18 @@ class SubscriptionForm extends Component {
 
       // Creating the source
       let source
-      source = await this.props.stripe.createSource({ type: 'card', owner: { name: `${this.state.firstName} ${this.state.lastName}` } });
+      source = await this.props.stripe.createSource({ type: 'card', 
+        owner: { 
+          name: `${this.state.firstName} ${this.state.lastName}`,
+          email: this.state.email,
+          phone: this.state.mobileNumber
+        } 
+      });
       // If we get the source then we send that and the email to the server to create
       // the user and subscribe them to the subscription
       if(source){
         const postBody = {
+          userName: `${this.state.firstName} ${this.state.lastName}`,
           userEmail: this.state.email,
           stripeSourceId: source.source.id
         }
