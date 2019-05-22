@@ -6,16 +6,6 @@ class FormSelectInput extends Component {
     selectedOption: this.props.currentSkills
   }
 
-  multiValueContainer = ({ selectProps, data }) => {
-    const label = data.label;
-    const allSelected = selectProps.value;
-    const index = allSelected.findIndex(selected => selected.label === label);
-    const isLastSelected = index === allSelected.length - 1;
-    const labelSuffix = isLastSelected ? `${allSelected.length} selected` : "";
-    const val = `${labelSuffix}`;
-    return val;
-  };
-
   handleChange = (selectedOption) => {
     this.setState({ selectedOption }, () => {
       this.props.onSelect(this.props.name, this.state.selectedOption)
@@ -38,10 +28,6 @@ class FormSelectInput extends Component {
           hideSelectedOptions={false}
           isSearchable={false}
           isClearable={isClearable === false ? isClearable : true}
-          components={{
-            MultiValueContainer: this.multiValueContainer
-            // Option: CustomOption,
-          }}
         />
         <p className="error-msg">{errorMsg}</p>
       </div>
