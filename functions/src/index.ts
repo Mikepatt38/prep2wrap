@@ -8,6 +8,11 @@ admin.initializeApp({
   storageBucket: "the-calltime.appspot.com",
   messagingSenderId: "48348373939"
 });
+const userPrivacyPaths = require('./user_privacy.json');
+// const db = admin.database();
+const firestore = admin.firestore();
+// const storage = admin.storage();
+const FieldValue = admin.firestore.FieldValue;
 // const stripe = require('stripe')(functions.config().stripe.testkey)
 // const currency = functions.config().stripe.currency || 'USD'
 
@@ -76,10 +81,60 @@ export const generateThumbs = functions.storage
     return fs.remove(workingDir)
   })
 
-  // When a user is created, register them with Stripe
-  // export const createStripeCustomer = functions.auth.user().onCreate(async (user) => {
-  //   // Create the customer with Stripe, get a callback for the customer from Stripe
-  //   const customer = await stripe.customers.create({email: user.email});
-  //   // Add the customer's Stripe customer ID to the database to use for later
-  //   return admin.firestore().collection('users').doc(user.uid).update({stripe_id: customer.id});
-  // });
+// We want to delete all user data from firestore database and storage when the user 
+// deletes their account using the firebase auth delete
+
+//
+// Clear Data function that uses the user id of the current deleted user to delete all
+// found data from firestore, RTDB, and google cloud storage
+//
+exports.clearData = functions.auth.user().onDelete((event) => {
+  const uid = event.uid;
+
+  // const databasePromise = clearDatabaseData(uid);
+  // const storagePromise = clearStorageData(uid);
+  const firestorePromise = clearFirestoreData(uid);
+
+  return Promise.all([firestorePromise])
+      .then(() => console.log(`Successfully removed data for user #${uid}.`)
+  );
+});
+
+//
+// Function to replace the UID_VARIABLE placeholder in user_privacy.json
+// file with the actual user id 
+//
+const replaceUID = (str:any, uid:any) => {
+  return str.replace(/UID_VARIABLE/g, uid);
+}
+//
+// Function to delete all user data from the firestore database
+//
+// Clears all specified paths in the user_privacy.json file
+// Loops through until all fields have been deleted then final else if
+// deletes the parent document
+export const clearFirestoreData = (uid:any) => {
+  const paths = userPrivacyPaths.firestore.clearData;
+  const promises = [];
+
+  for (let i = 0; i < paths.length; i++) {
+    const entry = paths[i];
+    const entryCollection = replaceUID(entry.collection, uid);
+    const entryDoc = replaceUID(entry.doc, uid);
+    const docToDelete = firestore.collection(entryCollection).doc(entryDoc);
+    if ('field' in entry) {
+      const entryField = replaceUID(entry.field, uid);
+      const update = {} as any
+      update[entryField] = FieldValue.delete()
+      promises.push(docToDelete.update(update).catch((err:any) => {
+        console.error('Error deleting field: ', err);
+      }));
+    } else if (docToDelete) {
+      promises.push(docToDelete.delete().catch((err:any) => {
+        console.error('Error deleting document: ', err);
+      }));
+    };
+  };
+
+  return Promise.all(promises).then(() => uid);
+};

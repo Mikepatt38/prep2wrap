@@ -1,6 +1,6 @@
-import { db } from '../db/firebase'
-import { auth } from '../db'
-import { storage } from '../db/firebase'
+import { db, storage, auth as deleteAuth } from '../db/firebase'
+import { auth, firebase } from '../db'
+// import { storage } from '../db/firebase'
 
 export const clearSearchUserByNameResults = () => ({type: 'CLEAR_SEARCH_USER_BY_NAME_RESULTS', payload: [] })
 
@@ -321,4 +321,15 @@ export const searchUsersByName = (firstName, lastName) => async dispatch => {
       type: 'SEARCH_USER_BY_NAME_RESULTS',
       payload: usersArr
     })
+}
+
+export const deleteUserAccount = (history) => async dispatch => {
+  const userToDelete = deleteAuth.currentUser
+
+  userToDelete.delete().then(function() {
+    history.push('/login')
+  }).catch(function(error) {
+    console.log(error + ' ' + error.message)
+    dispatch({ type: 'SET_ALERT', payload: [true, 'Error', error.message] })
+  });
 }

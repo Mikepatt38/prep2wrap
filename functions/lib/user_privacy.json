@@ -1,0 +1,15 @@
+{
+  "firestore": {
+    "clearData": [
+      {"collection": "users", "doc": "UID_VARIABLE", "field": "firstName"},
+      {"collection": "users", "doc": "UID_VARIABLE", "field": "lastName"},
+      {"collection": "users", "doc": "UID_VARIABLE", "field": "email"},
+      {"collection": "users", "doc": "UID_VARIABLE", "field": "id"},
+      {"collection": "users", "doc": "UID_VARIABLE", "field": "mobileNumber"},
+      {"collection": "users", "doc": "UID_VARIABLE", "field": "stripe_id"},
+      {"collection": "users", "doc": "UID_VARIABLE", "field": "profileInformation"},
+      {"collection": "users", "doc": "UID_VARIABLE"},
+      {"collection": "jobs", "doc": "UID_VARIABLE"}
+    ]
+  }
+}
