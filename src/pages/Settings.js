@@ -4,7 +4,7 @@ import UserProfileForm from '../components/Settings/UserProfileForm'
 import UserInfoForm from '../components/Settings/UserInfoForm'
 import DeleteUserAccountForm from '../components/Settings/UserDeleteAccountForm'
 
-const AccountSettings = ({ currentUser, setUserProfile, setName, setEmail, setMobileNumber, uploadProfileImage, deleteUserAccount, history }) => (
+const AccountSettings = ({ currentUser, setUserProfile, setName, setEmail, setMobileNumber, setModal, closeModal, uploadProfileImage, deleteUserAccount, reAuthenticateUser, history }) => (
   <div className="app-page">
     <div className="app-page-title">
       <h1>Account Settings</h1>
@@ -35,6 +35,8 @@ const AccountSettings = ({ currentUser, setUserProfile, setName, setEmail, setMo
     <div className="app-page-section">
       <DeleteUserAccountForm
         deleteUserAccount={deleteUserAccount}
+        setModal={setModal}
+        closeModal={closeModal}
         history={history}
       />
     </div>

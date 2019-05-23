@@ -1,5 +1,6 @@
-import { db, storage, auth as deleteAuth } from '../db/firebase'
-import { auth, firebase } from '../db'
+import { db, storage, auth as firebaseAuth } from '../db/firebase'
+import { auth } from '../db'
+import { firebase } from '../db/firebase'
 // import { storage } from '../db/firebase'
 
 export const clearSearchUserByNameResults = () => ({type: 'CLEAR_SEARCH_USER_BY_NAME_RESULTS', payload: [] })
@@ -323,13 +324,32 @@ export const searchUsersByName = (firstName, lastName) => async dispatch => {
     })
 }
 
-export const deleteUserAccount = (history) => async dispatch => {
-  const userToDelete = deleteAuth.currentUser
+export const deleteUserAccount = (userGivenPassword, history) => async dispatch => {
+  const user = firebaseAuth.currentUser
+  const credential = firebase.auth.EmailAuthProvider.credential(
+    user.email, 
+    userGivenPassword
+  )
 
-  userToDelete.delete().then(function() {
-    history.push('/login')
-  }).catch(function(error) {
-    console.log(error + ' ' + error.message)
+  // Prompt the user to re-provide their sign-in credentials
+  user.reauthenticateAndRetrieveDataWithCredential(credential).then(function() {
+
+    // We want to set the current user to null
+    dispatch({type: 'SET_CURRENT_USER', payload: null})
+
+    user.delete()
+      .then(function() {
+        dispatch({ type: 'SET_ALERT', payload: [true, 'Success', 'You have successfully deleted your account'] })
+        history.push('/login')
+      })
+      .catch(function(error) {
+        console.log(error + ' ' + error.message)
+        dispatch({ type: 'SET_ALERT', payload: [true, 'Error', error.message] })
+      });
+
+  })
+  .catch(function(error) {
+    console.log(error.message)
     dispatch({ type: 'SET_ALERT', payload: [true, 'Error', error.message] })
   });
-}
+} 

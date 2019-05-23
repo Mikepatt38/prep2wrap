@@ -24,7 +24,7 @@ export class Login extends Component {
   }
 
   render() {
-    const { error, errorText } = this.props
+    const { error, errorText, errorType } = this.props
     return (
       <div className="authPage">
         <div className="auth-logo">
@@ -41,6 +41,7 @@ export class Login extends Component {
                 handleSignUserIn={this.handleSignUserIn}
                 handleChange={this.handleChange}
                 error={error}
+                errorType={errorType}
               />
             </div>
             <div className="auth-card-footer">
@@ -61,13 +62,13 @@ export class Login extends Component {
   }
 }
 
-const LoginForm = ({ handleSignUserIn, handleChange, error}) => (
+const LoginForm = ({ handleSignUserIn, handleChange, error, errorType}) => (
   <form onSubmit={(e) => handleSignUserIn(e)}> 
     <FormTextInput
       label="Email"
       name="email"
       onChange={handleChange}
-      className={error && 'field-error'}
+      className={error && errorType === 'Error' && 'field-error'}
       type="email" 
       placeholder="user@email.com"
     />
@@ -75,7 +76,7 @@ const LoginForm = ({ handleSignUserIn, handleChange, error}) => (
       label="Password"
       name="password"
       onChange={handleChange}
-      className={error && 'field-error'}
+      className={error && errorType === 'Error' && 'field-error'}
       type="password"
       placeholder="password"
     />
