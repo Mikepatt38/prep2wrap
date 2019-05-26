@@ -146,7 +146,7 @@ export const setUserProfile = (id, jobTypes, location, skills, positions, fbLink
       .then( () => {
         dispatch({
           type: 'SET_ALERT',
-          payload: [true, 'Success', 'SUCCESS: Your public profile information was updated.']
+          payload: [true, 'Success', 'Your public profile information was updated.']
         })
         resolve('success')
       })
@@ -174,7 +174,7 @@ export const uploadProfileImage = (id, avatar, filename) => async dispatch => {
     .then( () => {
       dispatch({ 
         type: 'SET_ALERT',
-        payload: [true, 'Success', 'SUCCESS: Your public avatar image has been updated.']
+        payload: [true, 'Success', 'Your public avatar image has been updated.']
       })    
     })
     // .then( () => {

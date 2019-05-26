@@ -21,19 +21,20 @@
 .alert
   position: fixed
   top: 0
-  left: 225px
+  left: 250px
   right: 0
   margin: 0 auto
   font-weight: 400
   color: #676767
   cursor: default
   background: #fafafa
-  border-radius: 0
+  border-radius: 3px
   border: none
   transform: translateY(-40px)
   opacity: 0
   transition: all 0.3s ease-in-out
   max-width: 100%
+  margin: 10px
   padding: 15px 3%
   display: flex
   justify-content: space-between
@@ -42,27 +43,27 @@
   z-index: 1
 
 
-  &.Success
+  &.Success, &.success
     background: #dff0d8
-    // border: 1px solid #B8D9BA
+    border: 1px solid #B8D9BA
     // border-top: none
     color: #3c763d
   
-  &.Error
+  &.Error, &.error
     background: #f2dede
-    // border: 1px solid #D4B3AD
+    border: 1px solid #D4B3AD
     // border-top: none
     color: #a94442
 
-  &.Warning
+  &.Warning, &.warning
     background: #fcf8e3
-    // border: 1px solid #E3DFAE
+    border: 1px solid #E3DFAE
     // border-top: none
     color: #8a6d3b
 
-  &.Info
+  &.Info, &.info
     background: #d9edf7
-    // border: 1px solid #9FB7DA
+    border: 1px solid #9FB7DA
     // border-top: none
     color: #31708f
 
