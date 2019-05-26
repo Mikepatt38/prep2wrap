@@ -38,7 +38,8 @@ class DashboardNotifications extends Component {
               <Link to="/jobs" key={key}>
                 <div className="notification" key={key}>
                   <div className="notification-text">
-                    <p><b>{notification.text}</b> <span>Click to view the job overview.</span></p>
+                    <h4>{notification.text}</h4>
+                    <p>Click to review the job invite overview.</p>
                   </div>
                   <div className="notification-close">
                     <span onClick={(e) => this.handleRemoveNotification(e, notification.id)}><img src={CloseIcon} alt="Close Icon" /></span> 

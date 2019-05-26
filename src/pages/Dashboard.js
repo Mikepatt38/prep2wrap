@@ -21,14 +21,16 @@ class Dashboard extends Component {
           removeUserJobNotification={this.props.removeUserJobNotification}
         />
 
-        <DashboardStatus
-          currentUser={this.props.currentUser}
-          getUserJobCount={this.props.getUserJobCount}
-        />
-
+        <div className="app-page-section">
+          <DashboardStatus
+            currentUser={this.props.currentUser}
+            getUserJobCount={this.props.getUserJobCount}
+          />
+        </div>
+        <br />
         <div className="app-page-section">
           <div className="section-title">
-            <p>Get started with quick actions:</p>
+            <p>Quick actions:</p>
           </div>
           <div className="dashboard-cards">
             <div className="dashboard-card">
