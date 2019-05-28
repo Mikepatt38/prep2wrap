@@ -40,52 +40,46 @@ class UserInfoForm extends Component {
     return (
       <form
         method="form"
-        className="card-form card-form-grid"
+        className="account-settings-user-form"
       >
         <ProfileImageUpload
           currentUser={this.props.currentUser}
           updateFileName={this.updateFileName}
         />
-        <div className="card-form-column">
-          <FormTextInput
-            label="First Name"
-            name="firstName"
-            type="text"
-            onChange={this.handleChange}
-            className="form-group--half"
-            value={firstName}
-          />
-          <FormTextInput
-            label="Last Name"
-            name="lastName"
-            type="text"
-            onChange={this.handleChange}
-            className="form-group--half"
-            value={lastName}
-          />
-          <FormTextInput
-            label="Email"
-            name="email"
-            type="email"
-            onChange={this.handleChange}
-            className="form-group--half"
-            value={email}
-          />
-          <FormTextInput
-            label="Mobile Number"
-            name="mobileNumber"
-            type="tel"
-            onChange={this.handleChange}
-            className="form-group--half"
-            value={mobileNumber}
-          />
-        </div>
-        <div></div>
+        <FormTextInput
+          label="First Name"
+          name="firstName"
+          type="text"
+          onChange={this.handleChange}
+          value={firstName}
+        />
+        <FormTextInput
+          label="Last Name"
+          name="lastName"
+          type="text"
+          onChange={this.handleChange}
+          value={lastName}
+        />
+        <FormTextInput
+          label="Email"
+          name="email"
+          type="email"
+          onChange={this.handleChange}
+          value={email}
+        />
+        <FormTextInput
+          label="Mobile Number"
+          name="mobileNumber"
+          type="tel"
+          onChange={this.handleChange}
+          value={mobileNumber}
+        />
         <div className="button-wrapper">
           <FormButton
             onClick={this.updateBasicInformation}
             className="button-primary"
             buttonText="Update"
+            disabled={true}
           />
         </div>
       </form>

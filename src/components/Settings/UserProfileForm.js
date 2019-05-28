@@ -54,7 +54,7 @@ class UserProfileForm extends Component {
   render() {
     const { jobTypes, location, skills, positions, fbLink, imdbLink, availability, bilingual, travel, union, instagramLink } = this.state
     return (
-      <form className="card-form">
+      <form className="account-settings-profile-form">
         <FormSelectInput
           label="Job Types"
           name="jobTypes"
@@ -63,7 +63,6 @@ class UserProfileForm extends Component {
           placeholder="Select Job types that you're qualified to work"
           isMultiSelect={true}
           onSelect={this.handleSelect}
-          className="form-group--half"
         />
         <FormSelectInput
           label="Location"
@@ -73,7 +72,6 @@ class UserProfileForm extends Component {
           placeholder="Select Cities You Work In"
           isMultiSelect={true}
           onSelect={this.handleSelect}
-          className="form-group--half"
         />
         <FormSelectInput
           label="Skills"
@@ -93,6 +91,10 @@ class UserProfileForm extends Component {
           isMultiSelect={true}
           onSelect={this.handleSelect}
         />
+
+        <hr className="break" />
+        <p>Add your social links to help network and gain exposure.</p>
+
         <FormTextInput 
           label="Facebook Profile Link"
           name="fbLink"
@@ -117,19 +119,16 @@ class UserProfileForm extends Component {
           className="form-group--half"
           value={instagramLink}
         />
+
+        <hr className="break" />
+        <p>Update your profile specifics.</p>
+
         <FormCheckboxInput
           label="Willing To Travel"
           checkboxId="travel"
           onChange={this.handleCheck}
           value={travel}
-          className="form-group--half"
-        />
-        <FormCheckboxInput
-          label="Daily Availability"
-          checkboxId="availability"
-          onChange={this.handleCheck}
-          value={availability}
-          className="form-group--half"
+          className="form-group--third"
         />
         <FormCheckboxInput
           label="Bilingual"
@@ -140,7 +139,7 @@ class UserProfileForm extends Component {
           inputLabel="List All Fluent Languages"
           inputValue={this.state.languages === undefined ? '' : this.state.languages}
           inputOnChange={this.handleChange}
-          className="form-group--half"
+          className="form-group--third"
         />
         <FormCheckboxInput
           label="Union"
@@ -151,13 +150,14 @@ class UserProfileForm extends Component {
           inputLabel="List Union Names"
           inputValue={this.state.unions === undefined ? '' : this.state.unions}
           inputOnChange={this.handleChange}
-          className="form-group--half"
+          className="form-group--third"
         />
         <div className="button-wrapper">
           <FormButton
             onClick={(e) => this.handleClick(e)}
             className="button-primary"
             buttonText="Update Profile"
+            disabled={true}
           />
         </div>
       </form>  
@@ -166,3 +166,11 @@ class UserProfileForm extends Component {
 }
 
 export default UserProfileForm
+
+// <FormCheckboxInput
+// label="Daily Availability"
+// checkboxId="availability"
+// onChange={this.handleCheck}
+// value={availability}
+// className="form-group--half"
+// />

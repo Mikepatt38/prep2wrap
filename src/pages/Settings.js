@@ -12,40 +12,75 @@ const AccountSettings = ({ currentUser, setUserProfile, setName, setEmail, setMo
     </div>
 
     <div className="app-page-body">
-      <div className="app-page-section">
-        <div className="card no-hover">
-          <UserInfoForm
-            currentUser={currentUser}
-            setName={setName}
-            setEmail={setEmail}
-            setMobileNumber={setMobileNumber}
-            uploadProfileImage={uploadProfileImage}
-          />
+      <div className="account-settings">
+        <div className="account-settings-user">
+          <div className="card">
+            <div className="card-header">
+              <h3>User Settings</h3>
+            </div>
+            <div className="card-body">
+              <UserInfoForm
+                currentUser={currentUser}
+                setName={setName}
+                setEmail={setEmail}
+                setMobileNumber={setMobileNumber}
+                uploadProfileImage={uploadProfileImage}
+              />
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div className="app-page-section">
-        <div className="card no-hover">
-          <UserProfileForm 
-            setUserProfile={setUserProfile} 
-            currentUser={currentUser} 
-            onClick={(e) => handleClick(e)}
-          />
+        <div className="account-settings-profile">
+          <div className="card">
+            <div className="card-header">
+              <h3>Profile Settings</h3> 
+            </div>
+            <div className="card-body">
+              <p>Set up your profile job settings to get hired where you fit in.</p>
+              <UserProfileForm 
+                setUserProfile={setUserProfile} 
+                currentUser={currentUser} 
+                onClick={(e) => handleClick(e)}
+              />
+            </div>
+          </div>
         </div>
-      </div>
-
-      <div className="app-page-section">
-        <DeleteUserAccountForm
-          deleteUserAccount={deleteUserAccount}
-          setModal={setModal}
-          closeModal={closeModal}
-          history={history}
-        />
       </div>
     </div>
 
   </div>
 )
+
+// <div className="app-page-section">
+// <div className="card no-hover">
+//   <UserInfoForm
+//     currentUser={currentUser}
+//     setName={setName}
+//     setEmail={setEmail}
+//     setMobileNumber={setMobileNumber}
+//     uploadProfileImage={uploadProfileImage}
+//   />
+// </div>
+// </div>
+
+// <div className="app-page-section">
+// <div className="card no-hover">
+//   <UserProfileForm 
+//     setUserProfile={setUserProfile} 
+//     currentUser={currentUser} 
+//     onClick={(e) => handleClick(e)}
+//   />
+// </div>
+// </div>
+
+// <div className="app-page-section">
+// <DeleteUserAccountForm
+//   deleteUserAccount={deleteUserAccount}
+//   setModal={setModal}
+//   closeModal={closeModal}
+//   history={history}
+// />
+// </div>
 
 const handleClick = async (e) => {
   e.preventDefault()

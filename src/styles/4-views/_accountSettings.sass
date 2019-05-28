@@ -1,58 +1,92 @@
 /* ===============
   Styles for Account Settings Page
   ================== */
-
-.account-settings-container
+.account-settings
   position: relative
-  margin: 0 auto
+  width: 100%
+  display: flex
+  justify-content: space-between
 
-/* ===============
-  Styles for Account Settings Body
-  ================== */
 
-.grid-account
-  display: grid
-  grid-gap: 0
-  grid-template-areas: "account-nav" "account-content"
-  grid-template-columns: repeat(1, 1fr)
-  margin-bottom: 100px
+.account-settings-user
+  position: relative
+  width: 100%
+  max-width: 350px
+  margin-right: 25px
 
-  p
-    font-size: 16px
-    line-height: 1.5
-    color: #999
-    margin: 0  
-    margin-bottom: 40px   
-
-  .grid-account-nav
-    grid-area: account-nav
+  form.account-settings-user-form
     position: relative
-    float: left
+    display: flex
+    flex-direction: column
+
+    .button-wrapper
+      width: 100%
+      position: relative
+
+      button
+        width: 100%
+
+  .account-settings-user-avatar
     position: relative
+    width: 100%
+    margin-bottom: 20px
 
-    h3
-      font-size: 18px
-      color: #444
-      margin-bottom: 15px
+    img
+      position: relative
+      width: 100%
+      border-radius: 3px
 
-    ul
-      padding: 0
-      list-style: none
-      margin-top: 0
-
-      li
-        display: inline-block
-        margin: 0 20px 0 0
-        padding: 0
-        border: 0
-        color: #999
-        cursor: pointer
+    .profile-image-upload-update
+      position: relative
+      width: 100%
+      margin-top: 10px
+      // text-align: center
+    
+      label
+        text-transform: none
+        font-weight: 500
         font-size: 14px
-        font-weight: 600
-        letter-spacing: 0.250px
-        height: 30px
+        margin-bottom: 2px
+        display: block
+        white-space: nowrap
+        color: $color__primary
+        cursor: pointer
+        letter-spacing: 0
 
-        &.active
-          color: $color__blue
-          border-bottom: 2px solid #0069ff
-        
+      input[type="file"] 
+        opacity: 0
+        position: absolute
+        pointer-events: none
+
+
+
+.account-settings-profile
+  position: relative
+  width: 100%
+
+  .account-settings-profile-form
+    position: relative
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+
+    p
+      width: 100%
+
+    hr.break
+      position: relative
+      width: 100%
+      margin: 20px 0
+      border: none
+      border-top: 1px solid #EAEDF3
+
+    .form-group.form-group--half
+      width: 48.5%
+
+    .form-group.form-group--third
+      width: 31.5%
+
+    .button-wrapper
+      position: relative
+      width: 100% 
+      padding-top: 20px
