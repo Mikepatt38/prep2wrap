@@ -19,13 +19,15 @@ button, a.button
   text-decoration: none
   vertical-align: middle
   transition: all 0.8s ease
-  height: 49px
+  // height: 49px
   border: 1px solid #EAEDF3
   border-radius: 3px
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04)
   display: flex
   align-items: center
   justify-content: center
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
 
   &.button-primary
     background: $color__primary
@@ -39,6 +41,7 @@ button, a.button
   &.button-header
     height: 36px
     padding: 0 10px
+    font-weight: 500
 
   &.button-danger
     background: #f2dede

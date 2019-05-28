@@ -79,7 +79,7 @@ div#linktotop
       text-align: left
       padding: 20px 30px
       align-items: center
-      // border-bottom: 1px solid #E6E8EB
+      border-bottom: 1px solid #EAEDF3
 
       a
         display: flex
@@ -90,33 +90,40 @@ div#linktotop
         width: 40px
 
       h2
-        color: $color__black
-        font-size: 28px
-        font-weight: 400
+        position: relative
+        font-weight: 500
+        font-size: 18px
+        color: #3E3F42
+        line-height: 1.75
 
     .modal-body
       position: relative
-      padding-top: 20px 
-      
-      form > .form-group
-        padding: 0 30px
-
-      .modal-button-wrapper
-        position: relative
-        padding: 30px 20px
-        background: $color__grey
-        width: 100%
-        text-align: right 
-        margin-top: 20px
-
-        button:first-child
-          margin-right: 5px
+      padding: 20px 0 0 0
+      z-index: 2
 
 // =========== Modal Form Styles =========== //
 
 .modal form.modal-form .form-group
-  padding: 50px 30px
+  padding: 0 30px
   min-width: 650px
+
+.modal form.modal-form .form-group.date-picker-form-group
+  min-width: fit-content
+
+.modal-button-wrapper
+  position: relative
+  padding: 20px
+  margin-top: 20px
+  background: #fff
+  z-index: 9
+  border-top: 1px solid #EAEDF3
+  width: 100%
+  text-align: right 
+  display: flex
+  justify-content: flex-end
+
+  button:first-child
+    margin-right: 5px
 
 .modal .modal-body p.modal-text-warning
   margin: 0 30px 

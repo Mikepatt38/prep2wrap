@@ -18,6 +18,31 @@ export class UserFavoritesTable extends Component {
     }
   }
 
+  toggleRowActions(index){
+    // store which row was selected
+    const el = document.getElementById(`row-${index}`)
+    const elAction = document.getElementById(`action-${index}`)
+    // if there are rows that are active, lets find them
+    const els = document.getElementsByClassName('row-actions-active')
+    const elsAction = document.getElementsByClassName('action-hidden')
+    // we need to remove this class if it is out there
+    if(els[0] && els[0].id === `row-${index}`){
+      els[0].classList.remove('row-actions-active')
+      elsAction[0].classList.remove('action-hidden')
+    }
+    else if(els[0]){
+      els[0].classList.remove('row-actions-active')
+      elsAction[0].classList.remove('action-hidden')
+      el.classList.add('row-actions-active')
+      elAction.classList.add('action-hidden')
+    }
+    //if there aren't any active, lets add the class
+    else {
+      el.classList.add('row-actions-active')
+      elAction.classList.add('action-hidden')
+    }
+  }
+
   render() {
 
     const columns = [

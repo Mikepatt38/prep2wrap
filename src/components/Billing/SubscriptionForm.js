@@ -53,12 +53,14 @@ class SubscriptionForm extends Component {
     e.preventDefault()
     this.setState({
       loading: true,
-      buttonText: 'Creating your account now...'
     })
     // Reset any old errors so they won't show when we login
     this.props.resetErrors(false, '', '')
 
     if(this.validateForm()) {
+      this.setState({
+        buttonText: 'Creating your account now...'
+      })
       // Call function in backend to create the user with the given email
       // And we create the source to also connect it to the created user
       // To subscribe them to the plan

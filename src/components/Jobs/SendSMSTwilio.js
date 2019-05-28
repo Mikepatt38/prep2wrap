@@ -24,37 +24,25 @@ class SendSMSTwilio extends Component {
   }
 
   async sendSMSInvites(users){
-    // this.createJobOverviewLink(this.props.currentUser.id.toString(), this.props.currentJob.jobObj.jobID)
-    // const jobOverviewLink = '/job-overview/' + this.props.currentUser.id.toString() + '/' + this.props.currentJob.jobObj.jobID
     try{
       users.map( user => {
         this.props.createPendingJob(user.id, this.props.currentJob.jobObj.jobID, this.props.currentJob.assignedUsers)
         this.sendSMSWithTwilio(user.name, user.number)
         this.sendJobNotificationLink(user.id, user.name, user.position, this.props.currentJob.jobObj.jobID)
       })
-      this.setState({
-        loading: false
-      })
+      this.completeJobInvites()
     }
     catch(error) {
       this.props.errorStep()
     }
   }
 
-  completeJobInvites(){
+  completeJobInvites = () => { 
     this.setState({
       loading: false
     })
     this.props.history.push('/jobs')
   }
-
-  // createJobOverviewLink = (userID, jobID) => {
-  //   const jobOverviewLink = '/job-overview/' + userID + '/' + jobID
-  //   this.setState({
-  //     loading: false,
-  //     jobOverviewLink: jobOverviewLink
-  //   })
-  // }
 
   sendJobNotificationLink = (userID, userName, userPosition, jobID) => {
     const jobNotificationData = {
@@ -95,15 +83,13 @@ class SendSMSTwilio extends Component {
     }
     return (
       <div className="app-page">
-        <div className="app-page-title">
-          <h1>Your Job Was Created</h1>
+        <div className="app-page-header">
+          <h1>Creating Your Job</h1>
         </div>
-        <div className="card no-hover">
+        <div className="card">
           <div className="card-body">
             {this.state.loading && <p>One moment, sending job invites...</p>}
-            {!this.state.loading && !this.state.pageError &&
-              <Link to="/jobs">Back to Jobs Table</Link>
-            }
+
           </div>
         </div>
       </div>

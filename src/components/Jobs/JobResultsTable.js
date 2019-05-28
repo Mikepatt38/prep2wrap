@@ -189,7 +189,6 @@ class JobResultsTable extends Component {
   tableFilter = () => {
     return (
       <div className="table-filter">
-        <label>Filter the Results:</label><div></div>
         <div className="table-filter-cell">
           <form className="table-filter-search">
             <input 
@@ -222,27 +221,43 @@ class JobResultsTable extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="app-page-section">
-          <div className="create-job-wrapper">
-            <div className="create-job-wrapper-main">
-              <div className="card card-create-job no-hover">
-                <h3>Crew Job Matches</h3>
-                {this.props.error && <p className="error-message">Please assign at least one position before continuing.</p>}
-                {this.tableFilter()}
-                <Table
-                  data={this.state.data}
-                  columns={this.state.columns}
-                  loading={this.state.loading}
-                />
-              </div>
-            </div>
-            <div className="create-job-wrapper-sidebar">
-              <div className="card card-create-job no-hover">
-                <h3>Assigned User Positions</h3>
-                {this.renderAssignedUsers()}
-              </div>
-            </div>
-          </div>
+
+        <div className="app-page-section app-page-section--spacing">
+          <p>These are the positions you are still needing to send an invite for.</p>
+          <ul className="unassigned-jobs">
+            {
+              this.state.openPositions.map( (position, key) => {
+                return this.state.assignedPositions.includes(position) ? null : <li key={key}>{position}</li>
+              })
+            }
+          </ul>
+        </div>
+
+        <div className="app-page-section app-page-section--spacing">
+          <p>These are your current invited users and their position.</p>
+          {this.props.error && <p className="error-message">Please assign at least one position before continuing.</p>}
+          <ul className="assigned-jobs">
+            {
+              this.state.usersAssigned.map( (user, key) => {
+                return (
+                  <li key={key}>
+                    <label>{user.position}:</label>
+                    <span className="assigned-jobs-item">{user.name}<span onClick={() => this.removeAssignedUser(user)}><img src={TrashIcon} alt="Delete Icon" /></span></span>
+                  </li>
+                )
+              })
+            }
+          </ul>
+        </div>
+
+        <div className="app-page-section app-page-section--spacing">
+          <p>Filter through users to assign users to invite for positions for your crew.</p>
+          {this.tableFilter()}
+          <Table
+            data={this.state.data}
+            columns={this.state.columns}
+            loading={this.state.loading}
+          />
         </div>
       </React.Fragment>
     )
@@ -251,73 +266,26 @@ class JobResultsTable extends Component {
 
 export default JobResultsTable
 
+
 // <div className="app-page-section">
-// {this.renderAssignedUsers()}
-// {this.tableFilter()}
-// <div className="section-title">
-//   <h3>Search Results:</h3>
-//   <hr />
-// </div>
-// <div className="list-rows">
-//   {this.renderRows()}
-// </div>
-// </div>
-
-
-// renderHeaders() {
-//   const headers = ['Name']
-//   return (
-//     <div className="table-list-header table-list-cols-2">
-
+// <div className="create-job-wrapper">
+//   <div className="create-job-wrapper-main">
+//     <div className="card card-create-job no-hover">
+//       <h3>Crew Job Matches</h3>
+//       {this.props.error && <p className="error-message">Please assign at least one position before continuing.</p>}
+//       {this.tableFilter()}
+//       <Table
+//         data={this.state.data}
+//         columns={this.state.columns}
+//         loading={this.state.loading}
+//       />
 //     </div>
-//   )
-// }
-
-// renderRows(){
-//   let rows = []
-//   let cells = []
-//   let userPositions = [] 
-//   this.state.usersReturned.map( (value, key) => {
-//     const userPositions = this.createUserPositionsArr(this.props.positions) // change back to value.profileInformation.positions after design
-//     const userRowDisabled = this.state.usersAssigned.find( (item) => {
-//       return item.id === value.id
-//     })
-//     let userAvatar = value.profileInformation.avatarUrl 
-//       ? <img src={value.profileInformation.avatarUrl} alt="Profile Avatar" />
-//       : <img src={Avatar} alt="Profile Avatar Placeholder" />
-//     cells.push(
-//       <React.Fragment key={key}>
-//         <div className="list-row-cell">{userAvatar} {value.firstName + ' ' + value.lastName}</div> 
-//         <div className="list-row-cell">Favorited by {value.numberOfTimesFavorite} Users</div>
-//         <div className="list-row-cell"> <span className="list-row-link" onClick={() => {this.props.setUserModal(true, value)}}>View Profile<img src={LinkIcon} alt="Table Link Icon" /></span> </div> 
-//         <div className="list-row-cell cell-right">
-//           <select
-//             onChange={(e) => { this.handleSelectPosition(value, key, e)} }
-//             disabled={userRowDisabled === undefined ? false : true}
-//             id={"select"+key}
-//             key={"select"+key}
-//           >
-//             <option value="" disabled selected>Assign a position</option>
-//             { userPositions.map( position => {
-//               let positionFilled = this.state.assignedPositions.includes(position)
-//               return <option 
-//                 key={position + key}
-//                 value={position}
-//                 disabled={positionFilled}
-//                 >
-//                   {position}
-//               </option>               
-//             })}
-//           </select>
-//         </div>       
-//       </React.Fragment>
-//     )
-//     rows.push(
-//       <div className={userRowDisabled === undefined ? 'list-row list-cols-2' : 'list-row list-row-cols-2 assigned'} key={key}>
-//         {cells}
-//       </div>
-//     )
-//     cells = []
-//   })
-//   return <div className="list-rows">{rows}</div>
-// } 
+//   </div>
+//   <div className="create-job-wrapper-sidebar">
+//     <div className="card card-create-job no-hover">
+//       <h3>Assigned User Positions</h3>
+//       {this.renderAssignedUsers()}
+//     </div>
+//   </div>
+// </div>
+// </div>

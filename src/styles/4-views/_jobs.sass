@@ -27,63 +27,59 @@
     border: 1px solid #c9ced1
 
 /* ===============
-  Styles for Creating a Job Forms Navigation
+  Create Job Form Step 2 Styles
   ================== */
-
-.job-form-navigation
-  width: 100%
-  position: relative
-  display: flex
-  justify-content: space-between
-  flex-wrap: wrap
-
-  .buttons-left, .buttons-right
-    position: relative
-    width: 48.5%
-    display: flex
-
-  .buttons-left
-    justify-content: flex-start
-
-    button
-      margin-right: 20px
-
-  .buttons-right
-    justify-content: flex-end
-    
-    button
-      margin-left: 20px
-
-// ========== Job Results ========== //
 
 p.error-message
   color:  #ea3267
   margin-bottom: 15px
   text-align: center
 
-.assignedUsers
+ul.unassigned-jobs, .ul.assigned-jobs
   position: relative
-  padding-bottom: 25px
-  border-bottom: 1px solid #E6E8EB
-  margin-bottom: 35px
+  padding: 0
+  margin: 0
+  list-style: none
+  width: 100%
+  display: flex
+  justify-content: flex-start
 
-  ul.assignedUsers-list
-    padding: 0
-    margin: 15px 0 0 0
-    list-style: none
+  li
+    position: relative
+    padding: 4px 8px
+    background: $color__primary
+    color: #ffffff
+    border-radius: 3px
+    margin-right: 10px
+    font-size: 13px
 
-    li > p
-      font-size: 16px
-      margin-bottom: 10px
+    &:last-child
+      margin-right: 0
 
-    li > p > span
-      color: $color__mainBlue
-  h4
-    color: #444
-    text-transform: uppercase
-    letter-spacing: 0.150px
-    font-weight: 500
-    font-size: 14px
+ul.assigned-jobs
+  position: relative
+  padding: 0
+  margin: 0
+  list-style: none
+  width: 100%
+  display: flex
+  justify-content: flex-start
+
+  li
+    position: relative
+    margin-right: 10px
+    padding: 20px
+    background: #fff
+    border-radius: 3px
+    border: 1px solid #EAEDF3
+
+    label
+      color: $color__primary
+
+    .assigned-jobs-item > span > img
+      margin-left: 5px
+      cursor: pointer
+
 
 /* ================
   Styles for Assigned Users List
@@ -146,3 +142,32 @@ p.error-message
         img
           height: 12px
           width: 12px
+
+
+/* ===============
+  Styles for Creating a Job Forms Navigation
+  ================== */
+
+.job-form-navigation
+  width: 100%
+  position: relative
+  display: flex
+  justify-content: space-between
+  flex-wrap: wrap
+
+  .buttons-left, .buttons-right
+    position: relative
+    width: 48.5%
+    display: flex
+
+  .buttons-left
+    justify-content: flex-start
+
+    button
+      margin-right: 20px
+
+  .buttons-right
+    justify-content: flex-end
+    
+    button
+      margin-left: 20px

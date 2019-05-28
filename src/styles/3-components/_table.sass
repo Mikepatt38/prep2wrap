@@ -355,129 +355,35 @@ ul.table-action-list
 
         &.red
           color: #a94442
-
-/* ================
-  Styles for Table components
-  =============== */
-
-// .table
-//   position: relative
-//   display: block
-//   width: 100%
-//   background: #ffffff
-//   border-radius: 3px
-//   border: 1px solid #E6E8EB
-//   box-shadow: 0 2px 12px 0 rgba(0,0,0,.075)
-//   max-width: 1250px
-
-//   .table-header
-//     padding: 16px 30px
-//     background: #f0f4f7
-//     display: grid
-//     grid-gap: 0
-//     border-bottom: 1px solid #e6e6e6
-
-//     &.table-rows-5
-//       grid-template-columns: 75px 1fr 1fr 1fr 100px
-
-//     &.table-rows-4
-//       grid-template-columns: 150px 1fr 1fr 1fr 200px
-
-//     .table-header-col
-//       font-size: 12px
-//       padding: 0 0 2px 0
-//       display: block
-//       font-weight: 600
-//       text-transform: uppercase
-//       letter-spacing: 1px
-//       margin: 0
-//       color: #677694
-//       display: grid
-
-//   .table-row
-//     padding: 16px 30px
-//     border-bottom: 1px solid rgba(180,188,199,.32)
-//     display: grid
-//     grid-gap: 0
-//     width: 100%
-
-//     &.table-rows-5
-//       grid-template-columns: 75px 1fr 1fr 1fr 100px
-//       border-bottom: 1px solid #e6e6e6
-
-//     &.table-rows-4
-//       grid-template-columns: 150px 1fr 1fr 1fr 200px
-//       border-bottom: 1px solid #e6e6e6
-//       transition: all 0.3s ease-in-out
-//       &:hover
-//         background: rgba(0, 0, 0, 0.035)
-//         transition: all 0.3s ease-in-out
-//         cursor: pointer
-
-//     .table-row-cell
-//       display: grid
-//       font-size: 16px
-//       color: #444444
-//       align-items: center
-
-//       img
-//         width: 50px
-//         height: 50px
-//         border-radius: 50%
-
-//       span > span.status.active
-//         border-radius: 4px
-//         padding: 4px 12px
-//         background: #dff0d8
-//         color: #3c763d 
-//         font-size: 14px
-//         font-weight: 500
-      
-//       span.table-row-link
-//         color: $color__mainBlue
-//         font-size: 14px
-//         letter-spacing: 0.50px
-//         text-transform: uppercase
-//         font-weight: 500
-//         display: flex
-//         align-items: center
-//         justify-content: flex-end
-
-//         img
-//           max-height: 14px
 /* ================
   Styles for Table amd List components
   =============== */
 
 .table-filter
-  display: grid
-  grid-template-columns: repeat( auto-fill, minmax(250px, 1fr) )
-  grid-column-gap: 10px
-  margin-bottom: 10px
-
-  label
-    text-transform: uppercase
-    color: #677694
-    font-weight: 700
-    font-size: 11px
-    margin-bottom: 3px
-    display: block
-    white-space: nowrap
-    letter-spacing: 1.25px   
+  display: flex
+  position: relative
+  justify-content: flex-start
+  margin-bottom: 10px  
 
   .table-filter-cell
-    display: grid
+    position: relative
+    margin-right: 10px
+    max-width: 250px
+    width: 100%
+
+    &:last-child
+      margin-right: 0
 
   .table-filter-cell > form.table-filter-search > input, .table-filter-cell select
     font-size: 14px
     line-height: 1.2
     font-weight: 400
-    color: #16374b
+    color: #3d4852
     position: relative
     outline: 0
     border-radius: 0
     border-radius: 2px
-    border: 1px solid #c9ced1
+    border: 1px solid #EAEDF3
     box-shadow: none
     width: 100%
     box-sizing: border-box
@@ -486,118 +392,3 @@ ul.table-action-list
     text-indent: 12px
     height: 40px
     margin: 0 
-
-
-.button-inline
-  display: inline-block
-  background: $color__mainBlue
-  color: #fff
-
-.list-rows
-  position: relative
-
-  .list-row
-    position: relative
-    padding: 16px 30px
-    border-bottom: 1px solid rgba(180,188,199,.32)
-    width: 100%
-    display: grid
-    grid-template-columns: 1fr 1fr 1fr 1fr
-
-    .list-row-cell      
-      display: flex
-      font-size: 16px
-      color: #444444
-      align-items: center
-
-      select
-        font-size: 14px
-        line-height: 1.2
-        font-weight: 400
-        color: #16374b
-        position: relative
-        outline: 0
-        border-radius: 0
-        border-radius: 2px
-        border: 1px solid #c9ced1
-        box-shadow: none
-        width: 100%
-        box-sizing: border-box
-        background: white
-        padding: 0
-        text-indent: 12px
-        margin: 0   
-        height: 32px 
-
-        &[disabled]
-          opacity: 0.6   
-
-      img
-        width: 40px
-        height: 40px
-        border-radius: 50%
-        margin-right: 10px
-
-      span.list-row-link
-        color: $color__mainBlue
-        font-size: 14px
-        letter-spacing: 0.50px
-        text-transform: uppercase
-        font-weight: 500
-        display: flex
-        align-items: center
-        cursor: pointer
-
-        img
-          max-height: 14px
-          margin-top: -1px
-
-// /* ================
-//   Styles for User Search Table Filter
-//   =============== */
-
-// .search-filter
-//   position: relative
-//   display: grid
-//   grid-template-columns: 1fr 1fr 1fr 1fr 100px
-//   width: 100%
-//   margin-bottom: 8px
-//   align-items: center
-//   grid-column-gap: 5px
-
-//   button
-//     height: 38px
-//     display: flex
-//     justify-content: center
-//     align-items: center
-//     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.075)
-
-//   .search-filter-item
-//     position: relative
-
-//     &:last-child
-//       margin-right: 0
-
-//     .css-xwjg1b
-//       display: none
-
-//     .css-1aya2g8, .css-2o5izw, .css-1aya2g8, .css-2o5izw, input
-//       background: white
-//       font-size: 14px
-//       padding: 0
-//       margin: 0 
-//       text-indent: 10px
-//       line-height: 1.2
-//       position: relative
-//       outline: 0
-//       border-radius: 2px
-//       border: 1px solid #E6E8EB
-//       border-radius: 3px
-//       // box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.075)
-//       width: 100%
-//       box-sizing: border-box
-//       height: 40px
-
-//       .css-1rtrksz > input
-//         height: 0 
-//         width: 0

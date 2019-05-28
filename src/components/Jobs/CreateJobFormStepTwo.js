@@ -75,6 +75,7 @@ class CreateJobFormStepTwo extends Component {
               errorMessage="It looks like there was a problem while creating your job. Please start over creating your job."
       /> 
     }
+
     return (  
       <div className="app-page">
         <div className="app-page-header">
@@ -82,28 +83,30 @@ class CreateJobFormStepTwo extends Component {
         </div>
 
         <div className="app-page-body">
-          <div className="app-page-section">
-            {
-              this.state.loading &&
+          {
+            this.state.loading &&
+            <div className="app-page-section">
               <p>Loading...</p>
-            }
-            {
-              this.state.noUsersReturned &&
-                <p><b>Oh NO!</b> No users matched your search criteria. Try going back and trying new parameters!</p>  
-            }
-            {
-              this.state.resultsSuccessfullyLoaded &&
-              <JobResultsTable
-                results={this.state.usersMatchedResults}
-                setUserModal={this.props.setUserModal}
-                userModalActive={this.props.userModalActive}
-                assignPosition={this.assignPosition}
-                jobData={this.props.currentJob.jobObj}
-                jobID={this.props.match.params.jobID}  
-                error={this.state.error}  
-              />
-            }
-          </div>
+            </div>
+          }
+          {
+            this.state.noUsersReturned &&
+            <div className="app-page-section">
+              <p>No users matched your search criteria. Try going back and trying new parameters!</p>
+            </div>
+          }
+          {
+            this.state.resultsSuccessfullyLoaded &&
+            <JobResultsTable
+              results={this.state.usersMatchedResults}
+              setUserModal={this.props.setUserModal}
+              userModalActive={this.props.userModalActive}
+              assignPosition={this.assignPosition}
+              jobData={this.props.currentJob.jobObj}
+              jobID={this.props.match.params.jobID}  
+              error={this.state.error}  
+            />
+          }
           <div className="job-form-navigation">
             <div className="buttons-left">
               <FormButton

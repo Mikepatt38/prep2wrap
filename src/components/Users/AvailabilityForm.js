@@ -52,7 +52,7 @@ export class AvailabilityForm extends Component {
     return (
       <form 
         method="form"
-        className="date-picker-form"
+        className="modal-form"
       >
         <FormDatePicker
           label="Select a date"
