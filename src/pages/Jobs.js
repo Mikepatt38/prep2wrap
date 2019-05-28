@@ -14,28 +14,30 @@ class Jobs extends Component {
   render() {
     return (
       <div className="app-page">
-        <div className="app-page-title">
+
+        <div className="app-page-header">
           <h1>Jobs</h1>
-          <Link className="button button-primary" to={{
+          <Link className="button button-primary button-header" to={{
             pathname: `/jobs/${this.state.jobID}/job-information`,
             query: `${this.state.jobID}`
           }}>Create New Job</Link> 
         </div>
-
-        <div className="app-page-section">
-          <JobsTable 
-            getUserJobs={this.props.getUserJobs}
-            currentUser={this.props.currentUser}
-            setJobsModal={this.props.setJobsModal}
-            deletedCreatedJob={this.props.deletedCreatedJob}
-            history={this.props.history}
-            completeUserJob={this.props.completeUserJob}
-            acceptJobInvitation={this.props.acceptJobInvitation}
-            createUserAcceptedJob={this.props.createUserAcceptedJob}
-            denyJobInvitation={this.props.denyJobInvitation}
-          />
+        
+        <div className="app-page-body">
+          <div className="app-page-section">
+            <JobsTable 
+              getUserJobs={this.props.getUserJobs}
+              currentUser={this.props.currentUser}
+              setJobsModal={this.props.setJobsModal}
+              deletedCreatedJob={this.props.deletedCreatedJob}
+              history={this.props.history}
+              completeUserJob={this.props.completeUserJob}
+              acceptJobInvitation={this.props.acceptJobInvitation}
+              createUserAcceptedJob={this.props.createUserAcceptedJob}
+              denyJobInvitation={this.props.denyJobInvitation}
+            />
+          </div>
         </div>
-
       </div> 
 
     )

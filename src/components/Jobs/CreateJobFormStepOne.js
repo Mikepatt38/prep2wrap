@@ -223,192 +223,193 @@ class CreateJobFormStepOne extends Component {
     const { jobObj, jobDescCount, startDate, selectedDate, selectedStartDate, selectedEndDate, selectedDates } = this.state
     return (
       <div className="app-page">
-        <div className="app-page-title">
-          <h1>Create Job</h1>
+        <div className="app-page-header">
+          <h1>Create Job Information</h1>
         </div>
-        <div className="app-page-section">
-          <div className="create-job-wrapper">
-            <div className="create-job-wrapper-main">
-              <div className="card card-create-job no-hover">
-                <h3>Basic Information</h3>
-                <div className="card-body">
-                  <form className="card-form card-form-job-1">
-                    <FormTextInput
-                      label="Job Creator"
-                      name="jobCreator"
-                      type="text"
-                      value={jobObj.jobCreator}
-                      placeholder={jobObj.jobCreator}
-                      onChange={() => {}}
-                      disabled={true}
-                      className="form-group--half"
-                    />
-                    <FormSelectInput
-                      label="Job Location"
-                      name="jobLocation"
-                      options={locationObj}
-                      placeholder="Select Location for Job"
-                      isMultiSelect={false}
-                      onSelect={this.handleSelectValues}
-                      className="form-group--half"
-                      error={this.state.jobLocationError}
-                      errorMsg="Please select a job location."
-                    />
-                    <FormTextInput
-                      label="Job Name"
-                      name="jobName"
-                      type="text"
-                      value={jobObj.jobName}
-                      onChange={this.handleChange}
-                      className="form-group--half"
-                      error={this.state.jobNameError}
-                      errorMsg="Please add a valid job name."
-                    />
-                    <FormSelectInput
-                      label="Select the Job Type"
-                      name="jobType"
-                      options={jobTypesObj}
-                      placeholder="Select Type of Job"
-                      isMultiSelect={false}
-                      onSelect={this.handleSelectValues}
-                      className="form-group--half"
-                      error={this.state.jobTypeError}
-                      errorMsg="Please select a job type."
-                    />
-                    <div className={this.state.jobDescError ? 'field-error form-group' : 'form-group'}>
-                      <label>{"Job Description (" + jobDescCount + "/140)"}:</label>
-                      <textarea 
-                        name="jobDesc"
-                        type="text"
-                        value={jobObj.jobDesc}
-                        onChange={this.handleJobDescChange}
-                        className="textarea"
-                      ></textarea>  
-                      <p className="error-msg">Please add a valid job description.</p>
-                    </div>
-                  </form>
-                </div>
-              </div>
-              <div className="card card-create-job no-hover">
-                <h3>Job Specifics</h3>
-                <div className="card-body">
-                  <form className="card-form card-form-job-1">
-                    <FormCheckboxInput
-                      label="Union Required"
-                      checkboxId="unionMember"
-                      onChange={this.handleCheck}
-                      value={jobObj.unionMember}
-                      className="form-group--half"
-                    />
-                    <FormSelectInput
-                      label="Preferred Form of Contact"
-                      name="jobContact"
-                      options={contactObj}
-                      placeholder="Select Best Form of Contact"
-                      isMultiSelect={false}
-                      onSelect={this.handleSelect}
-                      className="form-group--half"
-                    />
-                    <FormSelectInput
-                      label="Select Job Positions Hiring For"
-                      name="jobPositions"
-                      options={positionsObj}
-                      placeholder="Select Positions For Jobs"
-                      isMultiSelect={true}
-                      onSelect={this.handleMultiSelect}
-                      error={this.state.jobPositionsError}
-                      errorMsg="Please select job positions to hire for."
-                    />
-                    </form>
-                  </div>
-                </div>
-              </div>
-              <div className="create-job-wrapper-sidebar">
+
+        <div className="app-page-body">
+          <div className="app-page-section">
+            <div className="create-job-wrapper">
+              <div className="create-job-wrapper-main">
                 <div className="card card-create-job no-hover">
-                  <h3>Job Dates</h3>
+                  <h3>Basic Information</h3>
                   <div className="card-body">
                     <form className="card-form card-form-job-1">
-                      <div className="form-group">
-                        <div className="date-selector-type">
-                          <FormCheckboxInput
-                            checkboxId="dateSelector"
-                            onChange={() => this.setState(prevState => ({ jobObj: { ...prevState.jobObj, dateSelectorRangeActive: false } }))}
-                            value={!jobObj.dateSelectorRangeActive}
-                            customText="Date Picker"
-                            className="form-group--half"
-                          />
-                          <FormCheckboxInput
-                            checkboxId="dateRangeSelector"
-                            onChange={() => this.setState(prevState => ({ jobObj: { ...prevState.jobObj, dateSelectorRangeActive: true } }))}
-                            value={jobObj.dateSelectorRangeActive}
-                            customText="Range Selector"
-                            className="form-group--half"
-                          />
-                        </div>
-                        {
-                          jobObj.dateSelectorRangeActive 
-                          ?
-                            <div className="date-picker--range">
-                              <FormDateRangePicker
-                                label="Select Job Dates Range"
-                                startDate={startDate}
-                                selectedStartDate={selectedStartDate}
-                                selectedEndDate={selectedEndDate}
-                                className="date-picker-form-group"
-                                handleDateChangeStart={this.handleDateChangeStart}
-                                handleDateChangeEnd={this.handleDateChangeEnd}
-                              />
-                              <div className="date-picker--range-dates">
-                                <label>Start Date:</label><span className="date-pill">{this.state.selectedStartDate.format('MM/DD/YYYY')}</span>
-                                <label className="label-bottom">End Date:</label><span className="date-pill">{this.state.selectedEndDate.format('MM/DD/YYYY')}</span>
-                              </div>
-                            </div> 
-                          :
-                            <div className="date-picker">
-                              <FormDatePicker
-                                label="Select Job Dates"
-                                startDate={startDate}
-                                selectedDate={selectedDate}
-                                className="date-picker-form-group"
-                                handleChange={this.handleDateChange}
-                                placeholderText="Click to add job dates."
-                                error={this.state.jobDatesError}
-                                errorMsg="Please choose job dates."
-                              />
-                                <label>Selected Job Dates:</label>
-                                <ul className="date-picker-list">
-                                  {selectedDates.map( (date, key) => {
-                                    return <span key={key} className="date-picker-list-item"><li>{date}</li><span className="date-picker-list-delete" onClick={() => { this.removeDate(date) }}><img src={TrashIcon} alt="Delete Icon" /></span></span>
-                                  })}
-                                </ul>
-                            </div> 
-                          }
+                      <FormTextInput
+                        label="Job Creator"
+                        name="jobCreator"
+                        type="text"
+                        value={jobObj.jobCreator}
+                        placeholder={jobObj.jobCreator}
+                        onChange={() => {}}
+                        disabled={true}
+                        className="form-group--half"
+                      />
+                      <FormSelectInput
+                        label="Job Location"
+                        name="jobLocation"
+                        options={locationObj}
+                        placeholder="Select Location for Job"
+                        isMultiSelect={false}
+                        onSelect={this.handleSelectValues}
+                        className="form-group--half"
+                        error={this.state.jobLocationError}
+                        errorMsg="Please select a job location."
+                      />
+                      <FormTextInput
+                        label="Job Name"
+                        name="jobName"
+                        type="text"
+                        value={jobObj.jobName}
+                        onChange={this.handleChange}
+                        className="form-group--half"
+                        error={this.state.jobNameError}
+                        errorMsg="Please add a valid job name."
+                      />
+                      <FormSelectInput
+                        label="Select the Job Type"
+                        name="jobType"
+                        options={jobTypesObj}
+                        placeholder="Select Type of Job"
+                        isMultiSelect={false}
+                        onSelect={this.handleSelectValues}
+                        className="form-group--half"
+                        error={this.state.jobTypeError}
+                        errorMsg="Please select a job type."
+                      />
+                      <div className={this.state.jobDescError ? 'field-error form-group' : 'form-group'}>
+                        <label>{"Job Description (" + jobDescCount + "/140)"}:</label>
+                        <textarea 
+                          name="jobDesc"
+                          type="text"
+                          value={jobObj.jobDesc}
+                          onChange={this.handleJobDescChange}
+                          className="textarea"
+                        ></textarea>  
+                        <p className="error-msg">Please add a valid job description.</p>
                       </div>
                     </form>
                   </div>
                 </div>
+                <div className="card card-create-job no-hover">
+                  <h3>Job Specifics</h3>
+                  <div className="card-body">
+                    <form className="card-form card-form-job-1">
+                      <FormCheckboxInput
+                        label="Union Required"
+                        checkboxId="unionMember"
+                        onChange={this.handleCheck}
+                        value={jobObj.unionMember}
+                        className="form-group--half"
+                      />
+                      <FormSelectInput
+                        label="Preferred Form of Contact"
+                        name="jobContact"
+                        options={contactObj}
+                        placeholder="Select Best Form of Contact"
+                        isMultiSelect={false}
+                        onSelect={this.handleSelect}
+                        className="form-group--half"
+                      />
+                      <FormSelectInput
+                        label="Select Job Positions Hiring For"
+                        name="jobPositions"
+                        options={positionsObj}
+                        placeholder="Select Positions For Jobs"
+                        isMultiSelect={true}
+                        onSelect={this.handleMultiSelect}
+                        error={this.state.jobPositionsError}
+                        errorMsg="Please select job positions to hire for."
+                      />
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <div className="create-job-wrapper-sidebar">
+                  <div className="card card-create-job no-hover">
+                    <h3>Job Dates</h3>
+                    <div className="card-body">
+                      <form className="card-form card-form-job-1">
+                        <div className="form-group">
+                          <div className="date-selector-type">
+                            <FormCheckboxInput
+                              checkboxId="dateSelector"
+                              onChange={() => this.setState(prevState => ({ jobObj: { ...prevState.jobObj, dateSelectorRangeActive: false } }))}
+                              value={!jobObj.dateSelectorRangeActive}
+                              customText="Date Picker"
+                              className="form-group--half"
+                            />
+                            <FormCheckboxInput
+                              checkboxId="dateRangeSelector"
+                              onChange={() => this.setState(prevState => ({ jobObj: { ...prevState.jobObj, dateSelectorRangeActive: true } }))}
+                              value={jobObj.dateSelectorRangeActive}
+                              customText="Range Selector"
+                              className="form-group--half"
+                            />
+                          </div>
+                          {
+                            jobObj.dateSelectorRangeActive 
+                            ?
+                              <div className="date-picker--range">
+                                <FormDateRangePicker
+                                  label="Select Job Dates Range"
+                                  startDate={startDate}
+                                  selectedStartDate={selectedStartDate}
+                                  selectedEndDate={selectedEndDate}
+                                  className="date-picker-form-group"
+                                  handleDateChangeStart={this.handleDateChangeStart}
+                                  handleDateChangeEnd={this.handleDateChangeEnd}
+                                />
+                                <div className="date-picker--range-dates">
+                                  <label>Start Date:</label><span className="date-pill">{this.state.selectedStartDate.format('MM/DD/YYYY')}</span>
+                                  <label className="label-bottom">End Date:</label><span className="date-pill">{this.state.selectedEndDate.format('MM/DD/YYYY')}</span>
+                                </div>
+                              </div> 
+                            :
+                              <div className="date-picker">
+                                <FormDatePicker
+                                  label="Select Job Dates"
+                                  startDate={startDate}
+                                  selectedDate={selectedDate}
+                                  className="date-picker-form-group"
+                                  handleChange={this.handleDateChange}
+                                  placeholderText="Click to add job dates."
+                                  error={this.state.jobDatesError}
+                                  errorMsg="Please choose job dates."
+                                />
+                                  <label>Selected Job Dates:</label>
+                                  <ul className="date-picker-list">
+                                    {selectedDates.map( (date, key) => {
+                                      return <span key={key} className="date-picker-list-item"><li>{date}</li><span className="date-picker-list-delete" onClick={() => { this.removeDate(date) }}><img src={TrashIcon} alt="Delete Icon" /></span></span>
+                                    })}
+                                  </ul>
+                              </div> 
+                            }
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-
-            
-          </div>
-          <div className="job-form-navigation">
-            <div className="buttons-left">
-              <FormButton
-                className="button-danger"
-                buttonText="Cancel"
-                onClick={(e) => this.cancelJobCreation(e)}
-              />
-            </div>
-            <div className="buttons-right">
-              <FormButton
-                className="button-primary"
-                buttonText="Next Step"
-                onClick={this.saveAndContinue}
-              />
-            </div>
+            <div className="job-form-navigation">
+              <div className="buttons-left">
+                <FormButton
+                  className="button-danger"
+                  buttonText="Cancel"
+                  onClick={(e) => this.cancelJobCreation(e)}
+                />
+              </div>
+              <div className="buttons-right">
+                <FormButton
+                  className="button-primary"
+                  buttonText="Next Step"
+                  onClick={this.saveAndContinue}
+                />
+              </div>
           </div>
         </div>
+      </div>
       )
     }
   } 

@@ -34,34 +34,38 @@ class Availability extends Component {
     const { currentUser } = this.props
     return (
       <div className="app-page">
-        <div className="app-page-title">
-          <h1>User Availability</h1>
-          <button className="button-primary" onClick={(e) => this.updateAvailability(e)}>Update Availability</button>
-        </div>
-        <div className="app-page-section">
-          {
-            this.state.userAvailability && 
-            <Calendar 
-              currentUser={currentUser}
-              dates={this.state.userAvailability} 
-              setSelectedDate={this.setSelectedDate} 
-            />
-          }
+
+        <div className="app-page-header">
+          <h1>Availability</h1>
+          <button className="button-primary button-header" onClick={(e) => this.updateAvailability(e)}>Update Availability</button>
         </div>
 
-        <div className="app-page-section">
-          <div className="section-title">
-            <p>Availability list view:</p>
+        <div className="app-page-body">
+          <div className="app-page-section">
+            {
+              this.state.userAvailability && 
+              <Calendar 
+                currentUser={currentUser}
+                dates={this.state.userAvailability} 
+                setSelectedDate={this.setSelectedDate} 
+              />
+            }
           </div>
-          {
-            // Need to check to make sure the availability array isn't empty
-            this.state.userAvailability && 
-            <UserAvailabilityTable
-              dates={this.state.userAvailability}
-              currentUser={currentUser}
-              removeAvailabilityDate={this.props.removeAvailabilityDate}
-            />
-          }
+
+          <div className="app-page-section">
+            <div className="section-title">
+              <p>Availability list view:</p>
+            </div>
+            {
+              // Need to check to make sure the availability array isn't empty
+              this.state.userAvailability && 
+              <UserAvailabilityTable
+                dates={this.state.userAvailability}
+                currentUser={currentUser}
+                removeAvailabilityDate={this.props.removeAvailabilityDate}
+              />
+            }
+          </div>
         </div>
       </div>
     )

@@ -6,39 +6,42 @@ import DeleteUserAccountForm from '../components/Settings/UserDeleteAccountForm'
 
 const AccountSettings = ({ currentUser, setUserProfile, setName, setEmail, setMobileNumber, setModal, closeModal, uploadProfileImage, deleteUserAccount, reAuthenticateUser, history }) => (
   <div className="app-page">
-    <div className="app-page-title">
+
+    <div className="app-page-header">
       <h1>Account Settings</h1>
     </div>
 
-    <div className="app-page-section">
-      <div className="card no-hover">
-        <UserInfoForm
-          currentUser={currentUser}
-          setName={setName}
-          setEmail={setEmail}
-          setMobileNumber={setMobileNumber}
-          uploadProfileImage={uploadProfileImage}
+    <div className="app-page-body">
+      <div className="app-page-section">
+        <div className="card no-hover">
+          <UserInfoForm
+            currentUser={currentUser}
+            setName={setName}
+            setEmail={setEmail}
+            setMobileNumber={setMobileNumber}
+            uploadProfileImage={uploadProfileImage}
+          />
+        </div>
+      </div>
+
+      <div className="app-page-section">
+        <div className="card no-hover">
+          <UserProfileForm 
+            setUserProfile={setUserProfile} 
+            currentUser={currentUser} 
+            onClick={(e) => handleClick(e)}
+          />
+        </div>
+      </div>
+
+      <div className="app-page-section">
+        <DeleteUserAccountForm
+          deleteUserAccount={deleteUserAccount}
+          setModal={setModal}
+          closeModal={closeModal}
+          history={history}
         />
       </div>
-    </div>
-
-    <div className="app-page-section">
-      <div className="card no-hover">
-        <UserProfileForm 
-          setUserProfile={setUserProfile} 
-          currentUser={currentUser} 
-          onClick={(e) => handleClick(e)}
-        />
-      </div>
-    </div>
-
-    <div className="app-page-section">
-      <DeleteUserAccountForm
-        deleteUserAccount={deleteUserAccount}
-        setModal={setModal}
-        closeModal={closeModal}
-        history={history}
-      />
     </div>
 
   </div>

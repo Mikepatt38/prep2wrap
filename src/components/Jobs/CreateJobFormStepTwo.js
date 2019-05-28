@@ -77,50 +77,53 @@ class CreateJobFormStepTwo extends Component {
     }
     return (  
       <div className="app-page">
-        <div className="app-page-title">
+        <div className="app-page-header">
           <h1>Assign Job Positions</h1>
         </div>
-        <div className="app-page-section">
-          {
-            this.state.loading &&
-            <p>Loading...</p>
-          }
-          {
-            this.state.noUsersReturned &&
-              <p><b>Oh NO!</b> No users matched your search criteria. Try going back and trying new parameters!</p>  
-          }
-          {
-            this.state.resultsSuccessfullyLoaded &&
-            <JobResultsTable
-              results={this.state.usersMatchedResults}
-              setUserModal={this.props.setUserModal}
-              userModalActive={this.props.userModalActive}
-              assignPosition={this.assignPosition}
-              jobData={this.props.currentJob.jobObj}
-              jobID={this.props.match.params.jobID}  
-              error={this.state.error}  
-            />
-          }
-        </div>
-        <div className="job-form-navigation">
-          <div className="buttons-left">
-            <FormButton
-              className="button-danger"
-              buttonText="Cancel"
-              onClick={(e) => this.cancelJobCreation(e)}
-            />
+
+        <div className="app-page-body">
+          <div className="app-page-section">
+            {
+              this.state.loading &&
+              <p>Loading...</p>
+            }
+            {
+              this.state.noUsersReturned &&
+                <p><b>Oh NO!</b> No users matched your search criteria. Try going back and trying new parameters!</p>  
+            }
+            {
+              this.state.resultsSuccessfullyLoaded &&
+              <JobResultsTable
+                results={this.state.usersMatchedResults}
+                setUserModal={this.props.setUserModal}
+                userModalActive={this.props.userModalActive}
+                assignPosition={this.assignPosition}
+                jobData={this.props.currentJob.jobObj}
+                jobID={this.props.match.params.jobID}  
+                error={this.state.error}  
+              />
+            }
           </div>
-          <div className="buttons-right">
-            <FormButton
-              className="button-secondary"
-              buttonText="Start Over"
-              onClick={(e) => this.saveAndGoBack(e)}
-            />
-            <FormButton
-              className="button-primary"
-              buttonText="Send Job Invites"
-              onClick={this.saveAndContinue}
-            />
+          <div className="job-form-navigation">
+            <div className="buttons-left">
+              <FormButton
+                className="button-danger"
+                buttonText="Cancel"
+                onClick={(e) => this.cancelJobCreation(e)}
+              />
+            </div>
+            <div className="buttons-right">
+              <FormButton
+                className="button-secondary"
+                buttonText="Start Over"
+                onClick={(e) => this.saveAndGoBack(e)}
+              />
+              <FormButton
+                className="button-primary"
+                buttonText="Send Job Invites"
+                onClick={this.saveAndContinue}
+              />
+            </div>
           </div>
         </div>
       </div>

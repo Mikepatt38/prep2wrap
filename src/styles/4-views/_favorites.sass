@@ -13,35 +13,56 @@
     display: flex
     justify-content: space-between
     flex-direction: column
-    &:hover
-      transform: none
-      box-shadow: none
 
     .user
       position: relative
       display: flex
       justify-content: space-between
       align-items: center
+      flex-wrap: wrap
 
-      .user-details
+      .user-information
         position: relative
-        width: 59%
-        margin-left: 10px
+        display: flex
+        justify-content: space-between
+        align-items: center
+        
+        .user-information-avatar
+          position: relative
+          width: 25%
 
-        h4
-          font-size: 18px
-          width: 100%
-          margin-bottom: 4px
+          img
+            width: 100%
+            position: relative
+            border-radius: 50%
 
-        p
-          font-size: 14px
+        .user-information-details
+          position: relative
+          width: 73.5%
+          margin-left: 10px
 
-      .user-avatar
-        position: relative
-        width: 30%
+          h4
+            font-weight: bold
+            font-size: 16px
 
-        img
-          width: 100%
-          border-radius: 50%
+          p
+            font-size: 14px
+
+          p > span.availability
+            border-radius: 4px
+            padding: 2px 8px
+            font-size: 14px
+            font-weight: 500
+            display: flex
+            align-items: center
+            width: auto
+            &.available
+              background: #d4edda
+              color: #155724 
+            &.unavailable
+              color: #383d41
+              background: #e2e3e5
+
+
 
   
