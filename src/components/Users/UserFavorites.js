@@ -19,9 +19,18 @@ class UserFavorites extends Component {
     if(this.state.loading) return <p>Loading...</p>
     return (
       <React.Fragment>
-        <UserFavoritesTable
-          userFavorites={this.state.favorites}
-        />
+        {
+          this.state.loading === false || this.state.favorites > 0 
+          ?
+          <UserFavoritesTable
+            userFavorites={this.state.favorites}
+          />
+          :
+          <div className="empty-state">
+            <p>You currently do not have any users in your quick crew.</p>
+            <p>To add users, click the button in the top right to search through users and add them as a favorite from the search results table.</p>
+          </div>
+        }
       </React.Fragment>
     )
   }

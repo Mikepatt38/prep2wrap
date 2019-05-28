@@ -21,7 +21,7 @@ class JobResultsTable extends Component {
     const columns = [
       {
         id: 'Avatar', // Required because our accessor is not a string
-        Header: 'Crew Memeber',
+        Header: 'Name',
         headerClassName: 'cell-avatar',
         Cell: props => props.original.profileInformation.avatarUrl 
           ? <img src={props.original.profileInformation.avatarUrl} alt="Profile Avatar" />
@@ -32,6 +32,21 @@ class JobResultsTable extends Component {
         Header: '',
         Cell: props => <span>{props.original.firstName + ' ' + props.original.lastName}</span>,
       }, 
+      {
+        id: 'Location', 
+        Header: 'Main Location',
+        // headerClassName: 'cell-medium',
+        Cell: props => <span>{props.original.profileInformation.location[0].value}</span>,
+        // className: 'cell-medium'
+      }, 
+      {
+        id: 'Available', // Required because our accessor is not a string
+        Header: 'Availability',
+        // accessor: 'availabol.value',
+        Cell: props => <span className="cell-status available">Available</span>,
+        filterable: false,
+        sortable: false
+      },
       {
         id: 'Assign', // Required because our accessor is not a string
         Header: 'Assign Position',
@@ -68,7 +83,7 @@ class JobResultsTable extends Component {
         id: 'Profile', // Required because our accessor is not a string
         Header: '',
         className: 'cell-end',
-        Cell: props => <span className="view-profile" onClick={() => {this.props.setUserModal(true, props.original)}}><img src={LinkIcon} alt="Table Link Icon" />View Profile</span>
+        Cell: props => <span className="view-profile" onClick={() => {this.props.setUserModal(true, props.original)}}><img src={LinkIcon} alt="Table Link Icon" />User Profile</span>
       },
     ]
     this.setState({

@@ -362,8 +362,8 @@ class CreateJobFormStepOne extends Component {
                                 handleDateChangeEnd={this.handleDateChangeEnd}
                               />
                               <div className="date-picker--range-dates">
-                                <label>Start Date:</label><span className="date-pill">{this.state.selectedStartDate.format('MM/DD/YYYY')}</span>
-                                <label className="label-bottom">End Date:</label><span className="date-pill">{this.state.selectedEndDate.format('MM/DD/YYYY')}</span>
+                                <div className="date-picker--range-item"><label>Start Date:</label><span className="date-pill">{this.state.selectedStartDate.format('MM/DD/YYYY')}</span></div>
+                                <div className="date-picker--range-item"><label>End Date:</label><span className="date-pill">{this.state.selectedEndDate.format('MM/DD/YYYY')}</span></div>
                               </div>
                             </div> 
                           :

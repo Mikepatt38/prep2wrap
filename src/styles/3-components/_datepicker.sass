@@ -18,8 +18,33 @@ button.react-datepicker__navigation
   width: 100%
 
 
+.date-picker--range .form-group
+  position: relative
+  display: flex
+  justify-content: flex-start
+  flex-wrap: wrap
+  flex-direction: row
+
+  label
+    width: 100%
+
+  .react-datepicker
+    margin-right: 10px
+
+
 .date-picker--range-dates
   position: relative
+  display: flex
+  justify-content: flex-start
+  flex-direction: row
+
+  .date-picker--range-item
+    margin-right: 10px
+    position: relative
+
+    span.date-pill
+      border-top-right-radius: 3px
+      border-bottom-right-radius: 3px
 
   label.label-bottom
     margin-top: 15px
