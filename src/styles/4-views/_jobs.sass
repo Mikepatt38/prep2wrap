@@ -1,70 +1,35 @@
 /* ===============
   Styles for Creating a Job Forms
   ================== */
-.create-job-wrapper
-  max-width: 1250px
-  margin: 0
-  display: grid
-  grid-template-columns: 1fr 1fr 1fr
-  grid-template-areas: "main main sidebar" "main main sidebar"
-  grid-column-gap: 25px
 
-  .create-job-wrapper-main
-    grid-area: main
-    display: flex
-    flex-direction: column
-    justify-content: flex-start
-    position: relative
+.create-job-form
 
-    .card.card-create-job
-      position: relative
-      margin-bottom: 25px
-      width: 100%
-
-      &:last-child
-        margin-bottom: 0
-  
-  .create-job-wrapper-sidebar
-    grid-area: sidebar
-    position: relative
-    display: flex
-    justify-content: flex-start
-    height: 100%
-
-    .card.card-create-job
-      position: relative
-      margin-bottom: 25px
-      width: 100%
-      height: 100%
-
-
-.card.card-create-job
-  position: relative
-
-  h3
-    // text-transform: uppercase
-    color: #3c3c3c
-    font-weight: normal
-    font-size: 18px
-    margin-bottom: 35px
-    display: block
+  & > .form-group input
+    max-width: 400px
     width: 100%
-    white-space: nowrap
 
-  form.card-form.card-form-job-1
-    & > .form-group label
-      opacity: 0.8
-      color: #444
-      margin-bottom: 6px
+  & > .form-group textarea,
+  & > .form-group .css-10nd86i
+    max-width: 850px
+    width: 100% 
 
-    & > .form-group label.checkbox
-      max-width: 100%
-      height: 40px
-      line-height: 28px
-      margin-bottom: 0
-      border: 1px solid #c9ced1
+  & > .form-group label
+    opacity: 0.8
+    color: #444
+    margin-bottom: 6px
 
-// Creating a job form page navigation
+  & > .form-group label.checkbox
+    max-width: 300px
+    min-width: 200px
+    height: 40px
+    line-height: 28px
+    margin-bottom: 0
+    border: 1px solid #c9ced1
+
+/* ===============
+  Styles for Creating a Job Forms Navigation
+  ================== */
+
 .job-form-navigation
   width: 100%
   position: relative
@@ -88,9 +53,6 @@
     
     button
       margin-left: 20px
-/* ===============
-  Styles for job components
-  ================== */
 
 // ========== Job Results ========== //
 

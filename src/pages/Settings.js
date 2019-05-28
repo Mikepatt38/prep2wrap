@@ -12,12 +12,10 @@ const AccountSettings = ({ currentUser, setUserProfile, setName, setEmail, setMo
     </div>
 
     <div className="app-page-body">
+      <p>Easily update your user settings and public profile information to keep your account up to date.</p>
       <div className="account-settings">
         <div className="account-settings-user">
           <div className="card">
-            <div className="card-header">
-              <h3>User Settings</h3>
-            </div>
             <div className="card-body">
               <UserInfoForm
                 currentUser={currentUser}
@@ -32,9 +30,6 @@ const AccountSettings = ({ currentUser, setUserProfile, setName, setEmail, setMo
 
         <div className="account-settings-profile">
           <div className="card">
-            <div className="card-header">
-              <h3>Profile Settings</h3> 
-            </div>
             <div className="card-body">
               <p>Set up your profile job settings to get hired where you fit in.</p>
               <UserProfileForm 

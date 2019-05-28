@@ -13,7 +13,8 @@
   max-width: 1250px
 
 .ReactTable .rt-thead
-  // background: $color__grey
+  background: #efefefef 
+  opacity: 0.7
   border-bottom: 1px solid #EAEDF3
 
 .ReactTable .rt-thead .rt-tr
@@ -146,12 +147,12 @@
 
   span.cell-status
     border-radius: 4px
-    padding: 4px 8px
+    padding: 8px 12px
     font-size: 14px
     font-weight: 500
     display: flex
     align-items: center
-    &.active
+    &.active, &.available
       background: #d4edda
       color: #155724 
     &.pending, &.personal
@@ -199,6 +200,7 @@ ul.table-action-list li
 .ReactTable .-pagination
   box-shadow: none !important 
   border-top: 1px solid rgba(0,0,0,0.1) !important
+  display: none !important
 
 .ReactTable .-pagination button.-btn
   font-size: 13px !important
@@ -207,7 +209,7 @@ ul.table-action-list li
   line-height: normal
   box-shadow: none
   min-height: auto
-  background: $color__grey
+  background: none
 
 .ReactTable .rt-noData
   z-index: 0
@@ -358,91 +360,91 @@ ul.table-action-list
   Styles for Table components
   =============== */
 
-.table
-  position: relative
-  display: block
-  width: 100%
-  background: #ffffff
-  border-radius: 3px
-  border: 1px solid #E6E8EB
-  box-shadow: 0 2px 12px 0 rgba(0,0,0,.075)
-  max-width: 1250px
+// .table
+//   position: relative
+//   display: block
+//   width: 100%
+//   background: #ffffff
+//   border-radius: 3px
+//   border: 1px solid #E6E8EB
+//   box-shadow: 0 2px 12px 0 rgba(0,0,0,.075)
+//   max-width: 1250px
 
-  .table-header
-    padding: 16px 30px
-    background: #f0f4f7
-    display: grid
-    grid-gap: 0
-    border-bottom: 1px solid #e6e6e6
+//   .table-header
+//     padding: 16px 30px
+//     background: #f0f4f7
+//     display: grid
+//     grid-gap: 0
+//     border-bottom: 1px solid #e6e6e6
 
-    &.table-rows-5
-      grid-template-columns: 75px 1fr 1fr 1fr 100px
+//     &.table-rows-5
+//       grid-template-columns: 75px 1fr 1fr 1fr 100px
 
-    &.table-rows-4
-      grid-template-columns: 150px 1fr 1fr 1fr 200px
+//     &.table-rows-4
+//       grid-template-columns: 150px 1fr 1fr 1fr 200px
 
-    .table-header-col
-      font-size: 12px
-      padding: 0 0 2px 0
-      display: block
-      font-weight: 600
-      text-transform: uppercase
-      letter-spacing: 1px
-      margin: 0
-      color: #677694
-      display: grid
+//     .table-header-col
+//       font-size: 12px
+//       padding: 0 0 2px 0
+//       display: block
+//       font-weight: 600
+//       text-transform: uppercase
+//       letter-spacing: 1px
+//       margin: 0
+//       color: #677694
+//       display: grid
 
-  .table-row
-    padding: 16px 30px
-    border-bottom: 1px solid rgba(180,188,199,.32)
-    display: grid
-    grid-gap: 0
-    width: 100%
+//   .table-row
+//     padding: 16px 30px
+//     border-bottom: 1px solid rgba(180,188,199,.32)
+//     display: grid
+//     grid-gap: 0
+//     width: 100%
 
-    &.table-rows-5
-      grid-template-columns: 75px 1fr 1fr 1fr 100px
-      border-bottom: 1px solid #e6e6e6
+//     &.table-rows-5
+//       grid-template-columns: 75px 1fr 1fr 1fr 100px
+//       border-bottom: 1px solid #e6e6e6
 
-    &.table-rows-4
-      grid-template-columns: 150px 1fr 1fr 1fr 200px
-      border-bottom: 1px solid #e6e6e6
-      transition: all 0.3s ease-in-out
-      &:hover
-        background: rgba(0, 0, 0, 0.035)
-        transition: all 0.3s ease-in-out
-        cursor: pointer
+//     &.table-rows-4
+//       grid-template-columns: 150px 1fr 1fr 1fr 200px
+//       border-bottom: 1px solid #e6e6e6
+//       transition: all 0.3s ease-in-out
+//       &:hover
+//         background: rgba(0, 0, 0, 0.035)
+//         transition: all 0.3s ease-in-out
+//         cursor: pointer
 
-    .table-row-cell
-      display: grid
-      font-size: 16px
-      color: #444444
-      align-items: center
+//     .table-row-cell
+//       display: grid
+//       font-size: 16px
+//       color: #444444
+//       align-items: center
 
-      img
-        width: 50px
-        height: 50px
-        border-radius: 50%
+//       img
+//         width: 50px
+//         height: 50px
+//         border-radius: 50%
 
-      span > span.status.active
-        border-radius: 4px
-        padding: 4px 12px
-        background: #dff0d8
-        color: #3c763d 
-        font-size: 14px
-        font-weight: 500
+//       span > span.status.active
+//         border-radius: 4px
+//         padding: 4px 12px
+//         background: #dff0d8
+//         color: #3c763d 
+//         font-size: 14px
+//         font-weight: 500
       
-      span.table-row-link
-        color: $color__mainBlue
-        font-size: 14px
-        letter-spacing: 0.50px
-        text-transform: uppercase
-        font-weight: 500
-        display: flex
-        align-items: center
-        justify-content: flex-end
+//       span.table-row-link
+//         color: $color__mainBlue
+//         font-size: 14px
+//         letter-spacing: 0.50px
+//         text-transform: uppercase
+//         font-weight: 500
+//         display: flex
+//         align-items: center
+//         justify-content: flex-end
 
-        img
-          max-height: 14px
+//         img
+//           max-height: 14px
 /* ================
   Styles for Table amd List components
   =============== */
@@ -550,52 +552,52 @@ ul.table-action-list
           max-height: 14px
           margin-top: -1px
 
-/* ================
-  Styles for User Search Table Filter
-  =============== */
+// /* ================
+//   Styles for User Search Table Filter
+//   =============== */
 
-.search-filter
-  position: relative
-  display: grid
-  grid-template-columns: 1fr 1fr 1fr 1fr 100px
-  width: 100%
-  margin-bottom: 8px
-  align-items: center
-  grid-column-gap: 5px
+// .search-filter
+//   position: relative
+//   display: grid
+//   grid-template-columns: 1fr 1fr 1fr 1fr 100px
+//   width: 100%
+//   margin-bottom: 8px
+//   align-items: center
+//   grid-column-gap: 5px
 
-  button
-    height: 38px
-    display: flex
-    justify-content: center
-    align-items: center
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.075)
+//   button
+//     height: 38px
+//     display: flex
+//     justify-content: center
+//     align-items: center
+//     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.075)
 
-  .search-filter-item
-    position: relative
+//   .search-filter-item
+//     position: relative
 
-    &:last-child
-      margin-right: 0
+//     &:last-child
+//       margin-right: 0
 
-    .css-xwjg1b
-      display: none
+//     .css-xwjg1b
+//       display: none
 
-    .css-1aya2g8, .css-2o5izw, .css-1aya2g8, .css-2o5izw, input
-      background: white
-      font-size: 14px
-      padding: 0
-      margin: 0 
-      text-indent: 10px
-      line-height: 1.2
-      position: relative
-      outline: 0
-      border-radius: 2px
-      border: 1px solid #E6E8EB
-      border-radius: 3px
-      // box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.075)
-      width: 100%
-      box-sizing: border-box
-      height: 40px
+//     .css-1aya2g8, .css-2o5izw, .css-1aya2g8, .css-2o5izw, input
+//       background: white
+//       font-size: 14px
+//       padding: 0
+//       margin: 0 
+//       text-indent: 10px
+//       line-height: 1.2
+//       position: relative
+//       outline: 0
+//       border-radius: 2px
+//       border: 1px solid #E6E8EB
+//       border-radius: 3px
+//       // box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.075)
+//       width: 100%
+//       box-sizing: border-box
+//       height: 40px
 
-      .css-1rtrksz > input
-        height: 0 
-        width: 0
+//       .css-1rtrksz > input
+//         height: 0 
+//         width: 0

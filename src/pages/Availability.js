@@ -42,6 +42,7 @@ class Availability extends Component {
 
         <div className="app-page-body">
           <div className="app-page-section">
+            <p>A calendar view of your booked/ personal days that you are unavailable for further hire.</p>
             {
               this.state.userAvailability && 
               <Calendar 
@@ -53,9 +54,7 @@ class Availability extends Component {
           </div>
 
           <div className="app-page-section">
-            <div className="section-title">
-              <p>Availability list view:</p>
-            </div>
+            <p>A list view of your booked/ personal days that you are unavailable for further hire.</p>
             {
               // Need to check to make sure the availability array isn't empty
               this.state.userAvailability && 

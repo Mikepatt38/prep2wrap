@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {UserFavoriteCard} from './UserFavoriteCard'
+import { UserFavoritesTable } from './UserFavoritesTable';
 
 class UserFavorites extends Component {
   state = {
@@ -15,16 +16,12 @@ class UserFavorites extends Component {
   }
 
   render() {
+    if(this.state.loading) return <p>Loading...</p>
     return (
       <React.Fragment>
-        { this.state.loading && <p>Loading...</p>}
-        { this.state.favorites &&
-          <div className="user-favorites">
-            { this.state.favorites.map( (favorite, key) => {
-              return ( <UserFavoriteCard user={favorite} key={key} /> ) }) 
-            }
-          </div>
-        }
+        <UserFavoritesTable
+          userFavorites={this.state.favorites}
+        />
       </React.Fragment>
     )
   }

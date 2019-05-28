@@ -13,6 +13,7 @@ export const FormDatePicker = ( {label, handleChange, className, selectedDate, p
         onChange={handleChange}
         selected={selectedDate}
         placeholderText={placeholderText}
+        shouldCloseOnSelect={false}
       />
       <p className="error-msg">{errorMsg}</p>
     </div>
