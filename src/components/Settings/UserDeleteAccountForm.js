@@ -16,13 +16,13 @@ class DeleteUserAccountForm extends Component {
   }
   render() {
     return (
-      <div className="card">
-        <p>this allows the user to delete their account!</p>
+      <React.Fragment>
+        <p>Looking to delete your account? This will delete all information associated with your account.</p>
         <button 
           className="button button-danger"
           onClick={(e) => this.handleDelete(e)}
         >Delete Account</button>
-      </div>
+      </React.Fragment>
     )
   }
 }
