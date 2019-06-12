@@ -13,7 +13,7 @@ const userPrivacyPaths = require('./user_privacy.json');
 const firestore = admin.firestore();
 // const storage = admin.storage();
 const FieldValue = admin.firestore.FieldValue;
-// const stripe = require('stripe')(functions.config().stripe.testkey)
+const stripe = require('stripe')(functions.config().stripe.testkey)
 // const currency = functions.config().stripe.currency || 'USD'
 
 import { Storage } from '@google-cloud/storage'
@@ -24,6 +24,8 @@ import { join, dirname } from 'path';
 
 import * as sharp from 'sharp';
 import * as fs from 'fs-extra';
+
+// ============ Resize a user's image when they upload an avatar to only save smaller images =========== //
 
 // Call the cloud function whenever something is uploaded to the storage
 export const generateThumbs = functions.storage
@@ -81,21 +83,36 @@ export const generateThumbs = functions.storage
     return fs.remove(workingDir)
   })
 
-// We want to delete all user data from firestore database and storage when the user 
-// deletes their account using the firebase auth delete
+// ============ Deleting a user from Firestore DB and from Stripe as a customer =========== //
+
+//
+// This allows us to delete the user from stripe when they delete their account on the platform
+//
+export const deleteUserStripeAccount = async (user:any) => {
+  const promises = []
+  // get the user from the database
+  const snapshot = await admin.firestore().collection('users').doc(user.uid).get();
+  // grab the customer data so we know who to delete in stripe based on their customer id
+  const customer = snapshot.data();
+  // delete the user from stripe
+  promises.push(stripe.customers.del(customer.stripe_id));
+  return Promise.all(promises).then(() => user.uid);
+  // return admin.firestore().collection('stripe_customers').doc(event.uid).delete();
+}
 
 //
 // Clear Data function that uses the user id of the current deleted user to delete all
 // found data from firestore, RTDB, and google cloud storage
 //
-exports.clearData = functions.auth.user().onDelete((event) => {
+exports.clearData = functions.auth.user().onDelete(async (event) => {
   const uid = event.uid;
 
   // const databasePromise = clearDatabaseData(uid);
   // const storagePromise = clearStorageData(uid);
   const firestorePromise = clearFirestoreData(uid);
+  const stripePromise = deleteUserStripeAccount(event)
 
-  return Promise.all([firestorePromise])
+  return Promise.all([stripePromise, firestorePromise])
       .then(() => console.log(`Successfully removed data for user #${uid}.`)
   );
 });
@@ -107,6 +124,7 @@ exports.clearData = functions.auth.user().onDelete((event) => {
 const replaceUID = (str:any, uid:any) => {
   return str.replace(/UID_VARIABLE/g, uid);
 }
+
 //
 // Function to delete all user data from the firestore database
 //
