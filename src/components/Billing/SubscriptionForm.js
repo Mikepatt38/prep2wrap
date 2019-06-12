@@ -83,12 +83,16 @@ class SubscriptionForm extends Component {
           stripeSourceId: source.source.id
         }
         // We send this info to the server to create with Stripe
-        let response = await fetch("http://localhost:9000/create-user-subscription", {
+        let response = await fetch("/create-user-subscription", {
           method: "POST",
-          headers: {"Content-Type": "application/json"},
+          headers: {
+            "Content-Type": "application/json",
+            'Accept': 'application/json',
+          },
           // dataType: "json",
           body: JSON.stringify(postBody)
         }) 
+        console.log(response)
         // Getting the Customer ID back from the server
         let jsonResponse = await response.json()
         let responseObj = await JSON.stringify(jsonResponse)

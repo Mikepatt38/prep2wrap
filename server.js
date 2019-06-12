@@ -32,7 +32,7 @@ const corsOptions = {
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
-app.use(cors(corsOptions))
+// app.use(cors(corsOptions))
 
 app.use(express.static(path.join(__dirname, 'build')))
 
@@ -40,8 +40,9 @@ app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'))
 })
 
-app.use(bodyParser.json()) 
-app.post("/create-user-subscription", async (req, res) => {
+
+// app.use(bodyParser.json()) 
+app.post("/create-user-subscription", bodyParser.json({type: "application/json" }), async (req, res) => {
   try{
     // We want to create the customer with stripe
     const customer = await stripe.customers.create({
@@ -67,6 +68,52 @@ app.post("/create-user-subscription", async (req, res) => {
     console.log('Error: ' + err.message)
     res.status(500).end()    
   }
+});
+
+// Stripe Webhook for when users delete their account -- send an email to owner and user
+app.post('/user-subscription-deleted', bodyParser.raw({type: 'application/json'}), (request, res) => {
+  // Stripe endpoint secret
+  const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET
+
+  const sig = request.headers['stripe-signature'];
+  let event;
+
+  // Check to make sure the request came from Stripe and not another source
+  // If succeeds, put the event into the event variable
+  try {
+    event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+  }
+  // If it fails, simply return an error
+  catch (err) {
+    response.status(400).send(`Webhook Error: ${err.message}`);
+  }
+
+  console.log(event.type)
+
+  // Handle the event based on the type. 
+  // Use a switch statement to minimize the endpoints needed from stripe to one
+  // Handle the request based on the event 
+  switch (event.type) {
+    case 'customer.subscription.deleted':
+      console.log('The user just deleted themselves')
+      break;
+    case 'payment_method.attached':
+      const paymentMethod = event.data.object;
+      handlePaymentMethodAttached(paymentMethod);
+      break;
+    // ... handle other event types
+    default:
+      // Unexpected event type
+      return response.status(400).end();
+  }
+
+  // // Retrieve the request's body and parse it as JSON
+  // const eventJson = JSON.parse(request.body);
+
+  // /* Do something with eventJson */
+
+  // Return a response to acknowledge receipt of the event
+  res.sendStatus(200);
 });
 
 app.post('/sendsms', bodyParser.json(), (req, res) => {
