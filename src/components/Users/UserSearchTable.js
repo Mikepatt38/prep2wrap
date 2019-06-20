@@ -57,6 +57,7 @@ class UserSearchTable extends Component {
     this.props.usersSearch(searchName, positionsSelected, locationsSelected, jobTypesSelected)
   }
   
+  
   tableFilter() {
     return (
       <div className="search-filter">
