@@ -2,7 +2,6 @@ import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
 import { updateUserAvailability, removeAvailabilityDate, setAvailabilityDate, getCurrentAvailability } from '../actions/availability'
-import { setModal, closeModal } from '../actions/components'
 import Availability from '../pages/Availability'
 import withAuthorization from './withAuthorization'
 
@@ -20,8 +19,6 @@ const actions = {
   updateUserAvailability,
   setAvailabilityDate,
   removeAvailabilityDate,
-  setModal,
-  closeModal
 }
 
 const mapDispatchToProps = (dispatch) => {

@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
-import { closeModal } from '../actions/components'
 import { setJobsModal } from '../actions/jobs'
 import withAuthorization from './withAuthorization'
 import JobsModal from '../components/Jobs/JobsModal'
@@ -16,7 +15,6 @@ const mapStateToProps = (state) => {
 
 const actions = {
   setJobsModal,
-  closeModal,
 }
 
 const mapDispatchToProps = (dispatch) => {

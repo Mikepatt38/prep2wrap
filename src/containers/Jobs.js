@@ -39,7 +39,6 @@ const mapStateToProps = (state) => {
 const actions = {
   createJob,
   getUserJobs,
-  setModal,
   setUserModal,
   userResultsForJobCreation,
   createUserJobNotification,
