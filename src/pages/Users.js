@@ -13,13 +13,23 @@ class UsersPage extends Component {
     this.setState({ modalActive: true })
   }
 
+  toggleModal = () => {
+    this.setState({
+      modalActive: !this.state.modalActive
+    })
+  }
+
   render() {
     return (
       <div className="app-page">
       <Modal
         active={this.state.modalActive}
         title="Search Users"
-        children={<UserSearch />}
+        children={
+          <UserSearch
+            close={this.toggleModal}
+          />
+        }
       />
 
         <div className="app-page-header">

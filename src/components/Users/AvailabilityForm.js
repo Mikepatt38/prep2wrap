@@ -38,12 +38,12 @@ export class AvailabilityForm extends Component {
     e.preventDefault()
     this.props.updateUserAvailability(this.props.currentUser.id.toString(), this.props.currentAvailability, dateFns.format(this.state.currentSelectedDate, 'MM/DD/YYYY'), this.state.reason, "Requested")
     this.clearForm()
-    this.props.closeModal(false)
+    this.props.close()
   }
 
   handleCancel(e){
     e.preventDefault()
-    this.props.closeModal(false)
+    this.props.close()
   }
 
 

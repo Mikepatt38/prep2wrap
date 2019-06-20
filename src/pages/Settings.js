@@ -43,8 +43,6 @@ const AccountSettings = ({ currentUser, setUserProfile, setName, setEmail, setMo
             <div className="card-body">
               <DeleteUserAccountForm
                 deleteUserAccount={deleteUserAccount}
-                setModal={setModal}
-                closeModal={closeModal}
                 history={history}
               />
             </div>

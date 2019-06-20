@@ -107,12 +107,20 @@ class UserSearchTable extends Component {
             isClearable={false}
           />
         </div>
-        <button 
-          className="button-primary"
-          onClick={(e) => this.handleUpdateSearch(e)}
-        >
-          <img src={GlassIcon} alt="Search Button Icon" />
-        </button>
+        <React.Fragment>
+          <button 
+            className="button-primary"
+            onClick={(e) => this.handleUpdateSearch(e)}
+          >
+            <img src={GlassIcon} alt="Search Button Icon" />
+          </button>
+          <button 
+            className="button-primary"
+            onClick={() => this.props.close()}
+          >
+            cancel
+          </button>
+        </React.Fragment>
       </div>
     )
   }

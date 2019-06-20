@@ -1,26 +1,38 @@
 import React, { Component } from 'react'
 import { FormTextInput } from '../Forms/FormTextInput'
 import { FormButton } from '../Forms/FormButton'
+import Modal from '../General/Modal'
 
 class DeleteUserAccountForm extends Component {
 
-  handleDelete(e){
-    e.preventDefault()
-    this.props.setModal(true, "Delete your account.", 
-      <DeleteUserAccountModal 
-        deleteUserAccount={this.props.deleteUserAccount}
-        history={this.props.history}
-        closeModal={this.props.closeModal}
-      />   
-    )
+  state = {
+    modalActive: false
   }
+  
+  toggleModal = () => {
+    this.setState({
+      modalActive: !this.state.modalActive
+    })
+  }
+
   render() {
     return (
       <React.Fragment>
+        <Modal
+          active={this.state.modalActive}
+          title="Delete your account"
+          children={
+            <DeleteUserAccountModal 
+              deleteUserAccount={this.props.deleteUserAccount}
+              history={this.props.history}
+              close={this.toggleModal}
+            /> 
+          }
+        />
         <p>Looking to delete your account? This will delete all information associated with your account.</p>
         <button 
           className="button button-danger"
-          onClick={(e) => this.handleDelete(e)}
+          onClick={() => this.setState({ modalActive: true }) }
         >Delete Account</button>
       </React.Fragment>
     )
@@ -43,7 +55,7 @@ export class DeleteUserAccountModal extends Component {
   handleCancel = (e) => {
     e.preventDefault()
     this.setState({ password: '' })
-    this.props.closeModal(false)
+    this.props.close()
   }
 
   handleDeleteUserAccount = async (e) => {

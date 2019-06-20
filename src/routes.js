@@ -5,14 +5,10 @@ import { ProtectedRoute } from './components/Auth/ProtectedRoute'
 import Dashboard from './containers/Dashboard'
 import AccountSettings from './containers/AccountSettings'
 import UserAuth from './containers/UserAuth'
-import UsersPage from './containers/Users'
+import UsersPage from './pages/Users'
 import Availability from './containers/Availability'
 import { JobsPage, CreateJobFormStep1, CreateJobFormStep2, CreateJobFormStep3, SendJobInvites } from './containers/Jobs'
-// import JobOverview from './containers/JobOverview'
 import { NotFound } from './pages/NotFound'
-
-import Landing from './pages/Landing'
-// import Dashboard from './pages/Dashboard'
 
 export const Routes = () => {
   return (
@@ -34,6 +30,3 @@ export const Routes = () => {
     </Switch>
   )
 }
-
-// <Route exact path='/' component={Landing} />
-// <ProtectedRoute exact path='/job-overview/:userID/:jobID' component={JobOverview} />

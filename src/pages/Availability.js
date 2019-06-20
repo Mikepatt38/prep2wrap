@@ -3,10 +3,12 @@ import moment from 'moment'
 import { AvailabilityForm } from '../components/Users/AvailabilityForm'
 import Calendar from '../components/Users/Calendar'
 import { UserAvailabilityTable } from '../components/Users/UserAvailabilityTable'
+import Modal from '../components/General/Modal'
 
 class Availability extends Component {
   state = {
-    loading: true
+    loading: true,
+    modalActive: false
   }
 
   async componentDidMount(){
@@ -17,27 +19,33 @@ class Availability extends Component {
     })
   }
 
-  updateAvailability = (e) => {
-    e.preventDefault()
-    this.props.setModal(true, "Set Availability Date", 
-      <AvailabilityForm 
-        currentUser={this.props.currentUser} 
-        currentAvailability={this.state.userAvailability}
-        selectedDate={moment()}
-        updateUserAvailability={this.props.updateUserAvailability} 
-        closeModal={this.props.closeModal}
-      />   
-    )
+  toggleModal = () => {
+    this.setState({
+      modalActive: !this.state.modalActive
+    })
   }
 
   render() {
     const { currentUser } = this.props
     return (
       <div className="app-page">
+        <Modal
+          active={this.state.modalActive}
+          title="Set Availability Date"
+          children={      
+            <AvailabilityForm 
+              currentUser={this.props.currentUser} 
+              currentAvailability={this.state.userAvailability}
+              selectedDate={moment()}
+              updateUserAvailability={this.props.updateUserAvailability} 
+              close={this.toggleModal}
+            /> 
+          }
+        />
 
         <div className="app-page-header">
           <h1>Availability</h1>
-          <button className="button-primary button-header" onClick={(e) => this.updateAvailability(e)}>Update Availability</button>
+          <button className="button-primary button-header" onClick={(e) => this.setState({modalActive: true})}>Update Availability</button>
         </div>
 
         <div className="app-page-body">

@@ -38,6 +38,7 @@ export class UserSearch extends Component {
           users={userData}
           setUserModal={this.props.setUserModal}
           usersSearch={this.props.usersSearch}
+          close={this.props.close}
         />
       </div>
     )
