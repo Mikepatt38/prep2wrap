@@ -35,9 +35,6 @@ const RenderRoute = ({ currentUser }) => (
         <div className="app-container-main">
           <GlobalAlert active={currentUser.profileInformation ? false : true} />
           <Alert />
-          <Modal />
-          <UserProfileModal />
-          <JobsModal />
           <div className="app-container-main-body">
             <Routes />
           </div>

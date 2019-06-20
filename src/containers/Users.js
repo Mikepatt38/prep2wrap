@@ -8,6 +8,7 @@ import withAuthorization from './withAuthorization'
 const mapStateToProps = (state) => {
   return {
     currentUser: state.accountState.currentUser,
+    modalActive: state.sessionState.modalActive
   }
 }
 

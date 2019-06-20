@@ -270,9 +270,8 @@ export const usersSearch = (userName, positions, locations, jobTypes) => async d
   const matches = []
   const usersRef = database.collection("users")
 
-  console.log(locations)
-
   // if a user decides to search by the user's name
+  // =========== TODO check for last name comparison as well ========== //
   if(userName){
     const firstName = userName.charAt(0).toUpperCase() + userName.split(" ")[0].slice(1)
     const lastName = userName.split(" ")[1] ? userName.split(" ")[1].charAt(0).toUpperCase() + userName.split(" ")[1].slice(1) : ''
@@ -296,74 +295,10 @@ export const usersSearch = (userName, positions, locations, jobTypes) => async d
       if(isPositionMatch && isJobTypeMatch) matches.push(user.data())
     })
   }
-    dispatch({
-      type: 'SEARCH_USER_BY_NAME_RESULTS',
-      payload: matches
-    })
-
-  // userData.map( user => {
-  //   isPositionMatch = user.data().profileInformation.positions.map(position => {
-  //     let isPositionMatch = false
-  //     positions.map(el => {
-  //       if(el.value === position.value){
-  //         isPositionMatch = true
-  //       }
-  //     })
-  //   })
-  //   return isPositionMatch
-  // })
-
-
-
-
-
-
-  // let allUsers = database.collection("users").get()
-
-  // allUsers
-  //   .then( results => {
-  //     for( let user of results.docs) {
-  //       nameMatch = false 
-  //       positionMatch = false
-  //       locationMatch = false 
-  //       jobTypeMatch = false
-  //       if(userName.toLowerCase().includes(user.data().firstName.toLowerCase()) ||
-  //         userName.toLowerCase().includes(user.data().lastName.toLowerCase())) {
-  //           nameMatch = true
-  //       }
-  //       if(user.data().profileInformation.positions &&  user.data().profileInformation.location && user.data().profileInformation.jobTypes){
-  //         for( let position of user.data().profileInformation.positions ){
-  //           if(positions.some(el => el.value === position.value)){
-  //             positionMatch = true
-  //           }
-  //         }  
-  //         for( let location of user.data().profileInformation.location ){
-  //           if(locations.some(el => el.value === location.value)){
-  //             locationMatch = true
-  //           }
-  //         }
-  //         for( let jobType of user.data().profileInformation.jobTypes ){
-  //           if(jobTypes.some(el => el.value === jobType.value)){
-
-  //             jobTypeMatch = true
-  //           }
-  //         }
-  //       }
-  //       if (positions.length === 0) positionMatch = true
-  //       if (locations.length === 0) locationMatch = true
-  //       if (userName.length === 0) nameMatch = true
-  //       if (jobTypes.length === 0) jobTypeMatch = true
-  //       if(nameMatch && positionMatch && locationMatch && jobTypeMatch){
-  //         tempArr.push(user.data())
-  //       }
-  //     }
-  //   })
-  // .then( () => {
-  //   dispatch({
-  //     type: 'SEARCH_USER_BY_NAME_RESULTS',
-  //     payload: tempArr
-  //   })
-  // })
+  dispatch({
+    type: 'SEARCH_USER_BY_NAME_RESULTS',
+    payload: matches
+  })
 }
 
 export const searchUsersByName = (firstName, lastName) => async dispatch => {
