@@ -270,6 +270,8 @@ export const usersSearch = (userName, positions, locations, jobTypes) => async d
   const matches = []
   const usersRef = database.collection("users")
 
+  console.log(locations)
+
   // if a user decides to search by the user's name
   if(userName){
     const firstName = userName.charAt(0).toUpperCase() + userName.split(" ")[0].slice(1)
@@ -282,6 +284,16 @@ export const usersSearch = (userName, positions, locations, jobTypes) => async d
       const isPositionMatch = checkUserPositionMatch(user.data().profileInformation.positions, positions)
       const isJobTypeMatch = checkUserJobTypesMatch(user.data().profileInformation.jobTypes, jobTypes)
       if(isLocationMatch && isPositionMatch && isJobTypeMatch) matches.push(user.data())
+    })
+  }
+
+  else if(locations.length){
+    let locationSearchRef = await usersRef.where("profileInformation.location", "array-contains", {label: locations[0].label, value: locations[0].value}).get()
+    let userData = await locationSearchRef.docs
+    userData.map( user => {
+      const isPositionMatch = checkUserPositionMatch(user.data().profileInformation.positions, positions)
+      const isJobTypeMatch = checkUserJobTypesMatch(user.data().profileInformation.jobTypes, jobTypes)
+      if(isPositionMatch && isJobTypeMatch) matches.push(user.data())
     })
   }
     dispatch({
