@@ -24,6 +24,8 @@ import { join, dirname } from 'path';
 
 import * as sharp from 'sharp';
 import * as fs from 'fs-extra';
+const nodemailer = require('nodemailer');
+const cors = require('cors');
 
 // ============ Resize a user's image when they upload an avatar to only save smaller images =========== //
 
@@ -113,7 +115,9 @@ exports.clearData = functions.auth.user().onDelete(async (event) => {
   const stripePromise = deleteUserStripeAccount(event)
 
   return Promise.all([stripePromise, firestorePromise])
-      .then(() => console.log(`Successfully removed data for user #${uid}.`)
+      .then(() => {
+        console.log(`Successfully removed data for user #${uid}.`)
+      }
   );
 });
 
@@ -156,3 +160,44 @@ export const clearFirestoreData = (uid:any) => {
 
   return Promise.all(promises).then(() => uid);
 };
+
+
+// ========== Use a GMAIL account to send emails for updates on user accounts ========== //
+
+// TODO: 
+// Switch mailer over to sendgrid because google requires you to change security
+// settings and stakeholders are not too thrilled about the aspect of doing that
+//
+let transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+      user: 'mjpatt381@gmail.com',
+      pass: 'aTt732MA16'
+  }
+});
+
+exports.sendMail = functions.https.onRequest((req, res) => {
+// export const sendMail = (emailData:any) => { 
+  console.log('Starting outreach')
+  cors(req, res, () => {
+      console.log('passed cors')
+      // getting dest email by query string
+      const dest = req.body;
+      console.log(req.body)
+      const mailOptions = {
+          from: 'Crew It Up Admin <mjpatt381@gmail.com>', // Something like: Jane Doe <janedoe@gmail.com>
+          to: dest,
+          subject: 'Test Email Submission', // email subject
+          html: `<p>This is a test email. We will need to provide a template.</p>` 
+      };
+      console.log(mailOptions)
+
+      // returning result
+      return transporter.sendMail(mailOptions, (err:any, info:any) => {
+          if(err){
+              return res.send(err.toString());
+          }
+          return res.send('Sent');
+      });
+  });    
+});

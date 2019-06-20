@@ -51,6 +51,7 @@ app.post("/create-user-subscription", bodyParser.json({type: "application/json" 
       source: req.body.stripeSourceId
     })
 
+    
     // We want to create the subscription from the customer to the product
     // *********** This is the test subscription plan -- replace with live when goes live ************
     // We need to create a trial period of 14 days and then see if we want a 
@@ -89,7 +90,6 @@ app.post('/user-subscription-deleted', bodyParser.raw({type: 'application/json'}
   }
 
   console.log(event.type)
-
   // Handle the event based on the type. 
   // Use a switch statement to minimize the endpoints needed from stripe to one
   // Handle the request based on the event 
