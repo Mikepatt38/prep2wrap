@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import {Table} from '../General/Table'
+import { Table } from '../General/Table'
+import UserProfileModal from '../Users/UserProfileModal'
 import Avatar from '../../img/avatar-placeholder-min.png'
 import LinkIcon from '../../img/icon-profile.svg'
 import TrashIcon from '../../img/icon-trash.svg'
@@ -14,7 +15,9 @@ class JobResultsTable extends Component {
     allUsers: this.props.results,
     searchByNameTerm: '',
     data: [],
-    columns: []
+    columns: [],
+    modalActive: false,
+    user: {}
   }
 
   componentDidMount(){
@@ -83,12 +86,18 @@ class JobResultsTable extends Component {
         id: 'Profile', // Required because our accessor is not a string
         Header: '',
         className: 'cell-end',
-        Cell: props => <span className="view-profile" onClick={() => {this.props.setUserModal(true, props.original)}}><img src={LinkIcon} alt="Table Link Icon" />User Profile</span>
+        Cell: props => <span className="view-profile" onClick={() => {this.handleUserSelected(props.original)}}><img src={LinkIcon} alt="Table Link Icon" />User Profile</span>
       },
     ]
     this.setState({
       data: this.props.results,
       columns: columns
+    })
+  }
+
+  toggleModal = () => {
+    this.setState({
+      modalActive: !this.state.modalActive
     })
   }
 
@@ -201,6 +210,13 @@ class JobResultsTable extends Component {
     })
   }
 
+  handleUserSelected = (user) => {
+    this.setState({
+      user: user,
+      modalActive: true
+    })
+  }
+
   tableFilter = () => {
     return (
       <div className="table-filter">
@@ -237,6 +253,11 @@ class JobResultsTable extends Component {
     return (
       <React.Fragment>
 
+        <UserProfileModal
+          active={this.state.modalActive}
+          user={this.state.user}
+          close={this.toggleModal}
+        />
         <div className="app-page-section app-page-section--spacing">
           <p>These are the positions you are still needing to send an invite for.</p>
           <ul className="unassigned-jobs">

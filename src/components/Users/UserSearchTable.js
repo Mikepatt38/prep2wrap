@@ -19,7 +19,48 @@ class UserSearchTable extends Component {
     searchName: '',
     positionsSelected: [],
     locationsSelected: [],
-    jobTypesSelected: []
+    jobTypesSelected: [],
+    modalActive: false,
+    user: {}
+  }
+
+  toggleModal = () => {
+    this.setState({
+      modalActive: !this.state.modalActive
+    })
+  }
+
+  toggleRowActions(index){
+    // store which row was selected
+    const el = document.getElementById('row-user-0')
+    const elAction = document.getElementById('action-user-0')
+    // if there are rows that are active, lets find them
+    const els = document.getElementsByClassName('row-actions-active')
+    const elsAction = document.getElementsByClassName('action-hidden')
+    console.log(els)
+    // we need to remove this class if it is out there
+    if(els[0] && els[0].id === `row-user-${index}`){
+      els[0].classList.remove('row-actions-active')
+      elsAction[0].classList.remove('action-hidden')
+    }
+    else if(els[0]){
+      els[0].classList.remove('row-actions-active')
+      elsAction[0].classList.remove('action-hidden')
+      el.classList.add('row-actions-active')
+      elAction.classList.add('action-hidden')
+    }
+    //if there aren't any active, lets add the class
+    else {
+      el.classList.add('row-actions-active')
+      elAction.classList.add('action-hidden')
+    }
+  }
+
+  handleUserSelected = (user) => {
+    this.setState({
+      user: user,
+      modalActive: true
+    })
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -144,21 +185,39 @@ class UserSearchTable extends Component {
       {
         id: 'Location', 
         Header: 'Main Location',
-        // headerClassName: 'cell-medium',
         Cell: props => <span>{props.original.profileInformation.location[0].value}</span>,
-        // className: 'cell-medium'
       }, 
       {
         id: 'Profile',
         Header: 'Action',
         headerClassName: 'cell-small',
         className: 'cell-small',
-        Cell: props => <span className="action" onClick={() => {this.props.setUserModal(true, props.original)}}><img src={ActionIcon} alt="Take Action Icon" /></span>
+        Cell: props => {
+          return (     
+            <div className="action-container">
+              <div 
+                className="action" 
+                onClick={() => this.toggleRowActions(0)} 
+                id="action-user-0"
+              >
+                  <img src={ActionIcon} alt="Table Icon for Actions" />
+              </div>
+              <ul className="table-action-list" id="row-user-0">
+                <li className="table-action-list-item" onClick={() => this.handleUserSelected(props.original)}>View Profile</li>
+              </ul>
+            </div>
+          )
+        }
       },
     ]
     
     return (
       <React.Fragment>
+        <UserProfileModal
+          active={this.state.modalActive}
+          user={this.state.user}
+          close={this.toggleModal}
+        />
         {this.tableFilter()}
         <Table
           data={this.state.data}
