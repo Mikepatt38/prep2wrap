@@ -34,12 +34,15 @@ export class UserSearch extends Component {
 
     return (
       <div className="app-page-section">
-        <UserSearchTable 
-          users={userData}
-          setUserModal={this.props.setUserModal}
-          usersSearch={this.props.usersSearch}
-          close={this.props.close}
-        />
+        <div className="card">
+          <div className="card-body">
+            <UserSearchTable 
+              users={userData}
+              setUserModal={this.props.setUserModal}
+              usersSearch={this.props.usersSearch}
+            />
+          </div>
+        </div>
       </div>
     )
   }

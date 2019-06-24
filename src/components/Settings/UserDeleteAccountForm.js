@@ -67,9 +67,9 @@ export class DeleteUserAccountModal extends Component {
     return (
       <div className="modal">
         <div className="modal-body">
-          <p className="modal-text-warning">To confirm the deletion of your account please provide your password. Once you delete your account all account information and data will be deleted. <b>Your membership to Crew It Up will be canceled.</b></p>
-          <form className="modal-form">
-            <div className="input-group">
+          <div className="modal-component">
+            <p className="modal-text-warning">To confirm the deletion of your account please provide your password. Once you delete your account all account information and data will be deleted. <b>Your membership to Crew It Up will be canceled.</b></p>
+            <form className="modal-form">
               <FormTextInput
                 name="password"
                 label="Password"
@@ -78,20 +78,20 @@ export class DeleteUserAccountModal extends Component {
                 type="password"
                 value={this.state.password}
               />
-              <div className="modal-button-wrapper">
-              <FormButton
-                className="button-transparent"
-                buttonText="Cancel"
-                onClick={(e) => this.handleCancel(e)}
-              />
-              <FormButton
-                className="button-danger"
-                buttonText="Delete My Account"
-                onClick={(e) => this.handleDeleteUserAccount(e)}
-              />
-            </div>
-            </div>
-          </form>
+              <div className="button-wrapper">
+                <FormButton
+                  className="button-transparent"
+                  buttonText="Cancel"
+                  onClick={(e) => this.handleCancel(e)}
+                />
+                <FormButton
+                  className="button-danger"
+                  buttonText="Delete My Account"
+                  onClick={(e) => this.handleDeleteUserAccount(e)}
+                />
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     )

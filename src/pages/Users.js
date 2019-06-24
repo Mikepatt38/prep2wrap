@@ -41,7 +41,12 @@ class UsersPage extends Component {
           <div className="app-page-section">
             <p>This is your quick crew, add members you hire or work with frequently to make it easier to communicate with them.</p>
             <UserFavorites />
-          </div>    
+          </div> 
+          
+          <div className="app-page-section">
+            <p>Search for users to grow and build your network or add a user to your quick crew.</p>
+            <UserSearch />
+          </div> 
         </div>
     
       </div>  

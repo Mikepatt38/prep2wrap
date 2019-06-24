@@ -41,7 +41,6 @@ class UserSearchTable extends Component {
   validateUserSearch(){
     let validated = true
     const { searchName, locationsSelected } = this.state
-
     if(!searchName.length && !locationsSelected.length) {
       validated = false
     }
@@ -186,12 +185,6 @@ class UserSearchTable extends Component {
           />
         </div>
         <div className="button-wrapper">
-          <button 
-            className="button-light"
-            onClick={() => this.props.close()}
-          >
-            cancel
-          </button>
           <button 
             className="button-primary"
             onClick={(e) => this.handleUpdateSearch(e)}
