@@ -40,81 +40,92 @@ form
     justify-content: flex-end
     width: 100%
 
-  .form-group
-    width: 100%
+  .button-wrapper
     position: relative
+    width: 100%
     display: flex
-    flex-direction: column
-    margin-bottom: 20px
+    justify-content: flex-end
+    margin-top: 25px
 
-    &.form-group--half
-      width: 48.5%
-
-    label
-      font-weight: 700
-      font-size: 11px
-      margin-bottom: 3px
-      display: block
-      white-space: nowrap
-      color: $color__black
-      font-size: 12px
-      text-transform: none
-      letter-spacing: 0
-      opacity: 0.8
-
-    input, form .form-group .css-1aya2g8, form .form-group .css-2o5izw, textarea
-      font-size: 14px
-      line-height: 1.2
-      font-weight: 400
-      color: #16374b
+    button:first-child
       position: relative
-      outline: 0
-      border-radius: 2px
-      border: 1px solid #c9ced1
-      box-shadow: none
-      width: 100%
-      box-sizing: border-box
-      background: white
-      padding: 0
-      text-indent: 12px
-      height: 40px 
-      margin: 0 
-      
-      &:focus, &:active, &:focus-within, .css-2o5izw, .css-bl6clz
-        outline: none
-        border: 1px solid $color__blue
+      margin-right: 25px
 
-    textarea
-      resize: none
-      padding-top: 5px
 
-    form .form-group .css-1aya2g8
-      height: 40px !important
 
-    p.error-msg
-      display: none
+.form-group
+  width: 100%
+  position: relative
+  display: flex
+  flex-direction: column
+  margin-bottom: 20px
 
-    &.field-error > label
-      color: $color__errorRed
+  &.form-group--half
+    width: 48.5%
 
-    &.field-error > input, &.field-error > textarea  
-      border-color: $color__errorRed
+  label
+    font-weight: 500
+    margin-bottom: 3px
+    display: block
+    white-space: nowrap
+    color: #3d4852
+    font-size: 14px
+    text-transform: none
+    letter-spacing: 0
 
-    &.field-error > .react-datepicker
-      border: 1px solid #ea3267
+  input, form .form-group .css-1aya2g8, form .form-group .css-2o5izw, textarea
+    font-size: 14px
+    line-height: 1.2
+    font-weight: 400
+    color: #16374b
+    position: relative
+    outline: 0
+    border-radius: 2px
+    border: 1px solid #c9ced1
+    box-shadow: none
+    width: 100%
+    box-sizing: border-box
+    background: white
+    padding: 0
+    text-indent: 12px
+    height: 40px 
+    margin: 0 
     
-    &.field-error > p.error-msg
-      display: block
-      color: $color__errorRed
-      padding-top: 4px
-      font-size: 12px
-      line-height: 1
+    &:focus, &:active, &:focus-within, .css-2o5izw, .css-bl6clz
+      outline: none
+      border: 1px solid $color__blue
 
-    p.form-input-text
-      display: block
-      padding-top: 4px
-      font-size: 12px
-      line-height: 1    
+  textarea
+    resize: none
+    padding-top: 5px
+
+  form .form-group .css-1aya2g8
+    height: 40px !important
+
+  p.error-msg
+    display: none
+
+  &.field-error > label
+    color: $color__errorRed
+
+  &.field-error > input, &.field-error > textarea  
+    border-color: $color__errorRed
+
+  &.field-error > .react-datepicker
+    border: 1px solid #ea3267
+  
+  &.field-error > p.error-msg
+    display: block
+    color: $color__errorRed
+    padding-top: 4px
+    font-size: 12px
+    line-height: 1
+
+  p.form-input-text
+    display: block
+    padding-top: 4px
+    font-size: 12px
+    line-height: 1    
 
 
 /* ===============

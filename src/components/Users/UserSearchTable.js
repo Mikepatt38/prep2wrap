@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
 import { Table } from '../General/Table'
+import Modal from '../General/Modal'
 import UserProfileModal from './UserProfileModal'
 import Avatar from '../../img/avatar-placeholder-min.png'
 import { FormTextInput } from '../Forms/FormTextInput'
 import FormSelectInput from '../Forms/FormSelectInput'
-import { FormButton } from '../Forms/FormButton'
-import DownArrowIcon from '../../img/icon-down-arrow.svg'
 import { locationObj, skillsObj, positionsObj, jobTypesObj } from '../../data/formOptions'
 import GlassIcon from '../../img/icon-searchglass.svg'
-import LinkIcon from '../../img/icon-profile.svg'
 import ActionIcon from '../../img/icon-action.svg'
+import WarningIcon from '../../img/icon-warning.svg'
 
 class UserSearchTable extends Component {
   state = {
@@ -21,12 +20,20 @@ class UserSearchTable extends Component {
     locationsSelected: [],
     jobTypesSelected: [],
     modalActive: false,
-    user: {}
+    resultsModalActive: false,
+    user: {},
+    searchActive: true
   }
 
   toggleModal = () => {
     this.setState({
       modalActive: !this.state.modalActive
+    })
+  }
+
+  toggleResultsModal = () => {
+    this.setState({
+      resultsModalActive: !this.state.resultsModalActive
     })
   }
 
@@ -67,7 +74,8 @@ class UserSearchTable extends Component {
     if (prevProps.users !== this.props.users) {
       this.setState({
         data: this.props.users,
-        loading: false
+        loading: false,
+        resultsModalActive: true
       })
     }
   }
@@ -93,6 +101,7 @@ class UserSearchTable extends Component {
     e.preventDefault()
     this.setState({
       loading: true,
+      searchActive: false
     })
     const { searchName, positionsSelected, locationsSelected, jobTypesSelected } = this.state
     this.props.usersSearch(searchName, positionsSelected, locationsSelected, jobTypesSelected)
@@ -101,10 +110,10 @@ class UserSearchTable extends Component {
   
   tableFilter() {
     return (
-      <div className="search-filter">
+      <form className="search-filter">
         <div className="search-filter-item">
           <FormTextInput 
-            // label="Enter User Name"
+            label="Crew Member's Name:"
             name="searchName"
             type="text"
             onChange={this.handleSearchName}
@@ -114,7 +123,23 @@ class UserSearchTable extends Component {
         </div>
         <div className="search-filter-item">
           <FormSelectInput
-            // label="Select Positions"
+            label="Select Location(s):"
+            name="locationsSelected"
+            options={locationObj}
+            currentSkills={this.state.locationsSelected}
+            placeholder="Select Locations"
+            isMultiSelect={true}
+            onSelect={this.handleSelect}
+            isClearable={false}
+          />
+        </div>
+        <div className="search-filter-item">
+          <hr />
+          <p>To get more specific, filter your above choices by position or job types the crew member qualifies for.</p>
+        </div>
+        <div className="search-filter-item">
+          <FormSelectInput
+            label="Select Positions"
             name="positionsSelected"
             options={positionsObj}
             currentSkills={this.state.positionsSelected}
@@ -126,19 +151,7 @@ class UserSearchTable extends Component {
         </div>
         <div className="search-filter-item">
           <FormSelectInput
-            // label="Select Locations"
-            name="locationsSelected"
-            options={locationObj}
-            currentSkills={this.state.locationsSelected}
-            placeholder="Select Locations"
-            isMultiSelect={true}
-            onSelect={this.handleSelect}
-            isClearable={false}
-          />
-        </div>
-        <div className="search-filter-item">
-          <FormSelectInput
-            // label="Select Job Types"
+            label="Select Job Types"
             name="jobTypesSelected"
             options={jobTypesObj}
             currentSkills={this.state.jobTypesSelected}
@@ -148,21 +161,22 @@ class UserSearchTable extends Component {
             isClearable={false}
           />
         </div>
-        <React.Fragment>
+        <div className="button-wrapper">
+          <button 
+            className="button-light"
+            onClick={() => this.props.close()}
+          >
+            cancel
+          </button>
           <button 
             className="button-primary"
             onClick={(e) => this.handleUpdateSearch(e)}
           >
             <img src={GlassIcon} alt="Search Button Icon" />
+            Search Crew
           </button>
-          <button 
-            className="button-primary"
-            onClick={() => this.props.close()}
-          >
-            cancel
-          </button>
-        </React.Fragment>
-      </div>
+        </div>
+      </form>
     )
   }
 
@@ -213,17 +227,34 @@ class UserSearchTable extends Component {
     
     return (
       <React.Fragment>
-        <UserProfileModal
-          active={this.state.modalActive}
-          user={this.state.user}
-          close={this.toggleModal}
+        <Modal
+          active={this.state.resultsModalActive}
+          title="User Search Results"
+          children={  
+            <div className="modal-component">
+              <a onClick={() => this.setState({ resultsModalActive: false})}>Return to search form.</a>
+              {
+                this.state.data.length > 0 ?
+                <Table
+                  data={this.state.data}
+                  columns={columns}
+                  loading={this.state.loading}
+                  close={this.toggleResultsModal}
+                />
+                : <p className="modal-message-warning"><span><img src={WarningIcon} alt="Warning message icon" /></span>There weren't any crew members matching your search.</p>
+              }
+            </div>    
+          }
         />
-        {this.tableFilter()}
-        <Table
-          data={this.state.data}
-          columns={columns}
-          loading={this.state.loading}
-        />
+        <div className="modal-component">
+          <p>Create a crew member search by either entering a name and/or selecting a location(s).</p>
+          <UserProfileModal
+            active={this.state.modalActive}
+            user={this.state.user}
+            close={this.toggleModal}
+          />
+          {this.tableFilter()}
+        </div>
       </React.Fragment>
     )
   }

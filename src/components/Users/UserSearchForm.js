@@ -53,7 +53,7 @@ export class UserSearchForm extends Component {
     return (
       <form
         method="form"
-        className="card-form"
+        className="modal-form"
       >
         <FormTextInput 
           label="First Name"
