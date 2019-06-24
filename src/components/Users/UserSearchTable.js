@@ -22,7 +22,8 @@ class UserSearchTable extends Component {
     modalActive: false,
     resultsModalActive: false,
     user: {},
-    searchActive: true
+    searchActive: true,
+    formError: false
   }
 
   toggleModal = () => {
@@ -35,6 +36,16 @@ class UserSearchTable extends Component {
     this.setState({
       resultsModalActive: !this.state.resultsModalActive
     })
+  }
+
+  validateUserSearch(){
+    let validated = true
+    const { searchName, locationsSelected } = this.state
+
+    if(!searchName.length && !locationsSelected.length) {
+      validated = false
+    }
+    return validated
   }
 
   toggleRowActions(index){
@@ -82,7 +93,8 @@ class UserSearchTable extends Component {
 
   handleSearchName = (e) => {
     this.setState({
-      searchName: e.target.value
+      searchName: e.target.value,
+      formError: false
     })
   }
 
@@ -94,17 +106,25 @@ class UserSearchTable extends Component {
     })
     this.setState({
       [name]: val,
+      formError: false
     })
   }
 
   handleUpdateSearch = (e) => {
     e.preventDefault()
-    this.setState({
-      loading: true,
-      searchActive: false
-    })
-    const { searchName, positionsSelected, locationsSelected, jobTypesSelected } = this.state
-    this.props.usersSearch(searchName, positionsSelected, locationsSelected, jobTypesSelected)
+    if(this.validateUserSearch()){
+      this.setState({
+        loading: true,
+        searchActive: false
+      })
+      const { searchName, positionsSelected, locationsSelected, jobTypesSelected } = this.state
+      this.props.usersSearch(searchName, positionsSelected, locationsSelected, jobTypesSelected)
+    }
+    else {
+      this.setState({
+        formError: true
+      })
+    }
   }
   
   
@@ -119,6 +139,8 @@ class UserSearchTable extends Component {
             onChange={this.handleSearchName}
             value={this.state.searchName}
             placeholder="Enter the user's name"
+            error={this.state.formError}
+            errorMsg="Please enter a crew member name or select a location"
           />
         </div>
         <div className="search-filter-item">
@@ -131,6 +153,8 @@ class UserSearchTable extends Component {
             isMultiSelect={true}
             onSelect={this.handleSelect}
             isClearable={false}
+            error={this.state.formError}
+            errorMsg="Please enter a crew member name or select a location"
           />
         </div>
         <div className="search-filter-item">
