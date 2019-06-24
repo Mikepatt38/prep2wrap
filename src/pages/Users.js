@@ -34,7 +34,6 @@ class UsersPage extends Component {
 
         <div className="app-page-header">
           <h1>Users Directory</h1>
-          <button className="button-primary button-header" onClick={(e) => this.openSearchUsers(e, this.props)}>Search Users</button>
         </div>
     
         <div className="app-page-body">
@@ -53,6 +52,8 @@ class UsersPage extends Component {
     )
   }
 }
+
+// <button className="button-primary button-header" onClick={(e) => this.openSearchUsers(e, this.props)}>Search Users</button>
 
 export default UsersPage
 
