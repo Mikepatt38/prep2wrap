@@ -50,38 +50,40 @@ export class AvailabilityForm extends Component {
   render() {
     const { currentSelectedDate, reason } = this.state
     return (
-      <form 
-        method="form"
-        className="modal-form"
-      >
-        <FormDatePicker
-          label="Select a date"
-          currentSelectedDate={currentSelectedDate}
-          startDate={currentSelectedDate}
-          selectedDate={currentSelectedDate}
-          className="date-picker-form-group"
-          handleChange={this.handleChange}
-        />
-        <FormTextInput
-          name="reason"
-          label="Reason"
-          onChange={this.onChange}
-          type="text"
-          value={reason}
-        />
-        <div className="modal-button-wrapper">
-          <FormButton
-            className="button-transparent"
-            buttonText="Cancel"
-            onClick={(e) => this.handleCancel(e)}
+      <div className="modal-component">
+        <form 
+          method="form"
+          className="modal-form"
+        >
+          <FormDatePicker
+            label="Select a date"
+            currentSelectedDate={currentSelectedDate}
+            startDate={currentSelectedDate}
+            selectedDate={currentSelectedDate}
+            className="date-picker-form-group"
+            handleChange={this.handleChange}
           />
-          <FormButton
-            className="button-primary"
-            buttonText="Block Out Date"
-            onClick={(e) => this.handleClick(e)}
+          <FormTextInput
+            name="reason"
+            label="Reason"
+            onChange={this.onChange}
+            type="text"
+            value={reason}
           />
-        </div>
-      </form>
+          <div className="button-wrapper">
+            <FormButton
+              className="button-transparent"
+              buttonText="Cancel"
+              onClick={(e) => this.handleCancel(e)}
+            />
+            <FormButton
+              className="button-primary"
+              buttonText="Block Out Date"
+              onClick={(e) => this.handleClick(e)}
+            />
+          </div>
+        </form>
+      </div>
     )
   }
 }

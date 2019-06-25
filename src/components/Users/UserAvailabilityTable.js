@@ -11,9 +11,7 @@ export class UserAvailabilityTable extends Component {
       // Sort the dates from most recent to latest
       // sort and reverse both manipulate the original array
       // so no need to create a new var
-      this.props.dates.sort(function(a,b){
-        return new Date(b.date) - new Date(a.date);
-      }).reverse(),
+      this.formatDatesArr(this.props.dates),
     loading: this.props.dates ? false : true,
     dateTypeKey: 0
   }
@@ -25,6 +23,21 @@ export class UserAvailabilityTable extends Component {
         loading: false
       })
     }
+  }
+
+  formatDatesArr(dates){
+    // lets sort the dates in order from newest to oldest
+    dates.sort((a,b) => {
+      return new Date(b.date) - new Date(a.date)
+    }).reverse()
+        
+    // loop through the dates and only add one we haven't seen to the new dates arr
+    let uniqueDates = []
+    dates.filter( (item, pos) => {
+      if(!uniqueDates.some( el => el.dateTitle === item.dateTitle)) uniqueDates.push(item)
+    })
+
+    return uniqueDates
   }
 
   elementHasId(element){
@@ -78,7 +91,7 @@ export class UserAvailabilityTable extends Component {
         className: 'cell-small'
       },
       {
-        Header: props => <span>Date <img src={SwapIcon} alt="Change Date Order Icon" /></span>,
+        Header: props => <span>Start Date <img src={SwapIcon} alt="Change Date Order Icon" /></span>,
         headerClassName: 'cell-medium',
         accessor: 'date',
         className: 'cell-medium'
@@ -123,7 +136,6 @@ export class UserAvailabilityTable extends Component {
       data={this.state.availability}
       columns={columns}
       loading={this.state.loading}
-      // className="-striped -highlight"
     />
   }
 }
