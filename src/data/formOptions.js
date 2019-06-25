@@ -1,7 +1,7 @@
 export const skillsObj = [
   { value: 'made to order', label: 'Made To Order' },
   { value: 'Dress BG', label: 'Dress BG' },
-  { value: 'Fit periocc', label: 'Fit periocc' },
+  { value: 'Fit Period', label: 'Fit Period' },
   { value: 'Shop', label: 'Shop' },
   { value: 'Fit', label: 'Fit' },
   { value: 'Returns', label: 'Returns' },

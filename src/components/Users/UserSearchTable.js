@@ -26,6 +26,16 @@ class UserSearchTable extends Component {
     formError: false
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.users !== this.props.users) {
+      this.setState({
+        data: this.props.users,
+        loading: false,
+        resultsModalActive: true
+      })
+    }
+  }
+
   toggleModal = () => {
     this.setState({
       modalActive: !this.state.modalActive
@@ -78,16 +88,6 @@ class UserSearchTable extends Component {
       user: user,
       modalActive: true
     })
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.users !== this.props.users) {
-      this.setState({
-        data: this.props.users,
-        loading: false,
-        resultsModalActive: true
-      })
-    }
   }
 
   handleSearchName = (e) => {
@@ -249,7 +249,6 @@ class UserSearchTable extends Component {
           title="User Search Results"
           children={  
             <div className="modal-component">
-              <a onClick={() => this.setState({ resultsModalActive: false})}>Return to search form.</a>
               {
                 this.state.data.length > 0 ?
                 <Table
@@ -262,6 +261,7 @@ class UserSearchTable extends Component {
               }
             </div>    
           }
+          close={this.toggleResultsModal}
         />
         <div className="modal-component">
           <p>Create a crew member search by either entering a name and/or selecting a location(s).</p>

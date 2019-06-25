@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
+import CloseIcon from '../../img/icon-close.svg'
 
 function Modal(props){
   return (
@@ -11,6 +12,7 @@ function Modal(props){
           <div className="modal">
             <div className="modal-header">
               <h2>{props.title}</h2>
+              <button className="button button-transparent" onClick={() => props.close()}><img src={CloseIcon} alt="Close Modal Icon" /></button>
             </div>
             <div className="modal-body">
               {props.children}

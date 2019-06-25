@@ -41,6 +41,10 @@ div#linktotop
     visibility: visible
     animation: fade .5s ease-in-out
 
+  &.modal-user-profile > .modal
+    max-width: 650px
+
+
   .modal
     position: relative
     display: block
@@ -66,6 +70,7 @@ div#linktotop
       img
         cursor: pointer
         width: 40px
+        height: 40px
 
       h2
         position: relative
@@ -143,3 +148,107 @@ div#linktotop
     margin-right: 6px
 
 
+// =========== User Profile Modal Styles =========== //
+
+.modalBg.modal-user-profile .modal .modal-header
+  display: flex
+  justify-content: space-between
+  grid-template-columns: none
+
+.user
+  position: relative
+
+.user-header
+  position: relative
+  display: flex
+  justify-content: space-between
+  align-items: center
+  width: 100%
+
+  .user-header-action
+    position: relative
+
+    button
+      padding: 0
+
+  .user-header-user
+    position: relative
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    width: 50%
+
+    .user-info
+      position: relative
+      display: flex
+      flex-direction: column
+
+      h2
+        font-size: 24px
+
+      p
+        font-size: 16px
+      a
+        margin: 0
+        padding: 0
+        font-size: 14px
+
+    img
+      position: relative
+      width: 75px
+      border-radius: 50%
+      margin-right: 20px
+
+.user-body
+  position: relative
+
+  .user-body-section
+    position: relative
+
+    h4
+      font-size: 18px
+      font-weight: 600
+
+    .user-body-item
+      position: relative
+      margin-bottom: 20px
+
+      label
+        font-weight: 700
+        margin-bottom: 4px
+        display: block
+        white-space: nowrap
+        color: #2c2c2c
+        opacity: 0.5
+        font-size: 12px
+        text-transform: uppercase
+        letter-spacing: 0.50
+
+      p > span
+        font-size: 14px
+        font-weight: 500
+        color: #3d4852
+        background: #edeeef
+        border-radius: 3px
+        margin-right: 8px
+        margin-bottom: 5px
+        padding: 6px 10px
+
+      .social-pill
+        margin-bottom: 10px
+        padding: 6px 14px
+        color: #3d4852
+        background: #edeeef
+        font-size: 14px
+        font-weight: 500
+        border-radius: 3px
+        margin-right: 10px
+        display: inline-flex
+        align-items: center
+
+        img
+          max-height: 18px
+          height: 100%
+          margin-right: 6px
+
+      
