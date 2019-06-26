@@ -81,10 +81,7 @@ export const updateTimesUserHasBeenFavorited = (userId, userNumberOfTimesFavorit
   })
 }
 
-export const removeUserFromUserFavorites = (currentUserId, userToBeDeleted) => async dispatch => {
-  const currentUserFavorites = await getCurrentFavorites(currentUserId)
-  currentUserFavorites.filter(user => user.id === userToBeDeleted.id)
-  dispatch(updateUserFavorites(currentUserId, currentUserFavorites))
-  console.log(userToBeDeleted)
-  dispatch(updateTimesUserHasBeenFavorited(userToBeDeleted.id, userToBeDeleted.numberOfTimesFavorite, 'remove'))
+export const removeUserFromUserFavorites = (currentUserId, currentUserFavorites, userToBeDeleted) => async dispatch => {
+  let newUserFavorites = currentUserFavorites.filter(user => user.id !== userToBeDeleted.id)
+  dispatch(updateUserFavorites(currentUserId, newUserFavorites))
 }

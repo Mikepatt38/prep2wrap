@@ -1,39 +1,26 @@
 import React, { Component } from 'react'
-import {UserFavoriteCard} from './UserFavoriteCard'
-import { UserFavoritesTable } from './UserFavoritesTable';
+import { UserFavoritesTable } from './UserFavoritesTable'
+import { throwStatement } from '@babel/types';
 
-class UserFavorites extends Component {
-  state = {
-    loading: true
-  }
-  async componentDidMount() {
-    // this.props.getUserFavorites(this.props.currentUser)
-    const userFavorites = await this.props.getCurrentFavorites(this.props.currentUser.id)
-    this.setState({
-      loading: false,
-      favorites: userFavorites
-    })
-  }
-
-  render() {
-    if(this.state.loading) return <p>Loading...</p>
-    return (
-      <React.Fragment>
-        {
-          this.state.loading === false || this.state.favorites > 0 
-          ?
+function UserFavorites(props){
+  return (
+    <React.Fragment>
+      {
+        props.currentUser.favorites.length
+        ?
           <UserFavoritesTable
-            userFavorites={this.state.favorites}
+            currentUser={props.currentUser}
+            getCurrentFavorites={props.getCurrentFavorites}
+            removeUserFromUserFavorites={props.removeUserFromUserFavorites}
           />
-          :
-          <div className="empty-state">
-            <p>You currently do not have any users in your quick crew.</p>
-            <p>To add users, click the button in the top right to search through users and add them as a favorite from the search results table.</p>
-          </div>
-        }
-      </React.Fragment>
-    )
-  }
+        :
+        <div className="empty-state">
+          <p>You currently do not have any users in your quick crew.</p>
+          <p>To add users, use the quick search below to find crew members and add them as a to your quick crew from the search results table.</p>
+        </div>
+      }
+    </React.Fragment>
+  )
 }
 
 export default UserFavorites

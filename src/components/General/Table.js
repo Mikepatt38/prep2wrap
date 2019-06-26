@@ -8,6 +8,7 @@ export class Table extends Component {
     return <ReactTable
       data={this.props.data}
       columns={this.props.columns}
+      loading={this.props.loading}
       defaultPageSize={10}
       minRows={1}
       NoDataComponent={() => null}

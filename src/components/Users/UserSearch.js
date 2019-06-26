@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { UserSearchForm } from './UserSearchForm'
 import UserSearchTable from './UserSearchTable'
 
 export class UserSearch extends Component {
@@ -38,8 +37,10 @@ export class UserSearch extends Component {
           <div className="card-body">
             <UserSearchTable 
               users={userData}
+              currentUser={this.props.currentUser}
               setUserModal={this.props.setUserModal}
               usersSearch={this.props.usersSearch}
+              updateUserFavorites={this.props.updateUserFavorites}
             />
           </div>
         </div>

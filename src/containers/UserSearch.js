@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
 import { usersSearch, clearSearchUserByNameResults } from '../actions/accounts'
+import { updateUserFavorites } from '../actions/favorites'
 import { setUserModal } from '../actions/components'
 import { UserSearch } from '../components/Users/UserSearch'
 import withAuthorization from './withAuthorization'
@@ -17,6 +18,7 @@ const actions = {
   usersSearch,
   setUserModal,
   clearSearchUserByNameResults,
+  updateUserFavorites
 }
 
 const mapDispatchToProps = (dispatch) => {

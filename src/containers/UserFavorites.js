@@ -6,7 +6,8 @@ import { addToUsersFavorites,
          getUserFavorites,
          getCurrentFavorites,
          stopListeningForFavorites,
-         removeUserFromUserFavorites } from '../actions/favorites'
+         removeUserFromUserFavorites,
+         updateUserFavorites } from '../actions/favorites'
 import UserFavorites from '../components/Users/UserFavorites'
 import withAuthorization from './withAuthorization'
 
@@ -24,7 +25,8 @@ const actions = {
   getUserFavorites,
   getCurrentFavorites,
   stopListeningForFavorites,
-  removeUserFromUserFavorites
+  removeUserFromUserFavorites,
+  updateUserFavorites
 }
 
 const mapDispatchToProps = (dispatch) => {

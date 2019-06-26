@@ -5,17 +5,32 @@ import AvatarPlaceholder from '../../img/avatar-placeholder-min.png'
 
 export class UserFavoritesTable extends Component {
   state = {
-    favorites: this.props.userFavorites,
-    loading: this.props.userFavorites ? true : false
+    loading: true,
+    favorites: []
   }
 
-  componentDidUpdate(prevProps, preState){
-    if(prevProps.userFavorites !== this.props.userFavorites){
-      this.setState({
-        favorites: this.props.userFavorites,
-        loading: false
-      })
+  componentDidMount(){
+    this.getUsersCurrentAvailability()
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    if(prevProps.currentUser.favorites !== this.props.currentUser.favorites){
+      this.getUsersCurrentAvailability()
     }
+  }
+
+  getUsersCurrentAvailability = async () => {
+    const { getCurrentFavorites, currentUser } = this.props
+    const userFavorites = await getCurrentFavorites(currentUser.id)
+    this.setState({
+      favorites: userFavorites,
+      loading: false
+    })
+  }
+
+  removeUserFavorite = async (userToRemove) => {
+    this.setState({ loading: true })
+    this.props.removeUserFromUserFavorites(this.props.currentUser.id, this.state.favorites, userToRemove)
   }
 
   toggleRowActions(index){
@@ -57,19 +72,19 @@ export class UserFavoritesTable extends Component {
       },
       {
         Header: '',
-        Cell: props => <span>{props.original.name}</span>,
+        Cell: props => <span>{props.original.firstName} {props.original.lastName}</span>,
       }, 
       {
         id: 'Location', // Required because our accessor is not a string
         Header: 'Location',
-        accessor: 'location',
+        // accessor: 'location',
+        Cell: props => <span>{props.original.profileInformation.location[0].label}</span>,
         filterable: false,
         sortable: false
       },
       {
         id: 'Available', // Required because our accessor is not a string
         Header: 'Availability',
-        // accessor: 'availabol.value',
         Cell: props => <span className="cell-status available">Available</span>,
         filterable: false,
         sortable: false
@@ -93,7 +108,7 @@ export class UserFavoritesTable extends Component {
               <ul className="table-action-list" id={`row-${props.index}`}>
                 <li className="table-action-list-item">Contact</li>
                 <li className="table-action-list-item">Profile</li>
-                <li className="table-action-list-item">Remove</li>
+                <li className="table-action-list-item" onClick={() => this.removeUserFavorite(props.original)}>Remove</li>
               </ul>
             </div>
           )
@@ -106,7 +121,6 @@ export class UserFavoritesTable extends Component {
       data={this.state.favorites}
       columns={columns}
       loading={this.state.loading}
-      // className="-striped -highlight"
     />
   }
 }

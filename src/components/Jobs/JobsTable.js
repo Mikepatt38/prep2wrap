@@ -1,6 +1,5 @@
 import ReactTable from "react-table"
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import ActionIcon from '../../img/icon-action.svg'
 import 'react-table/react-table.css'
 
@@ -31,9 +30,6 @@ export class JobsTable extends Component {
     else if(status.toLowerCase() === "review"){
       userType = 'pending'
     }
-    // else if(status.toLowerCase() === "completed"){
-    //   userType = 'visitor'
-    // }
     else if(status.toLowerCase() === "pending"){
       userType = 'accepted'
     }

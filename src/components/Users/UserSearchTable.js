@@ -48,6 +48,13 @@ class UserSearchTable extends Component {
     })
   }
 
+  toggleAllModals = () => {
+    this.setState({
+      modalActive: false,
+      resultsModalActive: false
+    })
+  }
+
   validateUserSearch(){
     let validated = true
     const { searchName, locationsSelected } = this.state
@@ -266,9 +273,12 @@ class UserSearchTable extends Component {
         <div className="modal-component">
           <p>Create a crew member search by either entering a name and/or selecting a location(s).</p>
           <UserProfileModal
+            currentUser={this.props.currentUser}
+            updateUserFavorites={this.props.updateUserFavorites}
             active={this.state.modalActive}
             user={this.state.user}
             close={this.toggleModal}
+            toggleAllModals={this.toggleAllModals}
           />
           {this.tableFilter()}
         </div>
