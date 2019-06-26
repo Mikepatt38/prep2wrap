@@ -1,92 +1,80 @@
 /* ===============
-  Styles for Account Settings Page
+  Account Settings User Form
   ================== */
-.account-settings
+.account-settings-user-form
   position: relative
-  width: 100%
   display: flex
   justify-content: space-between
+  flex-wrap: wrap
 
-
-.account-settings-user
-  position: relative
-  width: 100%
-  max-width: 350px
-  margin-right: 25px
-
-  form.account-settings-user-form
+  .account-settings-user-inputs
     position: relative
+    width: 74%
     display: flex
-    flex-direction: column
-
-    .button-wrapper
-      width: 100%
-      position: relative
-
-      button
-        width: 100%
+    flex-wrap: wrap
+    justify-content: space-between
+  
 
   .account-settings-user-avatar
-    position: relative
-    width: 100%
-    margin-bottom: 20px
-    text-align: center
-
-    img
       position: relative
-      max-width: 175px
-      width: 100%
-      border-radius: 50%
+      width: 25%
+      display: flex
+      justify-content: flex-start
 
-    .profile-image-upload-update
-      position: relative
-      width: 100%
-      margin-top: 10px
-      text-align: center
-    
-      label
-        text-transform: none
-        font-weight: 500
-        font-size: 14px
-        margin-bottom: 2px
-        display: block
-        white-space: nowrap
-        color: $color__primary
-        cursor: pointer
-        letter-spacing: 0
+      img
+        position: relative
+        max-width: 175px
+        width: 100%
+        border-radius: 50%
 
-      input[type="file"] 
-        opacity: 0
-        position: absolute
-        pointer-events: none
+      .profile-image-upload-update
+        position: relative
+        width: 100%
+        margin-top: 10px
+        text-align: center
+      
+        label
+          text-transform: none
+          font-weight: 500
+          font-size: 14px
+          margin-bottom: 2px
+          display: block
+          white-space: nowrap
+          color: $color__primary
+          cursor: pointer
+          letter-spacing: 0
 
+        input[type="file"] 
+          opacity: 0
+          position: absolute
+          pointer-events: none
+
+
+/* ===============
+  Account Settings Profile Form Components
+  ================== */
 .account-settings-profile
   position: relative
   width: 100%
 
-  .account-settings-profile-form
-    position: relative
-    display: flex
-    flex-direction: row
-    flex-wrap: wrap
+.account-settings-profile-form
+  position: relative
+  width: 100%
 
-    p
-      width: 100%
+  .card
+    margin-bottom: 20px
 
-    hr.break
-      position: relative
-      width: 100%
-      margin: 20px 0
-      border: none
-      border-top: 1px solid #EAEDF3
+.account-settings-profile-card
+  position: relative
+  display: flex
+  justify-content: space-between
+  flex-wrap: wrap
 
-    .form-group.form-group--half
-      width: 48.5%
+  h4
+    width: 100%
 
-    .form-group.form-group--third
-      width: 31.5%
+  .form-group.form-group--half
+    width: 48.5%
 
-    .button-wrapper
-      position: relative
-      width: 100% 
-      padding-top: 20px
+  .form-group.form-group--third
+    width: 31.5%

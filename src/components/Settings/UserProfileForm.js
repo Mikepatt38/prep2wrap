@@ -54,104 +54,118 @@ class UserProfileForm extends Component {
   render() {
     const { jobTypes, location, skills, positions, fbLink, imdbLink, availability, bilingual, travel, union, instagramLink } = this.state
     return (
-      <form className="account-settings-profile-form">
-        <FormSelectInput
-          label="Job Types"
-          name="jobTypes"
-          options={jobTypesObj}
-          currentSkills={jobTypes}
-          placeholder="Select Job types that you're qualified to work"
-          isMultiSelect={true}
-          onSelect={this.handleSelect}
-        />
-        <FormSelectInput
-          label="Location"
-          name="location"
-          options={locationObj}
-          currentSkills={location}
-          placeholder="Select Cities You Work In"
-          isMultiSelect={true}
-          onSelect={this.handleSelect}
-        />
-        <FormSelectInput
-          label="Skills"
-          name="skills"
-          options={skillsObj}
-          currentSkills={skills}
-          placeholder="Select Skills You're Qualified For"
-          isMultiSelect={true}
-          onSelect={this.handleSelect}
-        />
-        <FormSelectInput
-          label="Positions"
-          name="positions"
-          options={positionsObj}
-          currentSkills={positions}
-          placeholder="Select Positions For Jobs You're Seeking"
-          isMultiSelect={true}
-          onSelect={this.handleSelect}
-        />
+      <div className="account-settings-profile-form">
+        <div className="card">
+          <div className="card-body account-settings-profile-card">
+            <h4>Job Profile Settings</h4>
+            <FormSelectInput
+              label="Job Types"
+              name="jobTypes"
+              options={jobTypesObj}
+              currentSkills={jobTypes}
+              placeholder="Select Job types that you're qualified to work"
+              isMultiSelect={true}
+              onSelect={this.handleSelect}
+              className="form-group--half"
+            />
+            <FormSelectInput
+              label="Location"
+              name="location"
+              options={locationObj}
+              currentSkills={location}
+              placeholder="Select Cities You Work In"
+              isMultiSelect={true}
+              onSelect={this.handleSelect}
+              className="form-group--half"
+            />
+            <FormSelectInput
+              label="Skills"
+              name="skills"
+              options={skillsObj}
+              currentSkills={skills}
+              placeholder="Select Skills You're Qualified For"
+              isMultiSelect={true}
+              onSelect={this.handleSelect}
+              className="form-group--half"
+            />
+            <FormSelectInput
+              label="Positions"
+              name="positions"
+              options={positionsObj}
+              currentSkills={positions}
+              placeholder="Select Positions For Jobs You're Seeking"
+              isMultiSelect={true}
+              onSelect={this.handleSelect}
+              className="form-group--half"
+            />
+          </div>
+        </div>
 
-        <hr className="break" />
-        <p>Add your social links to help network and gain exposure.</p>
+        <div className="card">
+          <div className="card-body account-settings-profile-card">
+            <h4>Profile Specifics</h4>
+            <FormCheckboxInput
+              label="Willing To Travel"
+              checkboxId="travel"
+              onChange={this.handleCheck}
+              value={travel}
+              className="form-group--third"
+            />
+            <FormCheckboxInput
+              label="Bilingual"
+              checkboxId="bilingual"
+              onChange={this.handleCheck}
+              value={bilingual}
+              inputName="languages"
+              inputLabel="List All Fluent Languages"
+              inputValue={this.state.languages === undefined ? '' : this.state.languages}
+              inputOnChange={this.handleChange}
+              className="form-group--third"
+            />
+            <FormCheckboxInput
+              label="Union"
+              checkboxId="union"
+              onChange={this.handleCheck}
+              value={union}
+              inputName="unions"
+              inputLabel="List Union Names"
+              inputValue={this.state.unions === undefined ? '' : this.state.unions}
+              inputOnChange={this.handleChange}
+              className="form-group--third"
+            />
+          </div>
+        </div>
 
-        <FormTextInput 
-          label="Facebook Profile Link"
-          name="fbLink"
-          type="text"
-          onChange={this.handleChange}
-          className="form-group--half"
-          value={fbLink}
-        />
-        <FormTextInput 
-          label="IMDb Profile Link"
-          name="imdbLink"
-          type="text"
-          onChange={this.handleChange}
-          className="form-group--half"
-          value={imdbLink}
-        />
-        <FormTextInput 
-          label="Instagram Profile Link"
-          name="instagramLink"
-          type="text"
-          onChange={this.handleChange}
-          className="form-group--half"
-          value={instagramLink}
-        />
+        <div className="card">
+          <div className="card-body account-settings-profile-card">
+            <h4>Social Accounts</h4>
+            <FormTextInput 
+              label="Facebook Profile Link"
+              name="fbLink"
+              type="text"
+              onChange={this.handleChange}
+              className="form-group--half"
+              value={fbLink}
+            />
+            <FormTextInput 
+              label="IMDb Profile Link"
+              name="imdbLink"
+              type="text"
+              onChange={this.handleChange}
+              className="form-group--half"
+              value={imdbLink}
+            />
+            <FormTextInput 
+              label="Instagram Profile Link"
+              name="instagramLink"
+              type="text"
+              onChange={this.handleChange}
+              className="form-group--half"
+              value={instagramLink}
+            />
+          </div>
+        </div>
 
-        <hr className="break" />
-        <p>Update your profile specifics.</p>
-
-        <FormCheckboxInput
-          label="Willing To Travel"
-          checkboxId="travel"
-          onChange={this.handleCheck}
-          value={travel}
-          className="form-group--third"
-        />
-        <FormCheckboxInput
-          label="Bilingual"
-          checkboxId="bilingual"
-          onChange={this.handleCheck}
-          value={bilingual}
-          inputName="languages"
-          inputLabel="List All Fluent Languages"
-          inputValue={this.state.languages === undefined ? '' : this.state.languages}
-          inputOnChange={this.handleChange}
-          className="form-group--third"
-        />
-        <FormCheckboxInput
-          label="Union"
-          checkboxId="union"
-          onChange={this.handleCheck}
-          value={union}
-          inputName="unions"
-          inputLabel="List Union Names"
-          inputValue={this.state.unions === undefined ? '' : this.state.unions}
-          inputOnChange={this.handleChange}
-          className="form-group--third"
-        />
         <div className="button-wrapper">
           <FormButton
             onClick={(e) => this.handleClick(e)}
@@ -160,7 +174,7 @@ class UserProfileForm extends Component {
             disabled={true}
           />
         </div>
-      </form>  
+      </div>  
     )
   }
 }

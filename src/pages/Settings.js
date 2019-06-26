@@ -4,19 +4,19 @@ import UserProfileForm from '../components/Settings/UserProfileForm'
 import UserInfoForm from '../components/Settings/UserInfoForm'
 import DeleteUserAccountForm from '../components/Settings/UserDeleteAccountForm'
 
-const AccountSettings = ({ currentUser, setUserProfile, setName, setEmail, setMobileNumber, setModal, closeModal, uploadProfileImage, deleteUserAccount, reAuthenticateUser, history }) => (
-  <div className="app-page">
+function AccountSettings({currentUser, setUserProfile, setName, setEmail, setMobileNumber, setModal, closeModal, uploadProfileImage, deleteUserAccount, reAuthenticateUser, history}){
+  return (
+    <div className="app-page">
 
-    <div className="app-page-header">
-      <h1>Account Settings</h1>
-    </div>
+      <div className="app-page-header">
+        <h1>Account Settings</h1>
+      </div>
+      <div className="app-page-body">
 
-    <div className="app-page-body">
-      <p>Easily update your user settings and public profile information to keep your account up to date.</p>
-      <div className="account-settings">
-        <div className="account-settings-user">
+        <div className="app-page-section">
           <div className="card">
             <div className="card-body">
+              <h4>Basic Profile Settings</h4>
               <UserInfoForm
                 currentUser={currentUser}
                 setName={setName}
@@ -28,31 +28,89 @@ const AccountSettings = ({ currentUser, setUserProfile, setName, setEmail, setMo
           </div>
         </div>
 
-        <div className="account-settings-profile">
-          <div className="card">
-            <div className="card-body">
-              <p>Set up your profile job settings to get hired where you fit in.</p>
-              <UserProfileForm 
-                setUserProfile={setUserProfile} 
-                currentUser={currentUser} 
-                onClick={(e) => handleClick(e)}
-              />
-            </div>
-          </div>
-          <div className="card">
-            <div className="card-body">
-              <DeleteUserAccountForm
-                deleteUserAccount={deleteUserAccount}
-                history={history}
-              />
-            </div>
-          </div>
+        <div className="app-page-section">
+          <UserProfileForm 
+            setUserProfile={setUserProfile} 
+            currentUser={currentUser} 
+            onClick={(e) => handleClick(e)}
+          />
         </div>
       </div>
     </div>
+  )
+}
 
-  </div>
-)
+
+// <div className="account-settings-profile">
+// <div className="card">
+//   <div className="card-body">
+//     <p>Set up your profile job settings to get hired where you fit in.</p>
+//     <UserProfileForm 
+//       setUserProfile={setUserProfile} 
+//       currentUser={currentUser} 
+//       onClick={(e) => handleClick(e)}
+//     />
+//   </div>
+// </div>
+// <div className="card">
+//   <div className="card-body">
+//     <DeleteUserAccountForm
+//       deleteUserAccount={deleteUserAccount}
+//       history={history}
+//     />
+//   </div>
+// </div>
+// </div>
+
+// const AccountSettings = ({ currentUser, setUserProfile, setName, setEmail, setMobileNumber, setModal, closeModal, uploadProfileImage, deleteUserAccount, reAuthenticateUser, history }) => (
+//   <div className="app-page">
+
+//     <div className="app-page-header">
+//       <h1>Account Settings</h1>
+//     </div>
+
+//     <div className="app-page-body">
+//       <p>Easily update your user settings and public profile information to keep your account up to date.</p>
+//       <div className="account-settings">
+//         <div className="account-settings-user">
+//           <div className="card">
+//             <div className="card-body">
+//               <UserInfoForm
+//                 currentUser={currentUser}
+//                 setName={setName}
+//                 setEmail={setEmail}
+//                 setMobileNumber={setMobileNumber}
+//                 uploadProfileImage={uploadProfileImage}
+//               />
+//             </div>
+//           </div>
+//         </div>
+
+//         <div className="account-settings-profile">
+//           <div className="card">
+//             <div className="card-body">
+//               <p>Set up your profile job settings to get hired where you fit in.</p>
+//               <UserProfileForm 
+//                 setUserProfile={setUserProfile} 
+//                 currentUser={currentUser} 
+//                 onClick={(e) => handleClick(e)}
+//               />
+//             </div>
+//           </div>
+//           <div className="card">
+//             <div className="card-body">
+//               <DeleteUserAccountForm
+//                 deleteUserAccount={deleteUserAccount}
+//                 history={history}
+//               />
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+
+//   </div>
+// )
 
 // <div className="app-page-section">
 // <div className="card no-hover">

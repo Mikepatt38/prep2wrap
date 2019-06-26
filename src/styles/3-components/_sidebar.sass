@@ -8,20 +8,24 @@
   top: 0
   bottom: 0
   left: 0
+  margin-top: 72px
 
 .sidebar
   // background-color: #16364b  #070A15 
-  background-color: #16364b 
-  background-color: #2E2E33
+  // background-color: #16364b 
+  // background-color: #2E2E33
   // background-color: #6772E5
-  border-right: 1px solid #f0f4f7
   // background-color: #fff
+  // background-color: #f6f8fc
+  background-color: #FBFBFD
+  border-right: 1px solid rgb(221, 228, 245)
   height: 100%
   font-size: 16px
   width: 100%
   overflow: auto
   padding: 0
-  z-index: 1000000
+  z-index: 9999
+  padding-top: 25px
 
   &.closed
     display: none
@@ -52,7 +56,7 @@
       width: 100%
 
     & div
-      padding: 20px
+      padding: 12px 20px
       margin-bottom: 8px
 
     & div > h5
@@ -61,17 +65,18 @@
       display: flex
 
     & div > h5 > img
-      height: 20px
-      margin-right: 8px
+      height: 18px
+      margin-right: 12px
       width: auto
 
     & div > h5 > a
-      text-transform: uppercase
-      // color: #677694
-      color: rgba(255, 255, 255, 0.8)
-      font-weight: 500
-      font-size: 13px
-      letter-spacing: 0.750px
+      // text-transform: uppercase
+      color: #677694
+      // color: rgba(255, 255, 255, 0.8)
+      // color: rgb(122, 134, 154)
+      font-weight: 400
+      font-size: 16px
+      letter-spacing: 0.250px
       transition: padding 0s linear .4s
       cursor: pointer
       margin: 0

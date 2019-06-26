@@ -62,6 +62,7 @@ a
   padding: 0
   min-height: 100vh
   background-color: #FBFBFD
+  // background-color: #f6f8fc
 
 .app-page, .main-content
   margin: 0 auto
@@ -73,28 +74,40 @@ a
 .main-content
   max-width: 1250px
 
+.app-topbar
+  position: fixed
+  top: 0px
+  left: 0px
+  right: 0px
+  z-index: 9999
+  height: 72px
+  padding: 0px 24px
+  background: $color__primary
+
+.app-body
+  display: flex
+  align-items: stretch
+  min-height: 100%
+  margin-top: 72px
+  flex: 1 1 0%
 // ========== App Page Layout Styles ========== //
 
 .app-page-header
-  position: sticky
-  top: 0
-  border-bottom: 1px solid #EAEDF3
-  height: 70px
-  background: #FFFFFF
+  position: relative
   display: flex
   justify-content: space-between
   align-items: center
   width: 100%
-  padding: 0 50px
+  padding: 25px 50px 25px
   z-index: 99
-  margin-bottom: 25px
 
   h1
     position: relative
+    color: $color__black
+    font-size: 24px
+    letter-spacing: -0.5px
+    line-height: 40px
     font-weight: 500
-    font-size: 18px
-    color: #3E3F42
-    line-height: 1.75
 
 .app-page-body
   position: relative
@@ -126,7 +139,7 @@ a
   margin-bottom: 25px
 
   p
-    margin-bottom: 25px 
+    margin-bottom: 8px 
     opacity: 0.8
 
   .empty-state
