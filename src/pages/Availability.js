@@ -7,16 +7,7 @@ import Modal from '../components/General/Modal'
 
 class Availability extends Component {
   state = {
-    loading: true,
     modalActive: false
-  }
-
-  async componentDidMount(){
-    const userAvailability = await this.props.getCurrentAvailability(this.props.currentUser.id)
-    this.setState({
-      loading: false,
-      userAvailability: userAvailability
-    })
   }
 
   toggleModal = () => {
@@ -26,7 +17,6 @@ class Availability extends Component {
   }
 
   render() {
-    const { currentUser } = this.props
     return (
       <div className="app-page">
         <Modal
@@ -35,7 +25,7 @@ class Availability extends Component {
           children={      
             <AvailabilityForm 
               currentUser={this.props.currentUser} 
-              currentAvailability={this.state.userAvailability}
+              currentAvailability={this.props.currentUser.availability}
               selectedDate={moment()}
               updateUserAvailability={this.props.updateUserAvailability} 
               close={this.toggleModal}
@@ -52,11 +42,11 @@ class Availability extends Component {
           <div className="app-page-section">
             <p>A calendar view of your booked/ personal days that you are unavailable for further hire.</p>
             {
-              this.state.userAvailability && 
               <Calendar 
-                currentUser={currentUser}
-                dates={this.state.userAvailability} 
+                currentUser={this.props.currentUser}
+                dates={this.props.currentUser.availability} 
                 setSelectedDate={this.setSelectedDate} 
+                getCurrentAvailability={this.props.getCurrentAvailability}
               />
             }
           </div>
@@ -64,11 +54,10 @@ class Availability extends Component {
           <div className="app-page-section">
             <p>A list view of your booked/ personal days that you are unavailable for further hire.</p>
             {
-              // Need to check to make sure the availability array isn't empty
-              this.state.userAvailability && 
               <UserAvailabilityTable
-                dates={this.state.userAvailability}
-                currentUser={currentUser}
+                dates={this.props.currentUser.availability}
+                currentUser={this.props.currentUser}
+                getCurrentAvailability={this.props.getCurrentAvailability}
                 removeAvailabilityDate={this.props.removeAvailabilityDate}
               />
             }

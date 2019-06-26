@@ -2,27 +2,27 @@ import React, { Component } from 'react'
 import { Table } from '../General/Table'
 import { Link } from 'react-router-dom'
 import ActionIcon from '../../img/icon-action.svg'
-import TrashIcon from '../../img/icon-trash.svg'
 import SwapIcon from '../../img/icon-swap.svg'
 
 export class UserAvailabilityTable extends Component {
   state = {
-    availability:     
-      // Sort the dates from most recent to latest
-      // sort and reverse both manipulate the original array
-      // so no need to create a new var
-      this.formatDatesArr(this.props.dates),
-    loading: this.props.dates ? false : true,
-    dateTypeKey: 0
+    availability: this.props.dates ? this.props.dates : [],
+    loading: this.props.dates ? false : true
   }
 
   componentDidUpdate(prevProps, prevState){
-    if(prevProps.dates !== this.props.dates){
-      this.setState({
-        availability: this.props.dates,
-        loading: false
-      })
+    if(prevProps.currentUser.availability !== this.props.currentUser.availability){
+      this.getUsersCurrentAvailability()
     }
+  }
+
+  getUsersCurrentAvailability = async () => {
+    const { getCurrentAvailability, currentUser } = this.props
+    const userAvailability = await getCurrentAvailability(currentUser.id)
+    this.setState({
+      availability: this.formatDatesArr(userAvailability),
+      loading: false
+    })
   }
 
   formatDatesArr(dates){
@@ -45,9 +45,7 @@ export class UserAvailabilityTable extends Component {
   }
 
   deleteCreatedDate(currentDates, dateToDelete){
-    this.setState({
-      loading: true
-    })
+    this.setState({ loading: true })
     this.props.removeAvailabilityDate(this.props.currentUser.id, currentDates, dateToDelete)
   }
 
@@ -77,8 +75,6 @@ export class UserAvailabilityTable extends Component {
   }
 
   render() {
-
-    const { dateTypeKey } = this.state
    
     const columns = [
       {

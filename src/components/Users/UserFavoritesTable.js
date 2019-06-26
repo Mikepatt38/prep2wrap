@@ -10,16 +10,16 @@ export class UserFavoritesTable extends Component {
   }
 
   componentDidMount(){
-    this.getUsersCurrentAvailability()
+    this.getUsersCurrentFavorites()
   }
 
   componentDidUpdate(prevProps, prevState){
     if(prevProps.currentUser.favorites !== this.props.currentUser.favorites){
-      this.getUsersCurrentAvailability()
+      this.getUsersCurrentFavorites()
     }
   }
 
-  getUsersCurrentAvailability = async () => {
+  getUsersCurrentFavorites = async () => {
     const { getCurrentFavorites, currentUser } = this.props
     const userFavorites = await getCurrentFavorites(currentUser.id)
     this.setState({
