@@ -15,23 +15,25 @@ class UserProfileForm extends Component {
     fbLink: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.fbLink : '',
     imdbLink: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.imdbLink : '',
     instagramLink: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.instagramLink : '',
-    availability: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.availability : false,
     bilingual: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.bilingual : false, 
     languages: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.languages : [],
     travel: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.travel : false, 
     union: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.union : false, 
-    unions: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.unions : []
+    unions: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.unions : [],
+    disabled: true
   }
 
   handleChange = e => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
+      disabled: false
     })
   }
 
   handleCheck = e => {
     this.setState({
-      [e.target.id]: e.target.checked
+      [e.target.id]: e.target.checked,
+      disabled: false
     })
   }
 
@@ -48,11 +50,12 @@ class UserProfileForm extends Component {
     })
     this.setState({
       [name]: val,
+      disabled: false
     })
   }
 
   render() {
-    const { jobTypes, location, skills, positions, fbLink, imdbLink, availability, bilingual, travel, union, instagramLink } = this.state
+    const { jobTypes, location, skills, positions, fbLink, imdbLink, bilingual, travel, union, instagramLink } = this.state
     return (
       <div className="account-settings-profile-form">
         <div className="card">
@@ -171,7 +174,7 @@ class UserProfileForm extends Component {
             onClick={(e) => this.handleClick(e)}
             className="button-primary"
             buttonText="Update Profile"
-            disabled={true}
+            disabled={this.state.disabled}
           />
         </div>
       </div>  
@@ -180,11 +183,3 @@ class UserProfileForm extends Component {
 }
 
 export default UserProfileForm
-
-// <FormCheckboxInput
-// label="Daily Availability"
-// checkboxId="availability"
-// onChange={this.handleCheck}
-// value={availability}
-// className="form-group--half"
-// />

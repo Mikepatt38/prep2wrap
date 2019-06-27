@@ -9,7 +9,7 @@ class UserInfoForm extends Component {
     lastName: this.props.currentUser.lastName,
     email: this.props.currentUser.email,  
     mobileNumber: this.props.currentUser.mobileNumber,
-    fileName: ''
+    fileName: '',
   }
 
   handleChange = e => {
@@ -22,6 +22,17 @@ class UserInfoForm extends Component {
     this.setState({
       fileName
     })
+  }
+
+  didUserUpdate = () => {
+    let disabled = true
+    if(this.state.firstName !== this.props.currentUser.firstName ||
+      this.state.lastName !== this.props.currentUser.lastName ||
+      this.state.email !== this.props.currentUser.email ||
+      this.state.mobileNumber !== this.props.currentUser.mobileNumber){
+        disabled = false
+      }
+    return disabled
   }
 
   updateBasicInformation = (e) => {
@@ -84,7 +95,7 @@ class UserInfoForm extends Component {
               onClick={this.updateBasicInformation}
               className="button-primary"
               buttonText="Update"
-              disabled={true}
+              disabled={this.didUserUpdate()}
             />
           </div>
         </div>
