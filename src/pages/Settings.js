@@ -35,6 +35,17 @@ function AccountSettings({currentUser, setUserProfile, setName, setEmail, setMob
             onClick={(e) => handleClick(e)}
           />
         </div>
+
+        <div className="app-page-section">
+          <div className="card">
+            <div className="card-body">
+              <DeleteUserAccountForm
+                deleteUserAccount={deleteUserAccount}
+                history={history}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )

@@ -39,7 +39,7 @@ class UserProfileForm extends Component {
 
   handleClick = async (e) => {
     e.preventDefault()
-    this.props.setUserProfile(this.props.currentUser.id, this.state.jobTypes, this.state.location, this.state.skills, this.state.positions, this.state.fbLink, this.state.imdbLink, this.state.instagramLink, this.state.availability, this.state.travel, this.state.union, this.state.bilingual, this.state.unions, this.state.languages, e)
+    this.props.setUserProfile(this.props.currentUser.id, this.state.jobTypes, this.state.location, this.state.skills, this.state.positions, this.state.fbLink, this.state.imdbLink, this.state.instagramLink, this.state.travel, this.state.union, this.state.bilingual, this.state.unions, this.state.languages, e)
   }
 
   handleSelect = (name, val) => {
@@ -101,11 +101,9 @@ class UserProfileForm extends Component {
               onSelect={this.handleSelect}
               className="form-group--half"
             />
-          </div>
-        </div>
 
-        <div className="card">
-          <div className="card-body account-settings-profile-card">
+            <hr />
+
             <h4>Profile Specifics</h4>
             <FormCheckboxInput
               label="Willing To Travel"
@@ -136,11 +134,9 @@ class UserProfileForm extends Component {
               inputOnChange={this.handleChange}
               className="form-group--third"
             />
-          </div>
-        </div>
 
-        <div className="card">
-          <div className="card-body account-settings-profile-card">
+            <hr />
+
             <h4>Social Accounts</h4>
             <FormTextInput 
               label="Facebook Profile Link"
@@ -166,16 +162,16 @@ class UserProfileForm extends Component {
               className="form-group--half"
               value={instagramLink}
             />
-          </div>
-        </div>
 
-        <div className="button-wrapper">
-          <FormButton
-            onClick={(e) => this.handleClick(e)}
-            className="button-primary"
-            buttonText="Update Profile"
-            disabled={this.state.disabled}
-          />
+            <div className="button-wrapper">
+              <FormButton
+                onClick={(e) => this.handleClick(e)}
+                className="button-primary"
+                buttonText="Update Profile"
+                disabled={this.state.disabled}
+              />
+            </div>
+          </div>
         </div>
       </div>  
     )
