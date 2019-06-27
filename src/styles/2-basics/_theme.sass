@@ -48,6 +48,7 @@ a
 
 .app-container
   height: 100%
+  width: 100%
 
 .app-container-main
   padding-left: 250px
@@ -57,12 +58,15 @@ a
   width: 100%
   background: #fff
 
-.app-container-main-body
+.app-body-main
   position: relative
   padding: 0
   min-height: 100vh
-  background-color: #FBFBFD
   // background-color: #f6f8fc
+  width: 100%
+  background-color: rgb(247, 247, 247)
+  // background-color: #f1f1f1
+  // background-color: #FBFBFD
 
 .app-page, .main-content
   margin: 0 auto
@@ -80,16 +84,19 @@ a
   left: 0px
   right: 0px
   z-index: 9999
-  height: 72px
+  height: 52px
   padding: 0px 24px
   background: $color__primary
 
 .app-body
+  // display: flex
+  // align-items: stretch
+  // min-height: 100%
+  margin-top: 52px
   display: flex
-  align-items: stretch
-  min-height: 100%
-  margin-top: 72px
-  flex: 1 1 0%
+  flex: 1
+  position: relative
+  width: 100%
 // ========== App Page Layout Styles ========== //
 
 .app-page-header

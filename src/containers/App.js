@@ -23,17 +23,13 @@ const RenderRoute = ({ currentUser }) => (
     {
       currentUser && window.location.pathname !== '/signup' &&
       <div className="app-container">
-        <div className="app-topbar"></div>
+        <header className="app-topbar"></header>
         <div className="app-body">
-          <div className="app-container-sidebar">
-            <Sidebar />
-          </div>
-          <div className="app-container-main">
-            <GlobalAlert active={currentUser.profileInformation ? false : true} />
-            <Alert />
-            <div className="app-container-main-body">
-              <Routes />
-            </div>
+          <Sidebar />
+          <GlobalAlert active={currentUser.profileInformation ? false : true} />
+          <Alert />
+          <div className="app-body-main">
+            <Routes />
           </div>
         </div>
       </div>

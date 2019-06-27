@@ -2,81 +2,106 @@
   Styles for sidebar component
   ================== */
 
-.app-container-sidebar
-  position: fixed
-  width: 250px
-  top: 0
-  bottom: 0
-  left: 0
-  margin-top: 72px
+// .app-container-sidebar
+//   position: fixed
+//   width: 250px
+//   top: 0
+//   bottom: 0
+//   left: 0
+//   margin-top: 52px
 
-.sidebar
-  // background-color: #16364b  #070A15 
-  // background-color: #16364b 
-  // background-color: #2E2E33
-  // background-color: #6772E5
-  // background-color: #fff
-  // background-color: #f6f8fc
-  background-color: #FBFBFD
-  border-right: 1px solid rgb(221, 228, 245)
-  height: 100%
-  font-size: 16px
-  width: 100%
-  overflow: auto
-  padding: 0
-  z-index: 9999
-  padding-top: 25px
+// .sidebar
+//   // background-color: #16364b  #070A15 
+//   // background-color: #16364b 
+//   // background-color: #2E2E33
+//   // background-color: #6772E5
+//   background-color: #fff
+//   // background-color: #f6f8fc
+//   // background-color: #FBFBFD
+//   border-right: 1px solid rgb(221, 228, 245)
+//   box-shadow: 5px 0 15px rgba(0,0,0,.025)
+//   height: 100%
+//   font-size: 16px
+//   width: 100%
+//   overflow: auto
+//   padding: 0
+//   z-index: 9999
+//   padding-top: 25px
 
-  &.closed
-    display: none
+//   &.closed
+//     display: none
 
-  .logo-wrapper
-    position: relative
-    cursor: pointer
-    padding: 15px 0
-    margin-bottom: 50px
-    height: 70px
+//   .logo-wrapper
+//     position: relative
+//     cursor: pointer
+//     padding: 15px 0
+//     margin-bottom: 50px
+//     height: 70px
 
-    a
-      background-image: url(../img/calltime-logo.png)
-      background-size: contain
-      background-repeat: no-repeat
-      height: 60px
-      display: block
-      position: relative
-      margin: 0 20px 0
+//     a
+//       background-image: url(../img/calltime-logo.png)
+//       background-size: contain
+//       background-repeat: no-repeat
+//       height: 60px
+//       display: block
+//       position: relative
+//       margin: 0 20px 0
 
 
-  .sidebar-section
-    position: relative
+//   .sidebar-section
+//     position: relative
 
-    &.sidebar-section--bottom
-      position: absolute
-      bottom: 0
-      width: 100%
+//     &.sidebar-section--bottom
+//       position: absolute
+//       bottom: 0
+//       width: 100%
 
-    & div
-      padding: 12px 20px
-      margin-bottom: 8px
+//     & div
+//       padding: 12px 20px
+//       margin-bottom: 8px
 
-    & div > h5
-      margin: 0
-      align-items: center
-      display: flex
+//     & div > h5
+//       margin: 0
+//       align-items: center
+//       display: flex
 
-    & div > h5 > img
-      height: 18px
-      margin-right: 12px
-      width: auto
+//     & div > h5 > img
+//       height: 18px
+//       margin-right: 12px
+//       width: auto
 
-    & div > h5 > a
-      // text-transform: uppercase
-      color: #677694
-      // color: rgba(255, 255, 255, 0.8)
-      // color: rgb(122, 134, 154)
-      font-weight: 400
-      font-size: 16px
-      letter-spacing: 0.250px
-      transition: padding 0s linear .4s
-      cursor: pointer
-      margin: 0
+//     & div > h5 > a
+//       // text-transform: uppercase
+//       color: #677694
+//       // color: rgba(255, 255, 255, 0.8)
+//       // color: rgb(122, 134, 154)
+//       font-weight: 400
+//       font-size: 16px
+//       letter-spacing: 0.250px
+//       transition: padding 0s linear .4s
+//       cursor: pointer
+//       margin: 0
+
+nav
+  display: block
+  width: 300px
+  background-color: white
+  border-top: 1px solid #f1f1f1
+  border-right: 2px solid #f1f1f1
+  box-shadow: 5px 0 15px rgba(0,0,0,.025)
+
+  a.nav-link
+    display: flex
+    align-items: center
+    padding: 26px 15px
+    font-size: 16px
+    font-weight: 400
+    text-decoration: none
+    letter-spacing: 0.25px
+    color: #777
+    border-bottom: 1px solid #f1f1f1
+    transition: all .25s ease
+
+    img
+      width: 1.15rem
+      margin-right: 10px
