@@ -164,32 +164,26 @@ export const setUserProfile = (id, jobTypes, location, skills, positions, fbLink
 export const uploadProfileImage = (id, avatar, filename) => async dispatch => {
   const ref = storage.ref()
   const file = filename
-  const name = id
   const metadata = {
+    customMetadata: {
+      'uid': id,
+    },
     contentType: file.type
   }
 
   const [deletedOriginal, uploadNew] = await Promise.all([ deleteCurrentUserAvatar(ref, avatar, id), uploadAvatarImage(id, file, metadata)])
-    .then( () => {
-      dispatch({ 
-        type: 'SET_ALERT',
-        payload: [true, 'Success', 'Your public avatar image has been updated.']
-      })    
+  .catch( (error) =>{
+    dispatch({
+      type: 'SET_ALERT',
+      payload: [true, 'Error', error.message]   
     })
-    // .then( () => {
-    //   const newFileName = `min_${id}`
-    //   let newUrl = ' '
-    //   setTimeout( async () => {
-    //     newUrl = await getAvatarURL(newFileName)
-    //   }, 36000)
-    //   console.log(newUrl)
-    // })  
-    .catch( (error) => {
-      dispatch({
-        type: 'SET_ALERT',
-        payload: [true, 'Error', error.message]   
-      })
-    })
+  })
+  if(deletedOriginal, uploadNew){
+    dispatch({ 
+      type: 'SET_ALERT',
+      payload: [true, 'Success', 'Your public avatar image has been updated.']
+    })  
+  }
 }
 
 // Async actions used by the async functions below
@@ -204,6 +198,7 @@ export async function deleteCurrentUserAvatar(ref, avatar, imageName){
 
 export async function uploadAvatarImage(imageName, imageFile, imageMetadata){
   const ref = storage.ref()
+  console.log(imageMetadata)
   ref.child(imageName).put(imageFile, imageMetadata)
 }
 

@@ -29,7 +29,8 @@ class UserInfoForm extends Component {
     if(this.state.firstName !== this.props.currentUser.firstName ||
       this.state.lastName !== this.props.currentUser.lastName ||
       this.state.email !== this.props.currentUser.email ||
-      this.state.mobileNumber !== this.props.currentUser.mobileNumber){
+      this.state.mobileNumber !== this.props.currentUser.mobileNumber ||
+      this.state.fileName !== ''){
         disabled = false
       }
     return disabled

@@ -32,20 +32,22 @@ const cors = require('cors');
 // Call the cloud function whenever something is uploaded to the storage
 export const generateThumbs = functions.storage
   .object()
-  .onFinalize( async (object:any) => {
-    const bucket = gcs.bucket(object.bucket)
+  .onFinalize( async (object:any) => {   
+    
     const filePath = object.name
-    const fileName = filePath.split('/').pop()
+    const fileName = filePath.split('/').pop() 
+    const bucket = gcs.bucket(object.bucket)
     const bucketDir = dirname(filePath)
 
-    const workingDir = join(tmpdir(), 'thumbs')
-    const tmpFilePath = join(workingDir, 'source.png')
-
     // Prevents infinite loop by looking to see if we already created a resized image for the image
-    if(fileName.includes('thumb@') || !object.contentType.includes('image')) {
+    if(fileName.includes('min_') || !object.contentType.includes('image')) {
       console.log('exiting function')
       return false
     }
+
+    const userID = object.metadata.uid
+    const workingDir = join(tmpdir(), 'thumbs')
+    const tmpFilePath = join(workingDir, 'source.png')
 
     // Ensures that the directory exist
     await fs.ensureDir(workingDir)
@@ -73,9 +75,33 @@ export const generateThumbs = functions.storage
       await bucket.file(filePath).delete()
 
       // Upload the new directory to the storage with only the resized image of the uploaded one
-      return bucket.upload(thumbPath, {
+      await bucket.upload(thumbPath, {
         destination: join(bucketDir, thumbName)
       })
+
+      // Get the file path for the thumbnail URL
+      // Get the Signed URLs for the thumbnail and original image.
+      const thumbFile = bucket.file(thumbPath)
+      const results = await Promise.all([
+        thumbFile.getSignedUrl({
+          action: 'read',
+          expires: '03-01-2500',
+        }),
+      ])
+      // TODO
+      // Figure out where avatar URL is saving to
+      // Add availability to dashboard
+      // Redesign Dashboard
+      // Send SMS text for every action as notification
+      // Setup Email for Webhooks
+      // Finish setting up all webhooks
+      // Add trial period to Stripe Subscription charge to delay charge
+      // ?? Add a way to update payment on user account settings ??
+      await admin.firestore().collection('users').doc(userID).update({ 
+        profileInformation: {
+          avatarUrl: results[0]
+        }
+       })
     })
 
     // Run all actions async 
