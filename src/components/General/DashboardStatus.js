@@ -72,7 +72,7 @@ class DashboardStatus extends Component {
             <p>Keep track of your quick crew to continue to grow your network.</p>
             <div className="dashboard-status-cards">
               <div className="status-card status-card-lg">
-                <span className="count">{this.props.currentUser.favorites.length}</span>
+                <span className="count">{this.props.currentUser.favorites ? this.props.currentUser.favorites.length : '0'}</span>
                 <span className="description">Quick Crew Members</span>
               </div>
             </div>

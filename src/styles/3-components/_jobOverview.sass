@@ -1,26 +1,38 @@
 /* ===============
-  Styles for job overview components
+  Styles for Job Overview Modal
   ================== */
 
-.card > .card-body.card-body-flex
-  display: grid
-  grid-template-columns: repeat( auto-fit, minmax(200px, 1fr)) 
 
-  .card-item
+.job-overview
+  padding: 20px
+
+  .job-overview-section
     position: relative
-    margin-bottom: 20px
-    width: 100%
+    margin-bottom: 20px 
 
-    
-    h4
-      text-transform: uppercase
-      color: #14374c
-      font-weight: bold
+    a.button
+      max-width: 250px
+
+    p > span
+      font-size: 14px
+      font-weight: 500
+      color: #3d4852
+      background: #edeeef
+      border-radius: 3px
+      margin-right: 8px
+      margin-bottom: 5px
+      padding: 6px 10px
+
+    p > span.Accepted
+      background: #dff0d8
+      border: 1px solid #B8D9BA
+      color: #3c763d
       font-size: 12px
-      margin-bottom: 4px
-      display: block
-      white-space: nowrap
-      letter-spacing: 1.25px
+      padding: 4px 6px
 
-    p
-      font-size: 16px
+    p > span.Denied
+      background: #f2dede
+      border: 1px solid #D4B3AD
+      color: #a94442
+      font-size: 12px
+      padding: 4px 6px

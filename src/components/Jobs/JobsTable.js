@@ -2,15 +2,24 @@ import ReactTable from "react-table"
 import React, { Component } from 'react'
 import ActionIcon from '../../img/icon-action.svg'
 import 'react-table/react-table.css'
+import JobOveriewModal from "./JobsModal";
 
 export class JobsTable extends Component {
   state = {
     userJobs: [],
-    loading: true
+    loading: true,
+    modalActive: false,
+    job: {}
   }
 
   componentDidMount(){
     this.getUsersCurrentJobs()
+  }
+
+  toggleModal = () => {
+    this.setState({
+      modalActive: !this.state.modalActive
+    })
   }
 
   getUsersCurrentJobs = async () => {
@@ -128,6 +137,13 @@ export class JobsTable extends Component {
     })
   }
 
+  handleViewJob = (job) => {
+    this.setState({
+      job: job,
+      modalActive: true
+    })
+  }
+
   render() {
    
     const columns = [
@@ -173,6 +189,8 @@ export class JobsTable extends Component {
         // Cell: props => <Link to={`/job-overview/${props.original.jobCreatorID}/${props.original.jobID}`} key={props.original.jobID}><img src={ActionIcon} alt="Table Icon for Actions" /></Link>,
         Cell: props => {
           const userType = this.getUserType(this.props.currentUser.id, props.original.jobCreatorID, props.original.status)
+          console.log(userType)
+          console.log(props.original.status)
           return (     
             <div className="action-container">
               <div 
@@ -186,21 +204,29 @@ export class JobsTable extends Component {
                 {
                   userType === 'pending' && props.original.status.toLowerCase() === 'review' &&
                   <React.Fragment>
+                    <li className="table-action-list-item" onClick={() => this.handleViewJob(props.original)}>View</li>
                     <li className="table-action-list-item" onClick={() => this.acceptJobInvite(props.original)}>Accept</li>
                     <li className="table-action-list-item" onClick={() => this.denyJobInvite(props.original)}>Deny</li>
                   </React.Fragment>
                 }
                 {
-                  userType === 'accepted' || userType === 'visitor' &&
+                  userType === 'accepted' && props.original.status.toLowerCase() === 'pending' &&
                   <React.Fragment>
-                    <li className="table-action-list-item" onClick={() => this.props.setJobsModal(true, props.original)}>View</li>
+                    <li className="table-action-list-item" onClick={() => this.handleViewJob(props.original)}>View</li>
+                    <li><a href={`mailto:${props.original.jobContactEmail}`}>Contact Creator</a></li>
+                  </React.Fragment>
+                }
+                {
+                  userType === 'visitor' && 
+                  <React.Fragment>
+                    <li className="table-action-list-item" onClick={() => this.handleViewJob(props.original)}>View</li>
                     <li><a href={`mailto:${props.original.jobContactEmail}`}>Contact Creator</a></li>
                   </React.Fragment>
                 }
                 {
                   userType === 'creator' && props.original.status.toLowerCase() !== 'completed' &&
                   <React.Fragment>
-                    <li className="table-action-list-item" onClick={() => this.props.setJobsModal(true, props.original)}>View</li>
+                    <li className="table-action-list-item" onClick={() => this.handleViewJob(props.original)}>View</li>
                     <li className="table-action-list-item" onClick={() => this.completeCreatedJob(props.original)}>Complete</li>
                     <li className="table-action-list-item" onClick={() => this.deleteCreatedJob(props.original)}>Delete</li>
                   </React.Fragment>
@@ -208,7 +234,7 @@ export class JobsTable extends Component {
                 {
                   userType === 'creator' && props.original.status.toLowerCase() === 'completed' &&
                   <React.Fragment>
-                    <li className="table-action-list-item" onClick={() => this.props.setJobsModal(true, props.original)}>View</li>
+                    <li className="table-action-list-item" onClick={() => this.handleViewJob(props.original)}>View</li>
                   </React.Fragment>
                 }
               </ul>
@@ -218,14 +244,22 @@ export class JobsTable extends Component {
       }
     ]
    
-    return <ReactTable
-      data={this.state.userJobs}
-      columns={columns}
-      loading={this.state.loading}
-      defaultPageSize={10}
-      minRows={1}
-      resizable={false}
-      // className="-striped -highlight"
-    />
+    return (
+      <React.Fragment>
+        <JobOveriewModal 
+          active={this.state.modalActive}
+          job={this.state.job}
+          close={this.toggleModal}
+        />
+        <ReactTable
+          data={this.state.userJobs}
+          columns={columns}
+          loading={this.state.loading}
+          defaultPageSize={10}
+          minRows={1}
+          resizable={false}
+        /> 
+      </React.Fragment>
+    )
   }
 }

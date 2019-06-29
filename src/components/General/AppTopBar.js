@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import MainLogo from '../../img/logo-white.png'
-import Signout from '../Auth/Signout'
+import Signout from '../../containers/SignOut'
 import ProfileIcon from '../../img/icon-user.svg'
 
 function AppTopBar(){

@@ -5,7 +5,7 @@ function UserFavorites(props){
   return (
     <React.Fragment>
       {
-        props.currentUser.favorites.length
+        props.currentUser.favorites
         ?
           <UserFavoritesTable
             currentUser={props.currentUser}

@@ -113,7 +113,7 @@ export async function getUserCreatedJobs(database, currentUserID){
     const currentDate = new Date()
     const jobDate = new Date(createdJob.data().jobDates[0])
     let jobItem = {
-      status: jobDate > currentDate ? 'Pending' : 'Active',
+      status: 'Active',
       ...createdJob.data()
     }
     createdJobs.push(jobItem)
@@ -130,7 +130,7 @@ export async function getUserAcceptedJobs(database, currentUserID){
     const currentDate = new Date()
     const jobDate = new Date(acceptedJob.data().jobDates[0])
     let jobItem = {
-      status: jobDate > currentDate ? 'Pending' : 'Active',
+      status: 'Active',
       ...acceptedJob.data()
     }
     acceptedJobs.push(jobItem)
@@ -160,7 +160,7 @@ export async function getUserPendingJobs(database, currentUserID){
   let pendingJobsRef = await userJobRef.collection("pendingJobs").get()
   for(let pendingJob of pendingJobsRef.docs){
     let jobItem = {
-      status: 'Review',
+      jobStatus: 'Review',
       ...pendingJob.data()
     }
     pendingJobs.push(jobItem)
@@ -215,7 +215,7 @@ export async function updateUserJobStatus(database, jobCreatorID, jobID, jobStar
       newAssignedUsers.splice(userIndex, 1) 
       newAssignedUsers.push(userToUpdate)
       database.collection("jobs").doc(jobCreatorID).collection("createdJobs").doc(jobID).update({
-        status: jobDate > currentDate ? 'Pending' : 'Active',
+        status: 'Active',
         usersAssigned: newAssignedUsers
       })
     })
