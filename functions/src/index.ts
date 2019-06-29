@@ -11,105 +11,192 @@ admin.initializeApp({
 const userPrivacyPaths = require('./user_privacy.json');
 // const db = admin.database();
 const firestore = admin.firestore();
+const path = require('path');
+const os = require('os');
+const mkdirp = require('mkdirp-promise');
 // const storage = admin.storage();
 const FieldValue = admin.firestore.FieldValue;
 const stripe = require('stripe')(functions.config().stripe.testkey)
 // const currency = functions.config().stripe.currency || 'USD'
 
-import { Storage } from '@google-cloud/storage'
-const gcs = new Storage()
+// import { Storage } from '@google-cloud/storage' 
+// const gcs = new Storage()
 
-import { tmpdir } from 'os';
-import { join, dirname } from 'path';
-
-import * as sharp from 'sharp';
-import * as fs from 'fs-extra';
+// import { tmpdir } from 'os';
+// import { join, dirname } from 'path';
+// import * as sharp from 'sharp';
 const nodemailer = require('nodemailer');
 const cors = require('cors');
 
 // ============ Resize a user's image when they upload an avatar to only save smaller images =========== //
 
-// Call the cloud function whenever something is uploaded to the storage
-export const generateThumbs = functions.storage
-  .object()
-  .onFinalize( async (object:any) => {   
-    
-    const filePath = object.name
-    const fileName = filePath.split('/').pop() 
-    const bucket = gcs.bucket(object.bucket)
-    const bucketDir = dirname(filePath)
+'use strict';
 
-    // Prevents infinite loop by looking to see if we already created a resized image for the image
-    if(fileName.includes('min_') || !object.contentType.includes('image')) {
-      console.log('exiting function')
-      return false
+const spawn = require('child-process-promise').spawn;
+const fs = require('fs');
+
+// Max height and width of the thumbnail in pixels.
+const THUMB_MAX_HEIGHT = 200;
+const THUMB_MAX_WIDTH = 200;
+// Thumbnail prefix added to file names.
+const THUMB_PREFIX = 'thumb_';
+
+/**
+ * When an image is uploaded in the Storage bucket We generate a thumbnail automatically using
+ * ImageMagick.
+ * After the thumbnail has been generated and uploaded to Cloud Storage,
+ * we write the public URL to the Firebase Realtime Database.
+ */
+exports.generateThumbs = functions.storage.object().onFinalize(async (object) => {
+  // File and directory paths.
+  const filePath = object.name;
+  const contentType = object.contentType; // This is the image MIME type
+  const fileDir = path.dirname(filePath);
+  const fileName = path.basename(filePath);
+  const thumbFilePath = path.normalize(path.join(fileDir, `thumb_${fileName}`));
+  const tempLocalFile = path.join(os.tmpdir(), filePath);
+  const tempLocalDir = path.dirname(tempLocalFile);
+  const tempLocalThumbFile = path.join(os.tmpdir(), thumbFilePath);
+
+  // Prevents infinite loop by looking to see if we already created a resized image for the image
+  if(fileName.includes('min_')) {
+    console.log('exiting function')
+    return false
+  }
+
+  // Exit if the image is already a thumbnail.
+  if (fileName.startsWith(THUMB_PREFIX)) {
+    return console.log('Already a Thumbnail.');
+  }
+
+  const userID = object.metadata!.uid
+
+  // Cloud Storage files.
+  const bucket = admin.storage().bucket(object.bucket);
+  const file = bucket.file(filePath);
+  const thumbFile = bucket.file(thumbFilePath);
+  const metadata = {
+    contentType: contentType,
+    // To enable Client-side caching you can set the Cache-Control headers here. Uncomment below.
+    // 'Cache-Control': 'public,max-age=3600',
+  };
+  
+  // Create the temp directory where the storage file will be downloaded.
+  await mkdirp(tempLocalDir)
+  // Download file from bucket.
+  await file.download({destination: tempLocalFile});
+  console.log('The file has been downloaded to', tempLocalFile);
+  // Generate a thumbnail using ImageMagick.
+  await spawn('convert', [tempLocalFile, '-thumbnail', `${THUMB_MAX_WIDTH}x${THUMB_MAX_HEIGHT}>`, tempLocalThumbFile], {capture: ['stdout', 'stderr']});
+  console.log('Thumbnail created at', tempLocalThumbFile);
+  // Uploading the Thumbnail.
+  await bucket.upload(tempLocalThumbFile, {destination: thumbFilePath, metadata: metadata});
+  console.log('Thumbnail uploaded to Storage at', thumbFilePath);
+  // Once the image has been uploaded delete the local files to free up disk space.
+  fs.unlinkSync(tempLocalFile);
+  fs.unlinkSync(tempLocalThumbFile);
+  // Delete the original image from the storage
+  await bucket.file(filePath).delete()
+  // Get the Signed URLs for the thumbnail and original image.
+  const config = {
+    action: 'read',
+    expires: '03-01-2500',
+  };
+  const results = await Promise.all([
+    thumbFile.getSignedUrl(config),
+  ]);
+  const thumbResult = results[0];
+  const thumbFileUrl = thumbResult[0];
+  // Add the URLs to the Database
+  await admin.firestore().collection('users').doc(userID).update({ 
+    profileInformation: {
+      avatarUrl: thumbFileUrl
     }
+  })
+  
+  return console.log('Thumbnail URLs saved to database.');
+});
 
-    const userID = object.metadata.uid
-    const workingDir = join(tmpdir(), 'thumbs')
-    const tmpFilePath = join(workingDir, 'source.png')
+// // Call the cloud function whenever something is uploaded to the storage
+// export const generateThumbs = functions.storage
+//   .object()
+//   .onFinalize( async (object:any) => {   
+    
+//     const filePath = object.name
+//     const fileName = filePath.split('/').pop() 
+//     const bucket = gcs.bucket(object.bucket)
+//     // const bucketDir = dirname(filePath)
 
-    // Ensures that the directory exist
-    await fs.ensureDir(workingDir)
+//     // Prevents infinite loop by looking to see if we already created a resized image for the image
+//     if(fileName.includes('min_') || !object.contentType.includes('image')) {
+//       console.log('exiting function')
+//       return false
+//     }
 
-    // Get the image that was uploaded to the Firebase storage
-    await bucket.file(filePath).download({
-      destination: tmpFilePath
-    })
+//     const userID = object.metadata.uid
+//     const workingDir = tmpdir()
 
-    // The sizes that we want to readjust the image to
-    const sizes = [64]
+//     const thumbPath = path.normalize(path.join(path.dirname(filePath), `min_${fileName}`));
+//     const tmpFilePath = path.join(os.tmpdir(), thumbPath)
 
-    // The actions we want to take, Create the name and add it to the directory for the resized image
-    const uploadPromises = sizes.map( async size => {
-      const thumbName = `min_${fileName}`
-      const thumbPath = join(workingDir, thumbName)
+//     // Ensures that the directory exist
+//     // await fs.ensureDir(workingDir)
 
-      // Actually resize the image in the temp directory we just added it to
-      await sharp(tmpFilePath)
-        .resize(size, size)
-        .toFile(thumbPath)
+//     // Get the image that was uploaded to the Firebase storage
+//     await bucket.file(filePath).download({
+//       destination: tmpFilePath
+//     })
+
+//     // The sizes that we want to readjust the image to
+//     const sizes = [200]
+
+//     // The actions we want to take, Create the name and add it to the directory for the resized image
+//     const uploadPromises = sizes.map( async size => {
+//       // const thumbName = `min_${fileName}`
+//       // const thumbPath = path.normalize(path.join(path.dirname(filePath), thumbName));
+//       console.log('path directory')
+//       console.log(path.dirname(filePath))
+
+//       // Create the temp directory where the storage file will be downloaded.
+//       await mkdirp(thumbPath)
+
+//       // Actually resize the image in the temp directory we just added it to
+//       await sharp(tmpFilePath)
+//         .resize(size, size)
+//         .toFile(thumbPath)
 
       
-      // Deletes the original image that was uploaded
-      await bucket.file(filePath).delete()
+//       // Deletes the original image that was uploaded
+//       await bucket.file(filePath).delete()
 
-      // Upload the new directory to the storage with only the resized image of the uploaded one
-      await bucket.upload(thumbPath, {
-        destination: join(bucketDir, thumbName)
-      })
+//       // Upload the new directory to the storage with only the resized image of the uploaded one
+//       await bucket.upload(tmpFilePath, {
+//         destination: thumbPath
+//       })
 
-      // Get the file path for the thumbnail URL
-      // Get the Signed URLs for the thumbnail and original image.
-      const thumbFile = bucket.file(thumbPath)
-      const results = await Promise.all([
-        thumbFile.getSignedUrl({
-          action: 'read',
-          expires: '03-01-2500',
-        }),
-      ])
-      // TODO
-      // Figure out where avatar URL is saving to
-      // Add availability to dashboard
-      // Redesign Dashboard
-      // Send SMS text for every action as notification
-      // Setup Email for Webhooks
-      // Finish setting up all webhooks
-      // Add trial period to Stripe Subscription charge to delay charge
-      // ?? Add a way to update payment on user account settings ??
-      await admin.firestore().collection('users').doc(userID).update({ 
-        profileInformation: {
-          avatarUrl: results[0]
-        }
-       })
-    })
+//       // Get the file path for the thumbnail URL
+//       // Get the Signed URLs for the thumbnail and original image.
+//       const thumbFile = bucket.file(thumbPath)
+//       const results = await Promise.all([
+//         thumbFile.getSignedUrl({
+//           action: 'read',
+//           expires: '03-01-2500',
+//         }),
+//       ])
 
-    // Run all actions async 
-    await Promise.all(uploadPromises)
+//       await admin.firestore().collection('users').doc(userID).update({ 
+//         profileInformation: {
+//           avatarUrl: results[0]
+//         }
+//        })
+//     })
 
-    // Remove the temp directory from the file system
-    return fs.remove(workingDir)
-  })
+//     // Run all actions async 
+//     await Promise.all(uploadPromises)
+
+//     // Remove the temp directory from the file system
+//     return fs.remove(workingDir)
+//   })
 
 // ============ Deleting a user from Firestore DB and from Stripe as a customer =========== //
 
