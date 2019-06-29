@@ -81,7 +81,6 @@ class UserInfoForm extends Component {
             type="email"
             onChange={this.handleChange}
             value={email}
-            className="form-group--half"
           />
           <FormTextInput
             label="Mobile Number"
@@ -89,13 +88,12 @@ class UserInfoForm extends Component {
             type="tel"
             onChange={this.handleChange}
             value={mobileNumber}
-            className="form-group--half"
           />
           <div className="button-wrapper">
             <FormButton
               onClick={this.updateBasicInformation}
               className="button-primary"
-              buttonText="Update"
+              buttonText="Save Changes"
               disabled={this.didUserUpdate()}
             />
           </div>

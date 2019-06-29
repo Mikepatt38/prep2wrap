@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Avatar from '../../img/avatar-placeholder-min.png'
+import DownloadIcon from '../../img/icon-download.svg'
 
 class ProfileImageUpload extends Component {
   state = {
@@ -37,7 +38,7 @@ class ProfileImageUpload extends Component {
           <div className="profile-image-upload-update">
             <input type="file" name="profileImage" id="profileImage" onChange={this.handleFileChange}  />
             <label htmlFor="profileImage" id="profileImage">        
-              Upload new image
+              <img src={DownloadIcon} alt="Image Upload Icon" /> Upload New Image
             </label>
             <p>{this.state.fileName}</p>
           </div>

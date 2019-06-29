@@ -28,8 +28,8 @@ class DeleteUserAccountForm extends Component {
               close={this.toggleModal}
             /> 
           }
+          close={() => this.toggleModal()}
         />
-        <p>Looking to delete your account? This will delete all information associated with your account.</p>
         <button 
           className="button button-danger"
           onClick={() => this.setState({ modalActive: true }) }
@@ -79,11 +79,6 @@ export class DeleteUserAccountModal extends Component {
                 value={this.state.password}
               />
               <div className="button-wrapper">
-                <FormButton
-                  className="button-transparent"
-                  buttonText="Cancel"
-                  onClick={(e) => this.handleCancel(e)}
-                />
                 <FormButton
                   className="button-danger"
                   buttonText="Delete My Account"
