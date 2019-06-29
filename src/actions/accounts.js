@@ -277,10 +277,12 @@ export const usersSearch = (userName, positions, locations, jobTypes) => async d
     let nameSearchRef = await usersRef.where("firstName", "==", firstName).get()
     let userData = await nameSearchRef.docs
     userData.map( user => {
-      const isLocationMatch = checkUserLocationMatch(user.data().profileInformation.location, locations)
-      const isPositionMatch = checkUserPositionMatch(user.data().profileInformation.positions, positions)
-      const isJobTypeMatch = checkUserJobTypesMatch(user.data().profileInformation.jobTypes, jobTypes)
-      if(isLocationMatch && isPositionMatch && isJobTypeMatch) matches.push(user.data())
+      if(user.data().profileInformation.location && user.data().profileInformation.positions && user.data().profileInformation.jobTypes ){
+        const isLocationMatch = checkUserLocationMatch(user.data().profileInformation.location, locations)
+        const isPositionMatch = checkUserPositionMatch(user.data().profileInformation.positions, positions)
+        const isJobTypeMatch = checkUserJobTypesMatch(user.data().profileInformation.jobTypes, jobTypes)
+        if(isLocationMatch && isPositionMatch && isJobTypeMatch) matches.push(user.data())
+      }
     })
   }
 

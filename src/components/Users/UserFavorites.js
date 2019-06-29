@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { UserFavoritesTable } from './UserFavoritesTable'
-import { throwStatement } from '@babel/types';
 
 function UserFavorites(props){
   return (

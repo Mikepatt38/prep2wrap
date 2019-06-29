@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import UserProfileModal from './UserProfileModal'
 import { Table } from '../General/Table'
 import ActionIcon from '../../img/icon-action.svg'
 import AvatarPlaceholder from '../../img/avatar-placeholder-min.png'
@@ -6,7 +7,9 @@ import AvatarPlaceholder from '../../img/avatar-placeholder-min.png'
 export class UserFavoritesTable extends Component {
   state = {
     loading: true,
-    favorites: []
+    favorites: [],
+    user: {},
+    modalActive: false
   }
 
   componentDidMount(){
@@ -17,6 +20,12 @@ export class UserFavoritesTable extends Component {
     if(prevProps.currentUser.favorites !== this.props.currentUser.favorites){
       this.getUsersCurrentFavorites()
     }
+  }
+
+  toggleModal = () => {
+    this.setState({
+      modalActive: !this.state.modalActive
+    })
   }
 
   getUsersCurrentFavorites = async () => {
@@ -56,6 +65,13 @@ export class UserFavoritesTable extends Component {
       el.classList.add('row-actions-active')
       elAction.classList.add('action-hidden')
     }
+  }
+
+  handleUserSelected = (user) => {
+    this.setState({
+      user: user,
+      modalActive: true
+    })
   }
 
   render() {
@@ -106,8 +122,8 @@ export class UserFavoritesTable extends Component {
                 <img src={ActionIcon} alt="Table Icon for Actions" />
               </div>
               <ul className="table-action-list" id={`row-${props.index}`}>
-                <li className="table-action-list-item">Contact</li>
-                <li className="table-action-list-item">Profile</li>
+                <li className="table-action-list-item"><a href={`mailto:${props.original.email}`}>Contact</a></li>
+                <li className="table-action-list-item" onClick={() => this.handleUserSelected(props.original)}>Profile</li>
                 <li className="table-action-list-item" onClick={() => this.removeUserFavorite(props.original)}>Remove</li>
               </ul>
             </div>
@@ -117,10 +133,21 @@ export class UserFavoritesTable extends Component {
       }
     ]
 
-    return <Table
-      data={this.state.favorites}
-      columns={columns}
-      loading={this.state.loading}
-    />
+    return (
+      <React.Fragment>
+        <UserProfileModal
+          currentUser={this.props.currentUser}
+          updateUserFavorites={this.props.updateUserFavorites}
+          active={this.state.modalActive}
+          user={this.state.user}
+          close={this.toggleModal}
+        />
+        <Table
+          data={this.state.favorites}
+          columns={columns}
+          loading={this.state.loading}
+        />
+      </React.Fragment>
+    )
   }
 }
