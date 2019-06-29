@@ -72,13 +72,8 @@ export class AvailabilityForm extends Component {
           />
           <div className="button-wrapper">
             <FormButton
-              className="button-transparent"
-              buttonText="Cancel"
-              onClick={(e) => this.handleCancel(e)}
-            />
-            <FormButton
               className="button-primary"
-              buttonText="Block Out Date"
+              buttonText="Update Availability"
               onClick={(e) => this.handleClick(e)}
             />
           </div>

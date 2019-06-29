@@ -79,20 +79,44 @@ a
   max-width: 1250px
 
 .app-topbar
-  position: fixed
-  top: 0px
-  left: 0px
-  right: 0px
+  position: relative
   z-index: 9999
   height: 52px
   padding: 0px 24px
   background: $color__primary
+  display: flex
+  align-content: center
+  align-items: center
+  justify-content: space-between
+
+  ul
+    padding: 0
+    margin: 0
+    list-style: none
+
+    li
+      display: inline-block
+      padding: 5px
+      margin-right: 7px
+      cursor: pointer
+
+      img
+        max-height: 25px
+        height: 100%
+        position: relative 
+
+      &:last-child
+        margin-right: 0
+
+  .logo
+    position: relative
+
+    img
+      position: relative
+      max-height: 25px
+      height: 100%
 
 .app-body
-  // display: flex
-  // align-items: stretch
-  // min-height: 100%
-  margin-top: 52px
   display: flex
   flex: 1
   position: relative
@@ -111,10 +135,8 @@ a
   h1
     position: relative
     color: $color__black
-    font-size: 24px
-    letter-spacing: -0.5px
+    font-size: 27px
     line-height: 40px
-    font-weight: 500
 
 .app-page-body
   position: relative

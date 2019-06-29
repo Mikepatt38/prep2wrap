@@ -14,6 +14,10 @@ export const signUserIn = (email, password, history) => dispatch => {
   })
 }
 
+export const signUserOut = () => () => {
+  auth.doSignOut()
+}
+
 export const resetPassword = (email, e) => async dispatch => {
   e.preventDefault()
   auth.doPasswordReset(email)

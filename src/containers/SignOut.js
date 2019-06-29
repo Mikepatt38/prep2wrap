@@ -1,34 +1,15 @@
-import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { removeCurrentUser } from '../actions/accounts'
-import { auth } from '../db'
+import { bindActionCreators } from 'redux'
+import { signUserOut, removeCurrentUser } from '../actions/accounts'
+import Signout from '../components/Auth/Signout'
 
-const signOutStyles = {
-  cursor: 'pointer'
+const actions = {
+  removeCurrentUser,
+  signUserOut
 }
 
-class SignOutButton extends Component {
-
-  signOut = () => {
-    this.props.removeCurrentUser()
-    auth.doSignOut()
-  }
-
-  render() {
-    return (
-      <a
-        type="button"
-        onClick={this.signOut}
-        style={signOutStyles}
-      >
-        Logout
-      </a>
-    )
-  }
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(actions, dispatch)
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  removeCurrentUser: () => dispatch(removeCurrentUser()),
-})
-
-export default connect(null, mapDispatchToProps)(SignOutButton)
+export default connect(null, mapDispatchToProps)(Signout)

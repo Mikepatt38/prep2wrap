@@ -8,6 +8,7 @@ import withAuthentication from './withAuthentication'
 import Alert from './Alert'
 import { DashboardFooter } from '../components/General/DashboardFooter'
 import { GlobalAlert } from '../components/General/GlobalAlert'
+import AppTopBar from '../components/General/AppTopBar'
 const App = ({ currentUser }) => {
   return (
     <Router>
@@ -23,7 +24,7 @@ const RenderRoute = ({ currentUser }) => (
     {
       currentUser && window.location.pathname !== '/signup' &&
       <div className="app-container">
-        <header className="app-topbar"></header>
+        <AppTopBar />
         <div className="app-body">
           <Sidebar />
           <GlobalAlert active={currentUser.profileInformation ? false : true} />

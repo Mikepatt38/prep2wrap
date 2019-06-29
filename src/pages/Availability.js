@@ -28,9 +28,9 @@ class Availability extends Component {
               currentAvailability={this.props.currentUser.availability}
               selectedDate={moment()}
               updateUserAvailability={this.props.updateUserAvailability} 
-              close={this.toggleModal}
             /> 
           }
+          close={this.toggleModal}
         />
 
         <div className="app-page-header">
