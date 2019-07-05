@@ -175,35 +175,31 @@ export const uploadProfileImage = (id, avatar, filename) => async dispatch => {
     contentType: file.type
   }
 
-  const [deletedOriginal, uploadNew] = await Promise.all([ deleteCurrentUserAvatar(ref, avatar, id), uploadAvatarImage(id, file, metadata)])
-  .catch( (error) =>{
-    dispatch({
-      type: 'SET_ALERT',
-      payload: [true, 'Error', error.message]   
-    })
-  })
-  if(deletedOriginal, uploadNew){
+  await Promise.all([ deleteCurrentUserAvatar(ref, avatar, id), uploadAvatarImage(id, file, metadata)])
+  .then( () => {
     dispatch({ 
       type: 'SET_ALERT',
-      payload: [true, 'Success', 'Your public avatar image has been updated.']
-    })  
-  }
+      payload: [true, 'Success', 'Your public avatar image has been updated. Please wait a few moments for your image to update.']
+    })
+  }) 
+  .catch( (error) => {
+    dispatch({ type: 'SET_ALERT', payload: [true, 'Error', error.message] })
+  }) 
 }
 
 // Async actions used by the async functions below
-export async function deleteCurrentUserAvatar(ref, avatar, imageName){
+export function deleteCurrentUserAvatar(ref, avatar, imageName){
   avatar &&
     ref.child(imageName).delete()
       .then( () => { return true })
       .catch( (error) => { return false })
-
-  return false
 }
 
-export async function uploadAvatarImage(imageName, imageFile, imageMetadata){
+export function uploadAvatarImage(imageName, imageFile, imageMetadata){
   const ref = storage.ref()
-  console.log(imageMetadata)
   ref.child(imageName).put(imageFile, imageMetadata)
+    .then( () => { return true })
+    .catch( (error) => { return false }) 
 }
 
 export async function getAvatarURL(imageName){

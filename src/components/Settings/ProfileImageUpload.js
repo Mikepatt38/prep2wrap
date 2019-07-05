@@ -4,7 +4,8 @@ import DownloadIcon from '../../img/icon-download.svg'
 
 class ProfileImageUpload extends Component {
   state = {
-    fileName: ''
+    fileName: '',
+    userAvatar: this.props.currentUser.avatarUrl ? this.props.currentUser.avatarUrl : Avatar 
   }
 
   handleFileChange = (e) => {
@@ -24,16 +25,11 @@ class ProfileImageUpload extends Component {
   }
 
   render() {
-    const { profileInformation } = this.props.currentUser
     return (
       <div className="account-settings-user-avatar">
         <div className="profile-image-upload">
           <div className="profile-image-upload-avatar">
-            {
-              profileInformation && profileInformation.avatarUrl 
-              ? <img src={profileInformation.avatarUrl} alt="Profile Avatar" />
-              : <img src={Avatar} alt="Profile Avatar Placeholder" />
-            }
+            <img src={this.state.userAvatar} alt="Profile Avatar" />
           </div>
           <div className="profile-image-upload-update">
             <input type="file" name="profileImage" id="profileImage" onChange={this.handleFileChange}  />

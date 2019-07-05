@@ -26,8 +26,8 @@ class JobResultsTable extends Component {
         id: 'Avatar', // Required because our accessor is not a string
         Header: 'Name',
         headerClassName: 'cell-avatar',
-        Cell: props => props.original.profileInformation.avatarUrl 
-          ? <img src={props.original.profileInformation.avatarUrl} alt="Profile Avatar" />
+        Cell: props => props.original.avatarUrl 
+          ? <img src={props.original.avatarUrl} alt="Profile Avatar" />
           : <img src={Avatar} alt="Profile Avatar Placeholder" />,
         className: 'cell-avatar'
       },

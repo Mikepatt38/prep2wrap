@@ -38,20 +38,32 @@ class UserSearchTable extends Component {
 
   toggleModal = () => {
     this.setState({
-      modalActive: !this.state.modalActive
+      modalActive: !this.state.modalActive,
+      searchName: '',
+      positionsSelected: [],
+      locationsSelected: [],
+      jobTypesSelected: [],
     })
   }
 
   toggleResultsModal = () => {
     this.setState({
-      resultsModalActive: !this.state.resultsModalActive
+      resultsModalActive: !this.state.resultsModalActive,
+      searchName: '',
+      positionsSelected: [],
+      locationsSelected: [],
+      jobTypesSelected: [],
     })
   }
 
   toggleAllModals = () => {
     this.setState({
       modalActive: false,
-      resultsModalActive: false
+      resultsModalActive: false,
+      searchName: '',
+      positionsSelected: [],
+      locationsSelected: [],
+      jobTypesSelected: [],
     })
   }
 
@@ -211,8 +223,8 @@ class UserSearchTable extends Component {
         id: 'Avatar', 
         Header: 'User',
         headerClassName: 'cell-avatar',
-        Cell: props => props.original.profileInformation.avatarUrl 
-          ? <img src={props.original.profileInformation.avatarUrl} alt="Profile Avatar" />
+        Cell: props => props.original.avatarUrl 
+          ? <img src={props.original.avatarUrl} alt="Profile Avatar" />
           : <img src={Avatar} alt="Profile Avatar Placeholder" />,
         className: 'cell-avatar'
       },

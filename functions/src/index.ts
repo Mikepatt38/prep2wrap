@@ -109,9 +109,7 @@ exports.generateThumbs = functions.storage.object().onFinalize(async (object) =>
   const thumbFileUrl = thumbResult[0];
   // Add the URLs to the Database
   await admin.firestore().collection('users').doc(userID).update({ 
-    profileInformation: {
-      avatarUrl: thumbFileUrl
-    }
+    avatarUrl: thumbFileUrl
   })
   
   return console.log('Thumbnail URLs saved to database.');

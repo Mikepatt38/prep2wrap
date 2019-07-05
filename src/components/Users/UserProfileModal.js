@@ -26,8 +26,8 @@ function UserProfileModal(props){
               <div className="user-header">
                 <div className="user-header-user">
                   {
-                    props.user.profileInformation.avatarUrl 
-                      ? <img src={props.user.profileInformation.avatarUrl} alt="User Profile Image" />
+                    props.user.avatarUrl 
+                      ? <img src={props.user.avatarUrl} alt="User Profile Image" />
                       : <img src={Avatar} alt="User Avatar Placeholder Image" />
                   }
                   <div className="user-info">
@@ -76,9 +76,7 @@ function UserProfileModal(props){
                       <div className="user-body-item">
                         <label>Other Languages Spoken:</label>
                         <p>{props.user.profileInformation.bilingual
-                          ? props.user.profileInformation.languages.map( el => {
-                              return <span>{el}</span>
-                            })
+                          ? <span>{props.user.profileInformation.languages}</span>
                           : <span>None</span>
                         }</p>
                       </div>
