@@ -25,6 +25,8 @@ class Dashboard extends Component {
           <DashboardStatus
             currentUser={this.props.currentUser}
             getUserJobCount={this.props.getUserJobCount}
+            updateUserAvailability={this.props.updateUserAvailability}
+            removeAvailabilityDate={this.props.removeAvailabilityDate}
           />
         </div>
       </div>
