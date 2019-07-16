@@ -1,12 +1,17 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import moment from 'moment'
+import dateFns from "date-fns"
 
 class DashboardStatus extends Component {
   state = {
     loading: true,
     createdJobsCount: 0,
     acceptedJobsCount: 0,
-    completedJobsCount: 0
+    completedJobsCount: 0,
+    checked: this.props.currentUser.availability ? 
+      this.props.currentUser.availability.some( el => el.date === moment().format('MM/DD/YYYY'))
+      : false
   }
 
   async componentDidMount(){
@@ -18,6 +23,19 @@ class DashboardStatus extends Component {
       completedJobsCount,
       loading: false
     })
+  }
+
+  handleCheckboxChange = (e) => {
+    this.setState({ checked: e.target.checked })
+    const checked = e.target.checked
+    const currentDate = moment().format('MM/DD/YYYY')
+    if(checked){
+      this.props.updateUserAvailability(this.props.currentUser.id, this.props.currentUser.availability, currentDate, 'Unavailable Today', 'Personal')
+    }
+    else {
+      console.log('remove')
+      this.props.removeAvailabilityDate(this.props.currentUser.id, this.props.currentUser.availability, currentDate)
+    }
   }
 
   render() {
@@ -55,9 +73,9 @@ class DashboardStatus extends Component {
               <input 
                 type="checkbox" 
                 id="availability-checkbox" 
-                // onChange={onChange} 
-                // value={value} 
-                checked={false}
+                onChange={this.handleCheckboxChange} 
+                value={this.state.checked}
+                checked={this.state.checked}
               />
               <label className="checkbox-regular" htmlFor="availability-checkbox">I am unavailable today.</label>
             </div>
@@ -84,20 +102,3 @@ class DashboardStatus extends Component {
 }
 
 export default DashboardStatus
-
-// <React.Fragment>
-// <div className="dashboard-status-cards">
-//   <div className="status-card">
-//     <span className="count">{this.state.createdJobsCount}</span>
-//     <span className="description">Jobs<br/>Created</span>
-//   </div>
-//   <div className="status-card">
-//     <span className="count">{this.state.acceptedJobsCount}</span>
-//     <span className="description">Jobs<br/>Accepted</span>
-//   </div>
-//   <div className="status-card">
-//     <span className="count">{this.state.completedJobsCount}</span>
-//     <span className="description">Jobs<br/>Completed</span>
-//   </div>
-// </div>
-// </React.Fragment>

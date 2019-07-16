@@ -40,10 +40,43 @@ class CreateJobFormStepTwo extends Component {
     })
   }
 
-  saveAndContinue = () => {
-    this.validateAssignedUsers() &&
-    this.props.updateReduxJobAssignedUsers(this.state.usersAssigned) &&
-    this.props.history.push(`/jobs/${this.state.jobID}/send-job-invites`)
+  sendSMSAlert = (users) => {
+    let promises = []
+
+    users.map( user => {
+      let userSMSMsg = `${user.name}, you have been invited to a crew as a ${user.position}.
+      Click the following link to review your jobs and the invite. https://outlyrs.com`
+      promises.push(this.props.createPendingJob(user.id, this.props.currentJob.jobObj.jobID, this.props.currentJob.assignedUsers))
+      promises.push(this.props.sendSMSAlerts(user.number, userSMSMsg))
+      promises.push(this.sendJobNotificationLink(user.id, user.name, user.position, this.props.currentJob.jobObj.jobID))
+    })
+
+    Promise.all(promises).then( () => this.props.history.push("/jobs"))
+    .catch( (error) => console.log(error.message))
+  }
+
+  sendJobNotificationLink = (userID, userName, userPosition, jobID) => {
+    const jobNotificationData = {
+      text: `${userName}, you're invited to join a crew as a ${userPosition}`,
+      type: 'invite'
+    }
+    this.props.createUserJobNotification(userID, jobID, jobNotificationData)
+  }
+
+  updateAssignedUsers(users){
+    let promises = []
+    promises.push(this.props.updateReduxJobAssignedUsers(users))
+    return Promise.all(promises).then(() => this.props.currentJob.assignedUsers)
+  }
+
+  saveAndContinue = async () => {
+    let sendSMSSuccess
+  
+    if(this.validateAssignedUsers()){
+      let newAssignedUsers = await this.updateAssignedUsers(this.state.usersAssigned)
+      let jobCreated = await this.props.createJob(this.props.currentUser.id.toString(), this.props.currentJob.jobObj.jobID.toString(), this.props.currentJob.jobObj, newAssignedUsers)
+      if(jobCreated) sendSMSSuccess = await this.sendSMSAlert(this.state.usersAssigned)
+    }
   }
 
   saveAndGoBack(e){

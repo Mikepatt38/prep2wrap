@@ -189,8 +189,6 @@ export class JobsTable extends Component {
         // Cell: props => <Link to={`/job-overview/${props.original.jobCreatorID}/${props.original.jobID}`} key={props.original.jobID}><img src={ActionIcon} alt="Table Icon for Actions" /></Link>,
         Cell: props => {
           const userType = this.getUserType(this.props.currentUser.id, props.original.jobCreatorID, props.original.status)
-          console.log(userType)
-          console.log(props.original.status)
           return (     
             <div className="action-container">
               <div 

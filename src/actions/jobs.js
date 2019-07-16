@@ -281,24 +281,24 @@ export const createJob = (userID, jobID, jobObj, assignedUsers) => async dispatc
   }  
   const jobDatesArr = await createJobDataArr(jobObj)
 
-  let jobCreated = await Promise.all([
+  return Promise.all([
     createUserJob(userID, jobID, newUserCreatedJob, database),
     addUserJobDatesToAvailability(database, userID, jobDatesArr)
-  ])
+  ]).then( () => true )
   .catch( (error) => { dispatch(setAlert(true, "Error", error.message)) }) 
-  return jobCreated ? 'success' : null
 }
 
 export const createPendingJob = (userID, jobID, assignedUsers) => async () => {
   const database = await db 
-
   const index = assignedUsers.findIndex(user => user.id === userID)
   const pendingJobData = assignedUsers[index]
+  let promises = []
 
-  database.collection("jobs").doc(userID).collection("pendingJobs").doc(jobID).set({
+  promises.push(database.collection("jobs").doc(userID).collection("pendingJobs").doc(jobID).set({
     ...pendingJobData,
     usersAssigned: assignedUsers
-  })
+  }))
+  return Promise.all(promises).then( () => true)
 }
 
 export const createUserJobNotification = (userID, jobID, jobNotificationData) => async () => {
@@ -327,10 +327,12 @@ export const createReduxJob = (jobState) => async dispatch => {
 }
 
 export const updateReduxJobAssignedUsers = (usersAssigned) => async dispatch => {
-  dispatch({
-    type: 'UPDATE_ASSIGNED_USERS',
-    payload: usersAssigned
-  })
+  return (
+    dispatch({
+      type: 'UPDATE_ASSIGNED_USERS',
+      payload: usersAssigned
+    })
+  )
 }
 
 export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, jobDates, position) => async (dispatch) => {
@@ -408,7 +410,6 @@ export const userResultsForJobCreation = (userID, jobObj) => async () => {
   results.map(user => user.profileInformation.positions.map(position => jobObj.jobPositions.some(jobPosition => {
     position.value === jobPosition && !tempUsers.includes(user) && userID !== user.id && tempUsers.push(user) 
   })))
-  console.log(tempUsers)
   return tempUsers
 }
 

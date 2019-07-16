@@ -51,10 +51,10 @@ class SendSMSTwilio extends Component {
     }
     this.props.createUserJobNotification(userID, jobID, jobNotificationData)
   }
-
+ 
   sendSMSWithTwilio = (name, number) => {
     let textBody = `Hey ${name}, you were invited to join a crew on CREW IT UP. Visit the jobs page on your account to see more.`
-    fetch('http://localhost:9000/sendsms', {
+    fetch('/sendsms', {
       method: 'POST',
       headers: {
         Accept: 'application/JSON',

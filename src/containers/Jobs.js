@@ -18,7 +18,7 @@ import { createJob,
          acceptJobInvitation,
          denyJobInvitation
         } from '../actions/jobs'
-import { setModal, setUserModal } from '../actions/components'
+import { sendSMSAlerts } from '../actions/twilio'
 import withAuthorization from './withAuthorization'
 import CreateJobFormStepOne from '../components/Jobs/CreateJobFormStepOne';
 import CreateJobFormStepTwo from '../components/Jobs/CreateJobFormStepTwo';
@@ -39,7 +39,6 @@ const mapStateToProps = (state) => {
 const actions = {
   createJob,
   getUserJobs,
-  setUserModal,
   userResultsForJobCreation,
   createUserJobNotification,
   createReduxJob,
@@ -51,7 +50,8 @@ const actions = {
   createPendingJob,
   createUserAcceptedJob,
   acceptJobInvitation,
-  denyJobInvitation
+  denyJobInvitation,
+  sendSMSAlerts
 }
 
 
