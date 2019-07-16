@@ -44,8 +44,7 @@ class CreateJobFormStepTwo extends Component {
     let promises = []
 
     users.map( user => {
-      let userSMSMsg = `${user.name}, you have been invited to a crew as a ${user.position}.
-      Click the following link to review your jobs and the invite. https://outlyrs.com`
+      let userSMSMsg = `${user.name}, you have been invited to a crew as a ${user.position}.`
       promises.push(this.props.createPendingJob(user.id, this.props.currentJob.jobObj.jobID, this.props.currentJob.assignedUsers))
       promises.push(this.props.sendSMSAlerts(user.number, userSMSMsg))
       promises.push(this.sendJobNotificationLink(user.id, user.name, user.position, this.props.currentJob.jobObj.jobID))

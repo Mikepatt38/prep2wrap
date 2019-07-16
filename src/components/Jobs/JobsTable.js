@@ -84,6 +84,10 @@ export class JobsTable extends Component {
     return newAvailability
   }
 
+  sendSMSAlert = (userNumber, message) => {
+    this.props.sendSMSAlerts(userNumber, message)
+  }
+
   acceptJobInvite = (jobObj) => {
     this.setState({
       loading: true
@@ -94,11 +98,13 @@ export class JobsTable extends Component {
       status: 'Pending'
     }
     const position = jobObj.usersAssigned[userIndex].position
+    const SMSAlertMsg = `${this.props.currentUser.firstName} ${this.props.currentUser.lastName} accepted your crew invite as ${position}!`
     let newUserAvailability = this.updateUsersJobDates(jobObj.jobDates, jobObj.jobName)
     this.props.acceptJobInvitation(jobObj.jobCreatorID, jobObj.jobID, this.props.currentUser, newUserAvailability, position)
       .then( () => {
         this.props.createUserAcceptedJob(this.props.currentUser.id, jobObj.jobID, newUserObj)
         .then( () => {
+          this.sendSMSAlert(jobObj.jobCreatorNumber, SMSAlertMsg)
           this.getUsersCurrentJobs()
         })
       })
@@ -111,8 +117,10 @@ export class JobsTable extends Component {
     const userIndex = jobObj.usersAssigned.findIndex(user => user.id === this.props.currentUser.id)
     const position = jobObj.usersAssigned[userIndex].position
     const newAssignedUsers = jobObj.usersAssigned.filter( user => user.id.toString() !== this.props.currentUser.id.toString())
+    const SMSAlertMsg = `${this.props.currentUser.firstName} ${this.props.currentUser.lastName} denied your crew invite as ${position}!`
     this.props.denyJobInvitation(this.props.currentUser, jobObj.jobCreatorID, jobObj.jobID, newAssignedUsers, position)
     .then( () => {
+      this.sendSMSAlert(jobObj.jobCreatorNumber, SMSAlertMsg)
       this.getUsersCurrentJobs()
     })
   }

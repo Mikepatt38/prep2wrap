@@ -118,6 +118,7 @@ class JobResultsTable extends Component {
           jobDates: this.props.jobData.jobDates,
           jobLocation: this.props.jobData.jobLocation,
           jobContactEmail: this.props.jobData.jobContactEmail,
+          jobCreatorNumber: this.props.jobData.jobCreatorNumber,
           jobDescription: this.props.jobData.jobDesc
         }
       ],
