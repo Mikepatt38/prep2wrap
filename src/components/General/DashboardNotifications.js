@@ -18,8 +18,7 @@ class DashboardNotifications extends Component {
       })
   }
 
-  handleRemoveNotification = (e, currentNotificationID) => {
-    e.preventDefault()
+  handleRemoveNotification = (currentNotificationID) => {
     let tempArr = this.state.jobNotifications
     const newState = tempArr.filter( notification => notification.id !== currentNotificationID)
     this.setState({
@@ -35,14 +34,14 @@ class DashboardNotifications extends Component {
         {
           this.state.jobNotifications.map( (notification, key) => {
             return (
-              <Link to="/jobs" key={key}>
+              <Link to="/jobs" onClick={() => this.handleRemoveNotification(notification.id)} key={key}>
                 <div className="notification" key={key}>
                   <div className="notification-text">
                     <h4>{notification.text}</h4>
                     <p>Click to review the job invite overview.</p>
                   </div>
                   <div className="notification-close">
-                    <span onClick={(e) => this.handleRemoveNotification(e, notification.id)}><img src={CloseIcon} alt="Close Icon" /></span> 
+                    <span onClick={() => this.handleRemoveNotification(notification.id)}><img src={CloseIcon} alt="Close Icon" /></span> 
                   </div>
                 </div>
               </Link>

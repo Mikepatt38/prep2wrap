@@ -415,11 +415,11 @@ export const userResultsForJobCreation = (userID, jobObj) => async () => {
 
 export async function moveUserJobToCompleted(database, currentUser, jobObj){
   let jobData = await database.collection("jobs").doc(currentUser.id).collection("createdJobs").doc(jobObj.jobID).get()
-  let createCompletedJob = await database.collection("jobs").doc(currentUser.id).collection("completedJobs").doc(jobObj.jobID).set({
+  await database.collection("jobs").doc(currentUser.id).collection("completedJobs").doc(jobObj.jobID).set({
     ...jobData.data(),
     status: 'Completed'
   })
-  let deleteJob = await database.collection("jobs").doc(currentUser.id).collection("createdJobs").doc(jobObj.jobID).delete()
+  await database.collection("jobs").doc(currentUser.id).collection("createdJobs").doc(jobObj.jobID).delete()
 }
 
 export async function moveAcceptedJobToCompleted(database, usersAssigned, jobObj){
