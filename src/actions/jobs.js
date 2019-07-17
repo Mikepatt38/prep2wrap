@@ -184,10 +184,10 @@ export async function deleteUserPendingJob(database, userID, jobID){
 }
 
 export async function deleteJobAvailabilityDates(database, users, dates){
+  console.log(users)
   for(let user of users){
-    const currentAvailability = await database.collection("users").doc(user.id).get().then( doc => { 
-      return doc.data().availability === undefined ? [] : doc.data().availability 
-    })
+    console.log(user)
+    const currentAvailability = user.availability
     const newAvailability = currentAvailability.filter( date => !(dates.includes(date.date)) ) 
     database.collection("users").doc(user.id).update({
       availability: newAvailability
@@ -437,13 +437,14 @@ export const deletedCreatedJob = (user, jobID, jobName, jobDates, usersAssigned)
   const database = await db
 
   try {
-    let deleteJobAndDates = await Promise.all([
+    Promise.all([
       deleteUserCreatedJob(database, user, jobID, jobDates),
       deleteAcceptedJob(database, usersAssigned, jobID, jobName),
       deleteJobAvailabilityDates(database, usersAssigned, jobDates),
       dispatch(setAlert(true, "Success", "The job was successfully deleted."))
-    ])
-    return 'success'
+    ]).then( () => {
+      return 'success'
+    })
   }
   catch(error) {
     dispatch(setAlert(true, "Error", error.message))

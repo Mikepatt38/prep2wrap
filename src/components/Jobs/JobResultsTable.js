@@ -110,7 +110,7 @@ class JobResultsTable extends Component {
           position: position,
           id: user.id,
           number: user.mobileNumber,
-          status: "review",
+          status: "Review",
           jobType: "invited",
           jobID: this.props.jobID,
           jobName: this.props.jobData.jobName,

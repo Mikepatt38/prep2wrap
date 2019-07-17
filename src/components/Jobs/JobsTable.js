@@ -88,6 +88,14 @@ export class JobsTable extends Component {
     this.props.sendSMSAlerts(userNumber, message)
   }
 
+  sendMultipleSMSAlert = (users, message) => {
+    let promises = []
+    users.map( user => {
+      promises.push(this.props.sendSMSAlerts(user.mobileNumber, message))
+    })
+    Promise.all(promises).then( () => true)
+  }
+
   acceptJobInvite = (jobObj) => {
     this.setState({
       loading: true
@@ -129,8 +137,10 @@ export class JobsTable extends Component {
     this.setState({
       loading: true
     })
+    const SMSAlertMsg = `${jobObj.jobCreator} has deleted the job ${jobObj.jobName}.`
     this.props.deletedCreatedJob(this.props.currentUser, jobObj.jobID, jobObj.jobName, jobObj.jobDates, jobObj.usersAssigned)
     .then( () => {
+      this.sendMultipleSMSAlert(jobObj.usersAssigned, SMSAlertMsg)
       this.getUsersCurrentJobs()
     })
   }
@@ -139,8 +149,10 @@ export class JobsTable extends Component {
     this.setState({
       loading: true
     })
+    const SMSAlertMsg = `${jobObj.jobCreator} has marked the job ${jobObj.jobName} as completed.`
     this.props.completeUserJob(this.props.currentUser, jobObj)
     .then( () => {
+      this.sendMultipleSMSAlert(jobObj.usersAssigned, SMSAlertMsg)
       this.getUsersCurrentJobs()
     })
   }

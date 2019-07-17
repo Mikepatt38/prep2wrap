@@ -7,7 +7,11 @@ import SwapIcon from '../../img/icon-swap.svg'
 export class UserAvailabilityTable extends Component {
   state = {
     availability: this.props.dates ? this.props.dates : [],
-    loading: this.props.dates ? false : true
+    loading: true
+  }
+
+  componentDidMount = () => {
+    this.setState({ loading: false })
   }
 
   componentDidUpdate(prevProps, prevState){
@@ -17,8 +21,7 @@ export class UserAvailabilityTable extends Component {
   }
 
   getUsersCurrentAvailability = async () => {
-    const { getCurrentAvailability, currentUser } = this.props
-    const userAvailability = await getCurrentAvailability(currentUser.id)
+    const userAvailability = this.props.currentUser.availability
     this.setState({
       availability: this.formatDatesArr(userAvailability),
       loading: false

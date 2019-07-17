@@ -25,9 +25,10 @@ class Availability extends Component {
           children={      
             <AvailabilityForm 
               currentUser={this.props.currentUser} 
-              currentAvailability={this.props.currentUser.availability}
+              currentAvailability={this.props.currentUser.availability ? this.props.currentUser.availability : []}
               selectedDate={moment()}
               updateUserAvailability={this.props.updateUserAvailability} 
+              close={this.toggleModal}
             /> 
           }
           close={this.toggleModal}

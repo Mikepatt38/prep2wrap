@@ -77,7 +77,7 @@ class Calendar extends Component {
         formattedDate = dateFns.format(day, dateFormat)
         compareDate = dateFns.format(day, "MM/DD/YYYY")
         const cloneDay = day
-        this.props.dates.map( (date) => {
+        this.props.dates && this.props.dates.map( (date) => {
           return compareDate === date.date 
             ? date.dateType.toLowerCase() === 'booked' 
               ? this.state.bookedDates.push(dateFns.format(day, "MM/DD/YYYY")) 
