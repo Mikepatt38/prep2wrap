@@ -41,19 +41,15 @@ class Availability extends Component {
 
         <div className="app-page-body">
           <div className="app-page-section">
-            <p>A calendar view of your booked/ personal days that you are unavailable for further hire.</p>
-            {
-              <Calendar 
-                currentUser={this.props.currentUser}
-                dates={this.props.currentUser.availability} 
-                setSelectedDate={this.setSelectedDate} 
-                getCurrentAvailability={this.props.getCurrentAvailability}
-              />
-            }
+            <Calendar 
+              currentUser={this.props.currentUser}
+              dates={this.props.currentUser.availability} 
+              setSelectedDate={this.setSelectedDate} 
+              getCurrentAvailability={this.props.getCurrentAvailability}
+            />
           </div>
 
           <div className="app-page-section">
-            <p>A list view of your booked/ personal days that you are unavailable for further hire.</p>
             {
               <UserAvailabilityTable
                 dates={this.props.currentUser.availability}

@@ -2,7 +2,9 @@ import ReactTable from "react-table"
 import React, { Component } from 'react'
 import ActionIcon from '../../img/icon-action.svg'
 import 'react-table/react-table.css'
-import JobOveriewModal from "./JobsModal";
+import JobOveriewModal from "./JobsModal"
+import JobIllustration from '../../img/illustrations/jobs.svg'
+import EmptyState from "../General/EmptyState"
 
 export class JobsTable extends Component {
   state = {
@@ -27,6 +29,7 @@ export class JobsTable extends Component {
     const jobData = await getUserJobs(currentUser.id)
     this.setState({
       userJobs: jobData,
+      hasJobData: jobData.length > 0,
       loading: false
     })
   }
@@ -269,14 +272,28 @@ export class JobsTable extends Component {
           job={this.state.job}
           close={this.toggleModal}
         />
-        <ReactTable
-          data={this.state.userJobs}
-          columns={columns}
-          loading={this.state.loading}
-          defaultPageSize={10}
-          minRows={1}
-          resizable={false}
-        /> 
+        {
+          this.state.hasJobData 
+          ?
+          <React.Fragment>
+          <p>Your latest collection of created, completed, and pending jobs on the app.</p>
+          <ReactTable
+            data={this.state.userJobs}
+            columns={columns}
+            loading={this.state.loading}
+            defaultPageSize={10}
+            minRows={1}
+            resizable={false}
+          /> 
+          </ React.Fragment>
+          :
+          <EmptyState
+            imgSrc={JobIllustration}
+            imgAlt="Job Page Illustration"
+            title="You currently do not have any job data."
+            text="This is where all your job data will appear. You will be able to view, accept, deny, or complete any jobs that you are apart of."
+          />
+        }
       </React.Fragment>
     )
   }

@@ -10,13 +10,15 @@ class Calendar extends Component {
     selectedDateType: '',
     bookedDates: [],
     personalDates: [],
+    hasAvailability: this.props.dates.length > 0
   }
 
   componentDidUpdate(prevProps, prevState){
     if(prevProps.currentUser.availability !== this.props.currentUser.availability){
       this.setState({
         bookedDates: [],
-        personalDates: []
+        personalDates: [],
+        hasAvailability: this.props.dates.length > 0
       })
     }
   }
@@ -145,6 +147,7 @@ class Calendar extends Component {
 
   render() {
     return (
+      this.state.hasAvailability && 
       <div className="calendar">
         {this.renderHeader()}
         {this.renderDays()}

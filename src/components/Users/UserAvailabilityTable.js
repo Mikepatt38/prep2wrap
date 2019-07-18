@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import { Table } from '../General/Table'
 import { Link } from 'react-router-dom'
+import EmptyState from "../General/EmptyState"
+import CalendarIllustration from '../../img/illustrations/calendar.svg'
 import ActionIcon from '../../img/icon-action.svg'
 import SwapIcon from '../../img/icon-swap.svg'
 
 export class UserAvailabilityTable extends Component {
   state = {
     availability: this.props.dates ? this.props.dates : [],
+    hasAvailability: this.props.dates.length > 0,
     loading: true
   }
 
@@ -17,6 +20,11 @@ export class UserAvailabilityTable extends Component {
   componentDidUpdate(prevProps, prevState){
     if(prevProps.currentUser.availability !== this.props.currentUser.availability){
       this.getUsersCurrentAvailability()
+    }
+    if(prevProps.dates !== this.props.dates){
+      this.setState({
+        hasAvailability: this.props.dates.length > 0
+      })
     }
   }
 
@@ -131,10 +139,25 @@ export class UserAvailabilityTable extends Component {
       }
     ]
    
-    return <Table
-      data={this.state.availability}
-      columns={columns}
-      loading={this.state.loading}
-    />
+    return (
+      <React.Fragment>
+      {
+        this.state.hasAvailability 
+        ?
+        <Table
+          data={this.state.availability}
+          columns={columns}
+          loading={this.state.loading}
+        />
+        :
+        <EmptyState
+          imgSrc={CalendarIllustration}
+          imgAlt="Availability Page Illustration"
+          title="You currently do not have any availability data."
+          text="This is where all your availability data will appear. You will have a month by month day calendar and a table list view of all your availability dates color coded."
+        />
+      }
+      </React.Fragment>
+    )
   }
 }

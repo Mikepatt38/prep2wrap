@@ -38,7 +38,6 @@ class UsersPage extends Component {
     
         <div className="app-page-body">
           <div className="app-page-section">
-            <p>This is your quick crew, add members you hire or work with frequently to make it easier to communicate with them.</p>
             <UserFavorites />
           </div> 
           

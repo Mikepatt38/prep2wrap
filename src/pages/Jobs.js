@@ -25,7 +25,6 @@ class Jobs extends Component {
         
         <div className="app-page-body">
           <div className="app-page-section">
-            <p>Your latest collection of created, completed, and pending jobs on the app.</p>
             <JobsTable 
               getUserJobs={this.props.getUserJobs}
               currentUser={this.props.currentUser}
