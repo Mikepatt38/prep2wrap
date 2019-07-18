@@ -179,18 +179,28 @@ export async function deleteAcceptedJob(database, usersAssigned, jobID){
   })
 }
 
+export async function deleteAllUsersPendingJobs(database, users, jobID){
+  let promises = []
+  users.map( user => {
+    promises.push(database.collection("jobs").doc(user.id).collection("pendingJobs").doc(jobID).delete())
+  })
+  Promise.all(promises).then( () => true)
+}
+
 export async function deleteUserPendingJob(database, userID, jobID){
   database.collection("jobs").doc(userID).collection("pendingJobs").doc(jobID).delete()
 }
 
 export async function deleteJobAvailabilityDates(database, users, dates){
+  let promises = []
   for(let user of users){
     const currentAvailability = user.availability ? user.availability : []
     const newAvailability = currentAvailability.filter( date => !(dates.includes(date.date)) ) 
-    database.collection("users").doc(user.id).update({
+    promises.push(database.collection("users").doc(user.id).update({
       availability: newAvailability
-    }) 
+    }))
   }
+  Promise.all(promises).then( () => true)
 }
 
 export const removeUserJobNotification = (userID, notificationID ) => async () => {
@@ -438,6 +448,7 @@ export const deletedCreatedJob = (user, jobID, jobName, jobDates, usersAssigned)
     Promise.all([
       deleteUserCreatedJob(database, user, jobID, jobDates),
       deleteAcceptedJob(database, usersAssigned, jobID, jobName),
+      deleteAllUsersPendingJobs(database, usersAssigned, jobID),
       deleteJobAvailabilityDates(database, usersAssigned, jobDates),
       dispatch(setAlert(true, "Success", "The job was successfully deleted."))
     ]).then( () => {

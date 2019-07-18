@@ -91,7 +91,7 @@ export class JobsTable extends Component {
   sendMultipleSMSAlert = (users, message) => {
     let promises = []
     users.map( user => {
-      promises.push(this.props.sendSMSAlerts(user.mobileNumber, message))
+      promises.push(this.props.sendSMSAlerts(user.number, message))
     })
     Promise.all(promises).then( () => true)
   }
