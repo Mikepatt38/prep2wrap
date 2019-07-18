@@ -1,7 +1,6 @@
 import { db, storage, auth as firebaseAuth } from '../db/firebase'
 import { auth } from '../db'
 import { firebase } from '../db/firebase'
-// import { storage } from '../db/firebase'
 
 export const clearSearchUserByNameResults = () => ({type: 'CLEAR_SEARCH_USER_BY_NAME_RESULTS', payload: [] })
 
@@ -220,7 +219,10 @@ export const signUpUser = (email, password, firstName, lastName, mobileNumber, s
       lastName: lastName,
       email: email,
       mobileNumber: mobileNumber,
-      stripe_id: stripe_id
+      stripe_id: stripe_id,
+      completedJobs: 0,
+      createdJobs: 0,
+      acceptedJobs: 0
     })
     return history.push("/")
   }

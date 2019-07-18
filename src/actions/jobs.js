@@ -64,7 +64,11 @@ export const denyJobInvitation = (currentUser, jobCreatorID, jobID, newAssignedU
 
 export const createUserAcceptedJob = (userID, jobID, userJobData) => async () => {
   const database = await db
-  await database.collection("jobs").doc(userID).collection("acceptedJobs").doc(jobID).set(userJobData)
+  let promises = []
+  promises.push(database.collection("jobs").doc(userID).collection("acceptedJobs").doc(jobID).set(userJobData))
+  promises.push(database.collection("users").doc(userID).update({
+    acceptedJobs: firebase.firestore.FieldValue.increment(1)
+  }))
 }
 
 export const getUserJobNotifications = (userID) => async () => {
@@ -100,8 +104,10 @@ export const getUserJobNotifications = (userID) => async () => {
 
 // All async functions to work with the database API
 export async function createUserJob(userID, jobID, newUserCreatedJob, database){ 
-  let createdJobRef = database.collection("jobs").doc(userID)
-  let setCreatedJobRef = await createdJobRef.collection("createdJobs").doc(jobID).set(newUserCreatedJob)
+  database.collection("jobs").doc(userID).collection("createdJobs").doc(jobID).set(newUserCreatedJob)
+  database.collection("users").doc(userID).update({
+    createdJobs: firebase.firestore.FieldValue.increment(1)
+  })
 }
 
 export async function getUserCreatedJobs(database, currentUserID){
@@ -168,14 +174,20 @@ export async function getUserPendingJobs(database, currentUserID){
   return pendingJobs
 }
 
-export async function deleteUserCreatedJob(database, user, jobID, jobDates){
+export function deleteUserCreatedJob(database, user, jobID, jobDates){
   database.collection("jobs").doc(user.id).collection("createdJobs").doc(jobID).delete()
-  deleteJobAvailabilityDates(database, [user], jobDates )
+  database.collection("users").doc(user.id).update({
+    createdJobs: user.createdJobs - 1
+  })
+  deleteJobAvailabilityDates(database, [user], jobDates)
 }
 
-export async function deleteAcceptedJob(database, usersAssigned, jobID){
+export function deleteAcceptedJob(database, usersAssigned, jobID){
   usersAssigned.map( user => {
     database.collection("jobs").doc(user.id).collection("acceptedJobs").doc(jobID).delete()
+    database.collection("users").doc(user.id).update({
+      acceptedJobs: firebase.firestore.FieldValue.increment(-1)
+    })
   })
 }
 
@@ -358,7 +370,6 @@ export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, jobDates, 
     deleteUserPendingJob(database, currentUser.id, jobID),
     updateUserJobStatus(database, jobCreatorID, jobID, jobDates[0], currentUser.id), 
     addUserJobDatesToAvailability(database, currentUser.id, jobDates),
-    // removeUserJobNotification(currentUser.id, jobID),
   ])
   .then( () => {
     dispatch(setAlert(true, "Success", "You successfully accepted the job."))
@@ -370,14 +381,14 @@ export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, jobDates, 
   })
 } 
 
-export const getUserJobCount = (userID) => async () => {
-  const database = await db
-  const createdJobsRef = await database.collection("jobs").doc(userID).collection("createdJobs").get()
-  const acceptedJobsRef = await database.collection("jobs").doc(userID).collection("acceptedJobs").get()
-  const completedJobsRef = await database.collection("jobs").doc(userID).collection("completedJobs").get()
+// export const getUserJobCount = (userID) => async () => {
+//   const database = await db
+//   const createdJobsRef = await database.collection("jobs").doc(userID).collection("createdJobs").get()
+//   const acceptedJobsRef = await database.collection("jobs").doc(userID).collection("acceptedJobs").get()
+//   const completedJobsRef = await database.collection("jobs").doc(userID).collection("completedJobs").get()
   
-  return { "createdJobsCount": createdJobsRef.size, "acceptedJobsCount": acceptedJobsRef.size, "completedJobsCount": completedJobsRef.size }
-}
+//   return { "createdJobsCount": createdJobsRef.size, "acceptedJobsCount": acceptedJobsRef.size, "completedJobsCount": completedJobsRef.size }
+// }
 
 export const userResultsForJobCreation = (userID, jobObj) => async () => {
   const database = await db
@@ -422,23 +433,31 @@ export const userResultsForJobCreation = (userID, jobObj) => async () => {
 }
 
 export async function moveUserJobToCompleted(database, currentUser, jobObj){
-  let jobData = await database.collection("jobs").doc(currentUser.id).collection("createdJobs").doc(jobObj.jobID).get()
-  await database.collection("jobs").doc(currentUser.id).collection("completedJobs").doc(jobObj.jobID).set({
-    ...jobData.data(),
+  let promises = []
+  promises.push(database.collection("jobs").doc(currentUser.id).collection("completedJobs").doc(jobObj.jobID).set({
+    ...jobObj,
     status: 'Completed'
-  })
-  await database.collection("jobs").doc(currentUser.id).collection("createdJobs").doc(jobObj.jobID).delete()
+  }))
+  promises.push(database.collection("users").doc(currentUser.id).update({
+    completedJobs: firebase.firestore.FieldValue.increment(1)
+  }))
+  promises.push(database.collection("jobs").doc(currentUser.id).collection("createdJobs").doc(jobObj.jobID).delete())
+  Promise.all(promises).then( () => true )
 }
 
 export async function moveAcceptedJobToCompleted(database, usersAssigned, jobObj){
+  let promises = []
   usersAssigned.map( async (user) => {
-    let jobData = await database.collection("jobs").doc(user.id).collection("acceptedJobs").doc(jobObj.jobID).get()
-    let createCompletedJob = await database.collection("jobs").doc(user.id).collection("completedJobs").doc(jobObj.jobID).set({
-      ...jobData.data(),
+    promises.push(database.collection("jobs").doc(user.id).collection("completedJobs").doc(jobObj.jobID).set({
+      ...jobObj,
       status: 'Completed'
-    })
-    let deleteJob = await database.collection("jobs").doc(user.id).collection("acceptedJobs").doc(jobObj.jobID).delete()
+    }))
+    promises.push(database.collection("users").doc(user.id).update({
+      completedJobs: firebase.firestore.FieldValue.increment(1)
+    }))
+    promises.push(database.collection("jobs").doc(user.id).collection("acceptedJobs").doc(jobObj.jobID).delete())
   })
+  Promise.all(promises).then( () => true)
 }
 
 export const deletedCreatedJob = (user, jobID, jobName, jobDates, usersAssigned) => async dispatch => {
@@ -450,8 +469,8 @@ export const deletedCreatedJob = (user, jobID, jobName, jobDates, usersAssigned)
       deleteAcceptedJob(database, usersAssigned, jobID, jobName),
       deleteAllUsersPendingJobs(database, usersAssigned, jobID),
       deleteJobAvailabilityDates(database, usersAssigned, jobDates),
-      dispatch(setAlert(true, "Success", "The job was successfully deleted."))
     ]).then( () => {
+      dispatch(setAlert(true, "Success", "The job was successfully deleted."))
       return 'success'
     })
   }

@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
 import Dashboard from '../pages/Dashboard'
-import { getUserJobNotifications, removeUserJobNotification, getUserJobCount } from '../actions/jobs'
+import { getUserJobNotifications, removeUserJobNotification } from '../actions/jobs'
 import { updateUserAvailability, removeAvailabilityDate } from '../actions/availability'
 import withAuthorization from './withAuthorization'
 
@@ -15,7 +15,6 @@ const mapStateToProps = (state) => {
 const actions = {
   getUserJobNotifications,
   removeUserJobNotification,
-  getUserJobCount,
   updateUserAvailability,
   removeAvailabilityDate
 }

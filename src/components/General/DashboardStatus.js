@@ -5,36 +5,35 @@ import dateFns from "date-fns"
 
 class DashboardStatus extends Component {
   state = {
-    loading: true,
-    createdJobsCount: 0,
-    acceptedJobsCount: 0,
-    completedJobsCount: 0,
+    createdJobsCount: this.props.currentUser.createdJobs,
+    acceptedJobsCount: this.props.currentUser.acceptedJobs,
+    completedJobsCount: this.props.currentUser.completedJobs,
     checked: this.props.currentUser.availability ? 
       this.props.currentUser.availability.some( el => el.date === moment().format('MM/DD/YYYY'))
       : false
   }
 
-  async componentDidMount(){
-    const jobData = await this.props.getUserJobCount(this.props.currentUser.id)
-    const { createdJobsCount, acceptedJobsCount, completedJobsCount } = jobData
-    this.setState({
-      createdJobsCount,
-      acceptedJobsCount,
-      completedJobsCount,
-      loading: false
-    })
+  componentDidUpdate = (prevProps, prevState) => {
+    if(prevProps.currentUser !== this.props.currentUser){
+      this.setState({
+        createdJobsCount: this.props.currentUser.createdJobs,
+        acceptedJobsCount: this.props.currentUser.acceptedJobs,
+        completedJobsCount: this.props.currentUser.completedJobs,
+      })
+    }
   }
 
   handleCheckboxChange = (e) => {
     this.setState({ checked: e.target.checked })
     const checked = e.target.checked
     const currentDate = moment().format('MM/DD/YYYY')
+    const userAvailability = this.props.currentUser.availability ? this.props.currentUser.availability : []
     if(checked){
-      this.props.updateUserAvailability(this.props.currentUser.id, this.props.currentUser.availability, currentDate, 'Unavailable Today', 'Personal')
+      this.props.updateUserAvailability(this.props.currentUser.id, userAvailability, currentDate, 'Unavailable Today', 'Personal')
     }
     else {
       console.log('remove')
-      this.props.removeAvailabilityDate(this.props.currentUser.id, this.props.currentUser.availability, currentDate)
+      this.props.removeAvailabilityDate(this.props.currentUser.id, userAvailability, currentDate)
     }
   }
 
