@@ -23,8 +23,6 @@ firebase.initializeApp({
 })
 
 const firestore = firebase.firestore()
-const settings = {timestampsInSnapshots: true}
-firestore.settings(settings)
 
 // Initialize Cloud Firestore through Firebase
 var db = firestore

@@ -11,7 +11,7 @@ import { JobsPage, CreateJobFormStep1, CreateJobFormStep2, CreateJobFormStep3, S
 import { NotFound } from './pages/NotFound'
 
 export const Routes = () => {
-  return (
+  return ( 
     <Switch>
       <Route exact path='/login' component={UserAuth} />
       <Route exact path='/signup' component={UserAuth} />

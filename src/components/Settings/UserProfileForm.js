@@ -131,7 +131,6 @@ export class UserProfileForm extends Component {
           inputOnChange={this.handleChange}
           className="form-group--third"
         />
-
         <hr />
 
         <p>Connect your social accounts to allow other crew members to find you on social media.</p>

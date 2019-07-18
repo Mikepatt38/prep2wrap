@@ -9,12 +9,17 @@ import Alert from './Alert'
 import { DashboardFooter } from '../components/General/DashboardFooter'
 import { GlobalAlert } from '../components/General/GlobalAlert'
 import AppTopBar from '../components/General/AppTopBar'
+import ScrollToTop from '../components/General/ScrollToTop'
+
+
 const App = ({ currentUser }) => {
   return (
     <Router>
-      <RenderRoute
-        currentUser={currentUser}
-      />
+      <ScrollToTop>
+        <RenderRoute
+          currentUser={currentUser}
+        />
+      </ScrollToTop>
     </Router>
   )
 }
