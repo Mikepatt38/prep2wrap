@@ -285,7 +285,7 @@ class JobResultsTable extends Component {
         </div>
 
         <div className="app-page-section app-page-section--spacing">
-          <p>These are your current invited users and their position.</p>
+          <p>These are your current invited crew and their position.</p>
           {this.props.error && <p className="error-message">Please assign at least one position before continuing.</p>}
           <ul className="assigned-jobs">
             {
@@ -302,7 +302,7 @@ class JobResultsTable extends Component {
         </div>
 
         <div className="app-page-section app-page-section--spacing">
-          <p>Filter through users to assign users to invite for positions for your crew.</p>
+          <p>Filter through crew members to assign them to be invited for positions on your crew.</p>
           {this.tableFilter()}
           <Table
             data={this.state.data}

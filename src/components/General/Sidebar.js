@@ -11,7 +11,7 @@ function Sidebar(){
     <nav>
       <Link to="/" className="nav-link"><img src={DashboardIcon} alt="Dashboard Icon" /> Dashboard</Link>
       <Link to="/jobs" className="nav-link"><img src={JobsIcon} alt="Jobs Icon" /> Jobs</Link>
-      <Link to="/users" className="nav-link"><img src={UsersIcon} alt="Users Icon" /> Users</Link>
+      <Link to="/crew" className="nav-link"><img src={UsersIcon} alt="Users Icon" /> Crew</Link>
       <Link to="/availability" className="nav-link"><img src={AvailabilityIcon} alt="Availability Icon" /> Availability</Link>
       <Link to="/account-settings" className="nav-link"><img src={AccountIcon} alt="Account Settings Icon" /> Account Settings</Link>
     </nav>

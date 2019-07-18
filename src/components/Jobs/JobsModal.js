@@ -59,7 +59,7 @@ function JobOveriewModal(props){
                     })}</p>
                   </div>
                   <div className="job-overview-section">
-                    <label>Users Assigned with Status</label>
+                    <label>Crew Members Assigned with Status</label>
                     {props.job.usersAssigned.map( user => {
                       return <p>{user.position}: {user.name} <span className={`${user.status}`}>{user.status}</span></p>
                     })}

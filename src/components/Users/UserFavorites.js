@@ -14,8 +14,8 @@ function UserFavorites(props){
           />
         :
         <div className="empty-state">
-          <p>You currently do not have any users in your quick crew.</p>
-          <p>To add users, use the quick search below to find crew members and add them as a to your quick crew from the search results table.</p>
+          <p>You currently do not have any crew members in your quick crew.</p>
+          <p>To add crew members, use the quick search below to find crew members and add them as a to your quick crew from the search results table.</p>
         </div>
       }
     </React.Fragment>

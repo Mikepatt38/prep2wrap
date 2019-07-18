@@ -84,7 +84,7 @@ class DashboardStatus extends Component {
           <div className="card-body">
             <div className="card-body-header">
               <h4>Quick Crew</h4>
-              <Link to="/users" className="button">Search Crew</Link>
+              <Link to="/crew" className="button">Search Crew</Link>
             </div>
             <p>Keep track of your quick crew to continue to grow your network.</p>
             <div className="dashboard-status-cards">

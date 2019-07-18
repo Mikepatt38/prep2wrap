@@ -23,7 +23,7 @@ export const Routes = () => {
       <ProtectedRoute exact path='/jobs/:jobID/assign-users' component={CreateJobFormStep2} />
       <ProtectedRoute exact path='/jobs/:jobID/job-overview' component={CreateJobFormStep3} />
       <ProtectedRoute exact path='/jobs/:jobID/send-job-invites' component={SendJobInvites} />
-      <ProtectedRoute exact path='/users' component={UsersPage} />
+      <ProtectedRoute exact path='/crew' component={UsersPage} />
       <ProtectedRoute exact path='/availability' component={Availability} />
       <ProtectedRoute exact path='/account-settings' component={AccountSettings} />
       <ProtectedRoute component={NotFound} />

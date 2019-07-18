@@ -24,7 +24,7 @@ class UsersPage extends Component {
       <div className="app-page">
       <Modal
         active={this.state.modalActive}
-        title="Search Users"
+        title="Search Crew"
         children={
           <UserSearch
             close={this.toggleModal}
@@ -33,7 +33,7 @@ class UsersPage extends Component {
       />
 
         <div className="app-page-header">
-          <h1>Users Directory</h1>
+          <h1>Crew Directory</h1>
         </div>
     
         <div className="app-page-body">
@@ -43,7 +43,7 @@ class UsersPage extends Component {
           </div> 
           
           <div className="app-page-section">
-            <p>Search for users to grow and build your network or add a user to your quick crew.</p>
+            <p>Search for crew members to grow and build your network or add a user to your quick crew.</p>
             <UserSearch />
           </div> 
         </div>
