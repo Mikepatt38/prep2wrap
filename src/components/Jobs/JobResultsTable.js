@@ -46,7 +46,12 @@ class JobResultsTable extends Component {
         id: 'Available', // Required because our accessor is not a string
         Header: 'Availability',
         // accessor: 'availabol.value',
-        Cell: props => <span className="cell-status available">Available</span>,
+        Cell: props => {
+          let userAvailability = props.original.availability ? props.original.availability : []
+          return (
+            this.checkUserAvailability(userAvailability)
+          )
+        },
         filterable: false,
         sortable: false
       },
@@ -59,11 +64,14 @@ class JobResultsTable extends Component {
           const userRowDisabled = this.state.usersAssigned.find( (item) => {
             return item.id === props.original.id
           })
+          const isUserUnavailable = props.original.availability 
+            ? props.original.availability.some(date => this.props.jobData.jobDates.includes(date.date)) ? true : false
+            : false
           const key = props.index
           {
             return <select
               onChange={(e) => { this.handleSelectPosition(props.original, key, e)} }
-              disabled={userRowDisabled === undefined ? false : true}
+              disabled={userRowDisabled !== undefined || isUserUnavailable ? true : false}
               id={"select"+key}
               key={"select"+key}
             >
@@ -99,6 +107,12 @@ class JobResultsTable extends Component {
     this.setState({
       modalActive: !this.state.modalActive
     })
+  }
+
+  checkUserAvailability(userAvailability) {
+    return userAvailability.some(date => this.props.jobData.jobDates.includes(date.date))
+    ? <span className="cell-status unavailable">Unavailable</span>
+    : <span className="cell-status available">Available</span>
   }
 
   addUser = (user, position) => {
@@ -303,26 +317,3 @@ class JobResultsTable extends Component {
 
 export default JobResultsTable
 
-
-// <div className="app-page-section">
-// <div className="create-job-wrapper">
-//   <div className="create-job-wrapper-main">
-//     <div className="card card-create-job no-hover">
-//       <h3>Crew Job Matches</h3>
-//       {this.props.error && <p className="error-message">Please assign at least one position before continuing.</p>}
-//       {this.tableFilter()}
-//       <Table
-//         data={this.state.data}
-//         columns={this.state.columns}
-//         loading={this.state.loading}
-//       />
-//     </div>
-//   </div>
-//   <div className="create-job-wrapper-sidebar">
-//     <div className="card card-create-job no-hover">
-//       <h3>Assigned User Positions</h3>
-//       {this.renderAssignedUsers()}
-//     </div>
-//   </div>
-// </div>
-// </div>

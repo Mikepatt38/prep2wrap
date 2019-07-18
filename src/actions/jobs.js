@@ -184,10 +184,8 @@ export async function deleteUserPendingJob(database, userID, jobID){
 }
 
 export async function deleteJobAvailabilityDates(database, users, dates){
-  console.log(users)
   for(let user of users){
-    console.log(user)
-    const currentAvailability = user.availability
+    const currentAvailability = user.availability ? user.availability : []
     const newAvailability = currentAvailability.filter( date => !(dates.includes(date.date)) ) 
     database.collection("users").doc(user.id).update({
       availability: newAvailability
