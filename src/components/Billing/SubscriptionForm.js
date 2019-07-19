@@ -83,7 +83,7 @@ class SubscriptionForm extends Component {
           stripeSourceId: source.source.id
         }
         // We send this info to the server to create with Stripe
-        let response = await fetch("https://the-calltime.firebaseapp.com/create-user-subscription", {
+        let response = await fetch("/create-user-subscription", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

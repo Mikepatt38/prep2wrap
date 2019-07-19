@@ -26,7 +26,7 @@ const stripe = require('stripe')(functions.config().stripe.testkey)
 // import { join, dirname } from 'path';
 // import * as sharp from 'sharp';
 const nodemailer = require('nodemailer');
-const cors = require('cors');
+const cors = require('cors')({origin: true});
 
 // ============ Resize a user's image when they upload an avatar to only save smaller images =========== //
 
@@ -193,18 +193,21 @@ export const clearFirestoreData = (uid:any) => {
 
 // ========== Twilio Function ========== //
 exports.sendSMS = functions.https.onRequest((req, res) => {
-  cors(req, res, () => {
+  cors( req, res, () => {
+    res.set('Access-Control-Allow-Origin', "*")
+    res.set('Access-Control-Allow-Methods', 'GET, POST')
+  
     let SID = process.env.TWILIO_SID
     let TOKEN = process.env.TWILIO_TOKEN
     // let SENDER = process.env.TWILIO_SENDER
-  
+   
     var client = require('twilio')(SID, TOKEN)
     client.messages
     .create({
       to:   '+1'+req.body.number,
       from: '+16822049551',
       body: req.body.message
-     })
+      })
     .then(() => res.send())
     .catch((error:any) => console.error(error.toString()))
   })
