@@ -4,7 +4,12 @@
   },
   "hosting": [ {
     "target": "app",  
-    "public": "/build"
+    "public": "app/build",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
   }
   ]
 }

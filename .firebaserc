@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "the-calltime"
+  },
+  "targets": {
+    "the-calltime": {
+      "hosting": {
+        "app": [
+          "the-calltime"
+        ]
+      }
+    }
   }
 }
