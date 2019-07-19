@@ -7,7 +7,9 @@ const cors = require('cors') // Cors origin policy
 const jsonParser = bodyParser.json()
 const fetch = require('node-fetch')
 const app = express()
-const stripe = require("stripe")("sk_test_dFdzogiSreiyt7uncg3dg1eE0065opT4ZA")
+const stripe = require("stripe")(process.env.STRIPE_SECURITY_KEY)
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 const PORT = process.env.SERVER_PORT || 9000
 
@@ -71,8 +73,8 @@ app.post("/create-user-subscription", bodyParser.json({type: "application/json" 
   }
 });
 
-// Stripe Webhook for when users delete their account -- send an email to owner and user
-app.post('/user-subscription-deleted', bodyParser.raw({type: 'application/json'}), (request, res) => {
+// Stripe Web-hook Endpoint to listen for Stripe updates -- send an email to owner and user
+app.post('/stripe-webhook', bodyParser.raw({type: 'application/json'}), (request, res) => {
   // Stripe endpoint secret
   const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET
 
@@ -97,9 +99,21 @@ app.post('/user-subscription-deleted', bodyParser.raw({type: 'application/json'}
     case 'customer.subscription.deleted':
       console.log('The user just deleted themselves')
       break;
-    case 'payment_method.attached':
-      const paymentMethod = event.data.object;
-      handlePaymentMethodAttached(paymentMethod);
+    case 'customer.created':
+      // send an email using GCF to the user and owner about the new user
+      console.log('The user was created: Lets update people')
+      if (!req.body) return res.sendStatus(400)
+      const msg = {
+        to: 'michael@outlyrs.com',
+        from: 'mjpatt381@gmail.com',
+        subject: 'User was just created',
+        text: 'Hey, we created a new user.',
+      }
+      sgMail
+        .send(msg)
+        .then(() => res.sendStatus(200))
+        .then(() => console.log('Mail sent successfully'))
+        .catch(error => console.error(error.toString()))
       break;
     // ... handle other event types
     default:
