@@ -34,7 +34,10 @@ export const resetPassword = (email, e) => async dispatch => {
   })
 }
 
-const unsubscribe = (id) => database.collection("users").doc(id).onSnapshot(function () {});
+export async const unsubscribe = (id) => {
+  const database = await db
+  database.collection("users").doc(id).onSnapshot(function () {});
+} 
 
 export const removeCurrentUser = (id) => async dispatch => {
   unsubscribe(id)
