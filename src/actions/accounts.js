@@ -34,16 +34,14 @@ export const resetPassword = (email, e) => async dispatch => {
   })
 }
 
-export const unsubscribe = async (id) => {
-  const database = await db
-  database.collection("users").doc(id).onSnapshot(function () {});
-} 
-
 export const removeCurrentUser = (id) => async dispatch => {
-  unsubscribe(id)
-  dispatch({
-    type: 'REMOVE_CURRENT_USER',
-    payload: null
+  const database = await db
+  database.collection("users").doc(id).onSnapshot(function () {})
+  .then( () => {
+    dispatch({
+      type: 'REMOVE_CURRENT_USER',
+      payload: null
+    })
   })
 }
 
@@ -62,12 +60,6 @@ export const getCurrentUser = (id) => async dispatch => {
       })
     }
   })
-}
-
-export const unsubscribeCurrentUserListener = (id) => async () => {
-  const database = await db
-  database.collection("users").doc(id).onSnapshot(function () {});
-  unsubscribe();
 }
 
 export const setAccountView = (view) => ({
