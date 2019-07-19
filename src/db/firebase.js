@@ -4,22 +4,14 @@ import 'firebase/database'
 import 'firebase/storage'
 import 'firebase/firestore'
 
-var devConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_KEY,
-  authDomain: "the-calltime.firebaseapp.com",
-  databaseURL: "https://the-calltime.firebaseio.com",
-  projectId: "the-calltime",
-  storageBucket: "the-calltime.appspot.com",
-  messagingSenderId: "48348373939"
-}
-
 firebase.initializeApp({
-  apiKey: process.env.REACT_APP_FIREBASE_KEY,
+  apiKey: "AIzaSyA_ldHlgixZ7fdxgEvC-82kb6P0-8GDaIk",
   authDomain: "the-calltime.firebaseapp.com",
   databaseURL: "https://the-calltime.firebaseio.com",
   projectId: "the-calltime",
   storageBucket: "the-calltime.appspot.com",
-  messagingSenderId: "48348373939"
+  messagingSenderId: "48348373939",
+  appId: "1:48348373939:web:5302bb41aa61c483"
 })
 
 const firestore = firebase.firestore()
