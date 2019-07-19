@@ -10,6 +10,7 @@ import { DashboardFooter } from '../components/General/DashboardFooter'
 import { GlobalAlert } from '../components/General/GlobalAlert'
 import AppTopBar from '../components/General/AppTopBar'
 import ScrollToTop from '../components/General/ScrollToTop'
+import ErrorBoundary from '../components/General/ErrorBoundary';
 
 
 const App = ({ currentUser }) => {
@@ -35,7 +36,9 @@ const RenderRoute = ({ currentUser }) => (
           <GlobalAlert active={currentUser.profileInformation ? false : true} />
           <Alert />
           <div className="app-body-main">
-            <Routes />
+            <ErrorBoundary>
+              <Routes />
+            </ErrorBoundary>
           </div>
         </div>
       </div>

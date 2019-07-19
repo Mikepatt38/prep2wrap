@@ -16,9 +16,9 @@ class CreateJobFormStepTwo extends Component {
   componentDidMount() {
     if(!this.props.currentJob.jobObj){
       this.setState({
-        pageError: true,
         loading: false
       })
+      throw new Error('No job data')
     }
     else {
       this.props.userResultsForJobCreation(this.props.currentUser.id.toString(), this.props.currentJob.jobObj)
@@ -101,12 +101,12 @@ class CreateJobFormStepTwo extends Component {
   }
  
   render() {
-    if(this.state.pageError) { 
-      return <CreateJobFormError 
-              title="There was an error"
-              errorMessage="It looks like there was a problem while creating your job. Please start over creating your job."
-      /> 
-    }
+    // if(this.state.pageError) { 
+    //   return <CreateJobFormError 
+    //           title="There was an error"
+    //           errorMessage="It looks like there was a problem while creating your job. Please start over creating your job."
+    //   /> 
+    // }
 
     return (  
       <div className="app-page">
