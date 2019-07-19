@@ -191,6 +191,24 @@ export const clearFirestoreData = (uid:any) => {
   return Promise.all(promises).then(() => uid);
 };
 
+// ========== Twilio Function ========== //
+exports.sendSMS = functions.https.onRequest((req, res) => {
+  cors(req, res, () => {
+    let SID = process.env.TWILIO_SID
+    let TOKEN = process.env.TWILIO_TOKEN
+    // let SENDER = process.env.TWILIO_SENDER
+  
+    var client = require('twilio')(SID, TOKEN)
+    client.messages
+    .create({
+      to:   '+1'+req.body.number,
+      from: '+16822049551',
+      body: req.body.message
+     })
+    .then(() => res.send())
+    .catch((error:any) => console.error(error.toString()))
+  })
+})
 
 // ========== Use a GMAIL account to send emails for updates on user accounts ========== //
 
