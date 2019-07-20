@@ -79,7 +79,7 @@ form
     
     &:focus, &:active, &:focus-within, .css-2o5izw, .css-bl6clz
       outline: none
-      border: 1px solid $color__blue
+      border: 1px solid $color__primary
 
   textarea
     resize: none
@@ -117,9 +117,15 @@ form
 /* ===============
   Custom React Select Form Styles
   ================== */
+.css-2o5izw
+  min-height: 40px !important
+  max-height: 40px !important
+  height: 40px !important
+  border: 1px solid $color__primary !important
+
 .css-bl6clz
   outline: none
-  border: 1px solid $color__blue !important
+  border: 1px solid $color__primary !important
 
 .css-1rtrksz
   padding: 0 !important
@@ -206,8 +212,8 @@ label.checkbox
       position: relative
 
 input[type="checkbox"]#proMembership:checked + label.checkbox, input[type="checkbox"]#freeTrial:checked + label.checkbox, input[type="checkbox"]#unionMember:checked + label.checkbox, input[type="checkbox"]#travel:checked + label.checkbox, input[type="checkbox"]#availability:checked + label.checkbox, input[type="checkbox"]#bilingual:checked + label.checkbox, input[type="checkbox"]#union:checked + label.checkbox, input[type="checkbox"]#dateRangeSelector:checked + label.checkbox, input[type="checkbox"]#dateSelector:checked + label.checkbox
-  border: 2px solid $color__blue
-  background: $color__blue
+  border: 2px solid $color__primary
+  background: $color__primary
   color: white
   transition: all 0.3s ease-in-out
 

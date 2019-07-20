@@ -45,7 +45,7 @@ export class Login extends Component {
               />
             </div>
             <div className="auth-card-footer">
-              <Link to="/password-reset">
+              <Link to="/login">
                 Forgot your password?
               </Link>
             </div>
