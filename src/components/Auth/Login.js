@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { FormTextInput } from '../Forms/FormTextInput'
 import { FormButton } from '../Forms/FormButton'
-import logo from '../../img/calltime-logo.png'
+import logo from '../../img/prep2wrap-purple-logo.png'
 
 export class Login extends Component {
   state = {

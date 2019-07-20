@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Elements, StripeProvider } from 'react-stripe-elements'
 import SubscriptionForm from '../Billing/SubscriptionForm'
-import logo from '../../img/calltime-logo.png'
+import logo from '../../img/prep2wrap-purple-logo.png'
 
 class SignUp extends Component {
 

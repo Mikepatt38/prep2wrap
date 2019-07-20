@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import MainLogo from '../../img/logo-white.png'
+import MainLogo from '../../img/prep2wrap-white-logo.png'
 import Signout from '../../containers/SignOut'
 import ProfileIcon from '../../img/icon-user.svg'
 

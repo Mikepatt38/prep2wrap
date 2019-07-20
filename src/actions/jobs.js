@@ -177,7 +177,7 @@ export async function getUserPendingJobs(database, currentUserID){
 export function deleteUserCreatedJob(database, user, jobID, jobDates){
   database.collection("jobs").doc(user.id).collection("createdJobs").doc(jobID).delete()
   database.collection("users").doc(user.id).update({
-    createdJobs: user.createdJobs == 0 ? 0 : user.createdJobs - 1
+    createdJobs: user.createdJobs === 0 ? 0 : user.createdJobs - 1
   })
   deleteJobAvailabilityDates(database, [user], jobDates)
 }
@@ -186,7 +186,7 @@ export function deleteAcceptedJob(database, usersAssigned, jobID){
   usersAssigned.map( user => {
     database.collection("jobs").doc(user.id).collection("acceptedJobs").doc(jobID).delete()
     database.collection("users").doc(user.id).update({
-      acceptedJobs: user.acceptedJobs == 0 ? 0 : user.acceptedJobs - 1
+      acceptedJobs: user.acceptedJobs === 0 ? 0 : user.acceptedJobs - 1
     })
   })
 }
