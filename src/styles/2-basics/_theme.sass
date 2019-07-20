@@ -42,6 +42,9 @@ a
 
 // ========== App Layout Styles ========== //
 
+.mobile-only
+  display: none
+
 #root
   position: relative
 
@@ -290,3 +293,23 @@ label
           color: #282828
           box-shadow: inset 0 -2px 0 $color__primary
 
+// ============ Media Queries =========== //
+
+@media only screen and (max-width: 414px)
+  .app-page-body
+    padding: 25px 15px
+  .workspace
+    overflow-x: scroll
+
+    .workspace-desktop > a, .workspace-desktop > button
+      display: none
+
+  .mobile-only
+    display: block
+    margin: 0 auto 25px
+    text-align: center
+    position: relative
+    width: 100%
+
+    a, button
+      margin: 0 auto

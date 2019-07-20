@@ -22,7 +22,7 @@ function AccountSettings({currentUser, setUserProfile, setName, setEmail, setMob
       </div>
       <div className="app-page-body">
 
-        <div className="app-page-section" id="section-grid">
+        <div className="app-page-section section-grid">
           <div className="card card-grid">
             <div className="card-body">
               <h4>Basic account settings</h4>

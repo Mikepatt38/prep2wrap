@@ -50,6 +50,9 @@ class Availability extends Component {
 
         <div className="app-page-body">
           <div className="app-page-section">
+            <div className="mobile-only">
+              <button className="button button-primary" onClick={(e) => this.setState({modalActive: true})}>Update Availability</button>
+            </div>
             <Calendar 
               currentUser={this.props.currentUser}
               dates={this.props.currentUser.availability} 

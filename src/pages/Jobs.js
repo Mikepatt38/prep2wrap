@@ -33,6 +33,12 @@ class Jobs extends Component {
         
         <div className="app-page-body">
           <div className="app-page-section">
+            <div className="mobile-only">
+              <Link className="button button-primary" to={{
+                pathname: `/jobs/${this.state.jobID}/job-information`,
+                query: `${this.state.jobID}`
+              }}>Create New Job</Link>
+            </div>
             <JobsTable 
               getUserJobs={this.props.getUserJobs}
               currentUser={this.props.currentUser}

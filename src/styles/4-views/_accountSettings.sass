@@ -28,7 +28,7 @@
   Account Settings Page Styles
   ================== */
 
-#section-grid
+.section-grid
   position: relative
   display: flex
   justify-content: space-between
@@ -37,13 +37,13 @@
   &.vertical
     flex-direction: column
 
-  .card.card-grid 
-    position: relative
-    box-shadow: 0 0 10px rgba(0,0,0,.025)
-    width: 48.5%
+.card.card-grid 
+  position: relative
+  box-shadow: 0 0 10px rgba(0,0,0,.025)
+  width: 48.5%
 
-    &.card-grid--full-width
-      width: 100%
+  &.card-grid--full-width
+    width: 100%
 
 /* ===============
   Account Settings User Form
@@ -122,3 +122,12 @@
           opacity: 0
           position: absolute
           pointer-events: none
+
+// ============ Media Queries =========== //
+@media only screen and (max-width: 414px)
+  .account-settings-profile-form .form-group.form-group--half
+    width: 100%
+  .account-settings-profile-form .form-group.form-group--third
+    width: 100%
+  .card.card-grid
+    width: 100%

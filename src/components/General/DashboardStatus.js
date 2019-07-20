@@ -40,7 +40,7 @@ class DashboardStatus extends Component {
   render() {
     if(this.state.loading) return <p>Loading...</p>
     return (
-      <div className="app-page-section" id="section-grid">
+      <div className="app-page-section section-grid">
         <div className="card card-grid">
           <div className="card-body">
             <div className="card-body-header">

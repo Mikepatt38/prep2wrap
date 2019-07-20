@@ -7,7 +7,7 @@ function UserFavorites(props){
   return (
     <React.Fragment>
       {
-        props.currentUser.favorites
+        props.currentUser.favorites && props.currentUser.favorites.length
         ?
           <React.Fragment>
             <p>This is your quick crew, add members you hire or work with frequently to make it easier to communicate with them.</p>
