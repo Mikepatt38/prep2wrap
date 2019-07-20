@@ -85,6 +85,7 @@ app.post('/stripe-webhook', bodyParser.raw({type: 'application/json'}), (request
   // If succeeds, put the event into the event variable
   try {
     event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+    console.log(event)
   }
   // If it fails, simply return an error
   catch (err) {
@@ -121,12 +122,14 @@ app.post('/stripe-webhook', bodyParser.raw({type: 'application/json'}), (request
   }
 
   // // Retrieve the request's body and parse it as JSON
-  // const eventJson = JSON.parse(request.body);
+  const eventJson = JSON.parse(request.body);
+  console.log(eventJson)
 
   // /* Do something with eventJson */
 
   // Return a response to acknowledge receipt of the event
   res.sendStatus(200);
+  console.log(eventJson)
 });
 
 app.post('/sendsms', bodyParser.json(), (req, res) => {
