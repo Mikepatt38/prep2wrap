@@ -100,7 +100,6 @@ app.post('/stripe-webhook', bodyParser.raw({type: 'application/json'}), (request
       console.log('The user just deleted themselves')
       break;
     case 'customer.created':
-      // send an email using GCF to the user and owner about the new user
       console.log('The user was created: Lets update people')
       if (!req.body) return res.sendStatus(400)
       const msg = {

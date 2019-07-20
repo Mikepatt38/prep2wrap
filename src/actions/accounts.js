@@ -34,15 +34,8 @@ export const resetPassword = (email, e) => async dispatch => {
   })
 }
 
-export const removeCurrentUser = (id) => async dispatch => {
-  const database = await db
-  database.collection("users").doc(id).onSnapshot(function () {})
-  .then( () => {
-    dispatch({
-      type: 'REMOVE_CURRENT_USER',
-      payload: null
-    })
-  })
+export const removeCurrentUser = (id) => async (dispatch) => {
+  dispatch({ type: 'REMOVE_CURRENT_USER', payload: null })
 }
 
 export const getCurrentUser = (id) => async dispatch => {
