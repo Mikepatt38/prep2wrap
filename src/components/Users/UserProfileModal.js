@@ -16,6 +16,10 @@ function UserProfileModal(props){
     .then(() => props.toggleAllModals())
   }
 
+  function checkIfUserIsInQuickCrew(){
+    return props.currentUser.favorites.some( el => el.id === props.user.id)
+  }
+
   return(
     props.active ?
     ReactDOM.createPortal(
@@ -92,7 +96,9 @@ function UserProfileModal(props){
                     </div> 
                     
                     <div className="button-wrapper align-left">
-                      <button className="button button-primary" onClick={() => handleAddUserFavorites(props.user)}>Add to Quick Crew</button>
+                      {
+                        !checkIfUserIsInQuickCrew() && <button className="button button-primary" onClick={() => handleAddUserFavorites(props.user)}>Add to Quick Crew</button>
+                      }
                     </div>
                   </div>
                 </div>

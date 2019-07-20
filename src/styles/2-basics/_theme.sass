@@ -8,10 +8,9 @@ body
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
   line-height: 1.5
-  background-color: white
+  background-color: rgb(247, 247, 247)
   color: #3d4852
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif
-  // font-family: $font__main
   font-size: 16px
   line-height: 1.5
   padding: 0
@@ -61,12 +60,8 @@ a
 .app-body-main
   position: relative
   padding: 0
-  min-height: 100vh
-  // background-color: #f6f8fc
   width: 100%
   background-color: rgb(247, 247, 247)
-  // background-color: #f1f1f1
-  // background-color: #FBFBFD
 
 .app-page, .main-content
   margin: 0 auto
@@ -81,8 +76,8 @@ a
 .app-topbar
   position: relative
   z-index: 9999
-  height: 52px
-  padding: 0px 24px
+  height: 48px
+  padding: 0 24px
   background: $color__primary
   display: flex
   align-content: center
@@ -93,15 +88,21 @@ a
     padding: 0
     margin: 0
     list-style: none
+    display: flex
+    align-items: center
 
     li
       display: inline-block
       padding: 5px
-      margin-right: 7px
+      margin-right: 4px
       cursor: pointer
 
+      a
+        display: flex
+        align-items: center
+
       img
-        max-height: 25px
+        max-height: 20px
         height: 100%
         position: relative 
 
@@ -110,6 +111,8 @@ a
 
   .logo
     position: relative
+    display: flex
+    align-items: center
 
     img
       position: relative
@@ -129,8 +132,10 @@ a
   justify-content: space-between
   align-items: center
   width: 100%
-  padding: 25px 50px 25px
+  max-width: 1225px
+  margin: 0 auto
   z-index: 99
+
 
   h1
     position: relative
@@ -143,7 +148,7 @@ a
   padding: 0 50px
   margin: 0 auto
   position: relative
-  // max-width: 1250px
+  padding-top: 50px
 
   p
     margin-bottom: 25px 
@@ -151,8 +156,8 @@ a
 
 .app-page-title
   position: relative
-  margin-bottom: 30px
-  max-width: 1250px
+  max-width: 1050px
+  margin: 0 auto 30px
   display: flex
   justify-content: space-between
   align-items: center
@@ -166,10 +171,15 @@ a
 .app-page-section
   position: relative
   margin-bottom: 25px
+  max-width: 1050px
+  margin: 0 auto
 
   p
     margin-bottom: 8px 
     opacity: 0.8
+
+  &.app-page-section-bottom
+    padding-top: 50px
 
   .empty-state, .error-state
     margin: 0 
@@ -233,3 +243,50 @@ label
 
   &.label--bigger
     font-size: 14px
+
+.workspace
+  display: block
+  height: 48px
+  background-color: #fff
+  border-bottom: 1px solid #eaeaea
+  position: relative
+
+  .workspace-desktop
+    position: relative
+    display: block
+    height: 100%
+    display: flex
+    align-items: center
+    justify-content: space-between
+
+
+    .workspace-tab-list
+      list-style: none
+      margin: 0
+      padding: 0
+      display: inline-block
+      height: 100%
+      display: flex
+      align-items: center
+      padding-left: 16px
+
+      a
+        padding: 0
+        text-align: center
+        font-size: 15px
+        height: 100%
+        margin: 0
+        margin-right: 32px
+        cursor: pointer
+        display: flex
+        align-items: center
+        color: #7e7e7e
+        margin-top: 1px
+
+        &:hover
+          box-shadow: inset 0 -2px 0 $color__primary
+
+        &.active
+          color: #282828
+          box-shadow: inset 0 -2px 0 $color__primary
+

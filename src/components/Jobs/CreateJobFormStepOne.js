@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import moment from 'moment'
+import { Link } from 'react-router-dom'
 import { FormTextInput } from '../Forms/FormTextInput'
 import { FormButton } from '../Forms/FormButton'
 import { FormCheckboxInput } from '../Forms/FormCheckboxInput'
@@ -226,8 +227,20 @@ class CreateJobFormStepOne extends Component {
     const { jobObj, jobDescCount, startDate, selectedDate, selectedStartDate, selectedEndDate, selectedDates } = this.state
     return (
       <div className="app-page">
-        <div className="app-page-header">
-          <h1>Create Job Information</h1>
+        <div className="workspace">
+          <div className="workspace-desktop">
+            <div className="workspace-tab-list">
+              <Link to="/" className="link">Dashboard</Link>
+              <Link to="/jobs" className="active">Jobs</Link>
+              <Link to="/crew" className="link">Crew</Link>
+              <Link to="/availability" className="link">Availability</Link>
+              <Link to="/account-settings" className="link">Settings</Link>
+            </div>
+            <Link className="button button-workspace" to={{
+              pathname: `/jobs/${this.state.jobID}/job-information`,
+              query: `${this.state.jobID}`
+            }}>Create New Job</Link>
+          </div> 
         </div>
 
         <div className="app-page-body">
@@ -321,43 +334,9 @@ class CreateJobFormStepOne extends Component {
                   />
 
                   <hr />
-                  <p>Select the dates that the created job will require. You may select individual dates or a date range.</p>
+                  <p>Select all dates that the job will be active during.</p>
                   <div className="form-group">
-                    <div className="date-selector-type">
-                      <FormCheckboxInput
-                        checkboxId="dateSelector"
-                        onChange={() => this.setState(prevState => ({ jobObj: { ...prevState.jobObj, dateSelectorRangeActive: false } }))}
-                        value={!jobObj.dateSelectorRangeActive}
-                        customText="Date Picker"
-                        className="form-group--half"
-                      />
-                      <FormCheckboxInput
-                        checkboxId="dateRangeSelector"
-                        onChange={() => this.setState(prevState => ({ jobObj: { ...prevState.jobObj, dateSelectorRangeActive: true } }))}
-                        value={jobObj.dateSelectorRangeActive}
-                        customText="Range Selector"
-                        className="form-group--half"
-                      />
-                    </div>
-                    {
-                      jobObj.dateSelectorRangeActive 
-                      ?
-                        <div className="date-picker--range">
-                          <FormDateRangePicker
-                            label="Select Job Dates Range"
-                            startDate={startDate}
-                            selectedStartDate={selectedStartDate}
-                            selectedEndDate={selectedEndDate}
-                            className="date-picker-form-group"
-                            handleDateChangeStart={this.handleDateChangeStart}
-                            handleDateChangeEnd={this.handleDateChangeEnd}
-                          />
-                          <div className="date-picker--range-dates">
-                            <div className="date-picker--range-item"><label>Start Date:</label><span className="date-pill">{this.state.selectedStartDate.format('MM/DD/YYYY')}</span></div>
-                            <div className="date-picker--range-item"><label>End Date:</label><span className="date-pill">{this.state.selectedEndDate.format('MM/DD/YYYY')}</span></div>
-                          </div>
-                        </div> 
-                      :
+                      {
                         <div className="date-picker">
                           <FormDatePicker
                             label="Select Job Dates"
@@ -379,20 +358,16 @@ class CreateJobFormStepOne extends Component {
                       }
                   </div>
                   <div className="button-wrapper">
-                    <div className="buttons-left">
-                      <FormButton
-                        className="button-quit"
-                        buttonText="Cancel"
-                        onClick={(e) => this.cancelJobCreation(e)}
-                      />
-                    </div>
-                    <div className="buttons-right">
-                      <FormButton
-                        className="button-primary"
-                        buttonText="Next Step"
-                        onClick={(e) => this.saveAndContinue(e)}
-                      />
-                    </div>
+                    <FormButton
+                      className="button-quit"
+                      buttonText="Cancel"
+                      onClick={(e) => this.cancelJobCreation(e)}
+                    />
+                    <FormButton
+                      className="button-primary"
+                      buttonText="Next Step"
+                      onClick={(e) => this.saveAndContinue(e)}
+                    />
                   </div>
                 </form>
               </div>
@@ -406,90 +381,38 @@ class CreateJobFormStepOne extends Component {
 
 export default CreateJobFormStepOne
 
-// <div className="card card-create-job no-hover">
-// <h3>Job Dates</h3>
-// <div className="card-body">
-//   <div className="form-group">
-//     <div className="date-selector-type">
-//       <p onClick={() => this.handleDateSelectorChange('select')}>Date Selector</p>
-//       <p onClick={() => this.handleDateSelectorChange('range')}>Date Range Selector</p>
-//     </div>
-//     {
-//       jobObj.dateSelectorRangeActive 
-//       ?
-//         <div className="date-picker--range">
-//           <FormDateRangePicker
-//             label="Select Job Dates Range"
-//             startDate={startDate}
-//             selectedStartDate={selectedStartDate}
-//             selectedEndDate={selectedEndDate}
-//             className="date-picker-form-group"
-//             handleDateChangeStart={this.handleDateChangeStart}
-//             handleDateChangeEnd={this.handleDateChangeEnd}
-//           />
-//           <p>Start Date: {this.state.selectedStartDate.format('MM/DD/YYYY')}</p>
-//           <p>End Date: {this.state.selectedEndDate.format('MM/DD/YYYY')}</p>
-//         </div> 
-//       :
-//         <div className="date-picker">
-//           <FormDatePicker
-//             label="Select Job Dates"
-//             startDate={startDate}
-//             selectedDate={selectedDate}
-//             className="date-picker-form-group"
-//             handleChange={this.handleDateChange}
-//           />
-//           { selectedDates.length > 0 && <ul className="datesPickerList">
-//             {selectedDates.map( (date, key) => {
-//               return <li key={key} onClick={() => { this.removeDate(date) }}>{date}</li>
-//             })}
-//           </ul>}
-//         </div> 
-//     }
-//   </div>
+// <div className="date-selector-type">
+// <FormCheckboxInput
+//   checkboxId="dateSelector"
+//   onChange={() => this.setState(prevState => ({ jobObj: { ...prevState.jobObj, dateSelectorRangeActive: false } }))}
+//   value={!jobObj.dateSelectorRangeActive}
+//   customText="Date Picker"
+//   className="form-group--half"
+// />
+// <FormCheckboxInput
+//   checkboxId="dateRangeSelector"
+//   onChange={() => this.setState(prevState => ({ jobObj: { ...prevState.jobObj, dateSelectorRangeActive: true } }))}
+//   value={jobObj.dateSelectorRangeActive}
+//   customText="Range Selector"
+//   className="form-group--half"
+// />
 // </div>
-// </div>
-// <div className="card card-create-job no-hover">
-// <h3>Job Positions</h3>
-// <div className="card-body">
-//   <FormSelectInput
-//     label="Select Job Positions Hiring For"
-//     name="jobPositions"
-//     options={positionsObj}
-//     placeholder="Select Positions For Jobs"
-//     isMultiSelect={true}
-//     onSelect={this.handleMultiSelect}
-//   />
-// </div>
-// </div>
-// </div>
-// <div className="card no-hover">
-// <div className="card-body">
-// <form className="card-form card-form-job-1">
 
-//   <FormSelectInput
-//     label="Preferred Form of Contact"
-//     name="jobContact"
-//     options={contactObj}
-//     placeholder="Select Best Form of Contact"
-//     isMultiSelect={false}
-//     onSelect={this.handleSelect}
-//     className="form-group--half"
-//   />
-//   <FormCheckboxInput
-//     label="Union Required"
-//     checkboxId="unionMember"
-//     onChange={this.handleCheck}
-//     value={jobObj.unionMember}
-//     className="form-group--half"
-//   />
-//   <div className="button-wrapper">
-//     <FormButton
-//       className="button-primary"
-//       buttonText="Next Step"
-//       onClick={this.saveAndContinue}
+// jobObj.dateSelectorRangeActive 
+// ?
+//   <div className="date-picker--range">
+//     <FormDateRangePicker
+//       label="Select Job Dates Range"
+//       startDate={startDate}
+//       selectedStartDate={selectedStartDate}
+//       selectedEndDate={selectedEndDate}
+//       className="date-picker-form-group"
+//       handleDateChangeStart={this.handleDateChangeStart}
+//       handleDateChangeEnd={this.handleDateChangeEnd}
 //     />
-//   </div>
-// </form>
-// </div>
-// </div>
+//     <div className="date-picker--range-dates">
+//       <div className="date-picker--range-item"><label>Start Date:</label><span className="date-pill">{this.state.selectedStartDate.format('MM/DD/YYYY')}</span></div>
+//       <div className="date-picker--range-item"><label>End Date:</label><span className="date-pill">{this.state.selectedEndDate.format('MM/DD/YYYY')}</span></div>
+//     </div>
+//   </div> 
+// :

@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import UserProfileForm from '../components/Settings/UserProfileForm'
 import UserInfoForm from '../components/Settings/UserInfoForm'
 import DeleteUserAccountForm from '../components/Settings/UserDeleteAccountForm'
@@ -8,8 +9,16 @@ function AccountSettings({currentUser, setUserProfile, setName, setEmail, setMob
   return (
     <div className="app-page">
 
-      <div className="app-page-header">
-        <h1>Account Settings</h1>
+      <div className="workspace">
+        <div className="workspace-desktop">
+          <div className="workspace-tab-list">
+            <Link to="/" className="link">Dashboard</Link>
+            <Link to="/jobs" className="link">Jobs</Link>
+            <Link to="/crew" className="link">Crew</Link>
+            <Link to="/availability" className="link">Availability</Link>
+            <Link to="/account-settings" className="active">Settings</Link>
+          </div>
+        </div>
       </div>
       <div className="app-page-body">
 

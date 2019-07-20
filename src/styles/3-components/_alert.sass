@@ -2,9 +2,8 @@
   Styles for Alerts
   ================== */  
 .alert, .global-alert
-  position: fixed
+  position: absolute
   top: 0
-  left: 250px
   right: 0
   margin: 0 auto
   font-weight: 400
@@ -16,9 +15,11 @@
   transform: translateY(-40px)
   opacity: 0
   transition: all 0.3s ease-in-out
-  max-width: 100%
+  max-width: 450px
+  overflow-x: scroll
+  width: 100%
   margin: 10px
-  padding: 15px 3%
+  padding: 15px
   display: flex
   justify-content: space-between
   flex-direction: row
@@ -61,7 +62,6 @@
       margin: 0
       font-weight: 500
       font-size: 16px
-      width: 48.5%
       display: flex
       align-items: center
 

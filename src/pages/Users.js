@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import UserSearch from '../containers/UserSearch'
 import UserFavorites from '../containers/UserFavorites'
 import Modal from '../components/General/Modal'
@@ -32,16 +33,24 @@ class UsersPage extends Component {
         }
       />
 
-        <div className="app-page-header">
-          <h1>Crew Directory</h1>
+      <div className="workspace">
+        <div className="workspace-desktop">
+          <div className="workspace-tab-list">
+            <Link to="/" className="link">Dashboard</Link>
+            <Link to="/jobs" className="link">Jobs</Link>
+            <Link to="/crew" className="active">Crew</Link>
+            <Link to="/availability" className="link">Availability</Link>
+            <Link to="/account-settings" className="link">Settings</Link>
+          </div>
         </div>
+      </div>
     
         <div className="app-page-body">
           <div className="app-page-section">
             <UserFavorites />
           </div> 
           
-          <div className="app-page-section">
+          <div className="app-page-section app-page-section-bottom">
             <p>Search for crew members to grow and build your network or add a user to your quick crew.</p>
             <UserSearch />
           </div> 
@@ -51,8 +60,6 @@ class UsersPage extends Component {
     )
   }
 }
-
-// <button className="button-primary button-header" onClick={(e) => this.openSearchUsers(e, this.props)}>Search Users</button>
 
 export default UsersPage
 

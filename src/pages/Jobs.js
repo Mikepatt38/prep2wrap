@@ -15,12 +15,20 @@ class Jobs extends Component {
     return (
       <div className="app-page">
 
-        <div className="app-page-header">
-          <h1>Jobs</h1>
-          <Link className="button button-primary button-header" to={{
-            pathname: `/jobs/${this.state.jobID}/job-information`,
-            query: `${this.state.jobID}`
-          }}>Create New Job</Link> 
+        <div className="workspace">
+          <div className="workspace-desktop">
+            <div className="workspace-tab-list">
+              <Link to="/" className="link">Dashboard</Link>
+              <Link to="/jobs" className="active">Jobs</Link>
+              <Link to="/crew" className="link">Crew</Link>
+              <Link to="/availability" className="link">Availability</Link>
+              <Link to="/account-settings" className="link">Settings</Link>
+            </div>
+            <Link className="button button-workspace" to={{
+              pathname: `/jobs/${this.state.jobID}/job-information`,
+              query: `${this.state.jobID}`
+            }}>Create New Job</Link>
+          </div> 
         </div>
         
         <div className="app-page-body">

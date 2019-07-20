@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { FormButton } from '../Forms/FormButton'
 import JobResultsTable from './JobResultsTable'
 import { CreateJobFormError } from './CreateJobFormError'
@@ -101,17 +102,22 @@ class CreateJobFormStepTwo extends Component {
   }
  
   render() {
-    // if(this.state.pageError) { 
-    //   return <CreateJobFormError 
-    //           title="There was an error"
-    //           errorMessage="It looks like there was a problem while creating your job. Please start over creating your job."
-    //   /> 
-    // }
-
     return (  
       <div className="app-page">
-        <div className="app-page-header">
-          <h1>Assign Job Positions</h1>
+        <div className="workspace">
+          <div className="workspace-desktop">
+            <div className="workspace-tab-list">
+              <Link to="/" className="link">Dashboard</Link>
+              <Link to="/jobs" className="active">Jobs</Link>
+              <Link to="/crew" className="link">Crew</Link>
+              <Link to="/availability" className="link">Availability</Link>
+              <Link to="/account-settings" className="link">Settings</Link>
+            </div>
+            <Link className="button button-workspace" to={{
+              pathname: `/jobs/${this.state.jobID}/job-information`,
+              query: `${this.state.jobID}`
+            }}>Create New Job</Link>
+          </div> 
         </div>
 
         <div className="app-page-body">
@@ -129,37 +135,34 @@ class CreateJobFormStepTwo extends Component {
           }
           {
             this.state.resultsSuccessfullyLoaded &&
-            <JobResultsTable
-              results={this.state.usersMatchedResults}
-              setUserModal={this.props.setUserModal}
-              userModalActive={this.props.userModalActive}
-              assignPosition={this.assignPosition}
-              jobData={this.props.currentJob.jobObj}
-              jobID={this.props.match.params.jobID}  
-              error={this.state.error}  
-            />
+            <div className="app-page-section">
+              <div className="card">
+                <div className="card-body">
+                  <JobResultsTable
+                    results={this.state.usersMatchedResults}
+                    setUserModal={this.props.setUserModal}
+                    userModalActive={this.props.userModalActive}
+                    assignPosition={this.assignPosition}
+                    jobData={this.props.currentJob.jobObj}
+                    jobID={this.props.match.params.jobID}  
+                    error={this.state.error}  
+                  />
+                  <div className="button-wrapper">
+                    <FormButton
+                      className="button-quit"
+                      buttonText="Cancel"
+                      onClick={(e) => this.cancelJobCreation(e)}
+                    />
+                    <FormButton
+                      className="button-primary"
+                      buttonText="Send Job Invites"
+                      onClick={this.saveAndContinue}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
           }
-          <div className="job-form-navigation">
-            <div className="buttons-left">
-              <FormButton
-                className="button-danger"
-                buttonText="Cancel"
-                onClick={(e) => this.cancelJobCreation(e)}
-              />
-            </div>
-            <div className="buttons-right">
-              <FormButton
-                className="button-secondary"
-                buttonText="Start Over"
-                onClick={(e) => this.saveAndGoBack(e)}
-              />
-              <FormButton
-                className="button-primary"
-                buttonText="Send Job Invites"
-                onClick={this.saveAndContinue}
-              />
-            </div>
-          </div>
         </div>
       </div>
     )

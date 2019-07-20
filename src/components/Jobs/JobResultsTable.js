@@ -278,7 +278,7 @@ class JobResultsTable extends Component {
           <ul className="unassigned-jobs">
             {
               this.state.openPositions.map( (position, key) => {
-                return this.state.assignedPositions.includes(position) ? null : <li key={key}>{position}</li>
+                return this.state.assignedPositions.includes(position) ? <li className="position-filled" key={key}>{position}</li> : <li className="position-open" key={key}>{position}</li>
               })
             }
           </ul>

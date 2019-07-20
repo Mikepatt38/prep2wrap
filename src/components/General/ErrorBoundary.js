@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import ErrorIllustration from '../../img/illustrations/error.svg'
 
 class ErrorBoundary extends Component {
@@ -19,9 +20,17 @@ class ErrorBoundary extends Component {
     if (this.state.errorInfo) {
       return (
         <div className="app-page">
-          <div className="app-page-header">
-            <h1>Oops, something went wrong.</h1>  
-          </div>        
+          <div className="workspace">
+            <div className="workspace-desktop">
+              <div className="workspace-tab-list">
+                <Link to="/" className="link">Dashboard</Link>
+                <Link to="/jobs" className="active">Jobs</Link>
+                <Link to="/crew" className="link">Crew</Link>
+                <Link to="/availability" className="link">Availability</Link>
+                <Link to="/account-settings" className="link">Settings</Link>
+              </div>
+            </div> 
+          </div>      
           <div className="app-page-body">
             <div className="app-page-section">
               {

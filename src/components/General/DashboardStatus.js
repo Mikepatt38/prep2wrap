@@ -43,7 +43,10 @@ class DashboardStatus extends Component {
       <div className="app-page-section" id="section-grid">
         <div className="card card-grid">
           <div className="card-body">
-            <h4>Jobs Overview</h4>
+            <div className="card-body-header">
+              <h4>Jobs Overview</h4>
+              <Link to="/jobs" className="button">View Jobs</Link>
+            </div>
             <p>Here is a quick overview of the jobs you have created, completed, and accepted to be apart of.</p>
             <div className="dashboard-status-cards">
               <div className="status-card">

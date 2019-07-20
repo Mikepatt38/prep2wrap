@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import moment from 'moment'
 import { AvailabilityForm } from '../components/Users/AvailabilityForm'
 import Calendar from '../components/Users/Calendar'
@@ -34,9 +35,17 @@ class Availability extends Component {
           close={this.toggleModal}
         />
 
-        <div className="app-page-header">
-          <h1>Availability</h1>
-          <button className="button-primary button-header" onClick={(e) => this.setState({modalActive: true})}>Update Availability</button>
+        <div className="workspace">
+          <div className="workspace-desktop">
+            <div className="workspace-tab-list">
+              <Link to="/" className="link">Dashboard</Link>
+              <Link to="/jobs" className="link">Jobs</Link>
+              <Link to="/crew" className="link">Crew</Link>
+              <Link to="/availability" className="active">Availability</Link>
+              <Link to="/account-settings" className="link">Settings</Link>
+            </div>
+            <button className="button button-workspace" onClick={(e) => this.setState({modalActive: true})}>Update Availability</button>
+          </div>
         </div>
 
         <div className="app-page-body">
