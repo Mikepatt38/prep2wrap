@@ -17,7 +17,7 @@ function UserProfileModal(props){
   }
 
   function checkIfUserIsInQuickCrew(){
-    return props.currentUser.favorites.some( el => el.id === props.user.id)
+    return props.currentUser.favorites ? props.currentUser.favorites.some( el => el.id === props.user.id) : false
   }
 
   return(

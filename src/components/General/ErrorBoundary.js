@@ -37,7 +37,7 @@ class ErrorBoundary extends Component {
                 this.state.error &&
                 <div className="error-state">
                   <img className="error-state-image" src={ErrorIllustration} alt="Error Illustration" />
-                  <h3>It seems something went wrong.</h3>
+                  <h3>It seems something went wrong. Please refresh the browser.</h3>
                   <p>There seems to be an error with you're request. We're sorry, try taking a different action and if the problem persist please contact us at <a href="mailto:info@prep2wrapjobs.com">info@prep2wrapjobs.com</a>.</p>
                 </div>
               }
