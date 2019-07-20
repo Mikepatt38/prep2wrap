@@ -9,7 +9,7 @@ import SwapIcon from '../../img/icon-swap.svg'
 export class UserAvailabilityTable extends Component {
   state = {
     availability: this.props.dates ? this.props.dates : [],
-    hasAvailability: this.props.dates.length > 0,
+    hasAvailability: this.props.dates ? this.props.dates.length > 0 : false,
     loading: true
   }
 
@@ -23,7 +23,7 @@ export class UserAvailabilityTable extends Component {
     }
     if(prevProps.dates !== this.props.dates){
       this.setState({
-        hasAvailability: this.props.dates.length > 0
+        hasAvailability: this.props.dates ? this.props.dates.length > 0 : false
       })
     }
   }

@@ -10,7 +10,7 @@ class Calendar extends Component {
     selectedDateType: '',
     bookedDates: [],
     personalDates: [],
-    hasAvailability: this.props.dates.length > 0
+    hasAvailability: this.props.dates ? this.props.dates.length > 0 : false
   }
 
   componentDidUpdate(prevProps, prevState){
@@ -18,7 +18,7 @@ class Calendar extends Component {
       this.setState({
         bookedDates: [],
         personalDates: [],
-        hasAvailability: this.props.dates.length > 0
+        hasAvailability: this.props.dates ? this.props.dates.length > 0 : false
       })
     }
   }
