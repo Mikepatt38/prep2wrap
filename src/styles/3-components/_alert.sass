@@ -78,23 +78,25 @@
   Styles for Global Alerts
   ================== */ 
 
-.global-alert
-  background-color: $color__mainBlue
 
-  a
-    height: 100%
-    width: 100%
-    position: relative
-    padding: 0
-    display: flex
-    justify-content: space-between
-    flex-direction: row
-    align-content: center
+.global-alert
+  background-color: $color__primary
+  width: 100% 
+  padding: 15px
+  display: flex
+  justify-content: space-between
+  flex-direction: row
+  align-content: center
 
   &.active
-    display: block 
+    display: flex 
 
-    p
-      width: 80%
+    span > img
+      height: 16px
+
+    a
       font-size: 16px
       color: #fff
+      opacity: 0.8
+      width: auto
+
