@@ -9,24 +9,15 @@ admin.initializeApp({
   messagingSenderId: "48348373939"
 });
 const userPrivacyPaths = require('./user_privacy.json');
-// const db = admin.database();
 const firestore = admin.firestore();
 const path = require('path');
 const os = require('os');
 const mkdirp = require('mkdirp-promise');
-// const storage = admin.storage();
 const FieldValue = admin.firestore.FieldValue;
 const stripe = require('stripe')(functions.config().stripe.testkey)
-// const currency = functions.config().stripe.currency || 'USD'
-
-// import { Storage } from '@google-cloud/storage' 
-// const gcs = new Storage()
-
-// import { tmpdir } from 'os';
-// import { join, dirname } from 'path';
-// import * as sharp from 'sharp';
-const nodemailer = require('nodemailer');
-const cors = require('cors')({origin: true});
+const endpointSecret = functions.config().keys.testsigning;
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(functions.config().keys.sendgrid);
 
 // ============ Resize a user's image when they upload an avatar to only save smaller images =========== //
 
@@ -133,6 +124,22 @@ export const deleteUserStripeAccount = async (user:any) => {
 }
 
 //
+// This sends an email via SendGrid to alert the user that their account has been deleted
+//
+export const sendDeleteEmail = async (user:any) => {
+  const msg = {
+    to: user.email,
+    from: 'Prep2Wrap <info@prep2wrapjobs.com>',
+    subject: 'Your Account Is Deleted',
+    html: `<p>We hate to see you go.</p> <p>Thank you for being apart of the Prep2Wrap community. This email is confirming you have deleted your account and subscription with Prep2Wrap.</p>`,
+  }
+  sgMail
+    .send(msg)
+    .then(() => console.log('Mail sent successfully'))
+    .catch((error:any) => console.error(error.toString()))
+}
+
+//
 // Clear Data function that uses the user id of the current deleted user to delete all
 // found data from firestore, RTDB, and google cloud storage
 //
@@ -141,10 +148,11 @@ exports.clearData = functions.auth.user().onDelete(async (event) => {
 
   // const databasePromise = clearDatabaseData(uid);
   // const storagePromise = clearStorageData(uid);
-  const firestorePromise = clearFirestoreData(uid);
   const stripePromise = deleteUserStripeAccount(event)
+  const deleteEmail = sendDeleteEmail(event);
+  const firestorePromise = clearFirestoreData(uid);
 
-  return Promise.all([stripePromise, firestorePromise])
+  return Promise.all([stripePromise, deleteEmail, firestorePromise])
       .then(() => {
         console.log(`Successfully removed data for user #${uid}.`)
       }
@@ -191,64 +199,57 @@ export const clearFirestoreData = (uid:any) => {
   return Promise.all(promises).then(() => uid);
 };
 
-// ========== Twilio Function ========== //
-exports.sendSMS = functions.https.onRequest((req, res) => {
-  cors( req, res, () => {
-    res.set('Access-Control-Allow-Origin', "*")
-    res.set('Access-Control-Allow-Methods', 'GET, POST')
+// // ========== Twilio Function ========== //
+// exports.sendSMS = functions.https.onRequest((req, res) => {
+//   cors( req, res, () => {
+//     res.set('Access-Control-Allow-Origin', "*")
+//     res.set('Access-Control-Allow-Methods', 'GET, POST')
   
-    let SID = process.env.TWILIO_SID
-    let TOKEN = process.env.TWILIO_TOKEN
-    // let SENDER = process.env.TWILIO_SENDER
+//     let SID = process.env.TWILIO_SID
+//     let TOKEN = process.env.TWILIO_TOKEN
+//     // let SENDER = process.env.TWILIO_SENDER
    
-    var client = require('twilio')(SID, TOKEN)
-    client.messages
-    .create({
-      to:   '+1'+req.body.number,
-      from: '+16822049551',
-      body: req.body.message
-      })
-    .then(() => res.send())
-    .catch((error:any) => console.error(error.toString()))
-  })
-})
+//     var client = require('twilio')(SID, TOKEN)
+//     client.messages
+//     .create({
+//       to:   '+1'+req.body.number,
+//       from: '+16822049551',
+//       body: req.body.message
+//       })
+//     .then(() => res.send())
+//     .catch((error:any) => console.error(error.toString()))
+//   })
+// })
 
-// ========== Use a GMAIL account to send emails for updates on user accounts ========== //
+// ========== Firebase Web-hook Endpoints ========== //
 
-// TODO: 
-// Switch mailer over to sendgrid because google requires you to change security
-// settings and stakeholders are not too thrilled about the aspect of doing that
-//
-let transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-      user: 'mjpatt381@gmail.com',
-      pass: 'aTt732MA16'
+exports.stripeEvents = functions.https.onRequest((request, response) => {
+  let sig = request.headers["stripe-signature"];
+
+  try {
+    let event = stripe.webhooks.constructEvent(request.rawBody, sig, endpointSecret);
+    switch (event!.type) {
+      case 'customer.created':
+        console.log('The user was created: Lets update people')
+        const msg = {
+          to: event.data.object.email,
+          from: 'Prep2Wrap <info@prep2wrapjobs.com>',
+          subject: 'Welcome to Prep2Wrap',
+          html: `<p>Hey ${event.data.object.name},</p> <p>Thank you for signing up for your account with Prep2Wrap. Log in to setup your account settings and being hiring your next crew!</p>`,
+        }
+        sgMail
+          .send(msg)
+          .then(() => response.sendStatus(200))
+          .then(() => console.log('Mail sent successfully'))
+          .catch((error:any) => console.error(error.toString()))
+        break;
+      // ... handle other event types
+      default:
+        // Unexpected event type
+        return response.status(400).end();
+    }
+  } catch (err) {
+    return response.status(400).send(err).end();
   }
-});
-
-exports.sendMail = functions.https.onRequest((req, res) => {
-// export const sendMail = (emailData:any) => { 
-  console.log('Starting outreach')
-  cors(req, res, () => {
-      console.log('passed cors')
-      // getting dest email by query string
-      const dest = req.body;
-      console.log(req.body)
-      const mailOptions = {
-          from: 'Crew It Up Admin <mjpatt381@gmail.com>', // Something like: Jane Doe <janedoe@gmail.com>
-          to: dest,
-          subject: 'Test Email Submission', // email subject
-          html: `<p>This is a test email. We will need to provide a template.</p>` 
-      };
-      console.log(mailOptions)
-
-      // returning result
-      return transporter.sendMail(mailOptions, (err:any, info:any) => {
-          if(err){
-              return res.send(err.toString());
-          }
-          return res.send('Sent');
-      });
-  });    
+  response.send('Success');
 });
