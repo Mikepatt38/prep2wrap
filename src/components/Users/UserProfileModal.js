@@ -17,9 +17,9 @@ function UserProfileModal(props){
   }
 
   function checkIfUserIsInQuickCrew(){
-    return props.currentUser.favorites 
-    ? props.currentUser.favorites.some( el => el.id === props.user.id) 
-    : props.user.id === props.currentUser.id ? true : false
+    if(props.currentUser.id === props.user.id) return true
+    else if(props.currentUser.favorites.some( el => el.id === props.user.id)) return true
+    else return false
   }
 
   return(
@@ -91,9 +91,9 @@ function UserProfileModal(props){
                     <div className="user-body-section">
                       <div className="user-body-item socials">
                         <label>Social Profiles:</label>
-                        <span className="social-pill"><img src={FacebookLogo} alt="Facebook Account Logo Link" /> Facebook</span>
-                        <span className="social-pill"><img src={InstagramLogo} alt="Instagram Account Logo Link" /> Instagram</span>
-                        <span className="social-pill"><img src={IMDBLogo} alt="IMDB Account Logo Link" /> IMDb</span>
+                        <span className="social-pill"><a target="_blank" href={`${props.user.profileInformation.fbLink}`}><img src={FacebookLogo} alt="Facebook Account Logo Link" /> Facebook</a></span>
+                        <span className="social-pill"><a target="_blank" href={`${props.user.profileInformation.instagramLink}`}><img src={InstagramLogo} alt="Instagram Account Logo Link" /> Instagram</a></span>
+                        <span className="social-pill"><a target="_blank" href={`${props.user.profileInformation.imdbLink}`}><img src={IMDBLogo} alt="IMDB Account Logo Link" /> IMDb</a></span>
                       </div>
                     </div> 
                     

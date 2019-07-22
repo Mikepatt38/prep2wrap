@@ -223,7 +223,7 @@ export const signUpUser = (email, password, firstName, lastName, mobileNumber, s
       createdJobs: 0,
       acceptedJobs: 0
     })
-    return history.push("/")
+    return history.push("/tutorial-walk-through")
   }
   catch(error) {
     dispatch({ type: 'SET_ALERT', payload: [true, 'Error', error.message] })
@@ -270,7 +270,6 @@ export const usersSearch = (userName, positions, locations, jobTypes) => async d
   if(userName){
     const firstName = userName.charAt(0).toUpperCase() + userName.split(" ")[0].slice(1)
     const lastName = userName.split(" ")[1] ? userName.split(" ")[1].charAt(0).toUpperCase() + userName.split(" ")[1].slice(1) : ''
-
     let nameSearchRef = await usersRef.where("firstName", "==", firstName).get()
     let userData = await nameSearchRef.docs
     userData.map( user => {

@@ -9,6 +9,7 @@ import UsersPage from './pages/Users'
 import Availability from './containers/Availability'
 import { JobsPage, CreateJobFormStep1, CreateJobFormStep2, CreateJobFormStep3, SendJobInvites } from './containers/Jobs'
 import { NotFound } from './pages/NotFound'
+import Tutorial from './pages/Help';
 
 export const Routes = () => {
   return ( 
@@ -16,6 +17,7 @@ export const Routes = () => {
       <Route exact path='/login' component={UserAuth} />
       <Route exact path='/signup' component={UserAuth} />
       <Route exact path='/password-reset' component={UserAuth} />
+      <Route exact path='/tutorial-walk-through' component={Tutorial} />
       {/* <Route exact path='/password-change' component={PasswordChange} /> */}
       <ProtectedRoute exact path="/" component={Dashboard} />
       <ProtectedRoute exact path='/jobs' component={JobsPage} />

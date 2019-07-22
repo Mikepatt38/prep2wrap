@@ -13,8 +13,6 @@ class UserInfoForm extends Component {
   }
 
   componentDidUpdate(prevProps){
-    console.log(prevProps.currentUser.avatarUrl)
-    console.log(this.props.currentUser.avatarUrl)
     if(prevProps.currentUser.avatarUrl !== this.props.currentUser.avatarUrl){
       this.setState({
         userAvatar: this.props.currentUser.avatarUrl
