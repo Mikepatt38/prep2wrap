@@ -44,14 +44,14 @@ class Availability extends Component {
               <Link to="/availability" className="active">Availability</Link>
               <Link to="/account-settings" className="link">Settings</Link>
             </div>
-            <button className="button button-workspace" onClick={(e) => this.setState({modalActive: true})}>Update Availability</button>
+            <button className="button button-workspace" onClick={() => this.setState({modalActive: true})}>Update Availability</button>
           </div>
         </div>
 
         <div className="app-page-body">
           <div className="app-page-section">
             <div className="mobile-only">
-              <button className="button button-primary" onClick={(e) => this.setState({modalActive: true})}>Update Availability</button>
+              <button className="button button-primary" onClick={() => this.setState({modalActive: true})}>Update Availability</button>
             </div>
             <Calendar 
               currentUser={this.props.currentUser}
