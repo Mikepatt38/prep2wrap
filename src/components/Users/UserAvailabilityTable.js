@@ -10,16 +10,24 @@ export class UserAvailabilityTable extends Component {
   state = {
     availability: this.props.dates ? this.props.dates : [],
     hasAvailability: this.props.dates ? this.props.dates.length > 0 : false,
+    availabilityByActiveMonth: this.filterAvailabilityByMonth(this.props.dates ? this.props.dates : []),
     loading: true
   }
 
   componentDidMount = () => {
-    this.setState({ loading: false })
+    this.setState({ 
+      loading: false,
+    })
   }
 
   componentDidUpdate(prevProps, prevState){
     if(prevProps.currentUser.availability !== this.props.currentUser.availability){
       this.getUsersCurrentAvailability()
+    }
+    if(prevProps.activeMonth !== this.props.activeMonth){
+      this.setState({
+        availabilityByActiveMonth: this.filterAvailabilityByMonth(this.props.dates ? this.props.dates : [])
+      })
     }
     if(prevProps.dates !== this.props.dates){
       this.setState({
@@ -62,6 +70,7 @@ export class UserAvailabilityTable extends Component {
 
   filterAvailabilityByMonth(availability){
     let updatedAvailability = []
+    console.log(this.props.activeMonth)
     availability.map(date => {
       const arrPos = date.date.split('/')[0] -1
       if(arrPos % this.props.activeMonth === 0){
@@ -156,7 +165,7 @@ export class UserAvailabilityTable extends Component {
         this.state.hasAvailability 
         ?
         <Table
-          data={this.filterAvailabilityByMonth(this.state.availability)}
+          data={this.state.availabilityByActiveMonth}
           columns={columns}
           loading={this.state.loading}
         />

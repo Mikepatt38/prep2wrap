@@ -137,7 +137,7 @@ class Calendar extends Component {
     this.setState({
       currentMonth: dateFns.addMonths(this.state.currentMonth, 1)
     }, () => {
-      this.props.toggleActiveMonth(this.state.currentMonth)
+      this.props.toggleActiveMonth(this.state.currentMonth.getMonth())
     })
   }
 
@@ -145,7 +145,7 @@ class Calendar extends Component {
     this.setState({
       currentMonth: dateFns.subMonths(this.state.currentMonth, 1)
     }, () => {
-      this.props.toggleActiveMonth(this.state.currentMonth)
+      this.props.toggleActiveMonth(this.state.currentMonth.getMonth())
     })
   }
 
