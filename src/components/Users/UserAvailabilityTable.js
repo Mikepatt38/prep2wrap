@@ -60,6 +60,17 @@ export class UserAvailabilityTable extends Component {
     this.props.removeAvailabilityDate(this.props.currentUser.id, currentDates, dateToDelete)
   }
 
+  filterAvailabilityByMonth(availability){
+    let updatedAvailability = []
+    availability.map(date => {
+      const arrPos = date.date.split('/')[0] -1
+      if(arrPos % this.props.activeMonth === 0){
+        updatedAvailability.push(date)
+      }
+    })
+    return updatedAvailability
+  }
+
   toggleRowActions(index){
     // store which row was selected
     const el = document.getElementById(`row-${index}`)
@@ -145,7 +156,7 @@ export class UserAvailabilityTable extends Component {
         this.state.hasAvailability 
         ?
         <Table
-          data={this.state.availability}
+          data={this.filterAvailabilityByMonth(this.state.availability)}
           columns={columns}
           loading={this.state.loading}
         />

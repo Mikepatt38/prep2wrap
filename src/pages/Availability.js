@@ -8,12 +8,24 @@ import Modal from '../components/General/Modal'
 
 class Availability extends Component {
   state = {
-    modalActive: false
+    modalActive: false,
+    activeMonth: this.getCurrentMonth()
+  }
+
+  getCurrentMonth(){
+    const date = new Date
+    return date.getMonth()
   }
 
   toggleModal = () => {
     this.setState({
       modalActive: !this.state.modalActive
+    })
+  }
+
+  toggleActiveMonth = (month) => {
+    this.setState({
+      activeMonth: month
     })
   }
 
@@ -58,6 +70,8 @@ class Availability extends Component {
               dates={this.props.currentUser.availability} 
               setSelectedDate={this.setSelectedDate} 
               getCurrentAvailability={this.props.getCurrentAvailability}
+              activeMonth={this.state.activeMonth}
+              toggleActiveMonth={this.toggleActiveMonth}
             />
           </div>
 
@@ -68,6 +82,7 @@ class Availability extends Component {
                 currentUser={this.props.currentUser}
                 getCurrentAvailability={this.props.getCurrentAvailability}
                 removeAvailabilityDate={this.props.removeAvailabilityDate}
+                activeMonth={this.state.activeMonth}
               />
             }
           </div>
