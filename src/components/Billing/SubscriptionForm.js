@@ -99,20 +99,7 @@ class SubscriptionForm extends Component {
         let jsonObj = await JSON.parse(responseObj)
         let stripe_id = await jsonObj.stripe_id
         // Actually sign the user up
-        this.props.signUpUser(this.state.email, this.state.passwordOne, this.state.firstName, this.state.lastName, this.state.mobileNumber, stripe_id, this.props.history)
-        //   .then( () => {
-        //     // send an email using GCF to the user and owner about the new user
-        //     console.log('Lets send an email notification')
-        //     fetch("https://us-central1-the-calltime.cloudfunctions.net/sendMail", {
-        //       method: "POST",
-        //       headers: {
-        //         "Content-Type": "application/json",
-        //         'Accept': 'application/json',
-        //       },
-        //       // dataType: "json",
-        //       body: 'michael@outlyrs.com'
-        //   })
-        // })
+        this.props.signUpUser(this.state.email, this.state.passwordOne, this.state.firstName.toLowerCase().charAt(0).toUpperCase(), this.state.lastName.toLowerCase().charAt(0).toUpperCase(), this.state.mobileNumber, stripe_id, this.props.history)
       }
       else{
         console.log('No source was created')

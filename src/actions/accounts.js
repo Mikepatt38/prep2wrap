@@ -268,10 +268,12 @@ export const usersSearch = (userName, positions, locations, jobTypes) => async d
   // if a user decides to search by the user's name
   // =========== TODO check for last name comparison as well ========== //
   if(userName){
-    const firstName = userName.charAt(0).toUpperCase() + userName.split(" ")[0].slice(1)
-    const lastName = userName.split(" ")[1] ? userName.split(" ")[1].charAt(0).toUpperCase() + userName.split(" ")[1].slice(1) : ''
-    let nameSearchRef = await usersRef.where("firstName", "==", firstName).get()
-    let userData = await nameSearchRef.docs
+    const firstName = userName.toLowerCase().charAt(0).toUpperCase() + userName.split(" ")[0].slice(1)
+    const lastName = userName.split(" ")[1] ? userName.split(" ")[1].toLowerCase().charAt(0).toUpperCase() + userName.split(" ")[1].slice(1) : ''
+    let firstNameRef = await usersRef.where("firstName", "==", firstName).get()
+    let lastNameRef = await usersRef.where("lastName", "==", lastName).get()
+    let lastNameOnlyRef = await usersRef.where("lastName", "==", firstName).get()
+    let userData = await [...firstNameRef.docs, ...lastNameRef.docs, ...lastNameOnlyRef.docs]
     userData.map( user => {
       if(user.data().profileInformation && user.data().profileInformation.location && user.data().profileInformation.positions && user.data().profileInformation.jobTypes ){
         const isLocationMatch = checkUserLocationMatch(user.data().profileInformation.location, locations)
