@@ -3,63 +3,64 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import DatePicker from 'react-datepicker'
 
-
-export const FormDatePicker = ( {label, handleChange, className, selectedDate, placeholderText, error, errorMsg} ) => {
-  return (
-    <div className={error ? 'field-error form-group' + ` ${className}` : 'form-group' + ` ${className}` }>
-      <label className="date-picker-label">{label}</label>
-      <DatePicker
-        inline
-        onChange={handleChange}
-        selected={selectedDate}
-        placeholderText={placeholderText}
-        shouldCloseOnSelect={false}
-      />
-      <p className="error-msg">{errorMsg}</p>
-    </div>
+export function DatePickerButton(props){
+  return(
+    <button
+      type="button"
+      className="example-date-picker-button"
+      onClick={props.onClick}
+      placeholder={props.placeholder}>
+      {props.value}
+    </button>
   )
-} 
+}
 
-export const FormDateRangePicker = ( {label, handleDateChangeStart, handleDateChangeEnd, className, selectedStartDate, selectedEndDate, startPlaceholderText, endPlaceholderText} ) => {
+export function CustomDatePicker(props){
+
   return (
-    <div className={'form-group' + ` ${className}`}>
-      <label className="date-picker-label">{label}</label>
-      <DatePicker
-        inline
-        selected={moment(selectedStartDate.toISOString())}
-        selectsStart
-        startDate={selectedStartDate}
-        endDate={selectedEndDate}
-        onChange={handleDateChangeStart}
-        placeholderText={startPlaceholderText}
-      />
-
-      <DatePicker
-        selected={moment(selectedEndDate.toISOString())}
-        selectsEnd
-        inline
-        startDate={selectedStartDate}
-        endDate={selectedEndDate}
-        onChange={handleDateChangeEnd}
-        placeholderText={endPlaceholderText}
+    <div className={props.error ? `field-error form-group ${props.className}` : `form-group ${props.className}` }>
+      <div className="date-select-input">
+        <label className="date-picker-label">{props.label}</label>
+        <DatePicker
+          customInput={<DatePickerButton />}
+          selected={props.selectedDate}
+          onChange={props.handleChange} 
+          placeholderText={props.placeholder}
+          shouldCloseOnSelect={false}
         />
+        <p className="error-msg">{props.errorMsg}</p>
+      </div>
     </div>
   )
 }
 
-FormDatePicker.propTypes = {
-  label: PropTypes.string.isRequired,
-  startDate: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  handleChange: PropTypes.func,
+export function CustomDateRangePicker(props){
+  return (
+    <div className={`form-group ${props.className}`}>
+      <div className="date-range-input">
+        <label className="date-picker-label">Click to Select Start Date</label>
+        <DatePicker
+          customInput={<DatePickerButton customName="Click to Select Job Start Date" />}
+          selected={moment(props.selectedStartDate.toISOString())}
+          selectsStart
+          startDate={props.selectedStartDate}
+          endDate={props.selectedEndDate}
+          onChange={props.handleDateChangeStart}
+          placeholder={props.startPlaceholderText}
+        /> 
+      </div>
+      <div className="date-range-input">
+        <label className="date-picker-label">Click to Select End Date</label>
+        <DatePicker
+          selected={moment(props.selectedEndDate.toISOString())}
+          selectsEnd
+          customInput={<DatePickerButton customName="Click to Select Job End Date" />}
+          startDate={props.selectedStartDate}
+          endDate={props.selectedEndDate}
+          onChange={props.handleDateChangeEnd}
+          placeholderEnd={props.endPlaceholderText}
+        /> 
+      </div>
+    </div>
+  )
 }
-
-//       
-// <DatePicker
-// selected={moment(selectedEndDate.toISOString())}
-// selectsEnd
-// startDate={selectedStartDate}
-// endDate={selectedEndDate}
-// onChange={handleDateChangeEnd}
-// placeholderText={endPlaceholderText}
-// />

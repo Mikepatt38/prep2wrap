@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import dateFns from "date-fns"
-import { FormDatePicker } from '../Forms/FormDatePicker'
+// import { FormDatePicker } from '../Forms/FormDatePicker'
 import { FormTextInput } from '../Forms/FormTextInput'
 import { FormButton } from '../Forms/FormButton'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -55,14 +55,6 @@ export class AvailabilityForm extends Component {
           method="form"
           className="modal-form"
         >
-          <FormDatePicker
-            label="Select a date"
-            currentSelectedDate={currentSelectedDate}
-            startDate={currentSelectedDate}
-            selectedDate={currentSelectedDate}
-            className="date-picker-form-group"
-            handleChange={this.handleChange}
-          />
           <FormTextInput
             name="reason"
             label="Reason"
@@ -82,3 +74,12 @@ export class AvailabilityForm extends Component {
     )
   }
 }
+
+// <FormDatePicker
+// label="Select a date"
+// currentSelectedDate={currentSelectedDate}
+// startDate={currentSelectedDate}
+// selectedDate={currentSelectedDate}
+// className="date-picker-form-group"
+// handleChange={this.handleChange}
+// />

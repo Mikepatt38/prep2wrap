@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { FormTextInput } from '../Forms/FormTextInput'
 import { FormButton } from '../Forms/FormButton'
 import { FormCheckboxInput } from '../Forms/FormCheckboxInput'
-import { FormDatePicker, FormDateRangePicker } from '../Forms/FormDatePicker'
+import { FormDatePicker, FormDateRangePicker, CustomDatePicker, CustomDateRangePicker } from '../Forms/FormDatePicker'
 import FormSelectInput from '../Forms/FormSelectInput'
 import { locationObj, positionsObj, contactObj, jobTypesObj } from '../../data/formOptions'
 import TrashIcon from '../../img/icon-trash.svg'
@@ -336,26 +336,23 @@ class CreateJobFormStepOne extends Component {
                   <hr />
                   <p>Select all dates that the job will be active during.</p>
                   <div className="form-group">
-                      {
-                        <div className="date-picker">
-                          <FormDatePicker
-                            label="Select Job Dates"
-                            startDate={startDate}
-                            selectedDate={selectedDate}
-                            className="date-picker-form-group"
-                            handleChange={this.handleDateChange}
-                            placeholderText="Click to add job dates."
-                            error={this.state.jobDatesError}
-                            errorMsg="Please choose job dates."
-                          />
-                            <label>Selected Job Dates:</label>
-                            <ul className="date-picker-list">
-                              {selectedDates.map( (date, key) => {
-                                return <span key={key} className="date-picker-list-item"><li>{date}</li><span className="date-picker-list-delete" onClick={() => { this.removeDate(date) }}><img src={TrashIcon} alt="Delete Icon" /></span></span>
-                              })}
-                            </ul>
-                        </div> 
-                      }
+                    <div className="date-picker">
+                      <CustomDatePicker
+                        label="Select All Job Dates"
+                        startDate={startDate}
+                        selectedDate={selectedDate}
+                        className="date-picker-form-group"
+                        handleChange={this.handleDateChange}
+                        placeholder="Click to add job dates."
+                        error={this.state.jobDatesError}
+                        errorMsg="Please choose job dates."
+                      />
+                      <ul className="date-picker-list">
+                        {selectedDates.map( (date, key) => {
+                          return <span key={key} className="date-picker-list-item"><li>{date}</li><span className="date-picker-list-delete" onClick={() => { this.removeDate(date) }}><img src={TrashIcon} alt="Delete Icon" /></span></span>
+                        })}
+                      </ul> 
+                    </div>
                   </div>
                   <div className="button-wrapper">
                     <FormButton
@@ -398,21 +395,18 @@ export default CreateJobFormStepOne
 // />
 // </div>
 
-// jobObj.dateSelectorRangeActive 
-// ?
-//   <div className="date-picker--range">
-//     <FormDateRangePicker
-//       label="Select Job Dates Range"
-//       startDate={startDate}
-//       selectedStartDate={selectedStartDate}
-//       selectedEndDate={selectedEndDate}
-//       className="date-picker-form-group"
-//       handleDateChangeStart={this.handleDateChangeStart}
-//       handleDateChangeEnd={this.handleDateChangeEnd}
-//     />
-//     <div className="date-picker--range-dates">
-//       <div className="date-picker--range-item"><label>Start Date:</label><span className="date-pill">{this.state.selectedStartDate.format('MM/DD/YYYY')}</span></div>
-//       <div className="date-picker--range-item"><label>End Date:</label><span className="date-pill">{this.state.selectedEndDate.format('MM/DD/YYYY')}</span></div>
-//     </div>
-//   </div> 
+// <div className="date-picker">
+// <CustomDateRangePicker
+//   label="Select Job Dates Range"
+//   startDate={startDate}
+//   selectedStartDate={selectedStartDate}
+//   selectedEndDate={selectedEndDate}
+//   className="date-picker-form-group"
+//   placeholder="Select Job Start Date"
+//   placeholderEnd="Select Job End Date"
+//   handleDateChangeStart={this.handleDateChangeStart}
+//   handleDateChangeEnd={this.handleDateChangeEnd}
+// />
+// </div>
 // :
+

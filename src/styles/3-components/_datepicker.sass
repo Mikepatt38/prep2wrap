@@ -3,7 +3,16 @@
   ================== */
 
 .form-group.date-picker-form-group
-  width: fit-content
+  display: flex
+  flex-direction: row
+  justify-content: flex-start
+
+  .date-range-input
+    position: relative
+    max-width: 48.5%
+
+    &:first-child
+      margin-right: 25px
 
 button.react-datepicker__navigation
   box-shadow: nones
@@ -11,11 +20,19 @@ button.react-datepicker__navigation
 
 .date-selector-type
   display: flex
-  justify-content: space-between
+  justify-content: flex-start
   position: relative
   flex-wrap: wrap
   max-width: 650px
   width: 100%
+
+  .form-group.form-group--half
+    width: auto
+    max-width: 200px
+
+button.example-date-picker-button
+  color: #444
+  min-width: 180px
 
 
 .date-picker--range .form-group
