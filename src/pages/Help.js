@@ -49,9 +49,9 @@ class Tutorial extends Component {
           <div className="workspace-desktop">
             <div className="workspace-tab-list">
               <Link to="/" className="link">Dashboard</Link>
+              <Link to="/availability" className="link">Availability</Link>
               <Link to="/jobs" className="link">Jobs</Link>
               <Link to="/crew" className="link">Crew</Link>
-              <Link to="/availability" className="link">Availability</Link>
               <Link to="/account-settings" className="link">Settings</Link>
             </div>
             <Link to="/" className="button button-workspace" >I got it, skip tutorial.</Link>

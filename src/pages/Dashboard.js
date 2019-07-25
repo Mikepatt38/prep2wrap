@@ -16,9 +16,9 @@ class Dashboard extends Component {
           <div className="workspace-desktop">
             <div className="workspace-tab-list">
               <Link to="/" className="active">Dashboard</Link>
+              <Link to="/availability" className="link">Availability</Link>
               <Link to="/jobs" className="link">Jobs</Link>
               <Link to="/crew" className="link">Crew</Link>
-              <Link to="/availability" className="link">Availability</Link>
               <Link to="/account-settings" className="link">Settings</Link>
             </div>
           </div>

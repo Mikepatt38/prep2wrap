@@ -39,9 +39,9 @@ class Availability extends Component {
           <div className="workspace-desktop">
             <div className="workspace-tab-list">
               <Link to="/" className="link">Dashboard</Link>
+              <Link to="/availability" className="active">Availability</Link>
               <Link to="/jobs" className="link">Jobs</Link>
               <Link to="/crew" className="link">Crew</Link>
-              <Link to="/availability" className="active">Availability</Link>
               <Link to="/account-settings" className="link">Settings</Link>
             </div>
             <button className="button button-workspace" onClick={() => this.setState({modalActive: true})}>Update Availability</button>
