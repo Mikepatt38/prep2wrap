@@ -6,6 +6,8 @@ import { FormTextInput } from '../Forms/FormTextInput'
 import { FormButton } from '../Forms/FormButton'
 import TrashIcon from '../../img/icon-trash.svg'
 import 'react-datepicker/dist/react-datepicker.css'
+const shortid = require('shortid')
+shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@')
 
 export class AvailabilityForm extends Component {
   state = {
@@ -56,7 +58,8 @@ export class AvailabilityForm extends Component {
 
   handleClick = (e) => {
     e.preventDefault()
-    this.props.updateUserAvailability(this.props.currentUser.id.toString(), this.props.currentAvailability, dateFns.format(this.state.currentSelectedDate, 'MM/DD/YYYY'), this.state.reason, "Requested")
+    let newAvailability = this.createUserDates(this.state.selectedDates)
+    this.props.addMultipleDatesToAvailability(this.props.currentUser.id, this.props.currentAvailability, newAvailability)
     this.clearForm()
     this.props.close()
   }
@@ -64,6 +67,21 @@ export class AvailabilityForm extends Component {
   handleCancel(e){
     e.preventDefault()
     this.props.close()
+  }
+
+  createUserDates(dates){
+    let arr = []
+    dates.map(date => {
+      arr.push(
+        {
+          id: shortid.generate(),
+          date: date,
+          dateTitle: `${this.state.reason}`,
+          dateType: 'Personal'
+        }
+      )
+    })
+    return arr
   }
 
 

@@ -29,7 +29,15 @@ export class UserAvailabilityTable extends Component {
 
   componentDidUpdate(prevProps, prevState){
     if(prevProps.currentUser.availability !== this.props.currentUser.availability){
+      this.setState({
+        tableLoading: true
+      })
       this.getUsersCurrentAvailability()
+      setTimeout( () => {
+        this.setState({
+          tableLoading: false
+        })
+      }, 350)
     }
     if(prevProps.activeMonth !== this.props.activeMonth){
       this.setState({
@@ -52,25 +60,10 @@ export class UserAvailabilityTable extends Component {
   getUsersCurrentAvailability = async () => {
     const userAvailability = this.props.currentUser.availability
     this.setState({
-      availability: this.formatDatesArr(userAvailability),
+      availability: this.userAvailability,
       availabilityByActiveMonth: this.filterAvailabilityByMonth(this.props.dates ? this.props.dates : []),
       loading: false
     })
-  }
-
-  formatDatesArr(dates){
-    // lets sort the dates in order from newest to oldest
-    dates.sort((a,b) => {
-      return new Date(b.date) - new Date(a.date)
-    }).reverse()
-        
-    // loop through the dates and only add one we haven't seen to the new dates arr
-    let uniqueDates = []
-    dates.filter( (item, pos) => {
-      if(!uniqueDates.some( el => el.dateTitle === item.dateTitle)) uniqueDates.push(item)
-    })
-
-    return uniqueDates
   }
 
   elementHasId(element){
@@ -191,7 +184,7 @@ export class UserAvailabilityTable extends Component {
           />
           :
           <div className="empty-state">
-            <p>You currently have no booked or unavailable days for this month.</p>
+            <p>You currently have no booked or personal days for this month.</p>
           </div>
         :
         <EmptyState

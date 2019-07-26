@@ -68,7 +68,7 @@ const LoginForm = ({ handleSignUserIn, handleChange, error, errorType}) => (
       label="Email"
       name="email"
       onChange={handleChange}
-      className={error && errorType === 'Error' && 'field-error'}
+      className={error && errorType === 'Error' ? 'field-error' : ''}
       type="email" 
       placeholder="user@email.com"
     />
@@ -76,7 +76,7 @@ const LoginForm = ({ handleSignUserIn, handleChange, error, errorType}) => (
       label="Password"
       name="password"
       onChange={handleChange}
-      className={error && errorType === 'Error' && 'field-error'}
+      className={error && errorType === 'Error' ? 'field-error' : ''}
       type="password"
       placeholder="password"
     />

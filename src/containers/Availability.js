@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
-import { updateUserAvailability, removeAvailabilityDate } from '../actions/availability'
+import { updateUserAvailability, removeAvailabilityDate, addMultipleDatesToAvailability } from '../actions/availability'
 import Availability from '../pages/Availability'
 import withAuthorization from './withAuthorization'
 
@@ -17,6 +17,7 @@ const mapStateToProps = (state) => {
 const actions = {
   updateUserAvailability,
   removeAvailabilityDate,
+  addMultipleDatesToAvailability
 }
 
 const mapDispatchToProps = (dispatch) => {

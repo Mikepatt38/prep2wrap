@@ -18,7 +18,7 @@ function UserProfileModal(props){
 
   function checkIfUserIsInQuickCrew(){
     if(props.currentUser.id === props.user.id) return true
-    else if(props.currentUser.favorites.some( el => el.id === props.user.id)) return true
+    else if(props.currentUser.favorites && props.currentUser.favorites.some( el => el.id === props.user.id)) return true
     else return false
   }
 

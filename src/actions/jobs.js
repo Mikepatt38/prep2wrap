@@ -1,5 +1,7 @@
 import { db, auth, firebase } from '../db/firebase'
 import { setAlert } from './components'
+const shortid = require('shortid')
+shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@')
 
 // Setup and call job modal to display job data
 export const setJobsModal = (active, jobData) => ({
@@ -271,6 +273,7 @@ export function createJobDataArr(jobObj){
   jobObj.jobDates.map(date => {
     jobDatesArr.push(
       {
+        id: shortid.generate(),
         date: date,
         dateTitle: jobObj.jobName,
         dateType: 'booked'
