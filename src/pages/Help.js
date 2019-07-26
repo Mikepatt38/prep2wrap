@@ -5,25 +5,28 @@ import JobsEmptyState from '../img/tutorials/jobs-empty-state.png'
 import CreateJob from '../img/tutorials/create-job.png'
 import AssignUsers from '../img/tutorials/assign-users.png'
 import JobsTable from '../img/tutorials/jobs-table.png'
+import LoadingIcon from '../img/icon-loading.svg'
 import Crew from '../img/tutorials/crew.png'
 import Availability from '../img/tutorials/availability.png'
 
 class Tutorial extends Component {
   state = {
-    tutorialPage: 0
+    tutorialPage: 0,
   }
-
+  
   renderTutorialStep(){
     switch(this.state.tutorialPage){
       case 0:
-        return <TutorialPageStep1 nextStep={this.nextStep} />
+          return <LoadingState />
       case 1:
-        return <TutorialPageStep2 nextStep={this.nextStep} prevStep={this.prevStep} />
+        return <TutorialPageStep1 nextStep={this.nextStep} />
       case 2:
-        return <TutorialPageStep3 nextStep={this.nextStep} prevStep={this.prevStep} />
+        return <TutorialPageStep2 nextStep={this.nextStep} prevStep={this.prevStep} />
       case 3:
-          return <TutorialPageStep4 nextStep={this.nextStep} prevStep={this.prevStep} />
+        return <TutorialPageStep3 nextStep={this.nextStep} prevStep={this.prevStep} />
       case 4:
+          return <TutorialPageStep4 nextStep={this.nextStep} prevStep={this.prevStep} />
+      case 5:
           return <TutorialPageStep5 nextStep={this.nextStep} prevStep={this.prevStep} />
     }
   }
@@ -66,6 +69,14 @@ class Tutorial extends Component {
       </div>
     )
   }
+}
+
+function LoadingState(props){
+  return (
+    <div className="tutorial-loading">
+      <div className="loader"></div>
+    </div>
+  )
 }
 
 function TutorialPageStep1(props){
