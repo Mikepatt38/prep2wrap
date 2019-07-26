@@ -12,21 +12,24 @@ import Availability from '../img/tutorials/availability.png'
 class Tutorial extends Component {
   state = {
     tutorialPage: 0,
+    loading: true
   }
-  
+
+  componentDidMount = () => {
+    setTimeout(() => this.setState({ loading: false }), 500)
+  }
+
   renderTutorialStep(){
     switch(this.state.tutorialPage){
       case 0:
-          return <LoadingState />
-      case 1:
         return <TutorialPageStep1 nextStep={this.nextStep} />
-      case 2:
+      case 1:
         return <TutorialPageStep2 nextStep={this.nextStep} prevStep={this.prevStep} />
-      case 3:
+      case 2:
         return <TutorialPageStep3 nextStep={this.nextStep} prevStep={this.prevStep} />
-      case 4:
+      case 3:
           return <TutorialPageStep4 nextStep={this.nextStep} prevStep={this.prevStep} />
-      case 5:
+      case 4:
           return <TutorialPageStep5 nextStep={this.nextStep} prevStep={this.prevStep} />
     }
   }
@@ -34,18 +37,35 @@ class Tutorial extends Component {
   prevStep = () => {
     window.scrollTo(0, 0)
     this.setState({
-      tutorialPage: this.state.tutorialPage - 1
+      loading: true,
+    }, () => {
+      setTimeout(() => {
+        this.setState({
+          tutorialPage: this.state.tutorialPage - 1,
+          loading: false
+      })}, 500)
     })
   }
 
   nextStep = () => {
     window.scrollTo(0, 0)
     this.setState({
-      tutorialPage: this.state.tutorialPage + 1
+      loading: true,
+    }, () => {
+      setTimeout(() => {
+        this.setState({
+          tutorialPage: this.state.tutorialPage + 1,
+          loading: false
+      })}, 500)
     })
   }
 
   render(){
+    if(this.state.loading){
+      return (
+        <LoadingState />
+      )
+    }
     return (
       <div className="app-page">
         <div className="workspace">
