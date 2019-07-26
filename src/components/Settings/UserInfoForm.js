@@ -46,13 +46,22 @@ class UserInfoForm extends Component {
 
   updateBasicInformation = (e) => {
     e.preventDefault()
+    let promises = []
     const { currentUser } = this.props
     const { firstName, lastName, email, mobileNumber, fileName} = this.state
-
-    firstName !== currentUser.firstName || lastName !== currentUser.lastName && this.props.setName(this.props.currentUser.id, firstName, lastName)
-    email !== currentUser.email && this.props.setEmail(this.props.currentUser.id, email)
-    mobileNumber !== currentUser.mobileNumber && this.props.setMobileNumber(this.props.currentUser.id, mobileNumber)
-    fileName !== '' && this.props.uploadProfileImage(currentUser.id, currentUser.avatar, fileName)
+    if(firstName !== currentUser.firstName || lastName !== currentUser.lastName){
+      promises.push(this.props.setName(this.props.currentUser.id, firstName, lastName))
+    }
+    if(email !== currentUser.email){
+      promises.push(this.props.setEmail(this.props.currentUser.id, email))
+    }
+    if(mobileNumber !== currentUser.mobileNumber){
+      promises.push(this.props.setMobileNumber(this.props.currentUser.id, mobileNumber))
+    }
+    if(fileName !== ''){
+      promises.push(this.props.uploadProfileImage(currentUser.id, currentUser.avatar, fileName))
+    }
+    Promise.all(promises).then( () => {})
   }
 
   render() {

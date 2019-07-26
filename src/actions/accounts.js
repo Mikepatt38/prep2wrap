@@ -62,11 +62,10 @@ export const setAccountView = (view) => ({
 
 export const setName = (id, firstName, lastName) => async dispatch => {
   const database = await db
+  console.log('Updating name')
   database.collection("users").doc(id).update({
-    profileInformation: {
-      firstName,
-      lastName
-    }
+    firstName,
+    lastName
   })
   .then( () => {
     dispatch({
@@ -85,9 +84,7 @@ export const setName = (id, firstName, lastName) => async dispatch => {
 export const setEmail = (id, email) => async dispatch => {
   const database = await db
   database.collection("users").doc(id).update({
-    profileInformation: {
-      email
-    }
+    email
   })
   .then( () => {
     dispatch({
@@ -106,9 +103,7 @@ export const setEmail = (id, email) => async dispatch => {
 export const setMobileNumber = (id, mobileNumber) => async dispatch => {
   const database = await db
   database.collection("users").doc(id).update({
-    profileInformation: {
-      mobileNumber
-    }
+    mobileNumber
   })
   .then( () => {
     dispatch({
@@ -328,7 +323,7 @@ export const searchUsersByName = (firstName, lastName) => async dispatch => {
     })
 }
 
-export const deleteUserAccount = (userGivenPassword, history) => async dispatch => {
+export const deleteUserAccount = (userGivenPassword, history, closeModal) => async dispatch => {
   const user = firebaseAuth.currentUser
   const credential = firebase.auth.EmailAuthProvider.credential(
     user.email, 
@@ -336,24 +331,22 @@ export const deleteUserAccount = (userGivenPassword, history) => async dispatch 
   )
 
   // Prompt the user to re-provide their sign-in credentials
-  user.reauthenticateAndRetrieveDataWithCredential(credential).then(function() {
-
+  user.reauthenticateAndRetrieveDataWithCredential(credential)
+  .then(function() {
     // We want to set the current user to null
-    dispatch({type: 'SET_CURRENT_USER', payload: null})
+    dispatch({ type: 'REMOVE_CURRENT_USER', payload: null })
 
     user.delete()
-      .then(function() {
+      .then(function(res) {
         dispatch({ type: 'SET_ALERT', payload: [true, 'Success', 'You have successfully deleted your account'] })
         history.push('/login')
       })
       .catch(function(error) {
-        console.log(error + ' ' + error.message)
         dispatch({ type: 'SET_ALERT', payload: [true, 'Error', error.message] })
-      });
-
+      })
   })
-  .catch(function(error) {
-    console.log(error.message)
+  .catch( (error) => {
+    closeModal()
     dispatch({ type: 'SET_ALERT', payload: [true, 'Error', error.message] })
   });
 } 

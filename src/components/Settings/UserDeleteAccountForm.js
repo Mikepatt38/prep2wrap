@@ -43,7 +43,8 @@ export default DeleteUserAccountForm
 
 export class DeleteUserAccountModal extends Component {
   state = {
-    password: ''
+    password: '',
+    error: false
   }
 
   handleChange = (e) => {
@@ -60,7 +61,7 @@ export class DeleteUserAccountModal extends Component {
 
   handleDeleteUserAccount = async (e) => {
     e.preventDefault()
-    this.props.deleteUserAccount(this.state.password, this.props.history)
+    this.props.deleteUserAccount(this.state.password, this.props.history, this.props.close)
   } 
 
   render(){
@@ -77,6 +78,8 @@ export class DeleteUserAccountModal extends Component {
                 onChange={this.handleChange}
                 type="password"
                 value={this.state.password}
+                error={this.state.error}
+                errorMsg='The password entered is not correct.'
               />
               <div className="button-wrapper">
                 <FormButton
