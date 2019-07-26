@@ -41,6 +41,7 @@ export class UserSearch extends Component {
               setUserModal={this.props.setUserModal}
               usersSearch={this.props.usersSearch}
               updateUserFavorites={this.props.updateUserFavorites}
+              loading={this.state.loading}
             />
           </div>
         </div>

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Table } from '../General/Table'
 import { Link } from 'react-router-dom'
 import EmptyState from "../General/EmptyState"
+import Loading from "../General/Loading"
 import CalendarIllustration from '../../img/illustrations/calendar.svg'
 import ActionIcon from '../../img/icon-action.svg'
 import SwapIcon from '../../img/icon-swap.svg'
@@ -11,13 +12,19 @@ export class UserAvailabilityTable extends Component {
     availability: this.props.dates ? this.props.dates : [],
     hasAvailability: this.props.dates ? this.props.dates.length > 0 : false,
     availabilityByActiveMonth: this.filterAvailabilityByMonth(this.props.dates ? this.props.dates : []),
-    loading: true
+    loading: true,
+    pageLoading: true,
+    tableLoading: false
   }
 
   componentDidMount = () => {
     this.setState({ 
       loading: false,
     })
+    setTimeout(() => {
+      this.setState({
+        pageLoading: false
+    })}, 500)
   }
 
   componentDidUpdate(prevProps, prevState){
@@ -26,8 +33,14 @@ export class UserAvailabilityTable extends Component {
     }
     if(prevProps.activeMonth !== this.props.activeMonth){
       this.setState({
+        tableLoading: true,
         availabilityByActiveMonth: this.filterAvailabilityByMonth(this.props.dates ? this.props.dates : [])
       })
+      setTimeout( () => {
+        this.setState({
+          tableLoading: false
+        })
+      }, 350)
     }
     if(prevProps.dates !== this.props.dates){
       this.setState({
@@ -106,7 +119,12 @@ export class UserAvailabilityTable extends Component {
   }
 
   render() {
-   
+
+    if(this.state.pageLoading || this.state.tableLoading){
+      return (
+        <Loading />
+      )
+    }
     const columns = [
       {
         id: 'Status', // Required because our accessor is not a string
@@ -164,11 +182,17 @@ export class UserAvailabilityTable extends Component {
       {
         this.state.hasAvailability 
         ?
-        <Table
-          data={this.state.availabilityByActiveMonth}
-          columns={columns}
-          loading={this.state.loading}
-        />
+          this.state.availabilityByActiveMonth.length 
+          ?
+          <Table
+            data={this.state.availabilityByActiveMonth}
+            columns={columns}
+            loading={this.state.loading}
+          />
+          :
+          <div className="empty-state">
+            <p>You currently have no booked or unavailable days for this month.</p>
+          </div>
         :
         <EmptyState
           imgSrc={CalendarIllustration}

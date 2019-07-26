@@ -75,7 +75,6 @@ export class UserFavoritesTable extends Component {
   }
 
   render() {
-
     const columns = [
       {
         id: 'Avatar', // Required because our accessor is not a string

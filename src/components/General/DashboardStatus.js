@@ -32,13 +32,11 @@ class DashboardStatus extends Component {
       this.props.updateUserAvailability(this.props.currentUser.id, userAvailability, currentDate, 'Unavailable Today', 'Personal')
     }
     else {
-      console.log('remove')
       this.props.removeAvailabilityDate(this.props.currentUser.id, userAvailability, currentDate)
     }
   }
 
   render() {
-    if(this.state.loading) return <p>Loading...</p>
     return (
       <div className="app-page-section section-grid">
         <div className="card card-grid">

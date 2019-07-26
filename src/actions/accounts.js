@@ -70,7 +70,7 @@ export const setName = (id, firstName, lastName) => async dispatch => {
   .then( () => {
     dispatch({
       type: 'SET_ALERT',
-      payload: [true, 'success', 'SUCCESS: Your basic account information was updated.']
+      payload: [true, 'success', 'Your basic account information was updated.']
     })
   })
   .catch( (error) => {

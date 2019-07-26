@@ -5,17 +5,23 @@ import 'react-table/react-table.css'
 import JobOveriewModal from "./JobsModal"
 import JobIllustration from '../../img/illustrations/jobs.svg'
 import EmptyState from "../General/EmptyState"
+import Loading from "../General/Loading"
 
 export class JobsTable extends Component {
   state = {
     userJobs: [],
     loading: true,
     modalActive: false,
-    job: {}
+    job: {},
+    pageLoading: true
   }
 
   componentDidMount(){
     this.getUsersCurrentJobs()
+    setTimeout(() => {
+      this.setState({
+        pageLoading: false
+    })}, 500)
   }
 
   toggleModal = () => {
@@ -168,6 +174,12 @@ export class JobsTable extends Component {
   }
 
   render() {
+
+    if(this.state.pageLoading){
+      return (
+        <Loading />
+      )
+    }
    
     const columns = [
       {

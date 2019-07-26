@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Table } from '../General/Table'
 import Modal from '../General/Modal'
 import UserProfileModal from './UserProfileModal'
+import Loading from "../General/Loading"
 import Avatar from '../../img/avatar-placeholder-min.png'
 import { FormTextInput } from '../Forms/FormTextInput'
 import FormSelectInput from '../Forms/FormSelectInput'
@@ -74,32 +75,6 @@ class UserSearchTable extends Component {
       validated = false
     }
     return validated
-  }
-
-  toggleRowActions(index){
-    // store which row was selected
-    const el = document.getElementById('row-user-0')
-    const elAction = document.getElementById('action-user-0')
-    // if there are rows that are active, lets find them
-    const els = document.getElementsByClassName('row-actions-active')
-    const elsAction = document.getElementsByClassName('action-hidden')
-    console.log(els)
-    // we need to remove this class if it is out there
-    if(els[0] && els[0].id === `row-user-${index}`){
-      els[0].classList.remove('row-actions-active')
-      elsAction[0].classList.remove('action-hidden')
-    }
-    else if(els[0]){
-      els[0].classList.remove('row-actions-active')
-      elsAction[0].classList.remove('action-hidden')
-      el.classList.add('row-actions-active')
-      elAction.classList.add('action-hidden')
-    }
-    //if there aren't any active, lets add the class
-    else {
-      el.classList.add('row-actions-active')
-      elAction.classList.add('action-hidden')
-    }
   }
 
   handleUserSelected = (user) => {
@@ -245,15 +220,8 @@ class UserSearchTable extends Component {
         Cell: props => {
           return (     
             <div className="action-container">
-              <div 
-                className="action" 
-                onClick={() => this.toggleRowActions(0)} 
-                id="action-user-0"
-              >
-                  <img src={ActionIcon} alt="Table Icon for Actions" />
-              </div>
-              <ul className="table-action-list" id="row-user-0">
-                <li className="table-action-list-item" onClick={() => this.handleUserSelected(props.original)}>View Profile</li>
+              <ul className="table-action">
+                <li className="table-action-item" onClick={() => this.handleUserSelected(props.original)}>View Profile</li>
               </ul>
             </div>
           )
@@ -266,7 +234,9 @@ class UserSearchTable extends Component {
         <Modal
           active={this.state.resultsModalActive}
           title="User Search Results"
-          children={  
+          children={ 
+            this.props.loading ?
+            <Loading /> : 
             <div className="modal-component">
               {
                 this.state.data.length > 0 ?

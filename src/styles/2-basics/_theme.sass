@@ -291,6 +291,23 @@ label
           color: #282828
           box-shadow: inset 0 -2px 0 $color__primary
 
+// ============ Loader =========== //
+
+.loading
+  position: relative
+  width: 100%
+  text-align: center
+  margin: 8rem 0
+
+  .loader
+    border: 4px solid rgba(130, 94, 235, 0.2)
+    border-top: 4px solid rgb(130, 94, 235)
+    border-radius: 50%
+    width: 60px
+    height: 60px
+    animation: spin 0.7s linear infinite
+    margin: 0 auto
+
 // ============ Media Queries =========== //
 
 @media only screen and (max-width: 414px)

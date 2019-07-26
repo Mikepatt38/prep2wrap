@@ -180,11 +180,6 @@
     font-size: 14px
     color: $color__mainBlue
 
-ul.table-action-list li
-  font-size: 14px
-  color: $color__mainBlue 
-  cursor: pointer
-
 //styles for avatar cell for the table
 .ReactTable .rt-tbody .rt-td.cell-avatar
   width: 100% !important
@@ -247,25 +242,38 @@ ul.table-action-list li
   transition: animation 0.5s ease
   animation: fade-out 0.5s
 
+ul.table-action
+  padding: 0
+  margin: 0
+  list-style: none
+  display: flex
+  justify-content: flex-start
+  position: relative
+
+  li
+    position: relative
+    font-size: 14px
+    color: $color__mainBlue 
+    cursor: pointer
+    padding: 0 8px  
+
 ul.table-action-list
   padding: 0
   margin: 0
   list-style: none
   display: none
-  transition: animation 0.5s ease
-  animation: fade-out 0.5s ease 
-  display: none
   justify-content: center
   position: relative
 
   &.row-actions-active
-    transition: animation 0.5s ease
-    animation: fade-in 0.5s
     display: flex
+    opacity: 1
 
   li
     position: relative
     font-size: 14px
+    color: $color__mainBlue 
+    cursor: pointer
     border-right: 1px solid #dfdfdf
     padding: 0 8px
 
