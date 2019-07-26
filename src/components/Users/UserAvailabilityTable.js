@@ -40,6 +40,7 @@ export class UserAvailabilityTable extends Component {
     const userAvailability = this.props.currentUser.availability
     this.setState({
       availability: this.formatDatesArr(userAvailability),
+      availabilityByActiveMonth: this.filterAvailabilityByMonth(this.props.dates ? this.props.dates : []),
       loading: false
     })
   }
@@ -70,7 +71,6 @@ export class UserAvailabilityTable extends Component {
 
   filterAvailabilityByMonth(availability){
     let updatedAvailability = []
-    console.log(this.props.activeMonth)
     availability.map(date => {
       const arrPos = date.date.split('/')[0] -1
       if(arrPos % this.props.activeMonth === 0){

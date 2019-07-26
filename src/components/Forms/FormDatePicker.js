@@ -1,22 +1,22 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import moment from 'moment'
 import DatePicker from 'react-datepicker'
 
-export function DatePickerButton(props){
-  return(
-    <button
-      type="button"
-      className="example-date-picker-button"
-      onClick={props.onClick}
-      placeholder={props.placeholder}>
-      {props.value}
-    </button>
-  )
+export class DatePickerButton extends Component {
+  render(){
+    return(
+      <button
+        type="button"
+        className="example-date-picker-button"
+        onClick={this.props.onClick}
+        placeholder={this.props.placeholder}>
+        {this.props.value}
+      </button>
+    )
+  }
 }
 
 export function CustomDatePicker(props){
-
   return (
     <div className={props.error ? `field-error form-group ${props.className}` : `form-group ${props.className}` }>
       <div className="date-select-input">
