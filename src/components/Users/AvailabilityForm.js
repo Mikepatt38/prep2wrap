@@ -96,7 +96,7 @@ export class AvailabilityForm extends Component {
           <div className="form-group">
             <div className="date-picker">
               <CustomDatePicker
-                label="Click below to select dates that you wish to mark as unavailable."
+                label="Click below to select dates that you wish to mark as unavailable to work."
                 startDate={this.state.startDate}
                 selectedDate={this.state.selectedDate}
                 className="date-picker-form-group"

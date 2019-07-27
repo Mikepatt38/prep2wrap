@@ -27,7 +27,7 @@ export function CustomDatePicker(props){
           onChange={props.handleChange} 
           placeholderText={props.placeholder}
           shouldCloseOnSelect={false}
-          popperPlacement={props.popperPlacement ? props.popperPlacement : 'default'}
+          popperPlacement={props.popperPlacement ? props.popperPlacement : 'bottom-start'}
         />
         <p className="error-msg">{props.errorMsg}</p>
       </div>
