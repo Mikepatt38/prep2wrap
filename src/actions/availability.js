@@ -27,6 +27,7 @@ export const updateUserAvailability = (userID, currentUserAvailability, newDate,
 
 export const removeAvailabilityDate = (userID, currentDates, dateToDelete) => async dispatch => {
   const database = await db
+  console.log(currentDates)
   const dateIndex = currentDates.indexOf(dateToDelete)
   // Remove the date to be deleted from the user's current array of availability dates
   currentDates.splice(dateIndex, 1)

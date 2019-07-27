@@ -96,12 +96,13 @@ export class AvailabilityForm extends Component {
           <div className="form-group">
             <div className="date-picker">
               <CustomDatePicker
-                label="Select All Job Dates"
+                label="Click below to select dates that you wish to mark as unavailable."
                 startDate={this.state.startDate}
                 selectedDate={this.state.selectedDate}
                 className="date-picker-form-group"
                 handleChange={this.handleDateChange}
                 placeholder="Click to add job dates."
+                popperPlacement="top-end"
               />
               <ul className="date-picker-list">
                 {this.state.selectedDates.map( (date, key) => {
@@ -112,7 +113,7 @@ export class AvailabilityForm extends Component {
           </div>
           <FormTextInput
             name="reason"
-            label="Reason"
+            label="Short explanation of why you are unavailable to work these days."
             onChange={this.onChange}
             type="text"
             value={reason}

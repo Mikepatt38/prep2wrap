@@ -30,7 +30,9 @@ export class UserAvailabilityTable extends Component {
   componentDidUpdate(prevProps, prevState){
     if(prevProps.currentUser.availability !== this.props.currentUser.availability){
       this.setState({
-        tableLoading: true
+        tableLoading: true,
+        availability: this.props.dates ? this.props.dates : [],
+        availabilityByActiveMonth: this.filterAvailabilityByMonth(this.props.dates ? this.props.dates : [])
       })
       this.getUsersCurrentAvailability()
       setTimeout( () => {
@@ -52,6 +54,7 @@ export class UserAvailabilityTable extends Component {
     }
     if(prevProps.dates !== this.props.dates){
       this.setState({
+        availability: this.props.dates ? this.props.dates : [],
         hasAvailability: this.props.dates ? this.props.dates.length > 0 : false
       })
     }
@@ -158,8 +161,8 @@ export class UserAvailabilityTable extends Component {
               </div>
               <ul className="table-action-list" id={`row-${props.index}`}>
                 {
-                  props.original.dateType.toLowerCase() === 'requested'
-                    ? <li className="table-action-list-item" onClick={() => this.deleteCreatedDate(this.state.availability, props.original.date)}>Delete</li>
+                  props.original.dateType.toLowerCase() === 'requested' || props.original.dateType.toLowerCase() === 'personal'
+                    ? <li className="table-action-list-item" onClick={() => this.deleteCreatedDate(this.state.availability, props.original)}>Delete</li>
                     : <li className="table-action-list-item"><Link to="/jobs">View Jobs</Link></li>
                 }
               </ul>
