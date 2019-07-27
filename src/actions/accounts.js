@@ -261,7 +261,6 @@ export const usersSearch = (userName, positions, locations, jobTypes) => async d
   const usersRef = database.collection("users")
 
   // if a user decides to search by the user's name
-  // =========== TODO check for last name comparison as well ========== //
   if(userName){
     const firstName = userName.toLowerCase().charAt(0).toUpperCase() + userName.split(" ")[0].slice(1)
     const lastName = userName.split(" ")[1] ? userName.split(" ")[1].toLowerCase().charAt(0).toUpperCase() + userName.split(" ")[1].slice(1) : ''
@@ -274,7 +273,8 @@ export const usersSearch = (userName, positions, locations, jobTypes) => async d
         const isLocationMatch = checkUserLocationMatch(user.data().profileInformation.location, locations)
         const isPositionMatch = checkUserPositionMatch(user.data().profileInformation.positions, positions)
         const isJobTypeMatch = checkUserJobTypesMatch(user.data().profileInformation.jobTypes, jobTypes)
-        if(isLocationMatch && isPositionMatch && isJobTypeMatch) matches.push(user.data())
+        // Added the final check to remove duplicates from being returned for first and last name checks
+        if(isLocationMatch && isPositionMatch && isJobTypeMatch && !matches.some(el => el.id === user.data().id)) matches.push(user.data())
       }
     })
   }
@@ -285,7 +285,7 @@ export const usersSearch = (userName, positions, locations, jobTypes) => async d
     userData.map( user => {
       const isPositionMatch = checkUserPositionMatch(user.data().profileInformation.positions, positions)
       const isJobTypeMatch = checkUserJobTypesMatch(user.data().profileInformation.jobTypes, jobTypes)
-      if(isPositionMatch && isJobTypeMatch) matches.push(user.data())
+      if(isPositionMatch && isJobTypeMatch && !matches.some(el => el.id === user.data().id)) matches.push(user.data())
     })
   }
   dispatch({

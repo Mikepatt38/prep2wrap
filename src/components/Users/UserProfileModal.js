@@ -53,20 +53,20 @@ function UserProfileModal(props){
                     <div className="user-body-section">
                       <div className="user-body-item">
                         <label>Skills:</label>
-                        <p>{props.user.profileInformation.skills.map(skill => {
-                          return <span>{skill.label}</span>
+                        <p>{props.user.profileInformation.skills.map((skill, key) => {
+                          return <span key={key}>{skill.label}</span>
                         })}</p>
                       </div>
                       <div className="user-body-item">
                         <label>Positions:</label>
-                        <p>{props.user.profileInformation.positions.map(position => {
-                          return <span>{position.label}</span>
+                        <p>{props.user.profileInformation.positions.map((position, key) => {
+                          return <span key={key}>{position.label}</span>
                         })}</p>
                       </div>
                       <div className="user-body-item">
                         <label>Job Types:</label>
-                        <p>{props.user.profileInformation.jobTypes.map(type => {
-                          return <span>{type.label}</span>
+                        <p>{props.user.profileInformation.jobTypes.map((type, key) => {
+                          return <span key={key}>{type.label}</span>
                         })}</p>
                       </div>
                     </div>
