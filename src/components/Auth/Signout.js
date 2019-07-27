@@ -4,10 +4,14 @@ import SignoutIcon from '../../img/icon-logout.svg'
 function Signout(props){
 
   async function handleSignOut(){
-    alert('Are you sure you wish to logout?')
-    let removeUser = await props.removeCurrentUser().then( () => {
-      props.signUserOut()
-    })
+    if(window.confirm('Are you sure you wish to logout?')) {
+      return await props.removeCurrentUser().then( () => {
+        props.signUserOut()
+      })
+    }
+    else {
+      return null
+    }
   }
 
   return(
