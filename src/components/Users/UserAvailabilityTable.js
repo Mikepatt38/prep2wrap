@@ -128,7 +128,7 @@ export class UserAvailabilityTable extends Component {
         headerClassName: 'cell-small',
         filterable: false,
         sortable: false,
-        Cell: props => props.original.dateType.toLowerCase() === 'booked' ? <span className="cell-status active">Booked</span> : props.original.dateType.toLowerCase() === 'requested' ? <span className="cell-status personal">Personal</span> : <span className="cell-status unavailable">Unavailable</span>,
+        Cell: props => props.original.dateType.toLowerCase() === 'booked' ? <span className="cell-status booked">Booked</span> : props.original.dateType.toLowerCase() === 'requested' ? <span className="cell-status personal">Personal</span> : <span className="cell-status personal">Unavailable</span>,
         className: 'cell-small'
       },
       {

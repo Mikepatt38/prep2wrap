@@ -69,7 +69,7 @@ export const contactObj = [
 ]
 
 export const jobTypesObj = [
-  { value: 'Tv', label: 'Tv' },
+  { value: 'TV', label: 'TV' },
   {  value: 'Film', label: 'Film' },
   {  value: 'Commercial', label: 'Commercial' },
   {  value: 'Music Video', label: 'Music Video' }

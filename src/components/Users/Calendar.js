@@ -162,3 +162,18 @@ class Calendar extends Component {
 }
 
 export default Calendar
+
+export function CalendarKey(){
+  return(
+    <div className="calendar-key">
+      <ul>
+        <li>
+          <span className="color booked"></span> Job Booked
+        </li>
+        <li>
+        <span className="color personal"></span> Personal/ Unavailable Day
+      </li>       
+      </ul>
+    </div>
+  )
+}

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 import { AvailabilityForm } from '../components/Users/AvailabilityForm'
-import Calendar from '../components/Users/Calendar'
+import Calendar, { CalendarKey } from '../components/Users/Calendar'
 import { UserAvailabilityTable } from '../components/Users/UserAvailabilityTable'
 import Modal from '../components/General/Modal'
 
@@ -74,6 +74,7 @@ class Availability extends Component {
               activeMonth={this.state.activeMonth}
               toggleActiveMonth={this.toggleActiveMonth}
             />
+            <CalendarKey />
           </div>
 
           <div className="app-page-section">

@@ -109,7 +109,7 @@ function TutorialPageStep1(props){
       <div className="tutorial-body">
         <p>The Prep2Wrap platform helps Costume Community connect, find, and hire their crew in the entertainment industry for music, tv, film and/or commercial jobs simpler.</p>
         <p>This allows Costume Community to easily update their availability for being hired or contacted for job openings. Connect and find other Costume Community to work with or potentially hire for their own created jobs. Create jobs and hire professionals in their area without phone tag, wondering if they are available or validating their work experience. No more trying to remember how to contact your favorite crew members to work with, easily add other users to your quick crew and easily contact/ hire them for jobs.</p>
-        <p>Prep2Wrap looks to end the phone tag - hiring chasing game of the costume designer's industry and bring all the task needed to smoothly run your crew to one platform, created just for the specified needs of the industry.</p>
+        <p>Prep2Wrap looks to end the phone tag - hiring chasing game of the costume community industry and bring all the task needed to smoothly run your crew to one platform, created just for the specified needs of the industry.</p>
       </div>
       <div className="button-wrapper">
         <button onClick={() => props.nextStep()} className="button button-primary">Start Lessons</button>
@@ -160,7 +160,7 @@ function TutorialPageStep3(props){
     <div className="tutorial">
       <div className="tutorial-header">
         <img src={TutorialIllustration} alt="Tutorial Page Illustration" />
-        <h1>Get Started With Using Crew</h1>
+        <h1>Get Started With Using Quick Crew</h1>
       </div>
       <div className="tutorial-body">
         <p>Using the platform, you can search for other crew members on the app and add them to your quick crew so you can easily contact/ network with other professionals you work with regularly.</p>
