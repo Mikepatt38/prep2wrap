@@ -8,7 +8,8 @@ body
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
   line-height: 1.5
-  background-color: rgb(247, 247, 247)
+  // background-color: rgb(247, 247, 247)
+  background-color: #f4f4f4
   color: #3d4852
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif
   font-size: 16px
@@ -64,7 +65,8 @@ a
   position: relative
   padding: 0
   width: 100%
-  background-color: rgb(247, 247, 247)
+  // background-color: rgb(247, 247, 247)
+  background-color: #f4f4f4
 
 .app-page, .main-content
   margin: 0 auto
@@ -79,9 +81,10 @@ a
 .app-topbar
   position: relative
   z-index: 9999
-  height: 48px
+  height: 56px
   padding: 0 24px
   background: $color__primary
+  // background: #282828
   display: flex
   align-content: center
   align-items: center
@@ -247,7 +250,7 @@ label
 
 .workspace
   display: block
-  height: 48px
+  padding: 20px 30px
   background-color: #fff
   border-bottom: 1px solid #eaeaea
   position: relative
@@ -269,27 +272,32 @@ label
       height: 100%
       display: flex
       align-items: center
-      padding-left: 16px
 
       a
-        padding: 0
+        padding: 6px 12px
         text-align: center
-        font-size: 15px
+        font-size: 14px
+        font-weight: 500
         height: 100%
         margin: 0
-        margin-right: 32px
+        margin-right: 10px
         cursor: pointer
         display: flex
         align-items: center
         color: #7e7e7e
         margin-top: 1px
+        border-radius: 7px
 
         &:hover
-          box-shadow: inset 0 -2px 0 $color__primary
+          // background: rgba(58,139,187,0.15)
+          // color: #3a8bbb
+          background: rgba(130, 94, 235, 0.15)
+          color: rgb(130, 94, 235)
 
         &.active
-          color: #282828
-          box-shadow: inset 0 -2px 0 $color__primary
+          background: rgba(130, 94, 235, 0.15)
+          color: rgb(130, 94, 235)
+          font-weight: 600
 
 // ============ Loader =========== //
 
