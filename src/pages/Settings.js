@@ -46,7 +46,7 @@ class AccountSettings extends Component {
               <Link to="/crew" className="link">Crew</Link>
               <Link to="/account-settings" className="active">Settings</Link>
             </div>
-            <button className="button button-workspace" onClick={() => this.handleViewProfile(this.props.currentUser)}>View Live Profile</button>
+            <button className="button button-workspace" onClick={() => this.handleViewProfile(this.props.currentUser)}>View Profile</button>
           </div>
         </div>
         <div className="app-page-body">

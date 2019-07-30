@@ -151,12 +151,15 @@ class Calendar extends Component {
 
   render() {
     return (
-      this.state.hasAvailability && 
-      <div className="calendar">
-        {this.renderHeader()}
-        {this.renderDays()}
-        {this.renderCells()}
-      </div>
+      this.state.hasAvailability &&
+      <React.Fragment>
+        <div className="calendar">
+          {this.renderHeader()}
+          {this.renderDays()}
+          {this.renderCells()}
+        </div>
+        <CalendarKey />
+      </React.Fragment> 
     )
   }
 }
