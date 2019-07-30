@@ -52,6 +52,12 @@ function UserProfileModal(props){
                   <div className="user-body">
                     <div className="user-body-section">
                       <div className="user-body-item">
+                        <label>Locations:</label>
+                        <p>{props.user.profileInformation.location.map((loc, key) => {
+                          return <span key={key}>{loc.label}</span>
+                        })}</p>
+                      </div>
+                      <div className="user-body-item">
                         <label>Skills:</label>
                         <p>{props.user.profileInformation.skills.map((skill, key) => {
                           return <span key={key}>{skill.label}</span>
@@ -77,6 +83,13 @@ function UserProfileModal(props){
                         <p>{props.user.profileInformation.union
                           ? <span>{props.user.profileInformation.unions}</span>
                           : <span>None</span>
+                        }</p>
+                      </div>
+                      <div className="user-body-item">
+                        <label>Willing to Travel:</label>
+                        <p>{props.user.profileInformation.travel === true
+                          ? <span>Yes</span>
+                          : <span>No</span>
                         }</p>
                       </div>
                       <div className="user-body-item">
