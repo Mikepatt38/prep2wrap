@@ -106,6 +106,7 @@ form
     padding-top: 4px
     font-size: 12px
     line-height: 1
+    text-align:  left
 
   p.form-input-text
     display: block
@@ -188,6 +189,22 @@ label.checkbox
   text-align: center
   cursor: pointer
   transition: all 0.3s ease-in-out
+
+.checkbox-input
+  position: relative
+
+  &.error
+    input
+      border: 1px solid $color__errorRed
+
+    p.error-message#error
+      display: block
+      color: $color__errorRed
+      padding-top: 4px
+      font-size: 12px !important
+      line-height: 1
+      text-align:  left
+      margin-bottom: 0
 
 .form-group.billingCheckbox
   flex-direction: row

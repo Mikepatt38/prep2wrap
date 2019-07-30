@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 const style = {
   marginBottom: '5px'
 }
-export const FormCheckboxInput = ({ label, checkboxId, value, disabled, onChange, inputName, inputLabel, inputValue, inputOnChange, className, customText }) => {
+export const FormCheckboxInput = ({ label, checkboxId, value, disabled, onChange, inputName, inputLabel, inputValue, inputOnChange, className, customText, error, errorMsg }) => {
   return (
-    <div className={'form-group ' + ` ${className}`}>
+    <div className={`form-group ${className}`}>
       <label>{label ? label + ':' : ''}</label>
       <span className="custom-checkbox" style={style}>
         <input 
@@ -20,7 +20,7 @@ export const FormCheckboxInput = ({ label, checkboxId, value, disabled, onChange
         <label className="checkbox" htmlFor={checkboxId}>{customText ? customText : 'Yes'}</label>
       </span>
       { inputValue !== undefined && value === true && 
-        <React.Fragment>
+        <div className={error ? 'checkbox-input error' : 'checkbox-input'}>
           <label>{inputLabel}:</label>
           <input 
             type="text"
@@ -28,8 +28,10 @@ export const FormCheckboxInput = ({ label, checkboxId, value, disabled, onChange
             id={inputName}
             value={inputValue}
             onChange={inputOnChange}
+            className={error ? 'error' : null}
           />
-        </React.Fragment>
+          {error && <p id="error" className="error-message">{errorMsg}</p>}
+        </div>
       }
     </div>
   )

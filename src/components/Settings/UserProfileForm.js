@@ -19,7 +19,9 @@ export class UserProfileForm extends Component {
     fbLink: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.fbLink : '',
     imdbLink: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.imdbLink : '',
     instagramLink: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.instagramLink : '',
-    disabled: true
+    disabled: true,
+    languagesError: false,
+    unionsError: false
   }
 
   handleChange = e => {
@@ -27,6 +29,8 @@ export class UserProfileForm extends Component {
       [e.target.name]: e.target.value,
       disabled: false
     })
+    if(e.target.name === 'unions' && this.state.unionsError) this.setState({ unionsError: false})
+    if(e.target.name === 'languages' && this.state.languagesError) this.setState({ languagesError: false})
   }
 
   handleCheck = e => {
@@ -36,9 +40,22 @@ export class UserProfileForm extends Component {
     })
   }
 
+  validateCheckboxInputs = () => {
+    if(this.state.bilingual && !this.state.languages.length || this.state.union && !this.state.unions.length){
+      if(!this.state.languages.length) this.setState({ languagesError: true })
+      if(!this.state.unions.length) this.setState({ unionsError: true }) 
+      return false
+    }
+    return true
+  }
+
   handleClick = async (e) => {
     e.preventDefault()
-    this.props.setUserProfile(this.props.currentUser.id, this.state.jobTypes, this.state.location, this.state.skills, this.state.positions, this.state.fbLink, this.state.imdbLink, this.state.instagramLink, this.state.travel, this.state.union, this.state.bilingual, this.state.unions, this.state.languages, e)
+    if(this.validateCheckboxInputs()){
+      this.props.setUserProfile(this.props.currentUser.id, this.state.jobTypes, this.state.location, this.state.skills, this.state.positions, this.state.fbLink, this.state.imdbLink, this.state.instagramLink, this.state.travel, this.state.union, this.state.bilingual, this.state.unions, this.state.languages, e)
+    } else {
+      console.log('error')
+    }
   }
 
   handleSelect = (name, val) => {
@@ -110,7 +127,7 @@ export class UserProfileForm extends Component {
           className="form-group--third"
         />
         <FormCheckboxInput
-          label="Bilingual"
+          label="Are you bilingual?"
           checkboxId="bilingual"
           onChange={this.handleCheck}
           value={bilingual}
@@ -119,9 +136,11 @@ export class UserProfileForm extends Component {
           inputValue={this.state.languages === undefined ? '' : this.state.languages}
           inputOnChange={this.handleChange}
           className="form-group--third"
+          error={this.state.languagesError}
+          errorMsg="If you are bilingual, you must list all fluent languages."
         />
         <FormCheckboxInput
-          label="Union"
+          label="Are you a member of a union?"
           checkboxId="union"
           onChange={this.handleCheck}
           value={union}
@@ -130,6 +149,8 @@ export class UserProfileForm extends Component {
           inputValue={this.state.unions === undefined ? '' : this.state.unions}
           inputOnChange={this.handleChange}
           className="form-group--third"
+          error={this.state.unionsError}
+          errorMsg="If you are a union member, you must list the union name."
         />
         <hr />
 
