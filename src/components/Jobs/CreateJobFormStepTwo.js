@@ -13,7 +13,8 @@ class CreateJobFormStepTwo extends Component {
     currentPositionsInvited: [],
     loading: true,
     usersAssigned: [],
-    error: false
+    error: false,
+    pageLoading: true
   }
 
   componentDidMount() {
@@ -24,6 +25,10 @@ class CreateJobFormStepTwo extends Component {
       throw new Error('No job data')
     }
     else {
+      setTimeout(() => {
+        this.setState({
+          pageLoading: false
+      })}, 500)
       this.props.userResultsForJobCreation(this.props.currentUser.id.toString(), this.props.currentJob.jobObj)
       .then( (results) => {
         this.setState({
@@ -104,6 +109,12 @@ class CreateJobFormStepTwo extends Component {
   }
  
   render() {
+    if(this.state.pageLoading){
+      return (
+        <Loading />
+      )
+    }
+
     return (  
       <div className="app-page">
         <div className="workspace">
