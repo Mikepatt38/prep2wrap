@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Table } from '../General/Table'
 import UserProfileModal from '../Users/UserProfileModal'
 import Avatar from '../../img/avatar-placeholder-min.png'
-import LinkIcon from '../../img/icon-profile.svg'
 import TrashIcon from '../../img/icon-trash.svg'
 
 class JobResultsTable extends Component {

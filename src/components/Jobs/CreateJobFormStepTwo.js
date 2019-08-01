@@ -14,6 +14,7 @@ class CreateJobFormStepTwo extends Component {
     loading: true,
     usersAssigned: [],
     error: false,
+    buttonText: 'Send Job Invites',
     pageLoading: true
   }
 
@@ -78,7 +79,9 @@ class CreateJobFormStepTwo extends Component {
 
   saveAndContinue = async () => {
     let sendSMSSuccess
-  
+    this.setState({
+      buttonText: 'Sending...'
+    })
     if(this.validateAssignedUsers()){
       let newAssignedUsers = await this.updateAssignedUsers(this.state.usersAssigned)
       let jobCreated = await this.props.createJob(this.props.currentUser.id.toString(), this.props.currentJob.jobObj.jobID.toString(), this.props.currentJob.jobObj, newAssignedUsers)
@@ -174,7 +177,7 @@ class CreateJobFormStepTwo extends Component {
                     />
                     <FormButton
                       className="button-primary"
-                      buttonText="Send Job Invites"
+                      buttonText={this.state.buttonText}
                       onClick={this.saveAndContinue}
                     />
                   </div>
