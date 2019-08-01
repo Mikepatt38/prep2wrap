@@ -147,112 +147,6 @@ div#linktotop
     height: 18px
     margin-right: 6px
 
-
-// =========== User Profile Modal Styles =========== //
-
-.modalBg.modal-user-profile .modal .modal-header
-  display: flex
-  justify-content: space-between
-  grid-template-columns: none
-
-.user
-  position: relative
-
-.user-header
-  position: relative
-  display: flex
-  justify-content: space-between
-  align-items: center
-  width: 100%
-
-  .user-header-action
-    position: relative
-
-    button
-      padding: 0
-
-  .user-header-user
-    position: relative
-    display: flex
-    justify-content: flex-start
-    align-items: center
-    width: 50%
-
-    .user-info
-      position: relative
-      display: flex
-      flex-direction: column
-
-      h2
-        font-size: 24px
-
-      p
-        font-size: 16px
-      a
-        margin: 0
-        padding: 0
-        font-size: 14px
-
-    img
-      position: relative
-      width: 75px
-      border-radius: 50%
-      margin-right: 20px
-
-.user-body
-  position: relative
-
-  .user-body-section
-    position: relative
-
-    h4
-      font-size: 18px
-      font-weight: 600
-
-    .user-body-item
-      position: relative
-      margin-bottom: 15px 
-
-      p
-        margin-bottom: 5px
-
-      p > span
-        display: inline-block
-        font-size: 14px
-        font-weight: 500
-        color: #3d4852
-        background: #edeeef
-        border-radius: 3px
-        margin-right: 8px
-        margin-bottom: 5px
-        padding: 6px 10px
-
-
-      .social-pill
-        margin-bottom: 10px
-        padding: 6px 14px
-        color: #3d4852
-        background: #edeeef
-        font-size: 14px
-        font-weight: 500
-        border-radius: 3px
-        margin-right: 10px
-        display: inline-flex
-        align-items: center
-
-        a
-          margin-bottom: 0
-          color: #3d4852
-          font-size: 14px
-          font-weight: 500
-          display: inline-flex
-          align-items: center
-
-        img
-          max-height: 18px
-          height: 100%
-          margin-right: 6px
-
 // =========== User Profile Modal Styles =========== //
 .modal-user .modal
   max-width: 720px
@@ -267,18 +161,21 @@ div#linktotop
     padding: 1px 8px
     font-size: 13px
     font-weight: 500
-    &.available
+    &.available, &.accepted
       background: #d4edda
       color: #155724 
     &.unavailable
       color: #383d41
       background: #e2e3e5
+    &.review
+      background: #fcf8e3
+      color: #8a6d3b
     &.favorited
       background: rgba(130, 94, 235, 0.15)
       color: rgb(130, 94, 235)
       margin-left: 10px
 
-  .user-info
+  .modal-header-left
     position: relative
     width: 68.5%
     display: flex
@@ -290,14 +187,14 @@ div#linktotop
       border-radius: 50%
       margin-right: 20px
 
-    .user-name
+    .modal-header-right
       position: relative
       display: flex
       align-items: center
       flex-direction: column
       justify-content: flex-start
 
-    .user-name > h2
+    .modal-header-right > h2
       position: relative
       line-height: normal
       font-size: 27px
@@ -333,7 +230,7 @@ div#linktotop
 .modal-user .modal-body
   position: relative
 
-  .user-section
+  .modal-section
     position: relative
     width: 100%
     padding: 30px
@@ -356,18 +253,15 @@ div#linktotop
       margin-right: 6px
       padding: 2px 8px    
 
-      &.available
+      &.available, &.accepted
         background: #d4edda
         color: #155724 
 
-    .user-cell-sm
-      width: 31.5%
-      position: relative
-      display: flex
-      justify-content: flex-start
-      align-items: center
+      &.review
+        background: #fcf8e3
+        color: #8a6d3b    
 
-    .user-cell-lg
+    .modal-cell-lg
       width: 100%
       position: relative
       display: flex

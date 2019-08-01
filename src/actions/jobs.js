@@ -311,7 +311,7 @@ export const createJob = (userID, jobID, jobObj, assignedUsers) => async dispatc
   .catch( (error) => { dispatch(setAlert(true, "Error", error.message)) }) 
 }
 
-export const createPendingJob = (userID, jobID, assignedUsers) => async () => {
+export const createPendingJob = (userID, jobCreator, jobID, assignedUsers) => async () => {
   const database = await db 
   const index = assignedUsers.findIndex(user => user.id === userID)
   const pendingJobData = assignedUsers[index]
@@ -319,6 +319,7 @@ export const createPendingJob = (userID, jobID, assignedUsers) => async () => {
 
   promises.push(database.collection("jobs").doc(userID).collection("pendingJobs").doc(jobID).set({
     ...pendingJobData,
+    jobCreator: jobCreator,
     usersAssigned: assignedUsers
   }))
   return Promise.all(promises).then( () => true)

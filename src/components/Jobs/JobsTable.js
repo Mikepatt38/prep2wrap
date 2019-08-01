@@ -112,7 +112,9 @@ export class JobsTable extends Component {
     const userIndex = jobObj.usersAssigned.findIndex(user => user.id === this.props.currentUser.id)
     const newUserObj = {
       ...jobObj.usersAssigned[userIndex],
-      status: 'Pending'
+      jobCreator: jobObj.jobCreator,
+      status: 'Active',
+      jobStatus: 'Active'
     }
     const position = jobObj.usersAssigned[userIndex].position
     const SMSAlertMsg = `${this.props.currentUser.firstName} ${this.props.currentUser.lastName} accepted your crew invite as ${position}!`

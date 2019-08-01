@@ -49,13 +49,13 @@ function UserProfileModal(props){
         <div className="modalBg modal-open modal-user">
           <div className="modal">
             <div className="modal-header">
-              <div className="user-info">
+              <div className="modal-header-left">
                 {
                   props.user.avatarUrl 
                     ? <img src={props.user.avatarUrl} alt="User Profile Image" />
                     : <img src={Avatar} alt="User Avatar Placeholder Image" />
                 }
-                <div className="user-name">
+                <div className="modal-header-right">
                   <h2>
                     {props.user.firstName} {props.user.lastName} &nbsp; 
                     {!checkUserAvailability() ? <span className="user-pill available">Available Today</span> : <span className="user-pill unavailable">Unavailable Today</span>}
@@ -67,33 +67,33 @@ function UserProfileModal(props){
               </div>
             </div>
             <div className="modal-body">
-              <div className="user-section">
+              <div className="modal-section">
 
-                <div className="user-cell-lg">
+                <div className="modal-cell-lg">
                   <label><img src={LocationIcon} alt="User Location Icon" />  Locations:</label>
                   <p>{props.user.profileInformation.location.map((loc, key) => {
                     return <span key={key}>{loc.label}</span>
                   })}</p>
                 </div>
-                <div className="user-cell-lg">
+                <div className="modal-cell-lg">
                   <label><img src={SKillsIcon} alt="User Skills Icon" /> Skills:</label> 
                   <p>{props.user.profileInformation.skills.map((skill, key) => {
                     return <span key={key}>{skill.label}</span>
                   })}</p>
                 </div>
-                <div className="user-cell-lg">
+                <div className="modal-cell-lg">
                   <label><img src={PositionsIcon} alt="User Positions Icon" /> Positions:</label> 
                   <p>{props.user.profileInformation.positions.map((position, key) => {
                     return <span key={key}>{position.label}</span>
                   })}</p>
                 </div>
-                <div className="user-cell-lg">
+                <div className="modal-cell-lg">
                   <label><img src={JobTypeIcon} alt="User JobTypes Icon" /> Job Types Seeking:</label>
                   <p>{props.user.profileInformation.jobTypes.map((jobTypes, key) => {
                     return <span key={key}>{jobTypes.label}</span>
                   })}</p>
                 </div>
-                <div className="user-cell-lg">
+                <div className="modal-cell-lg">
                   <label><img src={UnionIcon} alt="User Unions Icon" /> Union:</label> 
                   {
                     props.user.profileInformation.union
@@ -101,11 +101,11 @@ function UserProfileModal(props){
                     : <p><span>Not a Union Member</span></p> 
                   }
                 </div>
-                <div className="user-cell-lg">
+                <div className="modal-cell-lg">
                   <label><img src={TravelIcon} alt="User Travel Icon" /> Willing To Travel:</label> 
                   <p>{!props.user.travel ? <span>Willing to Travel</span> : <span>Unavailable Today</span>}</p>
                 </div>
-                <div className="user-cell-lg">
+                <div className="modal-cell-lg">
                   <label><img src={LanguagesIcon} alt="User Languages Icon" /> Fluent Languages Other Than English:</label> 
                   {
                     props.user.profileInformation.bilingual 
@@ -114,7 +114,7 @@ function UserProfileModal(props){
                     : <p><span>English Only Fluent Language</span></p> 
                   }
                 </div>
-                <div className="user-cell-lg shared">
+                <div className="modal-cell-lg shared">
                   <label><img src={TravelIcon} alt="User Social Icon" /> User Social Accounts:</label> 
                   <span className="social-pill"><a target="_blank" href={`${props.user.profileInformation.fbLink}`}><img src={FacebookLogo} alt="Facebook Account Logo Link" /> Facebook</a></span>
                   <span className="social-pill"><a target="_blank" href={`${props.user.profileInformation.instagramLink}`}><img src={InstagramLogo} alt="Instagram Account Logo Link" /> Instagram</a></span>
@@ -122,7 +122,7 @@ function UserProfileModal(props){
                 </div>
                 {
                   !isUserOwnProfile() &&
-                  <div className="user-cell-lg">
+                  <div className="modal-cell-lg">
                     {
                       checkIfUserIsInQuickCrew()
                       ? <label><img src={StarIcon} alt="User Favorites Icon" /> Member of Your Quick Crew</label> 
