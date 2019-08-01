@@ -94,7 +94,7 @@ class JobResultsTable extends Component {
         id: 'Profile', // Required because our accessor is not a string
         Header: '',
         className: 'cell-end',
-        Cell: props => <span className="view-profile" onClick={() => {this.handleUserSelected(props.original)}}><img src={LinkIcon} alt="Table Link Icon" />User Profile</span>
+        Cell: props => <span className="cell-status view-profile" onClick={() => {this.handleUserSelected(props.original)}}>View User Profile</span>
       },
     ]
     this.setState({
@@ -272,6 +272,7 @@ class JobResultsTable extends Component {
           active={this.state.modalActive}
           user={this.state.user}
           close={this.toggleModal}
+          currentUser={this.props.currentUser}
         />
         <div className="app-page-section app-page-section--spacing">
           <p>These are the positions you are still needing to send an invite for.</p>

@@ -385,15 +385,6 @@ export const acceptJobInvitation = (jobCreatorID, jobID, currentUser, jobDates, 
   })
 } 
 
-// export const getUserJobCount = (userID) => async () => {
-//   const database = await db
-//   const createdJobsRef = await database.collection("jobs").doc(userID).collection("createdJobs").get()
-//   const acceptedJobsRef = await database.collection("jobs").doc(userID).collection("acceptedJobs").get()
-//   const completedJobsRef = await database.collection("jobs").doc(userID).collection("completedJobs").get()
-  
-//   return { "createdJobsCount": createdJobsRef.size, "acceptedJobsCount": acceptedJobsRef.size, "completedJobsCount": completedJobsRef.size }
-// }
-
 export const userResultsForJobCreation = (userID, jobObj) => async () => {
   const database = await db
   let tempUsers = []
@@ -405,8 +396,7 @@ export const userResultsForJobCreation = (userID, jobObj) => async () => {
   const unionAndLocationResults = await usersRef
     .where("profileInformation.union", "==", jobObj.unionMember)
     .where("profileInformation.location", "array-contains", jobObj.jobLocation).get()
-  const jobTypeResults = await usersRef
-    .where("profileInformation.jobTypes", "array-contains", jobObj.jobType).get()
+  const jobTypeResults = await database.collection("users").where("profileInformation.jobTypes", "array-contains", jobObj.jobType).get()
 
   // Turning the snapshot into an array of objects so that they can be compared for the same results
   const unionAndLocationResultsObj = unionAndLocationResults.docs.map( result => {
@@ -415,6 +405,7 @@ export const userResultsForJobCreation = (userID, jobObj) => async () => {
   const jobTypeResultsObj = jobTypeResults.docs.map( result => {
     return result.data()
   })
+
   // I want to make sure the longer array is being filtered by the shorter results array
   if(unionAndLocationResultsObj.length > jobTypeResultsObj.length ){
     longerArr = unionAndLocationResultsObj

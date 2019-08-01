@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { FormButton } from '../Forms/FormButton'
 import JobResultsTable from './JobResultsTable'
-import { CreateJobFormError } from './CreateJobFormError'
+import EmptyState from '../General/EmptyState'
+import NoResultsIllustration from '../../img/illustrations/no-results.svg'
+import Loading from "../General/Loading"
 
 class CreateJobFormStepTwo extends Component {
 
@@ -124,13 +126,18 @@ class CreateJobFormStepTwo extends Component {
           {
             this.state.loading &&
             <div className="app-page-section">
-              <p>Loading...</p>
+              <Loading />
             </div>
           }
           {
             this.state.noUsersReturned &&
             <div className="app-page-section">
-              <p>No users matched your search criteria. Try going back and trying new parameters!</p>
+              <EmptyState
+                imgSrc={NoResultsIllustration}
+                imgAlt="No Results For User Job Search Illustration"
+                title="We didn't find any crew members"
+                text="We didn't find any crew members that matched your criteria, try going back and adding/ updating criteria to your job for a better chance of finding crew members for your job."
+              />
             </div>
           }
           {
@@ -139,6 +146,7 @@ class CreateJobFormStepTwo extends Component {
               <div className="card">
                 <div className="card-body">
                   <JobResultsTable
+                    currentUser={this.props.currentUser}
                     results={this.state.usersMatchedResults}
                     setUserModal={this.props.setUserModal}
                     userModalActive={this.props.userModalActive}

@@ -37,7 +37,7 @@ function UserProfileModal(props){
   }
 
   function checkUserAvailability(){
-    return props.currentUser.availability 
+    return props.currentUser.availability && props.currentUser.availability 
       ? props.currentUser.availability.some( el => el.date === moment().format('MM/DD/YYYY'))
       : false
   }
