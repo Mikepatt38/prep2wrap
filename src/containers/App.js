@@ -29,7 +29,7 @@ const RenderRoute = ({ currentUser }) => (
       currentUser && window.location.pathname !== '/signup' &&
       <div className="app-container">
         <AppTopBar currentUser={currentUser} />
-        { window.location.pathname !== '/tutorial-walk-through' &&<GlobalAlert active={!currentUser.profileInformation} /> }
+        { window.location.pathname !== '/tutorial-walk-through' && <GlobalAlert active={!currentUser.profileInformation} /> }
         <div className="app-body">
           <Alert />
           <div className="app-body-main">

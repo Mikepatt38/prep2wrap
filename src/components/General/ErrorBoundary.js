@@ -13,7 +13,16 @@ class ErrorBoundary extends Component {
       error: error,
       errorInfo: errorInfo
     })
+    setTimeout(function() {
+      window.location.reload();
+    }, 10000);
     // TODO: // Log the error to slack or another system to update me
+  }
+
+  componentWillUnmount = () => {
+    if(this.resetPage) {
+      this.resetPage = 0
+    }
   }
 
   render() {
@@ -24,9 +33,9 @@ class ErrorBoundary extends Component {
             <div className="workspace-desktop">
               <div className="workspace-tab-list">
                 <Link to="/" className="link">Dashboard</Link>
+                <Link to="/availability" className="link">Availability</Link>
                 <Link to="/jobs" className="active">Jobs</Link>
                 <Link to="/crew" className="link">Crew</Link>
-                <Link to="/availability" className="link">Availability</Link>
                 <Link to="/account-settings" className="link">Settings</Link>
               </div>
             </div> 
@@ -37,8 +46,8 @@ class ErrorBoundary extends Component {
                 this.state.error &&
                 <div className="error-state">
                   <img className="error-state-image" src={ErrorIllustration} alt="Error Illustration" />
-                  <h3>It seems something went wrong. Please refresh the browser.</h3>
-                  <p>There seems to be an error with you're request. We're sorry, try taking a different action and if the problem persist please contact us at <a href="mailto:info@prep2wrapjobs.com">info@prep2wrapjobs.com</a>.</p>
+                  <h3>It seems something went wrong. We will refresh your browser in 10 seconds automatically.</h3>
+                  <p>Oops, something went wrong on our part. We will attempt to reload the browser in 5 seconds or you may do it now. If you continue to see the error, navigate to another page and wait for the browser to reload</p>
                 </div>
               }
             </div>
