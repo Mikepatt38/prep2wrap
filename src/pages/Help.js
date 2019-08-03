@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import TutorialIllustration from '../img/illustrations/tutorial.svg'
 import JobsEmptyState from '../img/tutorials/jobs-empty-state.png'
 import CreateJob from '../img/tutorials/create-job.png'
 import AssignUsers from '../img/tutorials/assign-users.png'
 import JobsTable from '../img/tutorials/jobs-table.png'
-import LoadingIcon from '../img/icon-loading.svg'
 import Crew from '../img/tutorials/crew.png'
 import Availability from '../img/tutorials/availability.png'
 
@@ -16,7 +16,9 @@ class Tutorial extends Component {
   }
 
   componentDidMount = () => {
-    setTimeout(() => this.setState({ loading: false }), 500)
+    this.setState({
+      loading: false
+    })
   }
 
   renderTutorialStep(){
@@ -30,7 +32,7 @@ class Tutorial extends Component {
       case 3:
           return <TutorialPageStep4 nextStep={this.nextStep} prevStep={this.prevStep} />
       case 4:
-          return <TutorialPageStep5 nextStep={this.nextStep} prevStep={this.prevStep} />
+          return <TutorialPageStep5 prevStep={this.prevStep} />
     }
   }
 
@@ -52,7 +54,7 @@ class Tutorial extends Component {
     this.setState({
       loading: true,
     }, () => {
-      setTimeout(() => {
+      this.nextTimer = setTimeout(() => {
         this.setState({
           tutorialPage: this.state.tutorialPage + 1,
           loading: false
@@ -199,6 +201,7 @@ function TutorialPageStep4(props){
 }
 
 function TutorialPageStep5(props){
+
   return (
     <div className="tutorial">
       <div className="tutorial-header">
@@ -217,4 +220,4 @@ function TutorialPageStep5(props){
   )
 }
 
-export default Tutorial
+export default withRouter(Tutorial)

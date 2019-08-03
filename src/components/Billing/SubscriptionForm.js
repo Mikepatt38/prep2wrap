@@ -92,7 +92,6 @@ class SubscriptionForm extends Component {
           // dataType: "json",
           body: JSON.stringify(postBody)
         }) 
-        console.log(response)
         // Getting the Customer ID back from the server
         let jsonResponse = await response.json()
         let responseObj = await JSON.stringify(jsonResponse)

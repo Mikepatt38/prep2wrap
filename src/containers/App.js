@@ -3,10 +3,8 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { Routes } from '../routes'
-import Sidebar from '../components/General/Sidebar'
 import withAuthentication from './withAuthentication'
 import Alert from './Alert'
-import { DashboardFooter } from '../components/General/DashboardFooter'
 import { GlobalAlert } from '../components/General/GlobalAlert'
 import AppTopBar from '../components/General/AppTopBar'
 import ScrollToTop from '../components/General/ScrollToTop'
@@ -31,8 +29,8 @@ const RenderRoute = ({ currentUser }) => (
       currentUser && window.location.pathname !== '/signup' &&
       <div className="app-container">
         <AppTopBar currentUser={currentUser} />
+        { window.location.pathname !== '/tutorial-walk-through' &&<GlobalAlert active={!currentUser.profileInformation} /> }
         <div className="app-body">
-          <GlobalAlert active={currentUser.profileInformation ? false : true} />
           <Alert />
           <div className="app-body-main">
             <ErrorBoundary>
@@ -53,6 +51,7 @@ const RenderRoute = ({ currentUser }) => (
 
 const mapStateToProps = (state) => ({
   currentUser: state.accountState.currentUser,
+  globalAlertActive: state.sessionState.globalAlertActive
 })
 
 export default compose(

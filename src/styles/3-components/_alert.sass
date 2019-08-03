@@ -1,7 +1,7 @@
 /* ===============
   Styles for Alerts
   ================== */  
-.alert, .global-alert
+.alert,
   position: fixed
   top: 0
   right: 0
@@ -83,20 +83,29 @@
   background-color: $color__primary
   width: 100% 
   padding: 15px
-  display: flex
   justify-content: space-between
   flex-direction: row
   align-content: center
+  position: absolute
+  display: none
+  width: 100%
+  background: #d9edf7
+  border: 1px solid #9FB7DA
+  text-align: center
+  z-index: 99
+  top: 130px
 
   &.active
     display: flex 
+    margin-bottom: 50px
 
     span > img
       height: 16px
 
     a
       font-size: 16px
-      color: #fff
+      color: #31708f
       opacity: 0.8
       width: auto
+      margin: 0 auto
 
