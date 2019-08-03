@@ -98,7 +98,7 @@ class SubscriptionForm extends Component {
         let jsonObj = await JSON.parse(responseObj)
         let stripe_id = await jsonObj.stripe_id
         // Actually sign the user up
-        this.props.signUpUser(this.state.email, this.state.passwordOne, this.state.firstName.toLowerCase().charAt(0).toUpperCase(), this.state.lastName.toLowerCase().charAt(0).toUpperCase(), this.state.mobileNumber, stripe_id, this.props.history)
+        this.props.signUpUser(this.state.email, this.state.passwordOne, this.state.firstName.charAt(0).toUpperCase() + this.state.firstName.slice(1).toLowerCase(), this.state.lastName.charAt(0).toUpperCase() + this.state.lastName.slice(1).toLowerCase(), this.state.mobileNumber, stripe_id, this.props.history)
       }
       else{
         console.log('No source was created')

@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router-dom'
+import withAuthorization from '../containers/withAuthorization'
 import TutorialIllustration from '../img/illustrations/tutorial.svg'
 import JobsEmptyState from '../img/tutorials/jobs-empty-state.png'
 import CreateJob from '../img/tutorials/create-job.png'
@@ -220,4 +221,6 @@ function TutorialPageStep5(props){
   )
 }
 
-export default withRouter(Tutorial)
+const authCondition = (authUser) => !!authUser
+
+export default withRouter(withAuthorization(authCondition)(Tutorial))

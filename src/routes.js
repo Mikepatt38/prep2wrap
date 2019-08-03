@@ -17,7 +17,7 @@ export const Routes = () => {
       <Route exact path='/login' component={UserAuth} />
       <Route exact path='/signup' component={UserAuth} />
       <Route exact path='/password-reset' component={UserAuth} />
-      <Route exact path='/tutorial-walk-through' component={Tutorial} />
+      <ProtectedRoute exact path='/tutorial-walk-through' component={Tutorial} />
       {/* <Route exact path='/password-change' component={PasswordChange} /> */}
       <ProtectedRoute exact path="/" component={Dashboard} />
       <ProtectedRoute exact path='/jobs' component={JobsPage} />
