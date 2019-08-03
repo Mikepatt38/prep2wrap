@@ -12,7 +12,16 @@ class AccountSettings extends Component {
     modalActive: false
   }
 
+  componentDidUpdate = (prevProps) => {
+    if(prevProps.currentUser !== this.props.currentUser){
+      this.setState({
+        user: this.props.currentUser
+      })
+    }
+  }
+
   handleViewProfile = (user) => {
+    console.log(user)
     this.setState({
       user: user,
       modalActive: true

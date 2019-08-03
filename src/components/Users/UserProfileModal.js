@@ -103,7 +103,7 @@ function UserProfileModal(props){
                 </div>
                 <div className="modal-cell-lg">
                   <label><img src={TravelIcon} alt="User Travel Icon" /> Willing To Travel:</label> 
-                  <p>{!props.user.travel ? <span>Willing to Travel</span> : <span>Unavailable Today</span>}</p>
+                  <p>{props.user.profileInformation.travel ? <span>Willing to Travel</span> : <span>Unwilling to Travel</span>}</p>
                 </div>
                 <div className="modal-cell-lg">
                   <label><img src={LanguagesIcon} alt="User Languages Icon" /> Fluent Languages Other Than English:</label> 
