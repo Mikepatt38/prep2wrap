@@ -1,10 +1,6 @@
 /* ===============
   Styles for Modals
   ================== */
-div#linktotop
-  position: absolute
-  top: 0
-
 @keyframes fade 
   0%
     display: none
@@ -41,9 +37,8 @@ div#linktotop
     visibility: visible
     animation: fade .5s ease-in-out
 
-  &.modal-user-profile > .modal
+  &.modal-user-profile 
     max-width: 650px
-
 
   .modal
     position: relative
@@ -51,9 +46,13 @@ div#linktotop
     padding: 0
     background: #fff
     border-radius: 3px
-    max-width: 850px
     width: 100%
+    max-width: 850px
+    max-height: 90vh
     box-shadow: 0 8px 6px 0 rgba(0,0,0,.075)
+    z-index: 99999999
+    overflow: auto
+    background-clip: padding-box
 
     .modal-header
       display: grid
@@ -62,6 +61,7 @@ div#linktotop
       padding: 20px 30px
       align-items: center
       border-bottom: 1px solid #EAEDF3
+      z-index: 9999999
 
       a
         display: flex
@@ -82,13 +82,11 @@ div#linktotop
     .modal-body
       position: relative
       padding: 0
-      z-index: 2
+      z-index: 99999999
+
+
 
 // =========== Modal Form Styles =========== //
-
-// .modal form.modal-form .form-group
-//   padding: 0 30px
-//   min-width: 650px
 
 .modal form.modal-form .form-group.date-picker-form-group
   min-width: fit-content
@@ -150,6 +148,7 @@ div#linktotop
 // =========== User Profile Modal Styles =========== //
 .modal-user .modal
   max-width: 720px
+  margin: 0 auto
 
 .modal-user .modal-header
   position: relative

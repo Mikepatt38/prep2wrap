@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import CloseIcon from '../../img/icon-close.svg'
 
+
 function Modal(props){
   return (
     props.active ?
