@@ -48,15 +48,17 @@
     border-radius: 3px
     width: 100%
     max-width: 850px
-    max-height: 90vh
     box-shadow: 0 8px 6px 0 rgba(0,0,0,.075)
     z-index: 99999999
-    overflow: auto
     background-clip: padding-box
 
+    &.modal-controlled
+      overflow: auto
+      max-height: 90vh
+
     .modal-header
-      display: grid
-      grid-template-columns: 1fr 40px
+      display: flex
+      justify-content: space-between
       text-align: left
       padding: 20px 30px
       align-items: center
@@ -202,8 +204,8 @@
       display: flex
       align-items: center
 
-      span.user-pill
-        margin-top: 5px
+    .modal-header-right > span.user-pill
+      margin-top: 5px
 
   .modal-close
     height: 35px
@@ -250,6 +252,7 @@
       background: #f4f4f4
       border-radius: 3px
       margin-right: 6px
+      margin-bottom: 5px
       padding: 2px 8px    
 
       &.available, &.accepted
@@ -315,5 +318,9 @@
           margin-right: 6px
 // ============ Media Queries =========== //
 @media only screen and (max-width: 414px)
-  .modal-component
+  .modal-user .modal-header .modal-header-left .modal-header-right > h2
+    font-size: 18px
+  .modal-user .modal-body .modal-section .modal-cell-lg .social-pill
+    width: 100%
+  .modal-component.modal-component-wide
     padding: 0

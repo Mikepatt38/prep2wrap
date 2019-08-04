@@ -252,7 +252,7 @@ class UserSearchTable extends Component {
           }
           close={this.toggleResultsModal}
         />
-        <div className="modal-component">
+        <div className="modal-component modal-component-wide">
           <p>Create a crew member search by either entering a name and/or selecting a location(s).</p>
           <UserProfileModal
             currentUser={this.props.currentUser}

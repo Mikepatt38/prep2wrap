@@ -47,7 +47,7 @@ function UserProfileModal(props){
     ReactDOM.createPortal(
       <React.Fragment>
         <div className="modalBg modal-open modal-user">
-          <div className="modal">
+          <div className="modal modal-controlled">
             <div className="modal-header">
               <div className="modal-header-left">
                 {
@@ -58,8 +58,8 @@ function UserProfileModal(props){
                 <div className="modal-header-right">
                   <h2>
                     {props.user.firstName} {props.user.lastName} &nbsp; 
-                    {!checkUserAvailability() ? <span className="user-pill available">Available Today</span> : <span className="user-pill unavailable">Unavailable Today</span>}
                   </h2>
+                  {!checkUserAvailability() ? <span className="user-pill available">Available Today</span> : <span className="user-pill unavailable">Unavailable Today</span>}
                 </div>
               </div>
               <div className="modal-close">
@@ -106,7 +106,7 @@ function UserProfileModal(props){
                   <p>{props.user.profileInformation.travel ? <span>Willing to Travel</span> : <span>Unwilling to Travel</span>}</p>
                 </div>
                 <div className="modal-cell-lg">
-                  <label><img src={LanguagesIcon} alt="User Languages Icon" /> Fluent Languages Other Than English:</label> 
+                  <label><img src={LanguagesIcon} alt="User Languages Icon" /> Languages Other Than English:</label> 
                   {
                     props.user.profileInformation.bilingual
                     ? <p><span>{props.user.profileInformation.languages}</span></p>

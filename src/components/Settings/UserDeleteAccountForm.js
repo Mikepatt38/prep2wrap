@@ -66,31 +66,27 @@ export class DeleteUserAccountModal extends Component {
 
   render(){
     return (
-      <div className="modal">
-        <div className="modal-body">
-          <div className="modal-component">
-            <p className="modal-text-warning">To confirm the deletion of your account please provide your password. Once you delete your account all account information and data will be deleted. <b>Your membership to Crew It Up will be canceled.</b></p>
-            <form className="modal-form">
-              <FormTextInput
-                name="password"
-                label="Password"
-                placeholder="password"
-                onChange={this.handleChange}
-                type="password"
-                value={this.state.password}
-                error={this.state.error}
-                errorMsg='The password entered is not correct.'
-              />
-              <div className="button-wrapper">
-                <FormButton
-                  className="button-danger"
-                  buttonText="Delete My Account"
-                  onClick={(e) => this.handleDeleteUserAccount(e)}
-                />
-              </div>
-            </form>
+      <div className="modal-component">
+        <p className="modal-text-warning">To confirm the deletion of your account please provide your password. Once you delete your account all account information and data will be deleted. <b>Your membership to Crew It Up will be canceled.</b></p>
+        <form className="modal-form">
+          <FormTextInput
+            name="password"
+            label="Password"
+            placeholder="password"
+            onChange={this.handleChange}
+            type="password"
+            value={this.state.password}
+            error={this.state.error}
+            errorMsg='The password entered is not correct.'
+          />
+          <div className="button-wrapper">
+            <FormButton
+              className="button-danger"
+              buttonText="Delete My Account"
+              onClick={(e) => this.handleDeleteUserAccount(e)}
+            />
           </div>
-        </div>
+        </form>
       </div>
     )
   }
