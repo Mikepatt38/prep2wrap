@@ -1,9 +1,10 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import CloseIcon from '../../img/icon-close.svg'
 
 export function Alert(props){
+  
   return (
     props.active ?
     ReactDOM.createPortal(
