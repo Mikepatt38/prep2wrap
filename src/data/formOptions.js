@@ -59,7 +59,7 @@ export const positionsObj = [
   { value: 'Cutter/ Fitter', label: 'Cutter/ Fitter' },
   { value: 'Coordinator', label: 'Coordinator' },
   { value: 'Tailor', label: 'Tailor' },
-  { value: 'Ager/ Dryer', label: 'Ager/ Dryer' },
+  { value: 'Ager/ Dyer', label: 'Ager/ Dyer' },
   { value: 'Illustrator/ Concept Artist', label: 'Illustrator/ Concept Artist' }
 ]
 
