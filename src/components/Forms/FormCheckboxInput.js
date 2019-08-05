@@ -17,7 +17,7 @@ export const FormCheckboxInput = ({ label, checkboxId, value, disabled, onChange
           checked={value}
           disabled={disabled}
         />
-        <label className="checkbox" htmlFor={checkboxId}>{customText ? customText : 'Yes'}</label>
+        <label className="checkbox" htmlFor={checkboxId}>{customText ? customText : value === true ? 'Yes' : 'No'}</label>
       </span>
       { inputValue !== undefined && value === true && 
         <div className={error ? 'checkbox-input error' : 'checkbox-input'}>
