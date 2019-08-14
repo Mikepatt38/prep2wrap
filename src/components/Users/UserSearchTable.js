@@ -37,6 +37,15 @@ class UserSearchTable extends Component {
     }
   }
 
+  componentWillUnmount = () => {
+    this.setState({
+      searchName: '',
+      positionsSelected: [],
+      locationsSelected: [],
+      jobTypesSelected: [],
+    })
+  }
+
   toggleModal = () => {
     this.setState({
       modalActive: !this.state.modalActive,
@@ -121,7 +130,7 @@ class UserSearchTable extends Component {
   }
   
   
-  tableFilter() {
+  tableFilter(state) {
     return (
       <form className="search-filter">
         <div className="search-filter-item">
@@ -141,7 +150,7 @@ class UserSearchTable extends Component {
             label="Select Location(s):"
             name="locationsSelected"
             options={locationObj}
-            currentSkills={this.state.locationsSelected}
+            currentSkills={state.locationsSelected}
             placeholder="Select Locations"
             isMultiSelect={true}
             onSelect={this.handleSelect}
@@ -262,7 +271,7 @@ class UserSearchTable extends Component {
             close={this.toggleModal}
             toggleAllModals={this.toggleAllModals}
           />
-          {this.tableFilter()}
+          {this.tableFilter(this.state)}
         </div>
       </React.Fragment>
     )

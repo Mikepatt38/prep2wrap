@@ -235,7 +235,7 @@ exports.stripeEvents = functions.https.onRequest((request, response) => {
           to: event.data.object.email,
           from: 'Prep2Wrap <info@prep2wrapjobs.com>',
           subject: 'Welcome to Prep2Wrap',
-          html: `<p>Hey ${event.data.object.name},</p> <p>Thank you for signing up for your account with Prep2Wrap. Log in to setup your account settings and being hiring your next crew!</p>`,
+          html: `<p>Hey ${event.data.object.name},</p> <p>Thank you for signing up for your account with Prep2Wrap. Log in to setup your account settings and begin hiring your next crew!</p>`,
         }
         sgMail
           .send(msg)

@@ -6,6 +6,14 @@ class FormSelectInput extends Component {
     selectedOption: this.props.currentSkills
   }
 
+  componentDidUpdate = (prevProps) => {
+    if(prevProps.currentSkills !== this.props.currentSkills){
+      this.setState({
+        selectedOption: this.props.currentSkills
+      })
+    }
+  }
+
   handleChange = (selectedOption) => {
     this.setState({ selectedOption }, () => {
       this.props.onSelect(this.props.name, this.state.selectedOption)
