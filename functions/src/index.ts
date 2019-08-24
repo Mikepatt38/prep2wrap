@@ -223,6 +223,10 @@ export const clearFirestoreData = (uid:any) => {
 
 // ========== Firebase Web-hook Endpoints ========== //
 
+// ===========
+//  We need to create a different case for each stripe event that will be called by this endpoint  
+// =========== 
+
 exports.stripeEvents = functions.https.onRequest((request, response) => {
   let sig = request.headers["stripe-signature"];
 
@@ -243,6 +247,8 @@ exports.stripeEvents = functions.https.onRequest((request, response) => {
           .then(() => console.log('Mail sent successfully'))
           .catch((error:any) => console.error(error.toString()))
         break;
+      case 'invoice.payment_succeeded':
+        response.sendStatus(200);
       // ... handle other event types
       default:
         // Unexpected event type
@@ -251,5 +257,6 @@ exports.stripeEvents = functions.https.onRequest((request, response) => {
   } catch (err) {
     return response.status(400).send(err).end();
   }
+  response.sendStatus(200);
   response.send('Success');
 });
