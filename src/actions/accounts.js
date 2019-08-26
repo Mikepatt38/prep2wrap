@@ -239,10 +239,15 @@ export function checkUserPositionMatch(userPositions, jobPositions){
   return isMatch
 }
 
-export function checkUserLocationMatch(userLocations, jobLocation){
+export function checkUserLocationMatch(userLocations, jobLocations){
   let isMatch = false
-  if(!jobLocation.length) isMatch = true
-  else if(userLocations.some(el => el.value === jobLocation[0].value )) isMatch = true
+  console.log('Checking locations')
+  if(!jobLocations.length) isMatch = true
+  jobLocations.map( jobLocation => {
+    console.log(jobLocation)
+    if(userLocations.some(el => el.value === jobLocation.value)) isMatch = true
+  })
+  // else if(userLocations.some(el => el.value === jobLocation[0].value )) isMatch = true
   return isMatch
 }
 
@@ -279,8 +284,8 @@ export const usersSearch = (userName, positions, locations, jobTypes) => async d
     })
   }
 
-  else if(locations.length){
-    let locationSearchRef = await usersRef.where("profileInformation.location", "array-contains", {label: locations[0].label, value: locations[0].value}).get()
+  else if(locations){
+    let locationSearchRef = await usersRef.where("profileInformation.location", "array-contains", {label: locations.label, value: locations.value}).get()
     let userData = await locationSearchRef.docs
     userData.map( user => {
       const isPositionMatch = checkUserPositionMatch(user.data().profileInformation.positions, positions)

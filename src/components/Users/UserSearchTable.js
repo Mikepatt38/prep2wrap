@@ -80,7 +80,7 @@ class UserSearchTable extends Component {
   validateUserSearch(){
     let validated = true
     const { searchName, locationsSelected } = this.state
-    if(!searchName.length && !locationsSelected.length) {
+    if(!searchName.length && !locationsSelected) {
       validated = false
     }
     return validated
@@ -101,11 +101,6 @@ class UserSearchTable extends Component {
   }
 
   handleSelect = (name, val) => {
-    const newArr = val
-    let tempArr = []
-    newArr.map( value => {
-      tempArr.push(value.value)
-    })
     this.setState({
       [name]: val,
       formError: false
@@ -147,12 +142,12 @@ class UserSearchTable extends Component {
         </div>
         <div className="search-filter-item">
           <FormSelectInput
-            label="Select Location(s):"
+            label="Select Location (max 1 location per search):"
             name="locationsSelected"
             options={locationObj}
             currentSkills={state.locationsSelected}
-            placeholder="Select Locations"
-            isMultiSelect={true}
+            placeholder="Select a Location"
+            isMultiSelect={false}
             onSelect={this.handleSelect}
             isClearable={false}
             error={this.state.formError}
