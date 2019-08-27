@@ -171,6 +171,11 @@ class CreateJobFormStepTwo extends Component {
                   />
                   <div className="button-wrapper">
                     <FormButton
+                      className="button-edit"
+                      buttonText="Edit Job Information"
+                      onClick={(e) => this.saveAndGoBack(e)}
+                    />
+                    <FormButton
                       className="button-quit"
                       buttonText="Cancel"
                       onClick={(e) => this.cancelJobCreation(e)}

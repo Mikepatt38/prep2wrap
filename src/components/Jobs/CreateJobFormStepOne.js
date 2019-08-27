@@ -24,12 +24,13 @@ class CreateJobFormStepOne extends Component {
       jobDatesRange: [],
       jobCreatedTime: moment(),
       jobPositions: [],
+      jobPositionsObjArr: [],
       jobLocation: [],
       jobContact: [],
       usersAssigned: [],
       dateSelectorRangeActive: false,
       jobStatus: 'created',
-      jobType: ''
+      jobType: []
     },
     jobDescCount: 0,
     startDate: moment(),
@@ -46,15 +47,46 @@ class CreateJobFormStepOne extends Component {
   }
 
   componentDidMount() {
-    this.setState(prevState => ({
-      jobObj: {
-        ...prevState.jobObj,
-        jobCreator: this.props.currentUser.firstName + ' ' + this.props.currentUser.lastName,
-        jobCreatorID: this.props.currentUser.id.toString(),
-        jobContactEmail: this.props.currentUser.email,
-        jobCreatorNumber: this.props.currentUser.mobileNumber
-      }
-    }))
+    // We need to check if the user went back to edit the job when they were creating it and load in that information so they do
+    // not start over with a blank form again
+    if(this.props.currentJob.jobObj && this.props.match.params.jobID === this.props.currentJob.jobObj.jobID){
+      this.setState({
+        jobDescCount: this.props.currentJob.jobDescCount,
+        selectedDates: this.props.currentJob.selectedDates,
+        jobObj: {
+          jobID: this.props.match.params.jobID,
+          jobName: this.props.currentJob.jobObj.jobName,
+          jobCreator: this.props.currentJob.jobObj.jobName,
+          jobCreatorID: this.props.currentJob.jobObj.jobCreatorID,
+          jobContactEmail: this.props.currentJob.jobObj.jobContactEmail,
+          jobCreatorNumber: this.props.currentJob.jobObj.jobCreatorNumber,
+          unionMember: this.props.currentJob.jobObj.unionMember,
+          jobDesc: this.props.currentJob.jobObj.jobDesc,
+          jobDates: this.props.currentJob.jobObj.jobDates,
+          jobDatesRange: this.props.currentJob.jobObj.jobDatesRange,
+          jobCreatedTime: this.props.currentJob.jobObj.jobCreatedTime,
+          jobPositions: this.props.currentJob.jobObj.jobPositions,
+          jobPositionsObjArr: this.props.currentJob.jobObj.jobPositionsObjArr,
+          jobLocation: this.props.currentJob.jobObj.jobLocation,
+          jobContact: this.props.currentJob.jobObj.jobContact,
+          usersAssigned: this.props.currentJob.jobObj.usersAssigned,
+          dateSelectorRangeActive: this.props.currentJob.jobObj.dateSelectorRangeActive,
+          jobStatus: 'created',
+          jobType: this.props.currentJob.jobObj.jobType
+        }
+      })
+    }
+    else{
+      this.setState(prevState => ({
+        jobObj: {
+          ...prevState.jobObj,
+          jobCreator: this.props.currentUser.firstName + ' ' + this.props.currentUser.lastName,
+          jobCreatorID: this.props.currentUser.id.toString(),
+          jobContactEmail: this.props.currentUser.email,
+          jobCreatorNumber: this.props.currentUser.mobileNumber
+        }                 
+      }))
+    }
   }
 
   handleJobDescChange = e => {
@@ -101,6 +133,7 @@ class CreateJobFormStepOne extends Component {
 
   handleSelect = (name, val) => {
     const newVal = val.value
+    console.log(newVal)
     const errorName = `${name}Error`
     this.setState(prevState => ({
       jobObj: {
@@ -123,6 +156,9 @@ class CreateJobFormStepOne extends Component {
     }))
   }
 
+  // We are only using the multi-select function for job positions since multiple can be selected however we are saving these different than the select field
+  // can take in so when a user comes back to edit information they can have a value that will be able to populate the select field
+  // so we create the custom object arr
   handleMultiSelect = (name, val) => {
     const newArr = val
     let tempArr = []
@@ -133,6 +169,7 @@ class CreateJobFormStepOne extends Component {
     this.setState(prevState => ({
       jobObj: {
         ...prevState.jobObj,
+        jobPositionsObjArr: val,
         [name]: tempArr
       },
       errorName: false
@@ -140,15 +177,29 @@ class CreateJobFormStepOne extends Component {
   }
 
   handleDateChange = (date) => {
-    this.setState(prevState => ({
-      jobObj: {
-          ...prevState.jobObj,
-          jobDates: [...prevState.jobObj.jobDates, date.format('MM/DD/YYYY')]
-      },
-      jobDatesError: false,
-      selectedDate: date,
-      selectedDates: [...prevState.selectedDates, date.format('MM/DD/YYYY')]
-    }))
+    console.log(this.state.jobObj.jobDates === undefined)
+    console.log(this.state.jobObj.jobDates !== 'undefined')
+    this.state.jobObj.jobDates !== undefined
+    ?
+      this.setState(prevState => ({
+        jobObj: {
+            ...prevState.jobObj,
+            jobDates: [...prevState.jobObj.jobDates, date.format('MM/DD/YYYY')]
+        },
+        jobDatesError: false,
+        selectedDate: date,
+        selectedDates: [...prevState.selectedDates, date.format('MM/DD/YYYY')]
+      }))
+    :
+      this.setState(prevState => ({
+        jobObj: {
+            ...prevState.jobObj,
+            jobDates: [date.format('MM/DD/YYYY')]
+        },
+        jobDatesError: false,
+        selectedDate: date,
+        selectedDates: [date.format('MM/DD/YYYY')]
+      }))
   }
 
   handleDateChangeStart = (date) => {
@@ -224,6 +275,7 @@ class CreateJobFormStepOne extends Component {
   }
  
   render() {
+    // console.log(this.props.currentJob)
     const { jobObj, jobDescCount, startDate, selectedDate, selectedStartDate, selectedEndDate, selectedDates } = this.state
     return (
       <div className="app-page">
@@ -264,6 +316,7 @@ class CreateJobFormStepOne extends Component {
                     label="Job Location"
                     name="jobLocation"
                     options={locationObj}
+                    currentValues={jobObj.jobLocation}
                     placeholder="Select Location for Job"
                     isMultiSelect={false}
                     onSelect={this.handleSelectValues}
@@ -285,6 +338,7 @@ class CreateJobFormStepOne extends Component {
                     label="Select the Job Type"
                     name="jobType"
                     options={jobTypesObj}
+                    currentValues={jobObj.jobType}
                     placeholder="Select Type of Job"
                     isMultiSelect={false}
                     onSelect={this.handleSelectValues}
@@ -317,6 +371,7 @@ class CreateJobFormStepOne extends Component {
                     label="Preferred Form of Contact"
                     name="jobContact"
                     options={contactObj}
+                    currentValues={{value: jobObj.jobContact, label: jobObj.jobContact}}
                     placeholder="Select Best Form of Contact"
                     isMultiSelect={false}
                     onSelect={this.handleSelect}
@@ -326,6 +381,7 @@ class CreateJobFormStepOne extends Component {
                     label="Select Job Positions Hiring For"
                     name="jobPositions"
                     options={positionsObj}
+                    currentValues={jobObj.jobPositionsObjArr}
                     placeholder="Select Positions For Jobs"
                     isMultiSelect={true}
                     onSelect={this.handleMultiSelect}

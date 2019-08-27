@@ -3,13 +3,13 @@ import Select from 'react-select'
 
 class FormSelectInput extends Component {
   state = {
-    selectedOption: this.props.currentSkills
+    selectedOption: this.props.currentValues
   }
 
   componentDidUpdate = (prevProps) => {
-    if(prevProps.currentSkills !== this.props.currentSkills){
+    if(prevProps.currentValues !== this.props.currentValues){
       this.setState({
-        selectedOption: this.props.currentSkills
+        selectedOption: this.props.currentValues
       })
     }
   }

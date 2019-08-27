@@ -79,7 +79,7 @@ export class UserProfileForm extends Component {
           label="Job Types"
           name="jobTypes"
           options={jobTypesObj}
-          currentSkills={jobTypes}
+          currentValues={jobTypes}
           placeholder="Select Job types that you're qualified to work"
           isMultiSelect={true}
           onSelect={this.handleSelect}
@@ -89,7 +89,7 @@ export class UserProfileForm extends Component {
           label="Location"
           name="location"
           options={locationObj}
-          currentSkills={location}
+          currentValues={location}
           placeholder="Select Cities You Work In"
           isMultiSelect={true}
           onSelect={this.handleSelect}
@@ -99,7 +99,7 @@ export class UserProfileForm extends Component {
           label="Skills"
           name="skills"
           options={skillsObj}
-          currentSkills={skills}
+          currentValues={skills}
           placeholder="Select Skills You're Qualified For"
           isMultiSelect={true}
           onSelect={this.handleSelect}
@@ -109,7 +109,7 @@ export class UserProfileForm extends Component {
           label="Positions"
           name="positions"
           options={positionsObj}
-          currentSkills={positions}
+          currentValues={positions}
           placeholder="Select Positions For Jobs You're Seeking"
           isMultiSelect={true}
           onSelect={this.handleSelect}

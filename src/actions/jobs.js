@@ -391,7 +391,7 @@ export const userResultsForJobCreation = (userID, jobObj) => async () => {
   let longerArr = []
   let shorterArr = []
   const usersRef = database.collection("users")
-
+  console.log(jobObj)
   // Need two separate queries because Firebase only allows one "array-contains" argument per query
   const unionAndLocationResults = await usersRef
     .where("profileInformation.union", "==", jobObj.unionMember)
