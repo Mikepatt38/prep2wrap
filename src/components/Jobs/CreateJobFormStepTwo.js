@@ -145,13 +145,14 @@ class CreateJobFormStepTwo extends Component {
           }
           {
             this.state.noUsersReturned &&
-            <div className="app-page-section">
+            <div className="app-page-section centered">
               <EmptyState
                 imgSrc={NoResultsIllustration}
                 imgAlt="No Results For User Job Search Illustration"
                 title="We didn't find any crew members"
                 text="We didn't find any crew members that matched your criteria, try going back and adding/ updating criteria to your job for a better chance of finding crew members for your job."
               />
+              <Link to={`/jobs/${this.props.match.params.jobID}/job-information`}>Edit Job Information</Link>
             </div>
           }
           {
@@ -171,14 +172,9 @@ class CreateJobFormStepTwo extends Component {
                   />
                   <div className="button-wrapper">
                     <FormButton
-                      className="button-edit"
-                      buttonText="Edit Job Information"
-                      onClick={(e) => this.saveAndGoBack(e)}
-                    />
-                    <FormButton
                       className="button-quit"
-                      buttonText="Cancel"
-                      onClick={(e) => this.cancelJobCreation(e)}
+                      buttonText="Edit"
+                      onClick={(e) => this.saveAndGoBack(e)}
                     />
                     <FormButton
                       className="button-primary"

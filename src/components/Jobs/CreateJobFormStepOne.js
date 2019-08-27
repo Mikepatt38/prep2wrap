@@ -172,13 +172,11 @@ class CreateJobFormStepOne extends Component {
         jobPositionsObjArr: val,
         [name]: tempArr
       },
-      errorName: false
+      [errorName]: false
     }))
   }
 
   handleDateChange = (date) => {
-    console.log(this.state.jobObj.jobDates === undefined)
-    console.log(this.state.jobObj.jobDates !== 'undefined')
     this.state.jobObj.jobDates !== undefined
     ?
       this.setState(prevState => ({
@@ -244,7 +242,13 @@ class CreateJobFormStepOne extends Component {
     let index = temp.indexOf(dateClicked)
     if (index !== -1) {
       temp.splice(index, 1);
-      this.setState({selectedDates: temp}, () => { console.log('Removed Date: ' + dateClicked)})
+      this.setState(prevState => ({
+        selectedDates: temp,
+        jobObj:{
+          ...prevState.jobObj,
+          jobDates: temp
+        }
+      }), () => { console.log('Removed Date: ' + dateClicked)})
     }
   }
 
@@ -346,17 +350,16 @@ class CreateJobFormStepOne extends Component {
                     error={this.state.jobTypeError}
                     errorMsg="Please select a job type."
                   />
-                  <div className={this.state.jobDescError ? 'field-error form-group' : 'form-group'}>
-                    <label>{"Job Description (" + jobDescCount + "/140)"}:</label>
-                    <textarea 
-                      name="jobDesc"
-                      type="text"
-                      value={jobObj.jobDesc}
-                      onChange={this.handleJobDescChange}
-                      className="textarea"
-                    ></textarea>  
-                    <p className="error-msg">Please add a valid job description.</p>
-                  </div>
+                  <FormTextInput
+                    label={"Job Description (" + jobDescCount + "/140)"}
+                    name="jobDesc"
+                    type="text"
+                    value={jobObj.jobDesc}
+                    onChange={this.handleJobDescChange}
+                    className="textarea"
+                    error={this.state.jobDescError}
+                    errorMsg="Please add a valid job description."
+                  />
 
                   <hr />
                   <p>These are job specifics that help us find the right crew members for you to consider hiring</p>
@@ -371,7 +374,7 @@ class CreateJobFormStepOne extends Component {
                     label="Preferred Form of Contact"
                     name="jobContact"
                     options={contactObj}
-                    currentValues={{value: jobObj.jobContact, label: jobObj.jobContact}}
+                    currentValues={jobObj.jobContact.length ? {value: jobObj.jobContact, label: jobObj.jobContact} : null}
                     placeholder="Select Best Form of Contact"
                     isMultiSelect={false}
                     onSelect={this.handleSelect}

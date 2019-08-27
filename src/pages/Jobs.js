@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import JobsList from '../components/Jobs/JobsList'
 import { JobsTable } from '../components/Jobs/JobsTable'
 const shortid = require('shortid')
 // Replacing the - and _ with $ and @ to have better looking URL facing unique id's

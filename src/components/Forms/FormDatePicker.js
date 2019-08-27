@@ -31,8 +31,8 @@ export function CustomDatePicker(props){
           minDate={moment()}
           popperPlacement={props.popperPlacement ? props.popperPlacement : 'bottom-start'}
         />
-        <p className="error-msg">{props.errorMsg}</p>
       </div>
+      <p className="error-msg">{props.errorMsg}</p>
     </div>
   )
 }

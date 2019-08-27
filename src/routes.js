@@ -7,7 +7,7 @@ import AccountSettings from './containers/AccountSettings'
 import UserAuth from './containers/UserAuth'
 import UsersPage from './pages/Users'
 import Availability from './containers/Availability'
-import { JobsPage, CreateJobFormStep1, CreateJobFormStep2, CreateJobFormStep3, SendJobInvites } from './containers/Jobs'
+import { JobsPage, CreateJobFormStep1, CreateJobFormStep2 } from './containers/Jobs'
 import { NotFound } from './pages/NotFound'
 import Tutorial from './pages/Help';
 
