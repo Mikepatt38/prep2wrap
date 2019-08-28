@@ -1,12 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import withAuthorization from '../containers/withAuthorization'
 import DashboardNotifications from '../components/General/DashboardNotifications'
 import DashboardStatus from '../components/General/DashboardStatus'
-import GettingStartedIcon from '../img/icon-getting-started.svg'
-import CreateIcon from '../img/icon-create.svg'
-import GlassIcon from '../img/icon-glass.svg'
-import CalendarIcon from '../img/icon-calendar.svg'
 
 class Dashboard extends Component {
   render() {

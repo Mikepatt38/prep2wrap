@@ -13,7 +13,7 @@ class Availability extends Component {
   }
 
   getCurrentMonth(){
-    const date = new Date
+    const date = new Date()
     return date.getMonth()
   }
 

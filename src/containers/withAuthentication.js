@@ -12,7 +12,6 @@ const withAuthentication = (Component) => {
   
     componentDidMount = () => {
       const { getCurrentUser } = this.props
-      const { getUserAvailability } = this.props
 
       firebase.auth.onAuthStateChanged( authUser => {
         return authUser 

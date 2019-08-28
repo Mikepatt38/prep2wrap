@@ -29,7 +29,7 @@ export class UserSearch extends Component {
   }
 
   render() {
-    const { userData, loading  } = this.state
+    const { userData } = this.state
 
     return (
       <div className="app-page-section">

@@ -23,7 +23,7 @@ class FormSelectInput extends Component {
   render() {
     const { options, className, label, placeholder, isMultiSelect, error, errorMsg, isClearable } = this.props
     return (
-      <div className={error === true ? 'field-error form-group' + ` ${className}` : 'form-group' + ` ${className}` }>
+      <div className={error === true ? `field-error form-group ${className}` : `form-group ${className}` }>
         <label>{label}</label>
         <Select
           closeMenuOnSelect={!isMultiSelect}

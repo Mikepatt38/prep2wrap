@@ -34,6 +34,8 @@ class Tutorial extends Component {
           return <TutorialPageStep4 nextStep={this.nextStep} prevStep={this.prevStep} />
       case 4:
           return <TutorialPageStep5 prevStep={this.prevStep} />
+      default:
+          return <TutorialPageStep1 nextStep={this.nextStep} />
     }
   }
 

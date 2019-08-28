@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import dateFns from "date-fns"
-import { CustomDatePicker, CustomDateRangePicker } from '../Forms/FormDatePicker'
+import { CustomDatePicker } from '../Forms/FormDatePicker'
 import { FormTextInput } from '../Forms/FormTextInput'
 import { FormButton } from '../Forms/FormButton'
 import TrashIcon from '../../img/icon-trash.svg'

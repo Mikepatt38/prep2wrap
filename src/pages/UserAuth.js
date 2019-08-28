@@ -17,7 +17,6 @@ const UserAuth = ({ history, signUserIn, signUpUser, resetPassword, location, cu
           resetErrors={setAlert}
         />
       )
-      break
     
     case '/signup':
       return (
@@ -31,7 +30,6 @@ const UserAuth = ({ history, signUserIn, signUpUser, resetPassword, location, cu
           resetErrors={setAlert}
         />
       )
-      break
 
     case '/password-reset':
       return (
@@ -40,7 +38,6 @@ const UserAuth = ({ history, signUserIn, signUpUser, resetPassword, location, cu
           history={history}
         />
       )
-      break
 
     default:
       history.push("/login")

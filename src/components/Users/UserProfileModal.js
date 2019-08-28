@@ -52,8 +52,8 @@ function UserProfileModal(props){
               <div className="modal-header-left">
                 {
                   props.user.avatarUrl 
-                    ? <img src={props.user.avatarUrl} alt="User Profile Image" />
-                    : <img src={Avatar} alt="User Avatar Placeholder Image" />
+                    ? <img src={props.user.avatarUrl} alt="User Avatar" />
+                    : <img src={Avatar} alt="User Avatar Placeholder" />
                 }
                 <div className="modal-header-right">
                   <h2>
@@ -115,9 +115,9 @@ function UserProfileModal(props){
                 </div>
                 <div className="modal-cell-lg shared">
                   <label><img src={TravelIcon} alt="User Social Icon" /> User Social Accounts:</label> 
-                  <span className="social-pill"><a target="_blank" href={`${props.user.profileInformation.fbLink}`}><img src={FacebookLogo} alt="Facebook Account Logo Link" /> Facebook</a></span>
-                  <span className="social-pill"><a target="_blank" href={`${props.user.profileInformation.instagramLink}`}><img src={InstagramLogo} alt="Instagram Account Logo Link" /> Instagram</a></span>
-                  <span className="social-pill"><a target="_blank" href={`${props.user.profileInformation.imdbLink}`}><img src={IMDBLogo} alt="IMDB Account Logo Link" /> IMDb</a></span>
+                  <span className="social-pill"><a target="_blank" rel="noopener noreferrer" href={`${props.user.profileInformation.fbLink}`}><img src={FacebookLogo} alt="Facebook Account Logo Link" /> Facebook</a></span>
+                  <span className="social-pill"><a target="_blank" rel="noopener noreferrer" href={`${props.user.profileInformation.instagramLink}`}><img src={InstagramLogo} alt="Instagram Account Logo Link" /> Instagram</a></span>
+                  <span className="social-pill"><a target="_blank" rel="noopener noreferrer" href={`${props.user.profileInformation.imdbLink}`}><img src={IMDBLogo} alt="IMDB Account Logo Link" /> IMDb</a></span>
                 </div>
                 {
                   !isUserOwnProfile() &&

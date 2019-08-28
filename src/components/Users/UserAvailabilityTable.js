@@ -61,7 +61,6 @@ export class UserAvailabilityTable extends Component {
   }
 
   getUsersCurrentAvailability = async () => {
-    const userAvailability = this.props.currentUser.availability
     this.setState({
       availability: this.userAvailability,
       availabilityByActiveMonth: this.filterAvailabilityByMonth(this.props.dates ? this.props.dates : []),
@@ -80,7 +79,7 @@ export class UserAvailabilityTable extends Component {
 
   filterAvailabilityByMonth(availability){
     let updatedAvailability = []
-    availability.map(date => {
+    availability.forEach(date => {
       const arrPos = date.date.split('/')[0] -1
       if(arrPos % this.props.activeMonth === 0){
         updatedAvailability.push(date)

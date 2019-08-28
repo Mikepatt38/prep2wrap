@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
-import dateFns from "date-fns"
 
 class DashboardStatus extends Component {
   state = {

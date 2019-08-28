@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import { Link } from 'react-router-dom'
 import UserProfileModal from '../Users/UserProfileModal'
 import MainLogo from '../../img/prep2wrap-white-logo.png'
 import Signout from '../../containers/SignOut'

@@ -41,7 +41,7 @@ export class UserProfileForm extends Component {
   }
 
   validateCheckboxInputs = () => {
-    if(this.state.bilingual && !this.state.languages.length || this.state.union && !this.state.unions.length){
+    if((this.state.bilingual && !this.state.languages.length) || (this.state.union && !this.state.unions.length)){
       if(!this.state.languages.length) this.setState({ languagesError: true })
       if(!this.state.unions.length) this.setState({ unionsError: true }) 
       return false

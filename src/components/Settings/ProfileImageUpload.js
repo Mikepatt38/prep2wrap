@@ -34,7 +34,7 @@ class ProfileImageUpload extends Component {
           <div className="profile-image-upload-update">
             <input type="file" name="profileImage" id="profileImage" onChange={this.handleFileChange}  />
             <label htmlFor="profileImage" id="profileImage">        
-              <img src={DownloadIcon} alt="Image Upload Icon" /> Upload New Image
+              <img src={DownloadIcon} alt="Avatar Upload Icon" /> Upload New Image
             </label>
             <p>{this.state.fileName}</p>
           </div>
