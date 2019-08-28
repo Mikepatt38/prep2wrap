@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { CardElement, injectStripe } from 'react-stripe-elements'
 import { FormTextInput } from '../Forms/FormTextInput'
 import { FormButton } from '../Forms/FormButton'
-// import SubscriptionForm from '../Billing/SubscriptionForm'
+import LoadingModal from '../General/LoadingModal'
 
 class SubscriptionForm extends Component {
   state = {
@@ -23,7 +23,14 @@ class SubscriptionForm extends Component {
     loading: false,
     toggleStripeSubscription: false,
     buttonText: 'SignUp',
-    stripeUserId: null
+    stripeUserId: null,
+    modalActive: false
+  }
+
+  componentDidMount(){
+    this.setState({
+      modalActive: false
+    })
   }
 
   handleChange = e => {
@@ -53,6 +60,7 @@ class SubscriptionForm extends Component {
     e.preventDefault()
     this.setState({
       loading: true,
+      modalActive: true
     })
     // Reset any old errors so they won't show when we login
     this.props.resetErrors(false, '', '')
@@ -141,84 +149,90 @@ class SubscriptionForm extends Component {
 
   render() {
     return (
-      <fieldset disabled={this.state.loading && !this.props.error}>
-        <form 
-          className="signUpForm"
-          onSubmit={(e) => this.setUpStripeAndUser(e)}  
-        >
-          <FormTextInput
-            label="First Name"
-            type="text"
-            name="firstName"
-            className="form-group--half"
-            value={this.state.firstName}
-            onChange={this.handleChange}
-            error={this.state.firstNameError}
-            errorMsg="A first name is required."
-          />
-          <FormTextInput
-            label="Last Name"
-            type="text"
-            name="lastName"
-            className="form-group--half"
-            value={this.state.lastName}
-            onChange={this.handleChange}
-            error={this.state.lastNameError}
-            errorMsg="A last name is required."
-          />
-          <FormTextInput
-            label="Email"
-            type="email"
-            name="email"
-            className="form-group--half"
-            // className={error && 'field-error'}
-            value={this.state.email}
-            onChange={this.handleChange}
-            error={this.state.emailError}
-            errorMsg="Please enter a valid email address"
-          />
-          <FormTextInput
-            label="Mobile Number"
-            type="tel"
-            name="mobileNumber"
-            className="form-group--half"
-            value={this.state.mobileNumber}
-            onChange={this.handleChange}
-            error={this.state.mobileNumberError}
-            errorMsg="Please enter a valid mobile number"
-          />
-          <FormTextInput
-            label="Password"
-            name="passwordOne"
-            className="form-group--half"
-            onChange={this.handleChange}
-            value={this.state.passwordOne}
-            type="password"
-            error={this.state.passwordOneError}
-            errorMsg="Your passwords must match and be at least 8 characters"
-          />
-          <FormTextInput
-            label="Confirm Password"
-            name="passwordTwo"
-            className="form-group--half"
-            onChange={this.handleChange}
-            value={this.state.passwordTwo}
-            type="password"
-            error={this.state.passwordTwoError}
-          />
-          <div className="form-group">
-            <label>Add Card Information</label>
-            <p className="form-input-text">You will not be charged for the first 14 days.</p>
-            <div className="checkout">
-              <CardElement />
+      <React.Fragment>
+        <LoadingModal
+          active={this.state.modalActive}
+          message="One moment. We are creating your account."
+        />
+        <fieldset disabled={this.state.loading && !this.props.error}>
+          <form 
+            className="signUpForm"
+            onSubmit={(e) => this.setUpStripeAndUser(e)}  
+          >
+            <FormTextInput
+              label="First Name"
+              type="text"
+              name="firstName"
+              className="form-group--half"
+              value={this.state.firstName}
+              onChange={this.handleChange}
+              error={this.state.firstNameError}
+              errorMsg="A first name is required."
+            />
+            <FormTextInput
+              label="Last Name"
+              type="text"
+              name="lastName"
+              className="form-group--half"
+              value={this.state.lastName}
+              onChange={this.handleChange}
+              error={this.state.lastNameError}
+              errorMsg="A last name is required."
+            />
+            <FormTextInput
+              label="Email"
+              type="email"
+              name="email"
+              className="form-group--half"
+              // className={error && 'field-error'}
+              value={this.state.email}
+              onChange={this.handleChange}
+              error={this.state.emailError}
+              errorMsg="Please enter a valid email address"
+            />
+            <FormTextInput
+              label="Mobile Number"
+              type="tel"
+              name="mobileNumber"
+              className="form-group--half"
+              value={this.state.mobileNumber}
+              onChange={this.handleChange}
+              error={this.state.mobileNumberError}
+              errorMsg="Please enter a valid mobile number"
+            />
+            <FormTextInput
+              label="Password"
+              name="passwordOne"
+              className="form-group--half"
+              onChange={this.handleChange}
+              value={this.state.passwordOne}
+              type="password"
+              error={this.state.passwordOneError}
+              errorMsg="Your passwords must match and be at least 8 characters"
+            />
+            <FormTextInput
+              label="Confirm Password"
+              name="passwordTwo"
+              className="form-group--half"
+              onChange={this.handleChange}
+              value={this.state.passwordTwo}
+              type="password"
+              error={this.state.passwordTwoError}
+            />
+            <div className="form-group">
+              <label>Add Card Information</label>
+              <p className="form-input-text">You will not be charged for the first 14 days.</p>
+              <div className="checkout">
+                <CardElement />
+              </div>
             </div>
-          </div>
-          <FormButton
-            className="button-primary auth"
-            buttonText={this.state.buttonText}
-          />    
-        </form>
-      </fieldset>
+            <FormButton
+              className="button-primary auth"
+              buttonText={this.state.buttonText}
+            />    
+          </form>
+        </fieldset>
+      </React.Fragment>
     )
   }
 }

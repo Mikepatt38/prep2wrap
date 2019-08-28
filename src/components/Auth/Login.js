@@ -3,11 +3,19 @@ import { Link } from 'react-router-dom'
 import { FormTextInput } from '../Forms/FormTextInput'
 import { FormButton } from '../Forms/FormButton'
 import logo from '../../img/prep2wrap-purple-logo.png'
+import LoadingModal from '../General/LoadingModal'
 
 export class Login extends Component {
   state = {
     email: '',
     password: '',
+    modalActive: false
+  }
+
+  componentWillUnmount = () => {
+    this.setState({
+      modalActive: false
+    })
   }
 
   handleChange = e => {
@@ -18,6 +26,9 @@ export class Login extends Component {
   }
 
   handleSignUserIn = (e) =>{
+    this.setState({
+      modalActive: true
+    })
     e.preventDefault()
     this.props.resetErrors(false, '', '')
     this.props.signUserIn(this.state.email, this.state.password, this.props.history)
@@ -27,6 +38,10 @@ export class Login extends Component {
     const { error, errorText, errorType } = this.props
     return (
       <div className="authPage">
+        <LoadingModal
+          active={this.state.modalActive}
+          message="One moment. We are logging you into your account."
+        />
         <div className="auth-logo">
           <img src={logo} alt="The official logo" />
         </div>

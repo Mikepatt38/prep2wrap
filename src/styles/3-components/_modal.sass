@@ -52,6 +52,17 @@
     z-index: 99999999
     background-clip: padding-box
 
+    &.modal-loading
+      max-width: 420px
+      padding: 50px
+
+      .modal-body
+        text-align: center
+        font-size: 20px
+
+        .loading
+          margin: 10px auto 25px
+
     &.modal-controlled
       overflow: auto
       max-height: 90vh
@@ -85,8 +96,6 @@
       position: relative
       padding: 0
       z-index: 99999999
-
-
 
 // =========== Modal Form Styles =========== //
 

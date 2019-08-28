@@ -5,7 +5,6 @@ import SubscriptionForm from '../Billing/SubscriptionForm'
 import logo from '../../img/prep2wrap-purple-logo.png'
 
 class SignUp extends Component {
-
   componentDidMount(){
     this.props.resetErrors(false, '', '')
   }
