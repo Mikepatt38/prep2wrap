@@ -199,42 +199,19 @@ export const clearFirestoreData = (uid:any) => {
   return Promise.all(promises).then(() => uid);
 };
 
-// // ========== Twilio Function ========== //
-// exports.sendSMS = functions.https.onRequest((req, res) => {
-//   cors( req, res, () => {
-//     res.set('Access-Control-Allow-Origin', "*")
-//     res.set('Access-Control-Allow-Methods', 'GET, POST')
-  
-//     let SID = process.env.TWILIO_SID
-//     let TOKEN = process.env.TWILIO_TOKEN
-//     // let SENDER = process.env.TWILIO_SENDER
-   
-//     var client = require('twilio')(SID, TOKEN)
-//     client.messages
-//     .create({
-//       to:   '+1'+req.body.number,
-//       from: '+16822049551',
-//       body: req.body.message
-//       })
-//     .then(() => res.send())
-//     .catch((error:any) => console.error(error.toString()))
-//   })
-// })
-
 // ========== Firebase Web-hook Endpoints ========== //
 
 // ===========
 //  We need to create a different case for each stripe event that will be called by this endpoint  
 // =========== 
 
-exports.stripeEvents = functions.https.onRequest((request, response) => {
+exports.stripeEvents = functions.https.onRequest( async (request, response) => {
   let sig = request.headers["stripe-signature"];
 
   try {
     let event = stripe.webhooks.constructEvent(request.rawBody, sig, endpointSecret);
     switch (event!.type) {
       case 'customer.created':
-        console.log('The user was created: Lets update people')
         const msg = {
           to: event.data.object.email,
           from: 'Prep2Wrap <info@prep2wrapjobs.com>',
@@ -244,19 +221,65 @@ exports.stripeEvents = functions.https.onRequest((request, response) => {
         sgMail
           .send(msg)
           .then(() => response.sendStatus(200))
-          .then(() => console.log('Mail sent successfully'))
           .catch((error:any) => console.error(error.toString()))
         break;
+
       case 'invoice.payment_succeeded':
-        response.sendStatus(200);
-      // ... handle other event types
+        // What to do when the user pays another invoice -- we want to update the users next pay by date in the database
+        const date = new Date()        
+        admin.firestore().collection('users').where('stripe_id', '==', 'cus_Fc5UTkuX5H5Zk5').get().then ( (snapshot:any) => {
+          snapshot.forEach( (doc:any) => {
+            // update the users period end date to a month from now
+            admin.firestore().collection('users').doc(`${doc.data().id}`).update({ 
+              current_period_end: new Date(date.getFullYear(), date.getMonth() + 1, date.getDay() + 3)
+            })
+          })
+        })
+        // Then we want to send them an email saying they just paid their invoice for the month
+        const invoiceMsg = {
+          // to: event.data.object.customer_email,
+          to: `michael@outlyrs.com`,
+          from: 'Prep2Wrap <info@prep2wrapjobs.com>',
+          subject: 'Prep2Wrap Invoice Paid',
+          html: `<p>Hey ${event.data.object.name},</p> <p>This is a notification to let you know you have paid your monthly invoice for Prep2Wrap.</p>
+          <p>You can view the invoice here: <a href="${event.data.object.hosted_invoice_url}">Prep2Wrap Invoice</a>.</p>`,
+        }
+        sgMail
+          .send(invoiceMsg)
+          .then(() => response.sendStatus(200))
+          .catch((error:any) => console.error(error.toString()))
+        break;
+
+      case 'customer.subscription.trial_will_end':
+        // Let the user know their trial will end soon and they will be charged
+        // we first need to get the user's email that subscription is ending soon
+        // let userEmail = ''
+        let userName = ''
+        const trialEndDate = new Date(event.data.object.trial_end)
+        const dateFromTimestamp = trialEndDate.toDateString()
+        admin.firestore().collection('users').where('stripe_id', '==', 'cus_Fc5UTkuX5H5Zk5').get().then ( (snapshot:any) => {
+          // const userEmail = snapshot[0].data().email
+          userName = snapshot[0].data().firstName
+        })
+        const subscriptionEndMsg = {
+          // to: userEmail,
+          to: `michael@outlyrs.com`,
+          from: 'Prep2Wrap <info@prep2wrapjobs.com>',
+          subject: 'Prep2Wrap Free Trial Ending Soon',
+          html: `<p>Hey ${userName},</p> <p>Your Prep2Wrap free trial will be ending on ${dateFromTimestamp} and you will be automatically moved to a monthly subscription at $10/month.</p> <p>If you do not wish to keep your account after your trial, log in to your account and delete your subscription.</p>`,
+        }
+        sgMail
+          .send(subscriptionEndMsg)
+          .then(() => response.sendStatus(200))
+          .catch((error:any) => console.error(error.toString()))
+        break;
+
       default:
         // Unexpected event type
         return response.status(400).end();
     }
   } catch (err) {
-    return response.status(400).send(err).end();
+    return response.status(400).send('error ' + err.message).end();
   }
   response.sendStatus(200);
-  response.send('Success');
 });
