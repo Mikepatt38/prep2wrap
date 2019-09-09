@@ -227,52 +227,106 @@ exports.stripeEvents = functions.https.onRequest( async (request, response) => {
       case 'invoice.payment_succeeded':
         // What to do when the user pays another invoice -- we want to update the users next pay by date in the database
         const date = new Date()        
-        admin.firestore().collection('users').where('stripe_id', '==', 'cus_Fc5UTkuX5H5Zk5').get().then ( (snapshot:any) => {
+        // get the customer's id
+        const customerInvoiceSuccessID = event.data.object.customer
+        admin.firestore().collection('users').where('stripe_id', '==', customerInvoiceSuccessID).get().then ( (snapshot:any) => {
           snapshot.forEach( (doc:any) => {
             // update the users period end date to a month from now
+            // also clear any failed payments they may have had
             admin.firestore().collection('users').doc(`${doc.data().id}`).update({ 
-              current_period_end: new Date(date.getFullYear(), date.getMonth() + 1, date.getDay() + 3)
+              current_period_end: new Date(date.getFullYear(), date.getMonth() + 1, date.getDay() + 3),
+              failed_payment: false
             })
           })
         })
-        // Then we want to send them an email saying they just paid their invoice for the month
-        const invoiceMsg = {
-          // to: event.data.object.customer_email,
-          to: `michael@outlyrs.com`,
-          from: 'Prep2Wrap <info@prep2wrapjobs.com>',
-          subject: 'Prep2Wrap Invoice Paid',
-          html: `<p>Hey ${event.data.object.name},</p> <p>This is a notification to let you know you have paid your monthly invoice for Prep2Wrap.</p>
-          <p>You can view the invoice here: <a href="${event.data.object.hosted_invoice_url}">Prep2Wrap Invoice</a>.</p>`,
-        }
-        sgMail
-          .send(invoiceMsg)
-          .then(() => response.sendStatus(200))
-          .catch((error:any) => console.error(error.toString()))
+        .then( () => {
+          // Then we want to send them an email saying they just paid their invoice for the month
+          const invoiceMsg = {
+            to: event.data.object.customer_email,
+            from: 'Prep2Wrap <info@prep2wrapjobs.com>',
+            subject: 'Prep2Wrap Invoice Paid',
+            html: `<p>Hey ${event.data.object.customer_name},</p> <p>This is a notification to let you know you have paid your monthly invoice for Prep2Wrap.</p>
+            <p>You can view the invoice here: <a href="${event.data.object.hosted_invoice_url}">Prep2Wrap Invoice</a>.</p>`,
+          }
+          sgMail
+            .send(invoiceMsg)
+            .then(() => response.sendStatus(200))
+            .catch((error:any) => console.error(error.toString()))
+        })
         break;
 
       case 'customer.subscription.trial_will_end':
         // Let the user know their trial will end soon and they will be charged
         // we first need to get the user's email that subscription is ending soon
-        // let userEmail = ''
         let userName = ''
+        let userEmail = ''
         const trialEndDate = new Date(event.data.object.trial_end)
         const dateFromTimestamp = trialEndDate.toDateString()
-        admin.firestore().collection('users').where('stripe_id', '==', 'cus_Fc5UTkuX5H5Zk5').get().then ( (snapshot:any) => {
-          // const userEmail = snapshot[0].data().email
-          userName = snapshot[0].data().firstName
+        const customerSubscriptionTrialID = event.data.object.customer
+        admin.firestore().collection('users').where('stripe_id', '==', customerSubscriptionTrialID).get().then ( (snapshot:any) => {
+          // This is a loop but prevents error and only will ever be one user returned since searching on unique field
+          snapshot.forEach( (doc:any) => {
+            userEmail = doc.data().email
+            userName = doc.data().firstName
+          })
         })
-        const subscriptionEndMsg = {
-          // to: userEmail,
-          to: `michael@outlyrs.com`,
-          from: 'Prep2Wrap <info@prep2wrapjobs.com>',
-          subject: 'Prep2Wrap Free Trial Ending Soon',
-          html: `<p>Hey ${userName},</p> <p>Your Prep2Wrap free trial will be ending on ${dateFromTimestamp} and you will be automatically moved to a monthly subscription at $10/month.</p> <p>If you do not wish to keep your account after your trial, log in to your account and delete your subscription.</p>`,
-        }
-        sgMail
-          .send(subscriptionEndMsg)
-          .then(() => response.sendStatus(200))
-          .catch((error:any) => console.error(error.toString()))
+        .then( () => {
+          const subscriptionEndMsg = {
+            to: userEmail,
+            from: 'Prep2Wrap <info@prep2wrapjobs.com>',
+            subject: 'Prep2Wrap Free Trial Ending Soon',
+            html: `<p>Hey ${userName}, at ${userEmail}</p> <p>Your Prep2Wrap free trial will be ending on ${dateFromTimestamp} and you will be automatically moved to a monthly subscription at $15/month.</p> <p>If you do not wish to keep your account after your trial, log in to your account and delete your subscription.</p>`,
+          }
+          sgMail
+            .send(subscriptionEndMsg)
+            .then(() => response.sendStatus(200))
+            .catch((error:any) => console.error(error.toString()))
+        })
         break;
+
+        case 'invoice.payment_failed':
+          // What to do when the user pays another invoice -- we want to update the users next pay by date in the database
+          const currentDate = new Date()   
+          let failed_payments = false     
+          const customerInvoiceFailedID = event.data.object.customer
+          admin.firestore().collection('users').where('stripe_id', '==', customerInvoiceFailedID).get().then ( (snapshot:any) => {
+            snapshot.forEach( (doc:any) => {
+              // update the users period to 24 hours from now to give them a chance to update their card on file
+              // add a failed payment to the user
+              // if the user has a failed payment end their access to log in, if not, then grant them a grace period to update card on file
+              failed_payments = doc.data().failed_payment
+              admin.firestore().collection('users').doc(`${doc.data().id}`).update({ 
+                current_period_end: failed_payments ? new Date() : new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDay() + 3),
+                failed_payment: true
+              })
+            })
+          })
+          .then( () => {
+            // Then we want to send them an email saying their payment failed
+            let invoiceFailedMsg = {}
+            // if the user has a failed payment then send one message, if they do not have a failed payment then send another message
+            if(failed_payments){
+              invoiceFailedMsg = {
+                to: event.data.object.customer_email,
+                from: 'Prep2Wrap <info@prep2wrapjobs.com>',
+                subject: 'Prep2Wrap Invoice Payment Failed',
+                html: `<p>Hey ${event.data.object.customer_name},</p> <p>You did not update your card on file for your monthly subscription payment to Prep2Wrap and your account access has been blocked. Please email info@prep2wrapjobs.com for further instructions on how to get your account back online.</p>`,
+              }
+            }
+            else {
+              invoiceFailedMsg = {
+                to: event.data.object.customer_email,
+                from: 'Prep2Wrap <info@prep2wrapjobs.com>',
+                subject: 'Prep2Wrap Invoice Payment Failed',
+                html: `<p>Hey ${event.data.object.customer_name},</p> <p>We tried unsuccessfully several times to charge the card on your account for your monthly subscription to Prep2Wrap. We have given you a limited 24 hour access to your account to update your card on file. If the payment fails again after this time, we will block access to your account until the card is updated.</p>`,
+              }
+            }
+            sgMail
+              .send(invoiceFailedMsg)
+              .then(() => response.sendStatus(200))
+              .catch((error:any) => console.error(error.toString()))
+          })
+          break;
 
       default:
         // Unexpected event type
@@ -281,5 +335,4 @@ exports.stripeEvents = functions.https.onRequest( async (request, response) => {
   } catch (err) {
     return response.status(400).send('error ' + err.message).end();
   }
-  response.sendStatus(200);
 });
