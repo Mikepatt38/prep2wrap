@@ -18,6 +18,9 @@ const stripe = require('stripe')(functions.config().stripe.testkey)
 const endpointSecret = functions.config().keys.testsigning;
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(functions.config().keys.sendgrid);
+const uuidv4 = require('uuid/v4');
+const uuid = uuidv4();
+
 
 // ============ Resize a user's image when they upload an avatar to only save smaller images =========== //
 
@@ -40,7 +43,7 @@ const THUMB_PREFIX = 'thumb_';
  */
 exports.generateThumbs = functions.storage.object().onFinalize(async (object) => {
   // File and directory paths.
-  const filePath = object.name;
+  const filePath: string = object.name!;
   const contentType = object.contentType; // This is the image MIME type
   const fileDir = path.dirname(filePath);
   const fileName = path.basename(filePath);
@@ -65,9 +68,10 @@ exports.generateThumbs = functions.storage.object().onFinalize(async (object) =>
   // Cloud Storage files.
   const bucket = admin.storage().bucket(object.bucket);
   const file = bucket.file(filePath);
-  const thumbFile = bucket.file(thumbFilePath);
+  // const thumbFile = bucket.file(thumbFilePath);
   const metadata = {
     contentType: contentType,
+    firebaseStorageDownloadTokens: uuid
     // To enable Client-side caching you can set the Cache-Control headers here. Uncomment below.
     // 'Cache-Control': 'public,max-age=3600',
   };
@@ -76,31 +80,36 @@ exports.generateThumbs = functions.storage.object().onFinalize(async (object) =>
   await mkdirp(tempLocalDir)
   // Download file from bucket.
   await file.download({destination: tempLocalFile});
-  console.log('The file has been downloaded to', tempLocalFile);
   // Generate a thumbnail using ImageMagick.
   await spawn('convert', [tempLocalFile, '-thumbnail', `${THUMB_MAX_WIDTH}x${THUMB_MAX_HEIGHT}>`, tempLocalThumbFile], {capture: ['stdout', 'stderr']});
-  console.log('Thumbnail created at', tempLocalThumbFile);
   // Uploading the Thumbnail.
-  await bucket.upload(tempLocalThumbFile, {destination: thumbFilePath, metadata: metadata});
-  console.log('Thumbnail uploaded to Storage at', thumbFilePath);
+  await bucket.upload(tempLocalThumbFile, {destination: thumbFilePath, metadata: metadata, public: true});
   // Once the image has been uploaded delete the local files to free up disk space.
   fs.unlinkSync(tempLocalFile);
   fs.unlinkSync(tempLocalThumbFile);
   // Delete the original image from the storage
   await bucket.file(filePath).delete()
   // Get the Signed URLs for the thumbnail and original image.
-  const config = {
-    action: 'read',
-    expires: '03-01-2500',
-  };
-  const results = await Promise.all([
-    thumbFile.getSignedUrl(config),
-  ]);
-  const thumbResult = results[0];
-  const thumbFileUrl = thumbResult[0];
+  // const config = {
+  //   action: 'read',
+  //   expires: '03-01-2500',
+  // };
+  // const results = await Promise.all([
+  //   thumbFile.getSignedUrl(config),
+  // ]);
+  // const thumbResult = results[0];
+  // const thumbFileUrl = thumbResult[0];
+  // we want a downloadable url for the new thumbnail to save
+
+  // Create the thumbnail download URL
+  // const downloadUrl = `https://firebasestorage.googleapis.com/v0/b/the-calltime.appspot.com/o/${encodeURIComponent(filePath)}?alt=media&token=${object.metadata!.firebaseStorageDownloadTokens}`;
+  const thumb = await bucket.file(thumbFilePath)
+  const meta = await thumb.getMetadata()
+  const downloadUrl = meta[0].mediaLink
+  
   // Add the URLs to the Database
   await admin.firestore().collection('users').doc(userID).update({ 
-    avatarUrl: thumbFileUrl
+    avatarUrl: downloadUrl,
   })
   
   return console.log('Thumbnail URLs saved to database.');
