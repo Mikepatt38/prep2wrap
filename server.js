@@ -57,6 +57,8 @@ app.post("/create-user-subscription", bodyParser.json({type: "application/json" 
     const subscription = await stripe.subscriptions.create({
       customer: customer.id,
       items: [{ plan: 'plan_F4KYpb4Vh36vyA' }],
+      // This allows the trial in the plan to take affect
+      // trial_from_plan: true
     })
     res.json({
       status: subscription.status,
@@ -72,7 +74,6 @@ app.post("/create-user-subscription", bodyParser.json({type: "application/json" 
 app.post('/sendsms', bodyParser.json(), (req, res) => {
   let SID = process.env.TWILIO_SID
   let TOKEN = process.env.TWILIO_TOKEN
-  let SENDER = process.env.TWILIO_SENDER
 
   var client = require('twilio')(SID, TOKEN)
   client.messages

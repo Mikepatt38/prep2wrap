@@ -1,12 +1,32 @@
 import { db, storage, auth as firebaseAuth } from '../db/firebase'
 import { auth } from '../db'
 import { firebase } from '../db/firebase'
+import moment from 'moment'
 
 export const clearSearchUserByNameResults = () => ({type: 'CLEAR_SEARCH_USER_BY_NAME_RESULTS', payload: [] })
 
-export const signUserIn = (email, password, history) => dispatch => {
+const toTimestamp = strDate => Date.parse(strDate);
+
+export const signUserIn = (email, password, history) => async dispatch => {
+  const database = await db
+  const date = new Date()
+  // converting the current date to a timestamp in seconds to compare to make sure the user
+  // has not missed a payment before allowing them to login  
+  const dateTimestamp = toTimestamp(date) / 1000
   auth.doSignInWithEmailAndPassword(email, password)
-  .then( () => { history.push("/") })
+  .then( async (user) => { 
+    const userRef = await database.collection("users").doc(user.user.uid.toString()).get()
+    const userData = await userRef.data()
+    const userPaymentActive = userData.current_period_end.seconds > dateTimestamp
+    // We are checking that the user's payment end is still in the future, thus they are able to still log
+    // in since they paid for the current billing period
+    if(userPaymentActive){
+      history.push("/") 
+    }
+    else {
+      dispatch({ type: 'SET_ALERT', payload: [true, 'Error', 'It seems you have an unpaid invoice'] })
+    }
+  })
   .catch(error => {
     const errorMsg = error.code === 'auth/user-not-found' ? 'No user was found with that email address.' : 'The provided password is not valid for that email account.'
     dispatch({ type: 'SET_ALERT', payload: [true, 'Error', errorMsg] })
@@ -202,18 +222,30 @@ export async function getAvatarURL(imageName){
 }
 
 // Async actions and functions that call them to interact with Firebase Firestore and then user facing client
-export const signUpUser = (email, password, firstName, lastName, mobileNumber, stripe_id, history) => async dispatch => {
+export const signUpUser = (email, password, firstName, lastName, mobileNumber, stripe_id, cardInfo, history) => async dispatch => {
+  // We want to create a date that the user will need to pay their new invoice by
+  const date = new Date();
+  // We will give the user two days past their billing date to pay their invoice
+  const current_period_end = new Date(
+    date.getFullYear(),
+    date.getMonth() + 1,
+    date.getDay() + 3
+  );
+
   const database = await db
 
   try {
     let authUser = await auth.doCreateUserWithEmailAndPassword(email, password) 
-    let createUser = await database.collection("users").doc(authUser.user.uid.toString()).set({
+    await database.collection("users").doc(authUser.user.uid.toString()).set({
       id: authUser.user.uid.toString(),
       firstName: firstName,
       lastName: lastName,
       email: email,
       mobileNumber: mobileNumber,
       stripe_id: stripe_id,
+      stripe_card_brand: cardInfo.brand,
+      stripe_card_last4: cardInfo.last4,
+      current_period_end: current_period_end,
       completedJobs: 0,
       createdJobs: 0,
       acceptedJobs: 0

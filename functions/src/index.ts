@@ -89,20 +89,8 @@ exports.generateThumbs = functions.storage.object().onFinalize(async (object) =>
   fs.unlinkSync(tempLocalThumbFile);
   // Delete the original image from the storage
   await bucket.file(filePath).delete()
-  // Get the Signed URLs for the thumbnail and original image.
-  // const config = {
-  //   action: 'read',
-  //   expires: '03-01-2500',
-  // };
-  // const results = await Promise.all([
-  //   thumbFile.getSignedUrl(config),
-  // ]);
-  // const thumbResult = results[0];
-  // const thumbFileUrl = thumbResult[0];
-  // we want a downloadable url for the new thumbnail to save
 
-  // Create the thumbnail download URL
-  // const downloadUrl = `https://firebasestorage.googleapis.com/v0/b/the-calltime.appspot.com/o/${encodeURIComponent(filePath)}?alt=media&token=${object.metadata!.firebaseStorageDownloadTokens}`;
+  // We get the thumb file that we uploaded and get the media link from the public download image
   const thumb = await bucket.file(thumbFilePath)
   const meta = await thumb.getMetadata()
   const downloadUrl = meta[0].mediaLink

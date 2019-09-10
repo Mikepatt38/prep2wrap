@@ -26,6 +26,7 @@ export class Login extends Component {
   }
 
   handleSignUserIn = (e) =>{
+    const date = new Date()
     this.setState({
       modalActive: true
     })

@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import { Elements, StripeProvider } from 'react-stripe-elements'
 import UserProfileModal from '../components/Users/UserProfileModal'
 import UserProfileForm from '../components/Settings/UserProfileForm'
 import UserInfoForm from '../components/Settings/UserInfoForm'
+import UserCurrentCard from '../components/Settings/UserCurrentCard'
 import DeleteUserAccountForm from '../components/Settings/UserDeleteAccountForm'
 
 class AccountSettings extends Component {
@@ -63,7 +65,7 @@ class AccountSettings extends Component {
           <div className="app-page-section section-grid">
             <div className="card card-grid">
               <div className="card-body">
-                <h4>Basic account settings</h4>
+                <h4>Basic Account Settings</h4>
                 <UserInfoForm
                   currentUser={this.props.currentUser}
                   setName={this.props.setName}
@@ -75,9 +77,14 @@ class AccountSettings extends Component {
             </div>
             <div className="card card-grid">
               <div className="card-body">
-                <h4>Text Message Notifications</h4>
-                <p>These values will help other crew members understand what jobs you are the best fit for.</p>
-                <p>Your number will not be used for spam or any other form of abuse. Only to altert you of your job listings on the application.</p>
+                <h4>Your Default Payment Option</h4>
+                <StripeProvider apiKey="pk_test_QFA7A5tAJkV0kWHQHLJBBdHT00nh4HmiKv">
+                  <Elements>
+                    <UserCurrentCard 
+                      currentUser={this.props.currentUser}
+                    />
+                  </Elements>
+                </StripeProvider>
               </div>
             </div>
             <div className="card card-grid card-grid--full-width">

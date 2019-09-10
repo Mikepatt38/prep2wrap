@@ -85,6 +85,10 @@ class SubscriptionForm extends Component {
       // If we get the source then we send that and the email to the server to create
       // the user and subscribe them to the subscription
       if(source){
+        const cardInfo = {
+          brand: source.source.card.brand,
+          last4: source.source.card.last4
+        }
         const postBody = {
           userName: `${this.state.firstName} ${this.state.lastName}`,
           userEmail: this.state.email,
@@ -106,7 +110,7 @@ class SubscriptionForm extends Component {
         let jsonObj = await JSON.parse(responseObj)
         let stripe_id = await jsonObj.stripe_id
         // Actually sign the user up
-        this.props.signUpUser(this.state.email, this.state.passwordOne, this.state.firstName.charAt(0).toUpperCase() + this.state.firstName.slice(1).toLowerCase(), this.state.lastName.charAt(0).toUpperCase() + this.state.lastName.slice(1).toLowerCase(), this.state.mobileNumber, stripe_id, this.props.history)
+        this.props.signUpUser(this.state.email, this.state.passwordOne, this.state.firstName.charAt(0).toUpperCase() + this.state.firstName.slice(1).toLowerCase(), this.state.lastName.charAt(0).toUpperCase() + this.state.lastName.slice(1).toLowerCase(), this.state.mobileNumber, stripe_id, cardInfo, this.props.history)
       }
       else{
         console.log('No source was created')
