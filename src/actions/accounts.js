@@ -402,3 +402,28 @@ export const updateUserCardInfo = (userID, cardInfo) => async dispatch => {
     dispatch({ type: 'SET_ALERT', payload: [true, 'Error', error.message] })
   })
 }
+
+// Update the users password -- must relogin the user to reauthenticate them and then can update the user password
+export const updateUserPassword = (userCurrentPassword, userNewPassword) => async dispatch => {
+  const user = firebaseAuth.currentUser
+  const credential = firebase.auth.EmailAuthProvider.credential(
+    user.email, 
+    userCurrentPassword
+  )
+
+  // Re authenticate the user with the password they provided
+  user.reauthenticateAndRetrieveDataWithCredential(credential)
+  .then(function() {
+    // we want to run the firebase function to update the user's password
+    auth.doPasswordUpdate(userNewPassword)
+    .then( () => {
+      dispatch({ type: 'SET_ALERT', payload: [true, 'Success', 'Successfully updated your account password'] })
+    })
+    .catch(function(error) {
+      dispatch({ type: 'SET_ALERT', payload: [true, 'Error', error.message] })
+    })
+  })
+  .catch( (error) => {
+    dispatch({ type: 'SET_ALERT', payload: [true, 'Error', error.message] })
+  });
+}

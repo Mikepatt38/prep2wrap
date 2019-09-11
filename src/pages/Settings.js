@@ -7,6 +7,7 @@ import UserInfoForm from '../components/Settings/UserInfoForm'
 import UserCurrentCard from '../components/Settings/UserCurrentCard'
 import DeleteUserAccountForm from '../components/Settings/UserDeleteAccountForm'
 import { isThisQuarter } from 'date-fns'
+import PasswordChangeForm from '../components/Auth/PasswordChangeForm'
 
 class AccountSettings extends Component {
   state = {
@@ -75,12 +76,18 @@ class AccountSettings extends Component {
                 />
               </div>
             </div>
-            <div className="card card-grid">
+            <div className="card card-grid card-stacked">
               <div className="card-body">
                 <h4>Your Default Payment Option</h4>
                 <UserCurrentCard 
                   currentUser={this.props.currentUser}
                   updateUserCardInfo={this.props.updateUserCardInfo}
+                />
+              </div>
+              <div className="card-body">
+                <h4>Reset Your Current Password</h4>
+                <PasswordChangeForm
+                  updateUserPassword={this.props.updateUserPassword}
                 />
               </div>
             </div>
