@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { Elements, StripeProvider } from 'react-stripe-elements'
 import UserProfileModal from '../components/Users/UserProfileModal'
 import UserProfileForm from '../components/Settings/UserProfileForm'
 import UserInfoForm from '../components/Settings/UserInfoForm'
 import UserCurrentCard from '../components/Settings/UserCurrentCard'
 import DeleteUserAccountForm from '../components/Settings/UserDeleteAccountForm'
+import { isThisQuarter } from 'date-fns'
 
 class AccountSettings extends Component {
   state = {
@@ -78,13 +78,10 @@ class AccountSettings extends Component {
             <div className="card card-grid">
               <div className="card-body">
                 <h4>Your Default Payment Option</h4>
-                <StripeProvider apiKey="pk_test_QFA7A5tAJkV0kWHQHLJBBdHT00nh4HmiKv">
-                  <Elements>
-                    <UserCurrentCard 
-                      currentUser={this.props.currentUser}
-                    />
-                  </Elements>
-                </StripeProvider>
+                <UserCurrentCard 
+                  currentUser={this.props.currentUser}
+                  updateUserCardInfo={this.props.updateUserCardInfo}
+                />
               </div>
             </div>
             <div className="card card-grid card-grid--full-width">

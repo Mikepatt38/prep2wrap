@@ -2,7 +2,7 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { bindActionCreators } from 'redux'
-import { setName, setEmail, setMobileNumber, setUserProfile, setAccountView, uploadProfileImage, deleteUserAccount} from '../actions/accounts'
+import { setName, setEmail, setMobileNumber, setUserProfile, setAccountView, uploadProfileImage, deleteUserAccount, updateUserCardInfo} from '../actions/accounts'
 import AccountSettings from '../pages/Settings'
 import withAuthorization from './withAuthorization'
 
@@ -21,6 +21,7 @@ const actions = {
   setAccountView,
   uploadProfileImage,
   deleteUserAccount,
+  updateUserCardInfo
 }
 
 const mapDispatchToProps = (dispatch) => {

@@ -387,3 +387,18 @@ export const deleteUserAccount = (userGivenPassword, history, closeModal) => asy
     dispatch({ type: 'SET_ALERT', payload: [true, 'Error', error.message] })
   });
 } 
+
+// Update the users card information on their account after they update it with Stripe
+export const updateUserCardInfo = (userID, cardInfo) => async dispatch => {
+  const database = await db
+  database.collection("users").doc(userID).update({
+    stripe_card_brand: cardInfo.brand,
+    stripe_card_last4: cardInfo.last4
+  })
+  .then( () => {
+    dispatch({ type: 'SET_ALERT', payload: [true, 'Success', 'Successfully updated your default payment'] })
+  })
+  .catch( (error) => {
+    dispatch({ type: 'SET_ALERT', payload: [true, 'Error', error.message] })
+  })
+}

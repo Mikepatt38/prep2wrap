@@ -71,6 +71,36 @@ app.post("/create-user-subscription", bodyParser.json({type: "application/json" 
   }
 });
 
+app.post("/update-user-source", bodyParser.json({type: "application/json" }), async (req, res) => {
+  try{
+    // We need to get the users current default source id
+    const currentSourceID = await stripe.customers.retrieve(req.body.customer_id)
+    // Updating the customers default source to the one provided
+    stripe.customers.createSource(req.body.customer_id, {
+      source: req.body.stripeSourceId
+    })
+    .then( () => {
+      // Lets detach the old source from the customer -- this detaches their old default payment method
+      stripe.customers.deleteSource(
+        req.body.customer_id,
+        currentSourceID.sources.data[0].id,
+        function(err, confirmation) {
+          if(err) console.log(err)
+          if(confirmation) res.send(true)
+        }
+      );
+    })
+    .catch ( (error) => {
+      console.log('Error: ' + err.message)
+      res.status(500).end()   
+    })
+  }
+  catch(err){
+    console.log('Error: ' + err.message)
+    res.status(500).end()    
+  }
+});
+
 app.post('/sendsms', bodyParser.json(), (req, res) => {
   let SID = process.env.TWILIO_SID
   let TOKEN = process.env.TWILIO_TOKEN
