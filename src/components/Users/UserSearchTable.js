@@ -78,12 +78,11 @@ class UserSearchTable extends Component {
   }
 
   validateUserSearch(){
-    let validated = true
     const { searchName, locationsSelected } = this.state
-    if(!searchName.length && !locationsSelected) {
-      validated = false
+    if(!searchName.length && (locationsSelected.length === 0)) {
+      return false
     }
-    return validated
+    return true
   }
 
   handleUserSelected = (user) => {
@@ -109,6 +108,7 @@ class UserSearchTable extends Component {
 
   handleUpdateSearch = (e) => {
     e.preventDefault()
+    console.log('validated: ' +  this.validateUserSearch())
     if(this.validateUserSearch()){
       this.setState({
         loading: true,
