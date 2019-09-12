@@ -1,12 +1,19 @@
 import React, { Component } from 'react'
 import { FormButton } from '../Forms/FormButton'
 import { CardElement, injectStripe} from 'react-stripe-elements'
+import ButtonLoadingIcon from '../../img/icon-button-loading.svg'
 
 class UserUpdateCardForm extends Component {
 
+  state = {
+    buttonLoading: false
+  }
+
   handleUpdateUserCard = async (e) => {
     e.preventDefault()
-
+    this.setState({
+      buttonLoading: true
+    })
     // create a Stripe source for the new credit card
     let source 
     source = await this.props.stripe.createSource({ type: 'card',
@@ -44,10 +51,16 @@ class UserUpdateCardForm extends Component {
       // Getting the Customer ID back from the server
       let serverResponse = await response.status
       if(serverResponse === 200){
+        this.setState({
+          buttonLoading: false
+        })
         this.props.updateUserCardInfo(this.props.currentUser.id, cardInfo)
       }
       else {
         this.props.updateCardError()
+        this.setState({
+          buttonLoading: false
+        })
       }
     }
   }
@@ -62,8 +75,8 @@ class UserUpdateCardForm extends Component {
             <button type="button" onClick={() => this.props.toggleForm()} className="button-transparent">Cancel</button>
             <FormButton
               onClick={(e) => this.handleUpdateUserCard(e)}
-              className="button-primary"
-              buttonText="Update Card Information"
+              className= {this.state.buttonLoading ? 'button-primary button-updating' : 'button-primary'}
+              buttonText= {this.state.buttonLoading ? <React.Fragment><img src={ButtonLoadingIcon} alt="Search Button Loading Icon" /> Updating</React.Fragment> : 'Update Default Payment' }
             />
           </div>
         </form>

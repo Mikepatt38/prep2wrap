@@ -35,14 +35,6 @@ class UserCurrentCard extends Component {
   }
 
   render() {
-    if(this.state.loading){
-      return (
-        <LoadingModal
-          active={this.state.loading}
-          message="We are updating your card information"
-        />
-      )
-    }
     return (
       <StripeProvider apiKey="pk_test_QFA7A5tAJkV0kWHQHLJBBdHT00nh4HmiKv">
         <Elements>

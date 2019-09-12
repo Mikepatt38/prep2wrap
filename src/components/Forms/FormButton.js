@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 export const FormButton = ( { className, onClick, buttonText, disabled } ) => {
   return (
@@ -13,9 +12,3 @@ export const FormButton = ( { className, onClick, buttonText, disabled } ) => {
     </button>
   )
 } 
-
-FormButton.propTypes = {
-  className: PropTypes.string,
-  buttonText: PropTypes.string,
-  onClick: PropTypes.func
-}

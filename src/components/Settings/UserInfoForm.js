@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { FormTextInput } from '../Forms/FormTextInput'
 import { FormButton } from '../Forms/FormButton'
-import ProfileImageUpload from '../Settings/ProfileImageUpload';
+import ProfileImageUpload from '../Settings/ProfileImageUpload'
+import ButtonLoadingIcon from '../../img/icon-button-loading.svg'
 
 class UserInfoForm extends Component {
   state = {
@@ -10,6 +11,7 @@ class UserInfoForm extends Component {
     email: this.props.currentUser.email,  
     mobileNumber: this.props.currentUser.mobileNumber,
     fileName: '',
+    buttonLoading: false
   }
 
   componentDidUpdate(prevProps){
@@ -46,6 +48,9 @@ class UserInfoForm extends Component {
 
   updateBasicInformation = (e) => {
     e.preventDefault()
+    this.setState({
+      buttonLoading: true
+    })
     let promises = []
     const { currentUser } = this.props
     const { firstName, lastName, email, mobileNumber, fileName} = this.state
@@ -61,7 +66,13 @@ class UserInfoForm extends Component {
     if(fileName !== ''){
       promises.push(this.props.uploadProfileImage(currentUser.id, currentUser.avatar, fileName))
     }
-    Promise.all(promises).then( () => {})
+    Promise.all(promises).then( () => {
+      setTimeout( () => {
+        this.setState({
+          buttonLoading: false
+        })
+      }, 250)
+    })
   }
 
   render() {
@@ -109,9 +120,9 @@ class UserInfoForm extends Component {
           <div className="button-wrapper">
             <FormButton
               onClick={this.updateBasicInformation}
-              className="button-primary"
-              buttonText="Save Changes"
-              disabled={this.didUserUpdate()}
+              className={this.state.buttonLoading ? 'button-primary button-updating' : 'button-primary'}
+              buttonText={this.state.buttonLoading ? <React.Fragment><img src={ButtonLoadingIcon} alt="Search Button Loading Icon" /> Updating</React.Fragment> : 'Save Changes'}
+              disabled={this.state.buttonLoading ? false : this.didUserUpdate()}
             />
           </div>
         </div>

@@ -4,6 +4,7 @@ import { FormCheckboxInput } from '../Forms/FormCheckboxInput'
 import FormSelectInput from '../Forms/FormSelectInput'
 import { FormButton } from '../Forms/FormButton'
 import { locationObj, skillsObj, positionsObj, jobTypesObj } from '../../data/formOptions'
+import ButtonLoadingIcon from '../../img/icon-button-loading.svg'
 
 export class UserProfileForm extends Component {
   state = {
@@ -21,7 +22,18 @@ export class UserProfileForm extends Component {
     instagramLink: this.props.currentUser.profileInformation ? this.props.currentUser.profileInformation.instagramLink : '',
     disabled: true,
     languagesError: false,
-    unionsError: false
+    unionsError: false,
+    buttonLoading: false
+  }
+
+  componentDidUpdate = (prevProps) => {
+    if(prevProps.currentUser.profileInformation !== this.props.currentUser.profileInformation){
+      setTimeout( () => {
+        this.setState({
+          buttonLoading: false
+        })
+      }, 250)
+    }
   }
 
   handleChange = e => {
@@ -51,10 +63,15 @@ export class UserProfileForm extends Component {
 
   handleClick = async (e) => {
     e.preventDefault()
+    this.setState({
+      buttonLoading: true
+    })
     if(this.validateCheckboxInputs()){
       this.props.setUserProfile(this.props.currentUser.id, this.state.jobTypes, this.state.location, this.state.skills, this.state.positions, this.state.fbLink, this.state.imdbLink, this.state.instagramLink, this.state.travel, this.state.union, this.state.bilingual, this.state.unions, this.state.languages, e)
     } else {
-      console.log('error')
+      this.setState({
+        buttonLoading: false
+      })
     }
   }
 
@@ -186,9 +203,9 @@ export class UserProfileForm extends Component {
         <div className="button-wrapper">
           <FormButton
             onClick={(e) => this.handleClick(e)}
-            className="button-primary"
-            buttonText="Update Profile"
-            disabled={this.state.disabled}
+            className={this.state.buttonLoading ? 'button-primary button-updating' : 'button-primary'}
+            buttonText={this.state.buttonLoading ? <React.Fragment><img src={ButtonLoadingIcon} alt="Search Button Loading Icon" /> Updating</React.Fragment> : 'Update Profile'}
+            disabled={this.state.buttonLoading ? false : this.state.disabled}
           />
         </div>
       </div>  

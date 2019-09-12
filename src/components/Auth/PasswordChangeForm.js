@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { FormTextInput } from '../Forms/FormTextInput'
-import { FormButton } from '../Forms/FormButton'
-import { auth } from '../../db'
+import ButtonLoadingIcon from '../../img/icon-button-loading.svg'
 
 class PasswordChangeForm extends Component {
   state = {
@@ -9,7 +8,8 @@ class PasswordChangeForm extends Component {
     passwordOne: '',
     passwordTwo: '',
     error: null,
-    formActive: false
+    formActive: false,
+    buttonLoading: false
   }
 
   handleChange = e => {
@@ -18,8 +18,11 @@ class PasswordChangeForm extends Component {
     })
   }
   
-  onSubmit = (e) => {
+  onSubmit = async (e) => {
     e.preventDefault()
+    this.setState({
+      buttonLoading: true
+    })
     const { passwordOne, passwordCurrent } = this.state
     this.props.updateUserPassword(passwordCurrent, passwordOne)
     .then( () => {
@@ -27,8 +30,13 @@ class PasswordChangeForm extends Component {
         passwordCurrent: '',
         passwordOne: '',
         passwordTwo: '',
-        formActive: false
       })
+      setTimeout( () =>{
+        this.setState({
+          formActive: false,
+          buttonLoading: false
+        })
+      }, 1000)
     })
   }
 
@@ -40,7 +48,7 @@ class PasswordChangeForm extends Component {
     return (
 
       this.state.formActive ?
-      <form className="account-settings-user-inputs margin" onSubmit={this.onSubmit}>
+      <form className="account-settings-user-inputs margin">
         {error && <p className="error-msg">{error.message}</p>}
         <FormTextInput
           label="Current Password"
@@ -48,6 +56,7 @@ class PasswordChangeForm extends Component {
           type="password"
           onChange={this.handleChange}
           value={this.state.passwordCurrent}
+          autocomplete="current-password"
         />
         <FormTextInput
           label="New Password"
@@ -56,6 +65,7 @@ class PasswordChangeForm extends Component {
           onChange={this.handleChange}
           value={this.state.passwordOne}
           className="form-group--half"
+          autocomplete="new-password"
         />
         <FormTextInput
           label="Confirm New Password"
@@ -64,11 +74,19 @@ class PasswordChangeForm extends Component {
           onChange={this.handleChange}
           value={this.state.passwordTwo}
           className="form-group--half"
+          autocomplete="new-password"
         />
         <div className="button-wrapper">
           <button type="button" onClick={() => this.setState({ formActive: false })} className="button-transparent">Cancel</button>
-          <button className="button-primary" disabled={isValid} type="submit">
-            Reset My Password
+          <button 
+          className={this.state.buttonLoading ? 'button-primary button-updating' : 'button-primary'}
+          disabled={this.state.buttonLoading ? false : isValid}
+          onClick={ (e) => this.onSubmit(e)}
+          type="submit">
+            { this.state.buttonLoading 
+              ? <React.Fragment><img src={ButtonLoadingIcon} alt="Search Button Loading Icon" /> Updating</React.Fragment>
+              : <React.Fragment>Reset My Password</React.Fragment>
+            }
           </button>
         </div>
       </form>

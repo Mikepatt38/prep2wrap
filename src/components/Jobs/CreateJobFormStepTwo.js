@@ -5,6 +5,7 @@ import JobResultsTable from './JobResultsTable'
 import EmptyState from '../General/EmptyState'
 import NoResultsIllustration from '../../img/illustrations/no-results.svg'
 import Loading from "../General/Loading"
+import ButtonLoadingIcon from '../../img/icon-button-loading.svg'
 
 class CreateJobFormStepTwo extends Component {
 
@@ -14,7 +15,7 @@ class CreateJobFormStepTwo extends Component {
     loading: true,
     usersAssigned: [],
     error: false,
-    buttonText: 'Send Job Invites',
+    buttonLoading: false,
     pageLoading: true
   }
 
@@ -80,7 +81,7 @@ class CreateJobFormStepTwo extends Component {
   saveAndContinue = async () => {
     let sendSMSSuccess
     this.setState({
-      buttonText: 'Sending...'
+      buttonLoading: true
     })
     if(this.validateAssignedUsers()){
       let newAssignedUsers = await this.updateAssignedUsers(this.state.usersAssigned)
@@ -177,8 +178,8 @@ class CreateJobFormStepTwo extends Component {
                       onClick={(e) => this.saveAndGoBack(e)}
                     />
                     <FormButton
-                      className="button-primary"
-                      buttonText={this.state.buttonText}
+                      className={this.state.buttonLoading ? 'button-primary button-updating' : 'button-primary'}
+                      buttonText={this.state.buttonLoading ? <React.Fragment><img src={ButtonLoadingIcon} alt="Search Button Loading Icon" /> Sending</React.Fragment> : 'Send Job Invites'}
                       onClick={this.saveAndContinue}
                     />
                   </div>

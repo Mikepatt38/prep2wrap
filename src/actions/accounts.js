@@ -425,5 +425,5 @@ export const updateUserPassword = (userCurrentPassword, userNewPassword) => asyn
   })
   .catch( (error) => {
     dispatch({ type: 'SET_ALERT', payload: [true, 'Error', error.message] })
-  });
+  })
 }

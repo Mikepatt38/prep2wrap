@@ -8,6 +8,7 @@ import { FormTextInput } from '../Forms/FormTextInput'
 import FormSelectInput from '../Forms/FormSelectInput'
 import { locationObj, skillsObj, positionsObj, jobTypesObj } from '../../data/formOptions'
 import GlassIcon from '../../img/icon-searchglass.svg'
+import ButtonLoadingIcon from '../../img/icon-button-loading.svg'
 import ActionIcon from '../../img/icon-action.svg'
 import WarningIcon from '../../img/icon-warning.svg'
 
@@ -24,7 +25,8 @@ class UserSearchTable extends Component {
     resultsModalActive: false,
     user: {},
     searchActive: true,
-    formError: false
+    formError: false,
+    buttonLoading: false
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -32,7 +34,8 @@ class UserSearchTable extends Component {
       this.setState({
         data: this.props.users,
         loading: false,
-        resultsModalActive: true
+        resultsModalActive: true,
+        buttonLoading: false
       })
     }
   }
@@ -112,7 +115,8 @@ class UserSearchTable extends Component {
     if(this.validateUserSearch()){
       this.setState({
         loading: true,
-        searchActive: false
+        searchActive: false,
+        buttonLoading: true
       })
       const { searchName, positionsSelected, locationsSelected, jobTypesSelected } = this.state
       this.props.usersSearch(searchName, positionsSelected, locationsSelected, jobTypesSelected)
@@ -184,11 +188,14 @@ class UserSearchTable extends Component {
         </div>
         <div className="button-wrapper">
           <button 
-            className="button-primary"
+            className={this.state.buttonLoading ? 'button-primary button-updating' : 'button-primary'}
             onClick={(e) => this.handleUpdateSearch(e)}
           >
-            <img src={GlassIcon} alt="Search Button Icon" />
-            Search Crew
+            { this.state.buttonLoading 
+              ? <img src={ButtonLoadingIcon} alt="Search Button Loading Icon" />
+              : <img src={GlassIcon} alt="Search Button Icon" />
+            }
+            {this.state.buttonLoading ? 'Searching' : 'Search Crew' }
           </button>
         </div>
       </form>
