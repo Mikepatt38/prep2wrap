@@ -85,7 +85,7 @@ class AccountSettings extends Component {
                 />
               </div>
               <div className="card-body">
-                <h4>Reset Your Current Password</h4>
+                <h4 className="no-margin">Reset Your Current Password</h4>
                 <PasswordChangeForm
                   updateUserPassword={this.props.updateUserPassword}
                 />

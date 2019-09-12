@@ -56,8 +56,8 @@ class UserCurrentCard extends Component {
                     toggleLoading={this.toggleLoading}
                     updateUserCardInfo={this.props.updateUserCardInfo}
                     updateCardError={this.updateCardError}
+                    toggleForm={() => this.setState({ updatedUserCardFormActive: false})}
                   />
-                  <button type="button" onClick={() => this.setState({ updatedUserCardFormActive: !this.state.updatedUserCardFormActive })} className="button-transparent">Cancel</button>
                 </React.Fragment>
               :
                 <div className="cc-info">
@@ -70,7 +70,7 @@ class UserCurrentCard extends Component {
                       <p><span>xxxx xxxx-</span> {this.state.card_last4}</p>
                     </div>
                   </div>
-                  <button type="button" onClick={() => this.setState({ updatedUserCardFormActive: !this.state.updatedUserCardFormActive })} className="button-transparent">Update Card on File</button>
+                  <button type="button" onClick={() => this.setState({ updatedUserCardFormActive: !this.state.updatedUserCardFormActive })} className="button-link">Update Card on File</button>
                 </div>
             }
           </div>

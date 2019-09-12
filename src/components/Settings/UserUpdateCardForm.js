@@ -59,6 +59,7 @@ class UserUpdateCardForm extends Component {
         <form className="cc-update-form">
           <CardElement />
           <div className="button-wrapper">
+            <button type="button" onClick={() => this.props.toggleForm()} className="button-transparent">Cancel</button>
             <FormButton
               onClick={(e) => this.handleUpdateUserCard(e)}
               className="button-primary"

@@ -12,6 +12,16 @@ export class Login extends Component {
     modalActive: false
   }
 
+  componentDidUpdate = (prevProps) => {
+    if(prevProps.error !== this.props.error) {
+      if(this.props.error) {
+        this.setState({
+          modalActive: false
+        })
+      }
+    }
+  }
+
   componentWillUnmount = () => {
     this.setState({
       modalActive: false

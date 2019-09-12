@@ -40,7 +40,7 @@ class PasswordChangeForm extends Component {
     return (
 
       this.state.formActive ?
-      <form className="account-settings-user-inputs" onSubmit={this.onSubmit}>
+      <form className="account-settings-user-inputs margin" onSubmit={this.onSubmit}>
         {error && <p className="error-msg">{error.message}</p>}
         <FormTextInput
           label="Current Password"
@@ -72,7 +72,8 @@ class PasswordChangeForm extends Component {
           </button>
         </div>
       </form>
-      : <button type="button" onClick={() => this.setState({ formActive: true })} className="button-transparent">Update Password</button>
+      : 
+      <button type="button" onClick={() => this.setState({ formActive: true })} className="button-link">Update Password</button>
     )
   }
 }
