@@ -13,8 +13,8 @@ export class Login extends Component {
   }
 
   componentDidUpdate = (prevProps) => {
-    if(prevProps.error !== this.props.error) {
-      if(this.props.error) {
+    if (prevProps.error !== this.props.error) {
+      if (this.props.error) {
         this.setState({
           modalActive: false
         })
@@ -32,10 +32,10 @@ export class Login extends Component {
     this.setState({
       [e.target.name]: e.target.value
     })
-    this.props.error && this.props.resetErrors(false, '', '') 
+    this.props.error && this.props.resetErrors(false, '', '')
   }
 
-  handleSignUserIn = (e) =>{
+  handleSignUserIn = (e) => {
     const date = new Date()
     this.setState({
       modalActive: true
@@ -62,7 +62,7 @@ export class Login extends Component {
           </div>
           <div className="auth-card">
             <div className="auth-card-body">
-              { error && <p className="error-text">{errorText}</p> }
+              {error && <p className="error-text">{errorText}</p>}
               <LoginForm
                 handleSignUserIn={this.handleSignUserIn}
                 handleChange={this.handleChange}
@@ -71,7 +71,7 @@ export class Login extends Component {
               />
             </div>
             <div className="auth-card-footer">
-              <Link to="/login">
+              <Link to="/password-reset">
                 Forgot your password?
               </Link>
             </div>
@@ -88,14 +88,14 @@ export class Login extends Component {
   }
 }
 
-const LoginForm = ({ handleSignUserIn, handleChange, error, errorType}) => (
-  <form onSubmit={(e) => handleSignUserIn(e)}> 
+const LoginForm = ({ handleSignUserIn, handleChange, error, errorType }) => (
+  <form onSubmit={(e) => handleSignUserIn(e)}>
     <FormTextInput
       label="Email"
       name="email"
       onChange={handleChange}
       className={error && errorType === 'Error' ? 'field-error' : ''}
-      type="email" 
+      type="email"
       placeholder="user@email.com"
     />
     <FormTextInput

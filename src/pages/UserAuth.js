@@ -4,11 +4,11 @@ import { Login } from '../components/Auth/Login'
 import SignUp from '../components/Auth/SignUp'
 import { PasswordReset } from '../components/Auth/PasswordReset'
 
-const UserAuth = ({ history, signUserIn, signUpUser, resetPassword, location, currentUser, setUserProfile, active, alertType, alertText, setAlert}) => {
-  switch(location.pathname) {
+const UserAuth = ({ history, signUserIn, signUpUser, resetPassword, location, currentUser, setUserProfile, active, alertType, alertText, setAlert }) => {
+  switch (location.pathname) {
     case '/login':
       return (
-        <Login 
+        <Login
           signUserIn={signUserIn}
           history={history}
           error={active}
@@ -17,12 +17,12 @@ const UserAuth = ({ history, signUserIn, signUpUser, resetPassword, location, cu
           resetErrors={setAlert}
         />
       )
-    
+
     case '/signup':
       return (
-        <SignUp 
+        <SignUp
           signUpUser={signUpUser}
-          history={history} 
+          history={history}
           currentUser={currentUser}
           setUserProfile={setUserProfile}
           error={active}
@@ -35,7 +35,7 @@ const UserAuth = ({ history, signUserIn, signUpUser, resetPassword, location, cu
       return (
         <PasswordReset
           resetPassword={resetPassword}
-          history={history}
+          currentUser={currentUser}
         />
       )
 
