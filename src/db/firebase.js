@@ -5,13 +5,13 @@ import 'firebase/storage'
 import 'firebase/firestore'
 
 firebase.initializeApp({
-  apiKey: "AIzaSyA_ldHlgixZ7fdxgEvC-82kb6P0-8GDaIk",
-  authDomain: "the-calltime.firebaseapp.com",
-  databaseURL: "https://the-calltime.firebaseio.com",
-  projectId: "the-calltime",
-  storageBucket: "the-calltime.appspot.com",
-  messagingSenderId: "48348373939",
-  appId: "1:48348373939:web:5302bb41aa61c483"
+  apiKey: 'YOUR_FIREBASE_API_KEY',
+  authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
+  databaseURL: "YOUR_FIREBASE_DATABASE_DOMAIN",
+  projectId: "YOUR_FIREBASE_PROJECT_ID",
+  storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_FIREBASE_MESSAGING_ID",
+  appId: "YOUR_FIREBASE_APP_ID"
 })
 
 const firestore = firebase.firestore()

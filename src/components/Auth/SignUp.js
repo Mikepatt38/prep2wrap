@@ -5,7 +5,7 @@ import SubscriptionForm from '../Billing/SubscriptionForm'
 import logo from '../../img/prep2wrap-purple-logo.png'
 
 class SignUp extends Component {
-  componentDidMount(){
+  componentDidMount() {
     this.props.resetErrors(false, '', '')
   }
 
@@ -25,10 +25,10 @@ class SignUp extends Component {
           </div>
           <div className="auth-card auth-card-large">
             <div className="auth-card-body">
-              { this.props.error && <p className="error-text">{this.props.errorText}</p> }
-              <StripeProvider apiKey="pk_test_QFA7A5tAJkV0kWHQHLJBBdHT00nh4HmiKv">
+              {this.props.error && <p className="error-text">{this.props.errorText}</p>}
+              <StripeProvider apiKey="YOUR_STRIPE_PUBLIC_KEY">
                 <Elements>
-                  <SubscriptionForm 
+                  <SubscriptionForm
                     error={this.props.error}
                     signUpUser={this.props.signUpUser}
                     resetErrors={this.props.resetErrors}

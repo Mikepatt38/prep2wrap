@@ -1,12 +1,12 @@
 import * as functions from 'firebase-functions';
 const admin = require('firebase-admin');
 admin.initializeApp({
-  apiKey: functions.config().app.key,
-  authDomain: "the-calltime.firebaseapp.com",
-  databaseURL: "https://the-calltime.firebaseio.com",
-  projectId: "the-calltime",
-  storageBucket: "the-calltime.appspot.com",
-  messagingSenderId: "48348373939"
+  apiKey: 'YOUR_FIREBASE_API_KEY',
+  authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
+  databaseURL: "YOUR_FIREBASE_DATABASE_DOMAIN",
+  projectId: "YOUR_FIREBASE_PROJECT_ID",
+  storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_FIREBASE_MESSAGING_ID"
 });
 const userPrivacyPaths = require('./user_privacy.json');
 const firestore = admin.firestore();
@@ -53,7 +53,7 @@ exports.generateThumbs = functions.storage.object().onFinalize(async (object) =>
   const tempLocalThumbFile = path.join(os.tmpdir(), thumbFilePath);
 
   // Prevents infinite loop by looking to see if we already created a resized image for the image
-  if(fileName.includes('min_')) {
+  if (fileName.includes('min_')) {
     console.log('exiting function')
     return false
   }
@@ -75,15 +75,15 @@ exports.generateThumbs = functions.storage.object().onFinalize(async (object) =>
     // To enable Client-side caching you can set the Cache-Control headers here. Uncomment below.
     // 'Cache-Control': 'public,max-age=3600',
   };
-  
+
   // Create the temp directory where the storage file will be downloaded.
   await mkdirp(tempLocalDir)
   // Download file from bucket.
-  await file.download({destination: tempLocalFile});
+  await file.download({ destination: tempLocalFile });
   // Generate a thumbnail using ImageMagick.
-  await spawn('convert', [tempLocalFile, '-thumbnail', `${THUMB_MAX_WIDTH}x${THUMB_MAX_HEIGHT}>`, tempLocalThumbFile], {capture: ['stdout', 'stderr']});
+  await spawn('convert', [tempLocalFile, '-thumbnail', `${THUMB_MAX_WIDTH}x${THUMB_MAX_HEIGHT}>`, tempLocalThumbFile], { capture: ['stdout', 'stderr'] });
   // Uploading the Thumbnail.
-  await bucket.upload(tempLocalThumbFile, {destination: thumbFilePath, metadata: metadata, public: true});
+  await bucket.upload(tempLocalThumbFile, { destination: thumbFilePath, metadata: metadata, public: true });
   // Once the image has been uploaded delete the local files to free up disk space.
   fs.unlinkSync(tempLocalFile);
   fs.unlinkSync(tempLocalThumbFile);
@@ -94,12 +94,12 @@ exports.generateThumbs = functions.storage.object().onFinalize(async (object) =>
   const thumb = await bucket.file(thumbFilePath)
   const meta = await thumb.getMetadata()
   const downloadUrl = meta[0].mediaLink
-  
+
   // Add the URLs to the Database
-  await admin.firestore().collection('users').doc(userID).update({ 
+  await admin.firestore().collection('users').doc(userID).update({
     avatarUrl: downloadUrl,
   })
-  
+
   return console.log('Thumbnail URLs saved to database.');
 });
 
@@ -108,7 +108,7 @@ exports.generateThumbs = functions.storage.object().onFinalize(async (object) =>
 //
 // This allows us to delete the user from stripe when they delete their account on the platform
 //
-export const deleteUserStripeAccount = async (user:any) => {
+export const deleteUserStripeAccount = async (user: any) => {
   const promises = []
   // get the user from the database
   const snapshot = await admin.firestore().collection('users').doc(user.uid).get();
@@ -123,7 +123,7 @@ export const deleteUserStripeAccount = async (user:any) => {
 //
 // This sends an email via SendGrid to alert the user that their account has been deleted
 //
-export const sendDeleteEmail = async (user:any) => {
+export const sendDeleteEmail = async (user: any) => {
   const msg = {
     to: user.email,
     from: 'Prep2Wrap <info@prep2wrapjobs.com>',
@@ -133,7 +133,7 @@ export const sendDeleteEmail = async (user:any) => {
   sgMail
     .send(msg)
     .then(() => console.log('Mail sent successfully'))
-    .catch((error:any) => console.error(error.toString()))
+    .catch((error: any) => console.error(error.toString()))
 }
 
 //
@@ -150,17 +150,17 @@ exports.clearData = functions.auth.user().onDelete(async (event) => {
   const firestorePromise = clearFirestoreData(uid);
 
   return Promise.all([stripePromise, deleteEmail, firestorePromise])
-      .then(() => {
-        console.log(`Successfully removed data for user #${uid}.`)
-      }
-  );
+    .then(() => {
+      console.log(`Successfully removed data for user #${uid}.`)
+    }
+    );
 });
 
 //
 // Function to replace the UID_VARIABLE placeholder in user_privacy.json
 // file with the actual user id 
 //
-const replaceUID = (str:any, uid:any) => {
+const replaceUID = (str: any, uid: any) => {
   return str.replace(/UID_VARIABLE/g, uid);
 }
 
@@ -170,7 +170,7 @@ const replaceUID = (str:any, uid:any) => {
 // Clears all specified paths in the user_privacy.json file
 // Loops through until all fields have been deleted then final else if
 // deletes the parent document
-export const clearFirestoreData = (uid:any) => {
+export const clearFirestoreData = (uid: any) => {
   const paths = userPrivacyPaths.firestore.clearData;
   const promises = [];
 
@@ -183,11 +183,11 @@ export const clearFirestoreData = (uid:any) => {
       const entryField = replaceUID(entry.field, uid);
       const update = {} as any
       update[entryField] = FieldValue.delete()
-      promises.push(docToDelete.update(update).catch((err:any) => {
+      promises.push(docToDelete.update(update).catch((err: any) => {
         console.error('Error deleting field: ', err);
       }));
     } else if (docToDelete) {
-      promises.push(docToDelete.delete().catch((err:any) => {
+      promises.push(docToDelete.delete().catch((err: any) => {
         console.error('Error deleting document: ', err);
       }));
     };
@@ -202,7 +202,7 @@ export const clearFirestoreData = (uid:any) => {
 //  We need to create a different case for each stripe event that will be called by this endpoint  
 // =========== 
 
-exports.stripeEvents = functions.https.onRequest( async (request, response) => {
+exports.stripeEvents = functions.https.onRequest(async (request, response) => {
   let sig = request.headers["stripe-signature"];
 
   try {
@@ -218,38 +218,38 @@ exports.stripeEvents = functions.https.onRequest( async (request, response) => {
         sgMail
           .send(msg)
           .then(() => response.sendStatus(200))
-          .catch((error:any) => console.error(error.toString()))
+          .catch((error: any) => console.error(error.toString()))
         break;
 
       case 'invoice.payment_succeeded':
         // What to do when the user pays another invoice -- we want to update the users next pay by date in the database
-        const date = new Date()        
+        const date = new Date()
         // get the customer's id
         const customerInvoiceSuccessID = event.data.object.customer
-        admin.firestore().collection('users').where('stripe_id', '==', customerInvoiceSuccessID).get().then ( (snapshot:any) => {
-          snapshot.forEach( (doc:any) => {
+        admin.firestore().collection('users').where('stripe_id', '==', customerInvoiceSuccessID).get().then((snapshot: any) => {
+          snapshot.forEach((doc: any) => {
             // update the users period end date to a month from now
             // also clear any failed payments they may have had
-            admin.firestore().collection('users').doc(`${doc.data().id}`).update({ 
+            admin.firestore().collection('users').doc(`${doc.data().id}`).update({
               current_period_end: new Date(date.getFullYear(), date.getMonth() + 1, date.getDay() + 3),
               failed_payment: false
             })
           })
         })
-        .then( () => {
-          // Then we want to send them an email saying they just paid their invoice for the month
-          const invoiceMsg = {
-            to: event.data.object.customer_email,
-            from: 'Prep2Wrap <info@prep2wrapjobs.com>',
-            subject: 'Prep2Wrap Invoice Paid',
-            html: `<p>Hey ${event.data.object.customer_name},</p> <p>This is a notification to let you know you have paid your monthly invoice for Prep2Wrap.</p>
+          .then(() => {
+            // Then we want to send them an email saying they just paid their invoice for the month
+            const invoiceMsg = {
+              to: event.data.object.customer_email,
+              from: 'Prep2Wrap <info@prep2wrapjobs.com>',
+              subject: 'Prep2Wrap Invoice Paid',
+              html: `<p>Hey ${event.data.object.customer_name},</p> <p>This is a notification to let you know you have paid your monthly invoice for Prep2Wrap.</p>
             <p>You can view the invoice here: <a href="${event.data.object.hosted_invoice_url}">Prep2Wrap Invoice</a>.</p>`,
-          }
-          sgMail
-            .send(invoiceMsg)
-            .then(() => response.sendStatus(200))
-            .catch((error:any) => console.error(error.toString()))
-        })
+            }
+            sgMail
+              .send(invoiceMsg)
+              .then(() => response.sendStatus(200))
+              .catch((error: any) => console.error(error.toString()))
+          })
         break;
 
       case 'customer.subscription.trial_will_end':
@@ -260,49 +260,49 @@ exports.stripeEvents = functions.https.onRequest( async (request, response) => {
         const trialEndDate = new Date(event.data.object.trial_end)
         const dateFromTimestamp = trialEndDate.toDateString()
         const customerSubscriptionTrialID = event.data.object.customer
-        admin.firestore().collection('users').where('stripe_id', '==', customerSubscriptionTrialID).get().then ( (snapshot:any) => {
+        admin.firestore().collection('users').where('stripe_id', '==', customerSubscriptionTrialID).get().then((snapshot: any) => {
           // This is a loop but prevents error and only will ever be one user returned since searching on unique field
-          snapshot.forEach( (doc:any) => {
+          snapshot.forEach((doc: any) => {
             userEmail = doc.data().email
             userName = doc.data().firstName
           })
         })
-        .then( () => {
-          const subscriptionEndMsg = {
-            to: userEmail,
-            from: 'Prep2Wrap <info@prep2wrapjobs.com>',
-            subject: 'Prep2Wrap Free Trial Ending Soon',
-            html: `<p>Hey ${userName}, at ${userEmail}</p> <p>Your Prep2Wrap free trial will be ending on ${dateFromTimestamp} and you will be automatically moved to a monthly subscription at $15/month.</p> <p>If you do not wish to keep your account after your trial, log in to your account and delete your subscription.</p>`,
-          }
-          sgMail
-            .send(subscriptionEndMsg)
-            .then(() => response.sendStatus(200))
-            .catch((error:any) => console.error(error.toString()))
-        })
+          .then(() => {
+            const subscriptionEndMsg = {
+              to: userEmail,
+              from: 'Prep2Wrap <info@prep2wrapjobs.com>',
+              subject: 'Prep2Wrap Free Trial Ending Soon',
+              html: `<p>Hey ${userName}, at ${userEmail}</p> <p>Your Prep2Wrap free trial will be ending on ${dateFromTimestamp} and you will be automatically moved to a monthly subscription at $15/month.</p> <p>If you do not wish to keep your account after your trial, log in to your account and delete your subscription.</p>`,
+            }
+            sgMail
+              .send(subscriptionEndMsg)
+              .then(() => response.sendStatus(200))
+              .catch((error: any) => console.error(error.toString()))
+          })
         break;
 
-        case 'invoice.payment_failed':
-          // What to do when the user pays another invoice -- we want to update the users next pay by date in the database
-          const currentDate = new Date()   
-          let failed_payments = false     
-          const customerInvoiceFailedID = event.data.object.customer
-          admin.firestore().collection('users').where('stripe_id', '==', customerInvoiceFailedID).get().then ( (snapshot:any) => {
-            snapshot.forEach( (doc:any) => {
-              // update the users period to 24 hours from now to give them a chance to update their card on file
-              // add a failed payment to the user
-              // if the user has a failed payment end their access to log in, if not, then grant them a grace period to update card on file
-              failed_payments = doc.data().failed_payment
-              admin.firestore().collection('users').doc(`${doc.data().id}`).update({ 
-                current_period_end: failed_payments ? new Date() : new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDay() + 3),
-                failed_payment: true
-              })
+      case 'invoice.payment_failed':
+        // What to do when the user pays another invoice -- we want to update the users next pay by date in the database
+        const currentDate = new Date()
+        let failed_payments = false
+        const customerInvoiceFailedID = event.data.object.customer
+        admin.firestore().collection('users').where('stripe_id', '==', customerInvoiceFailedID).get().then((snapshot: any) => {
+          snapshot.forEach((doc: any) => {
+            // update the users period to 24 hours from now to give them a chance to update their card on file
+            // add a failed payment to the user
+            // if the user has a failed payment end their access to log in, if not, then grant them a grace period to update card on file
+            failed_payments = doc.data().failed_payment
+            admin.firestore().collection('users').doc(`${doc.data().id}`).update({
+              current_period_end: failed_payments ? new Date() : new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDay() + 3),
+              failed_payment: true
             })
           })
-          .then( () => {
+        })
+          .then(() => {
             // Then we want to send them an email saying their payment failed
             let invoiceFailedMsg = {}
             // if the user has a failed payment then send one message, if they do not have a failed payment then send another message
-            if(failed_payments){
+            if (failed_payments) {
               invoiceFailedMsg = {
                 to: event.data.object.customer_email,
                 from: 'Prep2Wrap <info@prep2wrapjobs.com>',
@@ -321,9 +321,9 @@ exports.stripeEvents = functions.https.onRequest( async (request, response) => {
             sgMail
               .send(invoiceFailedMsg)
               .then(() => response.sendStatus(200))
-              .catch((error:any) => console.error(error.toString()))
+              .catch((error: any) => console.error(error.toString()))
           })
-          break;
+        break;
 
       default:
         // Unexpected event type

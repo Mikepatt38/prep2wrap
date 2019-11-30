@@ -36,7 +36,7 @@ class UserCurrentCard extends Component {
 
   render() {
     return (
-      <StripeProvider apiKey="pk_test_QFA7A5tAJkV0kWHQHLJBBdHT00nh4HmiKv">
+      <StripeProvider apiKey="YOUR_STRIPE_PUBLIC_KEY">
         <Elements>
           <div className="cc-form">
             {
