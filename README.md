@@ -22,6 +22,6 @@ This is an application built for the costume design industry to allow users to c
 ### Development technologies used
 1. Javascript - The application is built with javascript utilizing the [React](https://reactjs.org/) library on the front end and [Node](https://nodejs.org/en/) with [Express](https://expressjs.com/) on the server.
 2. State Management - The application state layer is managed using [Redux](https://redux.js.org/)
-2. Styling - SASS - The application is styled using sass. 
+2. Styling - [SASS](https://sass-lang.com/) - The application is styled using sass. 
 3. Database - [Firebase Firestore](https://firebase.google.com/docs/firestore) is used for the database and application storage
 
